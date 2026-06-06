@@ -46,10 +46,17 @@
    PWA / APP SHELL
 ═══════════════════════════════════════ */
 
-/* On mobile: all pages get bottom padding so content isn't hidden behind nav */
+/* Pages are fixed-position — always need nav padding */
+.page.active {
+  padding-top: 0;
+  padding-bottom: 0;
+}
 @media (max-width: 768px) {
   .page.active { padding-bottom: calc(var(--bottom-nav-h) + var(--safe-bottom) + 16px); }
   #page-hub { padding-bottom: calc(var(--bottom-nav-h) + var(--safe-bottom) + 40px); }
+}
+@media (min-width: 769px) {
+  .page.active { padding-top: 60px; }
 }
 
 /* Bottom Navigation Bar */
@@ -273,8 +280,18 @@ body::before {
 /* ═══════════════════════════════════════
    PAGE ROUTING
 ═══════════════════════════════════════ */
-.page { display: none; position: relative; z-index: 1; }
-.page.active { display: block; animation: appear .4s ease both; }
+.page {
+  display: none;
+  position: fixed;
+  inset: 0;
+  overflow-y: auto;
+  z-index: 1;
+  background: var(--cream);
+}
+.page.active {
+  display: block;
+  animation: appear .3s ease both;
+}
 @keyframes appear {
   from { opacity: 0; transform: translateY(14px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -1730,8 +1747,9 @@ function goTo(t) { appNav(t); }
 
 function appNav(t) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-' + t).classList.add('active');
-  window.scrollTo(0, 0);
+  const target = document.getElementById('page-' + t);
+  target.classList.add('active');
+  target.scrollTo(0, 0);
 
   // Update both navbars
   const pages = ['hub','admin','nail','lk'];
