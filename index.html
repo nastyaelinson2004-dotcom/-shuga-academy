@@ -53,10 +53,14 @@
 }
 @media (max-width: 768px) {
   .page.active { padding-bottom: calc(var(--bottom-nav-h) + var(--safe-bottom) + 16px); }
-  #page-hub { padding-bottom: calc(var(--bottom-nav-h) + var(--safe-bottom) + 40px); }
+  #page-hub {
+    padding-top: 48px;
+    padding-bottom: calc(var(--bottom-nav-h) + var(--safe-bottom) + 40px);
+  }
 }
 @media (min-width: 769px) {
   .page.active { padding-top: 60px; }
+  #page-hub { padding-top: 80px; }
 }
 
 /* Bottom Navigation Bar */
@@ -304,7 +308,7 @@ body::before {
   min-height: 100vh;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  padding: 60px 24px;
+  padding: 0 24px 60px;
   background:
     radial-gradient(ellipse 80% 60% at 50% 0%, rgba(197,169,106,0.12) 0%, transparent 70%),
     var(--cream);
@@ -815,8 +819,11 @@ body::before {
   <button class="app-top-item" id="top-nail" onclick="appNav('nail')">
     <span class="app-nav-icon">💅</span> Nail-мастер
   </button>
+  <button class="app-top-item" id="top-admin-lk" onclick="appNav('admin-lk')">
+    <span class="app-nav-icon">🗂</span> Кабинет адм.
+  </button>
   <button class="app-top-item" id="top-lk" onclick="appNav('lk')">
-    <span class="app-nav-icon">👤</span> Мой кабинет
+    <span class="app-nav-icon">👤</span> Кабинет nail
   </button>
 </nav>
 
@@ -837,9 +844,14 @@ body::before {
     <span class="app-nav-label">Nail</span>
     <span class="app-nav-dot"></span>
   </button>
+  <button class="app-nav-item" id="bot-admin-lk" onclick="appNav('admin-lk')">
+    <span class="app-nav-icon">🗂</span>
+    <span class="app-nav-label">Адм. кабинет</span>
+    <span class="app-nav-dot"></span>
+  </button>
   <button class="app-nav-item" id="bot-lk" onclick="appNav('lk')">
     <span class="app-nav-icon">👤</span>
-    <span class="app-nav-label">Кабинет</span>
+    <span class="app-nav-label">Nail кабинет</span>
     <span class="app-nav-dot"></span>
   </button>
 </nav>
@@ -881,17 +893,33 @@ body::before {
       </div>
       <div class="hub-card-cta">Открыть <span>→</span></div>
     </div>
-    <div class="hub-card hub-card-nail" style="grid-column:1/-1;max-width:420px;margin:0 auto;width:100%;border-color:rgba(197,169,106,0.4);" onclick="goTo('lk')">
-      <div class="hub-card-num" style="opacity:0.07;">03</div>
-      <div class="hub-card-label" style="color:var(--gold-dk);">Личный кабинет</div>
-      <div class="hub-card-title">Мой путь к Эксперту</div>
-      <div class="hub-card-desc">Интерактивный прогресс мастера: онбординг, навыки, KPI и динамика выручки</div>
-      <div class="hub-tags">
-        <span class="hub-tag" style="border-color:rgba(197,169,106,0.4);color:var(--gold-dk);background:rgba(197,169,106,0.08);">Прогресс</span>
-        <span class="hub-tag" style="border-color:rgba(197,169,106,0.4);color:var(--gold-dk);background:rgba(197,169,106,0.08);">Аналитика</span>
-        <span class="hub-tag" style="border-color:rgba(197,169,106,0.4);color:var(--gold-dk);background:rgba(197,169,106,0.08);">Навыки</span>
+
+    <!-- Личные кабинеты — строка -->
+    <div style="grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:860px;margin:0 auto;width:100%;">
+      <div class="hub-card hub-card-nail" style="border-color:rgba(184,130,110,0.4);max-width:100%;" onclick="goTo('admin-lk')">
+        <div class="hub-card-num" style="opacity:0.07;">03</div>
+        <div class="hub-card-label" style="color:var(--rose);">Личный кабинет</div>
+        <div class="hub-card-title">Кабинет администратора</div>
+        <div class="hub-card-desc">Онбординг, обучение и KPI-показатели для менеджеров и хранителей</div>
+        <div class="hub-tags">
+          <span class="hub-tag" style="border-color:rgba(184,130,110,0.4);color:var(--rose);background:rgba(184,130,110,0.07);">Онбординг</span>
+          <span class="hub-tag" style="border-color:rgba(184,130,110,0.4);color:var(--rose);background:rgba(184,130,110,0.07);">Обучение</span>
+          <span class="hub-tag" style="border-color:rgba(184,130,110,0.4);color:var(--rose);background:rgba(184,130,110,0.07);">KPI</span>
+        </div>
+        <div class="hub-card-cta" style="color:var(--rose);">Войти <span>→</span></div>
       </div>
-      <div class="hub-card-cta" style="color:var(--gold-dk);">Войти <span>→</span></div>
+      <div class="hub-card hub-card-nail" style="border-color:rgba(197,169,106,0.4);max-width:100%;" onclick="goTo('lk')">
+        <div class="hub-card-num" style="opacity:0.07;">04</div>
+        <div class="hub-card-label" style="color:var(--gold-dk);">Личный кабинет</div>
+        <div class="hub-card-title">Мой путь к Эксперту</div>
+        <div class="hub-card-desc">Прогресс мастера: онбординг, навыки, KPI и динамика выручки</div>
+        <div class="hub-tags">
+          <span class="hub-tag" style="border-color:rgba(197,169,106,0.4);color:var(--gold-dk);background:rgba(197,169,106,0.08);">Прогресс</span>
+          <span class="hub-tag" style="border-color:rgba(197,169,106,0.4);color:var(--gold-dk);background:rgba(197,169,106,0.08);">Аналитика</span>
+          <span class="hub-tag" style="border-color:rgba(197,169,106,0.4);color:var(--gold-dk);background:rgba(197,169,106,0.08);">Навыки</span>
+        </div>
+        <div class="hub-card-cta" style="color:var(--gold-dk);">Войти <span>→</span></div>
+      </div>
     </div>
   </div>
 </div>
@@ -1003,6 +1031,215 @@ body::before {
 
   </div>
 </div><!-- /admin -->
+
+<!-- ╔══════════════════════════╗
+     ║   ЛИЧНЫЙ КАБИНЕТ ADMIN   ║
+     ╚══════════════════════════╝ -->
+<div id="page-admin-lk" class="page" style="background:var(--cream);">
+<style>
+/* ── Admin LK specific ── */
+.alk-login {
+  min-height:100vh; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; padding:40px 20px;
+  background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(184,130,110,0.1) 0%, transparent 60%), var(--cream);
+}
+.alk-login-box {
+  background:#fff; border:1px solid var(--sand); border-radius:var(--radius);
+  padding:52px 48px; max-width:420px; width:100%; box-shadow:var(--shadow-md);
+  position:relative; overflow:hidden;
+}
+.alk-login-box::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg, var(--rose), var(--gold));
+}
+.alk-dash { display:none; }
+.alk-dash.active { display:block; min-height:100vh; }
+.alk-header {
+  background:#fff; border-bottom:1px solid var(--sand); padding:24px 48px;
+  display:flex; align-items:center; gap:20px; position:sticky; top:0; z-index:50;
+}
+.alk-avatar {
+  width:46px; height:46px; border-radius:50%;
+  background:linear-gradient(135deg, var(--rose), var(--gold));
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Playfair Display',serif; font-size:18px; color:#fff; flex-shrink:0;
+}
+.alk-body { padding:40px 48px; max-width:1100px; margin:0 auto; }
+
+/* Welcome hero */
+.alk-welcome {
+  background:linear-gradient(135deg, rgba(184,130,110,0.08), rgba(197,169,106,0.07));
+  border:1px solid rgba(184,130,110,0.25); border-radius:var(--radius);
+  padding:40px; margin-bottom:32px; position:relative; overflow:hidden;
+}
+.alk-welcome::after {
+  content:'SH'; position:absolute; right:32px; top:50%; transform:translateY(-50%);
+  font-family:'Playfair Display',serif; font-size:96px; font-weight:400;
+  color:rgba(184,130,110,0.06); line-height:1; pointer-events:none;
+}
+.alk-welcome-eyebrow { font-size:9px; letter-spacing:4px; text-transform:uppercase; color:var(--rose); margin-bottom:12px; }
+.alk-welcome-title { font-family:'Playfair Display',serif; font-size:28px; font-weight:400; color:var(--ink); margin-bottom:16px; line-height:1.3; }
+.alk-welcome-text { font-size:13px; color:var(--dusk); line-height:1.8; max-width:600px; }
+.alk-nav-btns { display:flex; gap:10px; flex-wrap:wrap; margin-top:24px; }
+.alk-nav-btn {
+  padding:10px 22px; border-radius:var(--radius-pill); font-size:10px;
+  letter-spacing:2px; text-transform:uppercase; cursor:pointer;
+  font-family:'Jost',sans-serif; transition:all .2s; border:none;
+}
+.alk-nav-btn.rose { background:var(--rose); color:#fff; }
+.alk-nav-btn.rose:hover { background:var(--rose-lt); }
+.alk-nav-btn.outline { background:none; border:1px solid var(--sand); color:var(--stone); }
+.alk-nav-btn.outline:hover { border-color:var(--rose); color:var(--rose); }
+.alk-nav-btn.active-tab { background:var(--ink); color:#fff; }
+
+/* Section blocks */
+.alk-section { margin-bottom:40px; }
+.alk-section-title {
+  font-family:'Playfair Display',serif; font-size:22px; font-weight:400;
+  color:var(--ink); margin-bottom:20px; padding-bottom:12px;
+  border-bottom:1px solid var(--sand); display:flex; align-items:center; gap:10px;
+}
+
+/* Checklist */
+.alk-checklist { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:10px; }
+.alk-check {
+  display:flex; align-items:flex-start; gap:12px; padding:14px 16px;
+  background:#fff; border:1px solid var(--sand); border-radius:var(--radius-sm);
+  cursor:pointer; transition:all .18s; font-size:12.5px; color:var(--dusk);
+  box-shadow:var(--shadow-sm);
+}
+.alk-check:hover { border-color:rgba(184,130,110,0.4); color:var(--ink); transform:translateX(2px); }
+.alk-check.done { background:rgba(184,130,110,0.05); border-color:rgba(184,130,110,0.3); }
+.alk-check.done span { text-decoration:line-through; opacity:.5; }
+.alk-checkbox {
+  width:20px; height:20px; border:1.5px solid var(--linen); border-radius:5px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center; font-size:11px;
+  color:#fff; transition:all .18s; margin-top:1px;
+}
+.alk-check.done .alk-checkbox { background:var(--rose); border-color:var(--rose); }
+
+/* KPI metrics */
+.alk-kpi-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:16px; margin-bottom:32px; }
+.alk-kpi-card {
+  background:#fff; border:1px solid var(--sand); border-radius:var(--radius-sm);
+  padding:20px; box-shadow:var(--shadow-sm);
+}
+.alk-kpi-label { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--stone); margin-bottom:12px; }
+.alk-kpi-input {
+  width:100%; padding:10px 0; border:none; border-bottom:1.5px solid var(--sand);
+  font-family:'Playfair Display',serif; font-size:22px; color:var(--ink);
+  background:none; outline:none; transition:border-color .2s;
+}
+.alk-kpi-input:focus { border-color:var(--rose); }
+.alk-kpi-unit { font-size:10px; color:var(--stone); margin-top:6px; }
+
+/* Training blocks */
+.alk-training-card {
+  background:#fff; border:1px solid var(--sand); border-radius:var(--radius);
+  padding:28px 32px; margin-bottom:16px; box-shadow:var(--shadow-sm);
+}
+.alk-training-num {
+  width:36px; height:36px; border-radius:50%; background:rgba(184,130,110,0.12);
+  color:var(--rose); display:flex; align-items:center; justify-content:center;
+  font-family:'Playfair Display',serif; font-size:16px; flex-shrink:0;
+  margin-bottom:16px;
+}
+.alk-training-title { font-family:'Playfair Display',serif; font-size:18px; color:var(--ink); margin-bottom:8px; }
+.alk-training-desc { font-size:12.5px; color:var(--dusk); line-height:1.7; margin-bottom:16px; }
+.alk-training-links { display:flex; gap:10px; flex-wrap:wrap; }
+.alk-link {
+  display:inline-flex; align-items:center; gap:6px; padding:8px 16px;
+  border:1px solid var(--sand); border-radius:var(--radius-pill);
+  font-size:10px; letter-spacing:1.5px; text-transform:uppercase;
+  color:var(--dusk); text-decoration:none; transition:all .2s;
+  font-family:'Jost',sans-serif;
+}
+.alk-link:hover { border-color:var(--rose); color:var(--rose); }
+.alk-link.primary { background:var(--rose); border-color:var(--rose); color:#fff; }
+.alk-link.primary:hover { background:var(--rose-lt); }
+
+/* Progress bar */
+.alk-progress-hero {
+  background:linear-gradient(135deg, rgba(184,130,110,0.08), rgba(197,169,106,0.06));
+  border:1px solid rgba(184,130,110,0.25); border-radius:var(--radius);
+  padding:32px; margin-bottom:28px;
+}
+.alk-prog-pct { font-family:'Playfair Display',serif; font-size:42px; color:var(--rose); }
+.alk-prog-track { height:8px; background:var(--sand); border-radius:8px; overflow:hidden; margin:12px 0; }
+.alk-prog-fill {
+  height:100%; border-radius:8px;
+  background:linear-gradient(90deg, var(--rose), var(--gold));
+  transition:width 1s cubic-bezier(.4,0,.2,1);
+}
+
+/* Tabs inside LK */
+.alk-tabs { display:flex; gap:4px; margin-bottom:28px; overflow-x:auto; padding-bottom:4px; }
+.alk-tabs::-webkit-scrollbar { display:none; }
+.alk-tab {
+  padding:9px 20px; border-radius:var(--radius-pill); font-size:10px;
+  letter-spacing:2px; text-transform:uppercase; cursor:pointer; white-space:nowrap;
+  border:1px solid var(--sand); color:var(--stone); background:none;
+  font-family:'Jost',sans-serif; transition:all .2s;
+}
+.alk-tab.active { background:var(--rose); border-color:var(--rose); color:#fff; }
+
+.alk-tab-content { display:none; }
+.alk-tab-content.active { display:block; }
+
+/* Conflict card */
+.conflict-slide {
+  background:#fff; border:1px solid var(--sand); border-radius:var(--radius-sm);
+  padding:20px 24px; margin-bottom:10px; box-shadow:var(--shadow-sm);
+  transition:all .2s; cursor:pointer;
+}
+.conflict-slide:hover { border-color:rgba(184,130,110,0.4); transform:translateX(3px); }
+.conflict-slide-num { font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--rose); margin-bottom:6px; }
+.conflict-slide-title { font-size:14px; color:var(--ink); font-weight:500; }
+.conflict-slide-body { font-size:12px; color:var(--dusk); line-height:1.6; margin-top:8px; display:none; }
+.conflict-slide.open .conflict-slide-body { display:block; }
+
+.alk-onboard-item {
+  background:#fff; border:1px solid var(--sand); border-radius:var(--radius-sm);
+  padding:16px 20px; box-shadow:var(--shadow-sm);
+}
+@media(max-width:768px) {
+  .alk-header, .alk-body { padding:20px 16px; }
+  .alk-login-box { padding:32px 24px; }
+  .alk-kpi-grid { grid-template-columns:1fr 1fr; }
+  .alk-checklist { grid-template-columns:1fr; }
+  .alk-welcome { padding:24px; }
+  .alk-welcome-title { font-size:22px; }
+}
+</style>
+
+<!-- LOGIN -->
+<div class="alk-login" id="alk-login">
+  <div class="alk-login-box">
+    <div style="text-align:center;margin-bottom:28px;">
+      <div style="width:56px;height:56px;border:1px solid var(--rose);border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;color:var(--rose);margin:0 auto 14px;letter-spacing:2px;">SH</div>
+      <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--rose);margin-bottom:8px;">Shuga Academy</div>
+      <div style="font-family:'Playfair Display',serif;font-size:26px;color:var(--ink);margin-bottom:4px;">Кабинет администратора</div>
+      <div style="font-size:12px;color:var(--stone);">Менеджер · Хранитель</div>
+    </div>
+    <label class="lk-select-label">Выберите сотрудника</label>
+    <select class="lk-select" id="alk-user-select">
+      <option value="">— выбрать —</option>
+      <option value="ilariya">Менеджер — Илария</option>
+      <option value="svetlana">Менеджер — Светлана</option>
+      <option value="aleksandra">Хранитель — Александра</option>
+      <option value="angelina">Хранитель — Ангелина</option>
+    </select>
+    <label class="lk-pin-label">Пин-код (4 цифры)</label>
+    <input class="lk-pin-input" type="password" maxlength="4" id="alk-pin" placeholder="••••" />
+    <button class="lk-btn" style="background:var(--rose);" onclick="alkLogin()">Войти →</button>
+    <div class="lk-error" id="alk-error">Неверный пин-код</div>
+    <button class="back-btn" style="margin-top:20px;width:100%;justify-content:center;" onclick="goTo('hub')">← На главную</button>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="alk-dash-wrap"></div>
+</div><!-- /admin-lk -->
 
 <!-- ╔══════════════════════╗
      ║       NAIL           ║
@@ -1752,7 +1989,7 @@ function appNav(t) {
   target.scrollTo(0, 0);
 
   // Update both navbars
-  const pages = ['hub','admin','nail','lk'];
+  const pages = ['hub','admin','nail','lk','admin-lk'];
   pages.forEach(p => {
     const top = document.getElementById('top-' + p);
     const bot = document.getElementById('bot-' + p);
@@ -1847,7 +2084,370 @@ function closeOverlay(e) { if (e.target===document.getElementById('overlay')) do
 function closeOverlayDirect() { document.getElementById('overlay').classList.remove('open'); }
 document.addEventListener('keydown', e => { if (e.key==='Escape') document.getElementById('overlay').classList.remove('open'); });
 
-/* ── PWA Service Worker ── */
+/* ═══════════════════════════════
+   ADMIN LK
+═══════════════════════════════ */
+const ADMIN_STAFF = {
+  ilariya:    { name:'Илария',    role:'Менеджер',   initials:'ИЛ', pin:'1111' },
+  svetlana:   { name:'Светлана',  role:'Менеджер',   initials:'СВ', pin:'2222' },
+  aleksandra: { name:'Александра',role:'Хранитель',  initials:'АЛ', pin:'3333' },
+  angelina:   { name:'Ангелина',  role:'Хранитель',  initials:'АН', pin:'4444' }
+};
+
+const ADMIN_CHECKLIST = [
+  // Документы — онлайн
+  { id:'nda',      label:'NDA — соглашение о неразглашении подписано',                cat:'docs' },
+  { id:'opd',      label:'Согласие на обработку персональных данных подписано',       cat:'docs' },
+  { id:'photo',    label:'Согласие на фото- и видеосъёмку подписано',                cat:'docs' },
+  // Документы — очно
+  { id:'passport', label:'Скан паспорта (1-й разворот + прописка) передан управляющей', cat:'docs_offline' },
+  { id:'inn',      label:'ИНН передан управляющей',                                  cat:'docs_offline' },
+  { id:'medbook',  label:'Медицинская книжка передана управляющей',                   cat:'docs_offline' },
+  // Онбординг
+  { id:'welcome',  label:'Welcome-book с историей SHUGA STUDIO изучен',              cat:'onboard' },
+  { id:'values',   label:'Кодекс ценностей изучен',                                  cat:'onboard' },
+  { id:'roles',    label:'Роли: своя, напарника и управляющей — разграничение зон',  cat:'onboard' },
+  { id:'procmap',  label:'Карта процессов хранителя/менеджера изучена',              cat:'onboard' },
+  { id:'ckp',      label:'ЦКП своей роли изучен',                                    cat:'onboard' },
+  { id:'kpi_exp',  label:'Ожидаемые результаты в показателях изучены',               cat:'onboard' },
+  { id:'look',     label:'Внешний вид студии — стандарты изучены (хранитель)',        cat:'onboard' },
+  { id:'sync',     label:'Итог 2 недель: синхронизация с HRD + брендбук',            cat:'onboard' },
+  // Обучение — Конфликтология
+  { id:'conflict_read',  label:'Презентация «Конфликтология» изучена',               cat:'training' },
+  { id:'conflict_test',  label:'Тестирование по конфликтологии пройдено',            cat:'training' },
+  // Обучение — Услуги
+  { id:'services_read',  label:'Материал-шпаргалка по услугам изучен',               cat:'training' },
+  { id:'services_pres',  label:'Презентация по услугам изучена',                     cat:'training' },
+  { id:'services_test',  label:'Тестирование по услугам пройдено',                   cat:'training' },
+];
+
+const ADMIN_TOTAL = ADMIN_CHECKLIST.length;
+let alkStorage = JSON.parse(localStorage.getItem('shuga_alk') || '{}');
+function saveALK() { localStorage.setItem('shuga_alk', JSON.stringify(alkStorage)); }
+function getAdminProgress(key) { if (!alkStorage[key]) alkStorage[key] = {}; return alkStorage[key]; }
+
+let currentAdmin = null;
+
+function alkLogin() {
+  const key = document.getElementById('alk-user-select').value;
+  const pin = document.getElementById('alk-pin').value;
+  const err = document.getElementById('alk-error');
+  if (!key || !ADMIN_STAFF[key]) { err.style.display='block'; err.textContent='Выберите сотрудника'; return; }
+  if (pin !== ADMIN_STAFF[key].pin) { err.style.display='block'; err.textContent='Неверный пин-код'; return; }
+  err.style.display='none';
+  currentAdmin = key;
+  renderAdminDash(key);
+}
+
+function alkLogout() {
+  currentAdmin = null;
+  document.getElementById('alk-login').style.display='flex';
+  document.getElementById('alk-dash-wrap').innerHTML='';
+  document.getElementById('alk-pin').value='';
+  document.getElementById('alk-user-select').value='';
+}
+
+function alkTab(tab) {
+  document.querySelectorAll('.alk-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+  document.querySelectorAll('.alk-tab-content').forEach(c => c.classList.toggle('active', c.id === 'alk-tc-' + tab));
+}
+
+function alkToggle(key, id, el) {
+  const prog = getAdminProgress(key);
+  prog[id] = !prog[id];
+  saveALK();
+  el.classList.toggle('done');
+  el.querySelector('.alk-checkbox').textContent = prog[id] ? '✓' : '';
+  alkUpdateProgress(key);
+}
+
+function alkUpdateProgress(key) {
+  const prog = getAdminProgress(key);
+  const done = ADMIN_CHECKLIST.filter(c => prog[c.id]).length;
+  const pct = Math.round((done / ADMIN_TOTAL) * 100);
+  const fill = document.getElementById('alk-prog-fill');
+  const pval = document.getElementById('alk-prog-pct');
+  const pdone = document.getElementById('alk-prog-done');
+  if (fill) fill.style.width = pct + '%';
+  if (pval) pval.textContent = pct;
+  if (pdone) pdone.textContent = done + ' из ' + ADMIN_TOTAL + ' пунктов';
+}
+
+function alkSaveKPI(key, field, val) {
+  if (!alkStorage[key + '_kpi']) alkStorage[key + '_kpi'] = {};
+  alkStorage[key + '_kpi'][field] = val;
+  saveALK();
+}
+
+function renderAdminDash(key) {
+  const s = ADMIN_STAFF[key];
+  const prog = getAdminProgress(key);
+  const kpi = alkStorage[key + '_kpi'] || {};
+  const done = ADMIN_CHECKLIST.filter(c => prog[c.id]).length;
+  const pct = Math.round((done / ADMIN_TOTAL) * 100);
+
+  document.getElementById('alk-login').style.display = 'none';
+
+  // Build onboard tab — rich cards with links
+  const docOnlineItems = [
+    { id:'nda',   label:'NDA — соглашение о неразглашении' },
+    { id:'opd',   label:'Согласие на обработку персональных данных' },
+    { id:'photo', label:'Согласие на фото- и видеосъёмку' },
+  ];
+  const docOfflineItems = [
+    { id:'passport', label:'Скан паспорта (1-й разворот + прописка)' },
+    { id:'inn',      label:'ИНН' },
+    { id:'medbook',  label:'Медицинская книжка' },
+  ];
+
+  const mkCheck = (cat, items) => items.map(c => {
+    const d = !!prog[c.id];
+    return `<div class="alk-check${d?' done':''}" onclick="alkToggle('${key}','${c.id}',this)">
+      <div class="alk-checkbox">${d?'✓':''}</div><span>${c.label}</span></div>`;
+  }).join('');
+
+  onboardHTML = `
+  <div class="alk-section">
+    <div class="alk-section-title">📄 Документы — онлайн-подпись</div>
+    <p style="font-size:12.5px;color:var(--dusk);line-height:1.7;margin-bottom:16px;">Документы подписываются онлайн — через приложение <strong>Заметки</strong> (iOS) или сервис <strong>Диадок</strong>. Отмечай галочкой после подписи.</p>
+    <div class="alk-checklist">${mkCheck('docs', docOnlineItems)}</div>
+  </div>
+
+  <div class="alk-section">
+    <div class="alk-section-title">📋 Документы — передать управляющей очно</div>
+    <p style="font-size:12.5px;color:var(--dusk);line-height:1.7;margin-bottom:16px;">Необходимо принести лично в студию и передать управляющей.</p>
+    <div class="alk-checklist">${mkCheck('docs_offline', docOfflineItems)}</div>
+  </div>
+
+  <div class="alk-section">
+    <div class="alk-section-title">🏠 Онбординг</div>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+
+      ${(()=>{const d=!!prog['welcome'];return`
+      <div class="alk-onboard-item">
+        <div class="alk-check${d?' done':''}" style="margin-bottom:10px;" onclick="alkToggle('${key}','welcome',this)">
+          <div class="alk-checkbox">${d?'✓':''}</div><span>Welcome-book с историей SHUGA STUDIO изучен</span></div>
+        <a class="alk-link" href="https://docs.google.com/presentation/d/1GmzLElnG1tHX-kGOA-QotpsHSNg-BJFqRum8mHDD82g/edit?usp=sharing" target="_blank" style="margin-left:32px;">📖 Открыть Welcome-book →</a>
+      </div>`;})()}
+
+      ${(()=>{const d=!!prog['values'];return`
+      <div class="alk-onboard-item">
+        <div class="alk-check${d?' done':''}" style="margin-bottom:10px;" onclick="alkToggle('${key}','values',this)">
+          <div class="alk-checkbox">${d?'✓':''}</div><span>Кодекс ценностей изучен</span></div>
+        <a class="alk-link" href="https://drive.google.com/file/d/1ZKq2dHeZF-7SyS1_mhRgt89G8-NXhezj/view?usp=sharing" target="_blank" style="margin-left:32px;">📜 Открыть Кодекс ценностей →</a>
+      </div>`;})()}
+
+      ${(()=>{const d=!!prog['roles'];return`
+      <div class="alk-onboard-item">
+        <div class="alk-check${d?' done':''}" style="margin-bottom:10px;" onclick="alkToggle('${key}','roles',this)">
+          <div class="alk-checkbox">${d?'✓':''}</div><span>Понимание своей роли, роли напарника и управляющей — разграничение зон ответственности</span></div>
+        <div style="margin-left:32px;font-size:12px;color:var(--stone);margin-bottom:8px;">Карта процессов — нажми на блок чтобы провалиться:</div>
+        <div style="margin-left:32px;display:flex;flex-wrap:wrap;gap:8px;">
+          ${['Подготовка смены','Сервис гостя','Обслуживание мастеров','Поставки и склад','Стерилизация и чистота','Рекламации','Этические нормы','Контроль оборудования','Хозяйственное управление'].map((p,i)=>`
+          <div onclick="appNav('admin');setTimeout(()=>switchTab('admin','processes',document.querySelector('.nav-tab:last-child')),150)"
+            style="padding:7px 14px;background:#fff;border:1px solid var(--sand);border-radius:var(--radius-pill);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--dusk);cursor:pointer;transition:all .18s;"
+            onmouseover="this.style.borderColor='var(--rose)';this.style.color='var(--rose)'"
+            onmouseout="this.style.borderColor='var(--sand)';this.style.color='var(--dusk)'">
+            ${String(i+1).padStart(2,'0')} ${p}
+          </div>`).join('')}
+        </div>
+      </div>`;})()}
+
+      ${(()=>{const d=!!prog['ckp'];return`
+      <div class="alk-onboard-item">
+        <div class="alk-check${d?' done':''}" onclick="alkToggle('${key}','ckp',this)">
+          <div class="alk-checkbox">${d?'✓':''}</div>
+          <div>
+            <span>ЦКП ${s.role === 'Менеджер' ? 'менеджера' : 'хранителя'} изучен</span>
+            <div style="font-size:11.5px;color:var(--stone);margin-top:6px;line-height:1.6;">
+              ${s.role === 'Менеджер'
+                ? '📌 Ценный конечный продукт менеджера — максимально заполненная студия довольными клиентами, которые возвращаются и приводят других.'
+                : '📌 Ценный конечный продукт хранителя — студия, в которой безопасно, чисто, уютно и всё работает так, чтобы мастера и гости чувствовали заботу.'}
+            </div>
+          </div>
+        </div>
+      </div>`;})()}
+
+      ${(()=>{const d=!!prog['kpi_exp'];return`
+      <div class="alk-onboard-item">
+        <div class="alk-check${d?' done':''}" onclick="alkToggle('${key}','kpi_exp',this)">
+          <div class="alk-checkbox">${d?'✓':''}</div>
+          <div>
+            <span>Ожидаемые результаты от роли в показателях изучены</span>
+            <div style="font-size:11.5px;color:var(--stone);margin-top:8px;line-height:1.7;">
+              ${s.role === 'Менеджер'
+                ? `<b>Менеджер:</b><br>• ОПЗ день в день — целевой показатель<br>• ОПЗ на следующий день — целевой показатель<br>• Выручка за товары<br>• Абонементы на массаж<br>• Выполнение плана месяца`
+                : `<b>Хранитель:</b><br>• ОПЗ день в день — готовность зон<br>• Чистота и порядок студии<br>• Расходники в наличии без перебоев<br>• Отсутствие жалоб на сервис`}
+            </div>
+          </div>
+        </div>
+      </div>`;})()}
+
+      ${s.role === 'Хранитель' ? (()=>{const d=!!prog['look'];return`
+      <div class="alk-onboard-item">
+        <div class="alk-check${d?' done':''}" style="margin-bottom:10px;" onclick="alkToggle('${key}','look',this)">
+          <div class="alk-checkbox">${d?'✓':''}</div><span>Внешний вид студии — стандарты изучены</span></div>
+        <a class="alk-link" href="https://docs.google.com/document/d/1fIES40UxkWTI8Pamdu0kJSy1KJoAjJHzZDM-1y-te88/edit?usp=sharing" target="_blank" style="margin-left:32px;">🏠 Открыть регламент внешнего вида →</a>
+      </div>`;})() : ''}
+
+      ${(()=>{const d=!!prog['sync'];return`
+      <div class="alk-onboard-item">
+        <div class="alk-check${d?' done':''}" onclick="alkToggle('${key}','sync',this)">
+          <div class="alk-checkbox">${d?'✓':''}</div><span>Итог 2 недель: синхронизация с HRD + брендбук</span></div>
+      </div>`;})()}
+
+    </div>
+  </div>`;
+
+  // Training tab
+  let trainingHTML = `
+  <div class="alk-training-card">
+    <div class="alk-training-num">1</div>
+    <div class="alk-training-title">Конфликтология и работа с рекламациями</div>
+    <div class="alk-training-desc">Как распознавать тип рекламации, держать позицию, что говорить пошагово, чего не делать, и как превратить рекламацию в инструмент роста лояльности.</div>
+    <div style="background:rgba(184,130,110,0.05);border:1px solid rgba(184,130,110,0.2);border-radius:var(--radius-sm);padding:16px 20px;margin-bottom:16px;">
+      <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--rose);margin-bottom:12px;">Содержание презентации</div>
+      ${[
+        ['Что такое рекламация', 'Момент, в котором мы либо теряем доверие, либо укрепляем его'],
+        ['Формула позиции', 'Спокойствие + уважение + ясность + процесс'],
+        ['5 типов рекламаций', 'Эмоциональная · Предметная · Сервисная · Финансовая · Пограничная'],
+        ['7-шаговый алгоритм', 'От принятия обращения до завершения ситуации с ростом лояльности'],
+        ['Стоп-лист реакций', '12 запрещённых действий при рекламации'],
+        ['Ред-флаги', '12 сигналов для подключения управляющей'],
+      ].map(([t,d]) => `<div onclick="this.classList.toggle('open')" class="conflict-slide">
+        <div class="conflict-slide-num">блок</div>
+        <div class="conflict-slide-title">${t}</div>
+        <div class="conflict-slide-body">${d}</div>
+      </div>`).join('')}
+    </div>
+    <div class="alk-training-links">
+      <a class="alk-link" href="https://docs.google.com/presentation/d/1WTjmbaWUqNtz5TRXHJbPkqvctngbFMJg/edit?usp=sharing&ouid=117024619454996101032&rtpof=true&sd=true" target="_blank">📊 Открыть презентацию</a>
+      <a class="alk-link primary" href="https://forms.gle/kftGVKrt75CFUS14A" target="_blank">📝 Пройти тестирование →</a>
+    </div>
+    <div style="margin-top:16px;" class="alk-checklist">
+      ${ADMIN_CHECKLIST.filter(c=>c.cat==='training'&&c.id.startsWith('conflict')).map(c => {
+        const d = !!prog[c.id];
+        return `<div class="alk-check${d?' done':''}" onclick="alkToggle('${key}','${c.id}',this)">
+          <div class="alk-checkbox">${d?'✓':''}</div><span>${c.label}</span></div>`;
+      }).join('')}
+    </div>
+  </div>
+
+  <div class="alk-training-card">
+    <div class="alk-training-num">2</div>
+    <div class="alk-training-title">Услуги SHUGA STUDIO</div>
+    <div class="alk-training-desc">Полное знание услуг студии: составы, форматы, длительность, стандарты сервиса и рекомендации клиентам.</div>
+    <div class="alk-training-links" style="margin-bottom:16px;">
+      <a class="alk-link" href="https://docs.google.com/document/d/1IOaWCH-xj-X_dXAYzmnQOzlZjfrUrff4mg2n75iGl04/edit?usp=sharing" target="_blank">📄 Шпаргалка по услугам</a>
+      <a class="alk-link" href="https://docs.google.com/presentation/d/1XJPzz7bGZvsFt5GDGqvtiFEIUxxLGw55kxeNOycnT4Y/edit?usp=sharing" target="_blank">📊 Презентация</a>
+      <a class="alk-link primary" href="https://forms.gle/2uEn1g7DLBEqEmoK7" target="_blank">📝 Пройти тестирование →</a>
+    </div>
+    <div class="alk-checklist">
+      ${ADMIN_CHECKLIST.filter(c=>c.cat==='training'&&c.id.startsWith('services')).map(c => {
+        const d = !!prog[c.id];
+        return `<div class="alk-check${d?' done':''}" onclick="alkToggle('${key}','${c.id}',this)">
+          <div class="alk-checkbox">${d?'✓':''}</div><span>${c.label}</span></div>`;
+      }).join('')}
+    </div>
+  </div>`;
+
+  // KPI tab
+  const kpiFields = s.role === 'Менеджер' ? [
+    { id:'opz_day',     label:'ОПЗ день в день',          unit:'%' },
+    { id:'opz_next',    label:'ОПЗ на следующий день',     unit:'%' },
+    { id:'goods_rev',   label:'Выручка за товары',         unit:'₽' },
+    { id:'abonements',  label:'Абонементы на массаж',      unit:'шт' },
+    { id:'plan',        label:'План месяца',               unit:'₽' },
+    { id:'fact',        label:'Факт месяца',               unit:'₽' },
+  ] : [
+    { id:'opz_day',     label:'ОПЗ день в день',           unit:'%' },
+    { id:'clean',       label:'Чистота и готовность зон',  unit:'балл 1–5' },
+    { id:'supplies',    label:'Расходники в наличии',       unit:'%' },
+    { id:'plan',        label:'План месяца',                unit:'₽' },
+    { id:'fact',        label:'Факт месяца',                unit:'₽' },
+  ];
+  const kpiHTML = `
+    <div class="alk-kpi-grid">
+      ${kpiFields.map(f => `
+        <div class="alk-kpi-card">
+          <div class="alk-kpi-label">${f.label}</div>
+          <input class="alk-kpi-input" type="text" placeholder="—" value="${kpi[f.id]||''}"
+            onchange="alkSaveKPI('${key}','${f.id}',this.value)" />
+          <div class="alk-kpi-unit">${f.unit}</div>
+        </div>`).join('')}
+    </div>
+    <div style="background:#fff;border:1px solid var(--sand);border-radius:var(--radius-sm);padding:20px 24px;">
+      <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:10px;">Заметки к показателям</div>
+      <textarea style="width:100%;border:none;background:none;font-family:'Jost',sans-serif;font-size:13px;color:var(--ink);resize:vertical;outline:none;min-height:80px;" placeholder="Добавьте комментарий к своим показателям..."
+        onchange="alkSaveKPI('${key}','notes',this.value)">${kpi['notes']||''}</textarea>
+    </div>`;
+
+  document.getElementById('alk-dash-wrap').innerHTML = `
+  <div class="alk-dash active">
+    <div class="alk-header">
+      <div class="alk-avatar">${s.initials}</div>
+      <div>
+        <div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--ink);">${s.name}</div>
+        <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-top:2px;">${s.role} · SHUGA Studio</div>
+      </div>
+      <button class="lk-logout" onclick="alkLogout()">Выйти</button>
+    </div>
+    <div class="alk-body">
+
+      <!-- Welcome -->
+      <div class="alk-welcome">
+        <div class="alk-welcome-eyebrow">Добро пожаловать</div>
+        <div class="alk-welcome-title">Привет, ${s.name}! 🤍</div>
+        <div class="alk-welcome-text">Добро пожаловать в нашу команду профессионалов, наполненных и отдающих человеческое тепло, для которых высокий уровень сервиса и искренность — настройки на уровне кончиков пальцев!<br><br>
+        Мы рады приветствовать тебя в SHUGA ACADEMY, где начинается твой путь развития внутри компании 🤍<br><br>
+        Ниже у тебя есть разделы, которые помогут тебе изучить нашу внутреннюю информацию, сонастроиться с нашими ценностями, понять свою роль и роль остальных членов команды, а также отследить динамику своих показателей!<br><br>
+        Надеемся, что путь адаптации для тебя будет полезным и увлекательным. Начинай с блока онбординга, а далее тебя направит управляющая и HR-директор 🫂</div>
+        <div class="alk-nav-btns">
+          <button class="alk-nav-btn rose" onclick="alkTab('onboard')">📋 Онбординг</button>
+          <button class="alk-nav-btn outline" onclick="alkTab('training')">🎓 Обучение</button>
+          <button class="alk-nav-btn outline" onclick="alkTab('kpi')">📊 Мои показатели</button>
+        </div>
+      </div>
+
+      <!-- Progress -->
+      <div class="alk-progress-hero">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+          <div>
+            <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--stone);margin-bottom:8px;">Прогресс адаптации</div>
+            <div style="display:flex;align-items:baseline;gap:6px;">
+              <span class="alk-prog-pct" id="alk-prog-pct">${pct}</span>
+              <span style="font-size:13px;color:var(--stone);">%</span>
+            </div>
+            <div style="font-size:12px;color:var(--dusk);margin-top:4px;" id="alk-prog-done">${done} из ${ADMIN_TOTAL} пунктов</div>
+          </div>
+          <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:var(--radius-pill);background:rgba(184,130,110,0.1);border:1px solid rgba(184,130,110,0.3);font-size:11px;color:var(--rose);letter-spacing:1.5px;text-transform:uppercase;">
+            ${pct < 50 ? '🌱 Адаптация' : pct < 100 ? '🚀 В процессе' : '✨ Адаптирован'}
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--stone);margin-bottom:6px;">
+          <span>Старт</span><span>Адаптация завершена</span>
+        </div>
+        <div class="alk-prog-track">
+          <div class="alk-prog-fill" id="alk-prog-fill" style="width:${pct}%"></div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="alk-tabs">
+        <button class="alk-tab active" data-tab="onboard" onclick="alkTab('onboard')">📋 Онбординг</button>
+        <button class="alk-tab" data-tab="training" onclick="alkTab('training')">🎓 Обучение</button>
+        <button class="alk-tab" data-tab="kpi" onclick="alkTab('kpi')">📊 Мои показатели</button>
+      </div>
+
+      <div id="alk-tc-onboard" class="alk-tab-content active">${onboardHTML}</div>
+      <div id="alk-tc-training" class="alk-tab-content">${trainingHTML}</div>
+      <div id="alk-tc-kpi" class="alk-tab-content">${kpiHTML}</div>
+
+    </div>
+  </div>`;
+}
+
+/* ── Service Worker ── */
 if ('serviceWorker' in navigator) {
   const swCode = `
     const CACHE='shuga-v1';
