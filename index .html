@@ -1,0 +1,3155 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>SHUGA Academy</title>
+<meta name="description" content="SHUGA Academy — платформа развития мастеров студии">
+<meta name="theme-color" content="#faf7f2">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="SHUGA">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════ */
+:root {
+  /* warm neutrals */
+  --cream:   #faf7f2;
+  --parchment: #f2ece2;
+  --sand:    #e8dfd0;
+  --linen:   #d8cfc0;
+  --stone:   #b8a898;
+  --dusk:    #7a6e63;
+  --ink:     #2e2820;
+
+  /* brand accent — beige/gold family */
+  --gold:    #c5a96a;
+  --gold-lt: #d9c08a;
+  --gold-dk: #9a7d46;
+
+  /* subtle functional accents */
+  --sage:    #7e9e8c;   /* green – nail/growth */
+  --sage-lt: #a8c4b4;
+  --rose:    #b8826e;   /* terracotta – admin */
+  --rose-lt: #d4a898;
+  --blush:   #c4909a;   /* soft pink – details */
+  --slate:   #7a8e96;   /* cool – KPI */
+
+  --bottom-nav-h: 64px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* ═══════════════════════════════════════
+   PWA / APP SHELL
+═══════════════════════════════════════ */
+
+/* Pages are fixed-position — always need nav padding */
+.page.active {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+@media (max-width: 768px) {
+  .page.active { padding-bottom: calc(var(--bottom-nav-h) + var(--safe-bottom) + 16px); }
+  #page-hub {
+    padding-top: 48px;
+    padding-bottom: calc(var(--bottom-nav-h) + var(--safe-bottom) + 40px);
+  }
+}
+@media (min-width: 769px) {
+  .page.active { padding-top: 60px; }
+  #page-hub { padding-top: 80px; }
+}
+
+/* Bottom Navigation Bar */
+.app-bottom-nav {
+  display: none; /* hidden on desktop */
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(250,247,242,0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--sand);
+  height: calc(var(--bottom-nav-h) + var(--safe-bottom));
+  padding-bottom: var(--safe-bottom);
+  display: none;
+  align-items: stretch;
+}
+.app-nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 8px 4px;
+  transition: all .2s;
+  border: none;
+  background: none;
+  font-family: 'Jost', sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+.app-nav-icon {
+  font-size: 22px;
+  line-height: 1;
+  transition: transform .2s cubic-bezier(.34,1.56,.64,1);
+}
+.app-nav-label {
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--stone);
+  transition: color .2s;
+  white-space: nowrap;
+}
+.app-nav-item.active .app-nav-icon { transform: scale(1.18) translateY(-2px); }
+.app-nav-item.active .app-nav-label { color: var(--sage); font-weight: 500; }
+.app-nav-item:not(.active):hover .app-nav-label { color: var(--dusk); }
+
+/* Desktop top nav (shows on ≥769px) */
+.app-top-nav {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(250,247,242,0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--sand);
+  height: 60px;
+  align-items: center;
+  padding: 0 32px;
+  gap: 8px;
+}
+.app-top-logo {
+  width: 36px; height: 36px;
+  border: 1px solid var(--gold);
+  border-radius: 3px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 13px; font-weight: 500; color: var(--gold);
+  letter-spacing: 1px; flex-shrink: 0; margin-right: 8px;
+}
+.app-top-item {
+  display: flex; align-items: center; gap: 7px;
+  padding: 7px 16px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--stone); background: none; border: none;
+  font-family: 'Jost', sans-serif;
+  transition: all .2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.app-top-item:hover { color: var(--ink); background: var(--parchment); }
+.app-top-item.active { color: var(--sage); background: rgba(126,158,140,0.1); }
+.app-top-item .app-nav-icon { font-size: 16px; }
+
+/* When top nav visible, pages need top padding */
+@media (min-width: 769px) {
+  .app-top-nav { display: flex; }
+  .page.active { padding-top: 72px; }
+  #page-hub { padding-top: 80px; }
+}
+
+@media (max-width: 768px) {
+  .app-bottom-nav { display: flex; }
+}
+
+/* Hub redesign for mobile */
+@media (max-width: 768px) {
+  .lk-cards-row { grid-template-columns: 1fr !important; max-width: 100% !important; }
+  #page-hub { padding-top: 56px; }
+  .hub-h1 { font-size: 36px !important; letter-spacing: 2px !important; }
+  .hub-sub { font-size: 11px !important; }
+  .hub-cards { grid-template-columns: 1fr !important; gap: 12px !important; }
+  .hub-card { padding: 24px !important; }
+  .hub-emblem { width: 64px !important; height: 64px !important; font-size: 20px !important; margin-bottom: 24px !important; }
+}
+
+/* Mobile inner page tweaks */
+@media (max-width: 768px) {
+  /* Page headers */
+  .page-header { padding: 24px 20px 20px !important; }
+  .page-title { font-size: 28px !important; }
+
+  /* Tabs — scrollable horizontal */
+  .page-nav { padding: 0 16px !important; gap: 4px !important; overflow-x: auto !important; overflow-y: hidden !important; flex-wrap: nowrap !important; }
+  .page-nav::-webkit-scrollbar { display: none; }
+  .nav-tab { white-space: nowrap !important; padding: 8px 16px !important; font-size: 9px !important; }
+
+  /* Step cards */
+  .steps-grid { padding: 16px !important; gap: 10px !important; }
+  .step-card { padding: 14px 16px !important; }
+
+  /* LK specific */
+  .lk-header { padding: 16px 20px !important; }
+  .lk-body { padding: 20px 16px !important; }
+  .lk-login-box { padding: 32px 24px !important; margin: 20px !important; }
+  .lk-stats { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
+  .lk-stat { padding: 14px 12px !important; }
+  .lk-stat-val { font-size: 18px !important; }
+  .lk-checklist { grid-template-columns: 1fr !important; }
+  .lk-progress-hero { padding: 24px 20px !important; }
+  .lk-progress-pct { font-size: 32px !important; }
+
+  /* Detail overlay */
+  .detail-overlay .detail-box { margin: 0 !important; width: 100% !important; max-width: 100% !important; border-radius: var(--radius) var(--radius) 0 0 !important; position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; max-height: 85vh !important; overflow-y: auto !important; }
+
+  /* Back button */
+  .back-btn { font-size: 10px !important; padding: 7px 14px !important; }
+
+  /* Section heads */
+  .section-head { padding: 24px 20px 20px !important; }
+
+  /* Checklist cards */
+  .checklist-wrap { padding: 16px !important; gap: 12px !important; flex-direction: column !important; }
+  .cl-card { padding: 20px !important; }
+
+  /* IPR levels */
+  .lv-cards { padding: 16px !important; flex-direction: column !important; }
+  .lv-card { min-width: unset !important; }
+}
+
+/* Install banner */
+.install-banner {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 2000;
+  background: var(--ink);
+  color: #fff;
+  padding: 14px 20px;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+}
+.install-banner.visible { display: flex; }
+.install-btn {
+  margin-left: auto; padding: 7px 16px;
+  background: var(--gold); color: var(--ink);
+  border: none; border-radius: var(--radius-pill);
+  font-family: 'Jost', sans-serif; font-size: 10px;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  cursor: pointer; white-space: nowrap; flex-shrink: 0;
+}
+.install-dismiss {
+  background: none; border: none; color: rgba(255,255,255,0.5);
+  font-size: 18px; cursor: pointer; padding: 0 4px; flex-shrink: 0;
+}
+
+/* Active page highlight dot */
+.app-nav-dot {
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--sage);
+  position: absolute;
+  bottom: 6px;
+  opacity: 0;
+  transition: opacity .2s;
+}
+.app-nav-item { position: relative; }
+.app-nav-item.active .app-nav-dot { opacity: 1; }
+
+/* ═══════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  background: var(--cream);
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--parchment); }
+::-webkit-scrollbar-thumb { background: var(--sand); border-radius: 3px; }
+
+/* ═══════════════════════════════════════
+   TEXTURE LAYER
+═══════════════════════════════════════ */
+body::before {
+  content: '';
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  opacity: 0.6;
+}
+
+/* ═══════════════════════════════════════
+   PAGE ROUTING
+═══════════════════════════════════════ */
+.page {
+  display: none;
+  position: fixed;
+  inset: 0;
+  overflow-y: auto;
+  z-index: 1;
+  background: var(--cream);
+}
+.page.active {
+  display: block;
+  animation: appear .3s ease both;
+}
+@keyframes appear {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════
+   HUB
+═══════════════════════════════════════ */
+#page-hub {
+  display: flex; flex-direction: column;
+  align-items: center;
+  padding: 0 24px 80px;
+  overflow-y: auto;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(197,169,106,0.12) 0%, transparent 70%),
+    var(--cream);
+}
+
+.hub-emblem {
+  width: 88px; height: 88px;
+  border: 1px solid var(--gold);
+  border-radius: 3px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 28px; font-weight: 500;
+  color: var(--gold);
+  letter-spacing: 3px;
+  margin: 0 auto 36px;
+  position: relative;
+  box-shadow: var(--shadow-sm);
+}
+.hub-emblem::before {
+  content: '';
+  position: absolute; inset: 5px;
+  border: 1px solid rgba(197,169,106,0.25);
+  border-radius: 1px;
+}
+.hub-eyebrow {
+  font-size: 10px; letter-spacing: 5px; text-transform: uppercase;
+  color: var(--gold); text-align: center; margin-bottom: 14px;
+}
+.hub-h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 58px; font-weight: 400; letter-spacing: 4px;
+  text-align: center; line-height: 1;
+  color: var(--ink); margin-bottom: 10px;
+}
+.hub-h1 em { font-style: italic; color: var(--gold); }
+.hub-tagline {
+  font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--stone); text-align: center; margin-bottom: 72px;
+}
+
+.hub-divider {
+  width: 48px; height: 1px; background: var(--gold);
+  margin: 0 auto 72px; opacity: 0.5;
+}
+
+.hub-cards {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 28px; max-width: 840px; width: 100%;
+}
+.hub-card {
+  background: #fff;
+  border: 1px solid var(--sand);
+  border-radius: var(--radius);
+  padding: 44px 38px;
+  cursor: pointer;
+  display: flex; flex-direction: column; align-items: flex-start;
+  transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease;
+  position: relative; overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.hub-card::after {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  transition: opacity .28s;
+}
+.hub-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+.hub-card-admin::after { background: linear-gradient(90deg, var(--rose), var(--gold)); }
+.hub-card-nail::after  { background: linear-gradient(90deg, var(--sage), var(--gold)); }
+.hub-card-admin:hover { border-color: var(--rose-lt); }
+.hub-card-nail:hover  { border-color: var(--sage-lt); }
+
+.hub-card-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 72px; font-weight: 400; line-height: 1;
+  margin-bottom: 20px; opacity: 0.07; color: var(--ink);
+  user-select: none;
+}
+.hub-card-label {
+  font-size: 9px; letter-spacing: 4px; text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.hub-card-admin .hub-card-label { color: var(--rose); }
+.hub-card-nail  .hub-card-label { color: var(--sage); }
+.hub-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px; font-weight: 400; letter-spacing: 1px;
+  margin-bottom: 14px; line-height: 1.2; color: var(--ink);
+}
+.hub-card-desc { font-size: 12.5px; color: var(--dusk); line-height: 1.85; margin-bottom: 28px; }
+.hub-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 28px; }
+.hub-tag {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 4px 12px; border-radius: var(--radius-pill); border: 1px solid;
+}
+.hub-card-admin .hub-tag { border-color: rgba(184,130,110,0.4); color: var(--rose); background: rgba(184,130,110,0.06); }
+.hub-card-nail  .hub-tag { border-color: rgba(126,158,140,0.4); color: var(--sage); background: rgba(126,158,140,0.06); }
+.hub-card-cta {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  font-weight: 500; margin-top: auto;
+  transition: gap .2s;
+}
+.hub-card:hover .hub-card-cta { gap: 14px; }
+.hub-card-admin .hub-card-cta { color: var(--rose); }
+.hub-card-nail  .hub-card-cta { color: var(--sage); }
+
+/* ═══════════════════════════════════════
+   INNER HEADER
+═══════════════════════════════════════ */
+.inner-header {
+  padding: 36px 52px 28px;
+  border-bottom: 1px solid var(--sand);
+  display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  background: #fff;
+  box-shadow: 0 1px 0 var(--sand);
+  position: sticky; top: 0; z-index: 50;
+}
+.back-btn {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--stone); text-decoration: none; background: none;
+  border: 1px solid var(--sand); padding: 8px 16px; border-radius: var(--radius-pill);
+  cursor: pointer; transition: all .2s; white-space: nowrap; font-family: 'Jost', sans-serif;
+}
+.back-btn:hover { color: var(--gold-dk); border-color: var(--gold); }
+
+.inner-logo {
+  width: 48px; height: 48px; border: 1px solid var(--gold);
+  border-radius: 2px; display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 500;
+  color: var(--gold); letter-spacing: 2px; flex-shrink: 0; position: relative;
+}
+.inner-logo::before {
+  content: ''; position: absolute; inset: 3px;
+  border: 1px solid rgba(197,169,106,0.2); border-radius: 1px;
+}
+.inner-title-wrap h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px; font-weight: 400; letter-spacing: 3px; line-height: 1;
+}
+.inner-title-wrap p {
+  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--stone); margin-top: 4px;
+}
+
+.nav-tabs {
+  margin-left: auto; display: flex; gap: 3px;
+  background: var(--parchment); padding: 4px; border-radius: var(--radius-pill);
+  border: 1px solid var(--sand);
+  flex-wrap: wrap;
+}
+.nav-tab {
+  padding: 8px 20px; font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--stone); border-radius: var(--radius-pill);
+  cursor: pointer; transition: all .22s; user-select: none; font-weight: 500;
+  font-family: 'Jost', sans-serif;
+}
+.nav-tab:hover:not(.active) { color: var(--ink); background: var(--sand); }
+.admin-page .nav-tab.active { background: var(--rose); color: #fff; }
+.nail-page  .nav-tab.active { background: var(--sage); color: #fff; }
+
+/* ═══════════════════════════════════════
+   INNER MAIN
+═══════════════════════════════════════ */
+.inner-main {
+  padding: 52px;
+  max-width: 1360px; margin: 0 auto;
+}
+.tab-section { display: none; animation: appear .3s ease both; }
+.tab-section.active { display: block; }
+
+/* ═══════════════════════════════════════
+   SECTION TITLES
+═══════════════════════════════════════ */
+.section-head {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 32px; padding-bottom: 18px;
+  border-bottom: 1px solid var(--sand);
+}
+.section-num {
+  width: 42px; height: 42px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 400;
+  flex-shrink: 0;
+}
+.admin-page .section-num { background: rgba(184,130,110,0.1); color: var(--rose); border: 1px solid rgba(184,130,110,0.3); }
+.nail-page  .section-num { background: rgba(126,158,140,0.1); color: var(--sage); border: 1px solid rgba(126,158,140,0.3); }
+.section-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 400; letter-spacing: 1px; color: var(--ink); }
+.section-sub { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--stone); margin-top: 3px; }
+
+/* ═══════════════════════════════════════
+   FOLDER DOCS
+═══════════════════════════════════════ */
+.folder-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--stone); margin-bottom: 12px; }
+.folder-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 32px; }
+.doc-chip {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 16px; background: var(--parchment);
+  border: 1px solid var(--sand); border-radius: var(--radius-pill);
+  font-size: 11px; color: var(--dusk); transition: all .2s; cursor: default;
+}
+.doc-chip:hover { border-color: var(--gold); color: var(--gold-dk); background: rgba(197,169,106,0.08); }
+.doc-chip svg { width: 12px; height: 12px; flex-shrink: 0; opacity: 0.5; }
+
+/* ═══════════════════════════════════════
+   STAGE CARDS (HIRING)
+═══════════════════════════════════════ */
+.stages {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr));
+  gap: 16px; margin-bottom: 8px;
+}
+.stage-card {
+  background: #fff; border: 1px solid var(--sand); border-radius: var(--radius);
+  padding: 24px; position: relative; overflow: hidden;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  cursor: pointer; box-shadow: var(--shadow-sm);
+}
+.stage-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.admin-page .stage-card:hover { border-color: var(--rose-lt); }
+.nail-page  .stage-card:hover { border-color: var(--sage-lt); }
+.stage-card::before {
+  content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+}
+.admin-page .stage-card::before { background: linear-gradient(90deg, var(--rose), var(--gold-lt)); }
+.nail-page  .stage-card::before { background: linear-gradient(90deg, var(--sage), var(--gold-lt)); }
+.stage-n {
+  font-family: 'Playfair Display', serif; font-size: 44px; font-weight: 400; line-height: 1;
+  opacity: 0.07; color: var(--ink); position: absolute; top: 14px; right: 16px;
+}
+.stage-resp { font-size: 9.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--stone); margin-bottom: 8px; }
+.stage-title { font-size: 13.5px; font-weight: 500; margin-bottom: 8px; padding-right: 36px; line-height: 1.45; color: var(--ink); }
+.stage-desc { font-size: 11.5px; color: var(--dusk); line-height: 1.75; }
+
+/* ═══════════════════════════════════════
+   STEP LIST (ADAPTATION / ONBOARDING)
+═══════════════════════════════════════ */
+.steps-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 14px;
+}
+.step-card {
+  background: #fff; border: 1px solid var(--sand); border-radius: var(--radius);
+  padding: 20px 22px; display: flex; gap: 16px; align-items: flex-start;
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+  cursor: pointer; box-shadow: var(--shadow-sm); position: relative; overflow: hidden;
+}
+.step-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.admin-page .step-card:hover { border-color: var(--rose-lt); }
+.nail-page  .step-card:hover { border-color: var(--sage-lt); }
+.step-card::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  opacity: 0; transition: opacity .22s;
+}
+.admin-page .step-card::after { background: linear-gradient(90deg, var(--rose), transparent); }
+.nail-page  .step-card::after { background: linear-gradient(90deg, var(--sage), transparent); }
+.step-card:hover::after { opacity: 1; }
+.step-num {
+  width: 30px; height: 30px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 600; flex-shrink: 0;
+}
+.admin-page .step-num { background: rgba(184,130,110,0.1); color: var(--rose); border: 1px solid rgba(184,130,110,0.3); }
+.nail-page  .step-num { background: rgba(126,158,140,0.1); color: var(--sage); border: 1px solid rgba(126,158,140,0.3); }
+.step-body h4 { font-size: 13px; font-weight: 500; margin-bottom: 5px; color: var(--ink); line-height: 1.4; }
+.step-body p  { font-size: 11.5px; color: var(--dusk); line-height: 1.7; }
+.step-link {
+  display: inline-flex; align-items: center; gap: 6px; margin-top: 10px;
+  font-size: 11px; letter-spacing: 1px; color: var(--sage); text-decoration: none;
+  border: 1px solid rgba(126,158,140,0.35); padding: 5px 12px; border-radius: var(--radius-pill);
+  transition: all .2s;
+}
+.step-link:hover { background: rgba(126,158,140,0.08); border-color: var(--sage); }
+.badge-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.badge {
+  font-size: 9.5px; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 3px 10px; border-radius: var(--radius-pill); border: 1px solid;
+}
+.badge-rose   { border-color: rgba(184,130,110,0.4); color: var(--rose);  background: rgba(184,130,110,0.06); }
+.badge-gold   { border-color: rgba(197,169,106,0.5); color: var(--gold-dk); background: rgba(197,169,106,0.08); }
+.badge-sage   { border-color: rgba(126,158,140,0.4); color: var(--sage);  background: rgba(126,158,140,0.06); }
+.badge-blush  { border-color: rgba(196,144,154,0.4); color: var(--blush); background: rgba(196,144,154,0.06); }
+.badge-slate  { border-color: rgba(122,142,150,0.4); color: var(--slate); background: rgba(122,142,150,0.06); }
+
+/* ═══════════════════════════════════════
+   PROCESS MAP (ADMIN)
+═══════════════════════════════════════ */
+.process-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.pcol-title {
+  font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 400;
+  letter-spacing: 1px; margin-bottom: 16px; padding-bottom: 12px;
+  border-bottom: 1px solid var(--sand);
+}
+.pcol.keeper .pcol-title { color: var(--sage); }
+.pcol.manager .pcol-title { color: var(--rose); }
+.p-item {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 14px 16px; border-radius: var(--radius-sm);
+  background: var(--parchment); border: 1px solid transparent;
+  margin-bottom: 8px; transition: all .2s; cursor: pointer;
+}
+.pcol.keeper  .p-item:hover { border-color: var(--sage-lt); background: rgba(126,158,140,0.07); }
+.pcol.manager .p-item:hover { border-color: var(--rose-lt); background: rgba(184,130,110,0.07); }
+.p-num { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; flex-shrink: 0; margin-top: 2px; }
+.pcol.keeper  .p-num { color: var(--sage); }
+.pcol.manager .p-num { color: var(--rose); }
+.p-body h5 { font-size: 12.5px; font-weight: 500; margin-bottom: 4px; color: var(--ink); }
+.p-body p  { font-size: 11px; color: var(--dusk); line-height: 1.6; }
+.p-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 7px; }
+.p-tag {
+  font-size: 9.5px; padding: 2px 8px; border-radius: var(--radius-pill);
+  color: var(--stone); background: rgba(184,130,110,0.08); border: 1px solid var(--sand);
+}
+.pcol.keeper .p-tag { background: rgba(126,158,140,0.08); }
+
+/* ═══════════════════════════════════════
+   IPR LEVEL CARDS (NAIL)
+═══════════════════════════════════════ */
+.ipr-block { margin-bottom: 52px; }
+.ipr-title {
+  font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 400; letter-spacing: 1px;
+  margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--sand);
+  display: flex; align-items: center; gap: 12px;
+}
+.level-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; margin-bottom: 20px; }
+.lv-card {
+  background: #fff; border: 1px solid var(--sand); border-radius: var(--radius);
+  padding: 26px; transition: transform .22s, box-shadow .22s;
+  box-shadow: var(--shadow-sm); position: relative; overflow: hidden;
+}
+.lv-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.lv-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+.lv1::before { background: linear-gradient(90deg, var(--sage), var(--gold-lt)); }
+.lv2::before { background: linear-gradient(90deg, var(--gold), var(--rose-lt)); }
+.lv3::before { background: linear-gradient(90deg, var(--rose), var(--gold)); }
+.lv-badge { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+.lv-icon {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; flex-shrink: 0;
+}
+.lv1 .lv-icon { background: rgba(126,158,140,0.12); color: var(--sage);    border: 1px solid rgba(126,158,140,0.3); }
+.lv2 .lv-icon { background: rgba(197,169,106,0.12); color: var(--gold-dk); border: 1px solid rgba(197,169,106,0.3); }
+.lv3 .lv-icon { background: rgba(184,130,110,0.12); color: var(--rose);    border: 1px solid rgba(184,130,110,0.3); }
+.lv-name { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 400; letter-spacing: 1px; }
+.lv1 .lv-name { color: var(--sage); }
+.lv2 .lv-name { color: var(--gold-dk); }
+.lv3 .lv-name { color: var(--rose); }
+.lv-sub { font-size: 9.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--stone); margin-bottom: 14px; }
+.skill-list { list-style: none; }
+.skill-list li {
+  display: flex; align-items: flex-start; gap: 9px; font-size: 12px;
+  padding: 6px 0; border-bottom: 1px solid var(--parchment);
+  line-height: 1.55; color: var(--dusk);
+}
+.skill-list li:last-child { border-bottom: none; }
+.skill-list li::before { content: '–'; flex-shrink: 0; margin-top: 0; }
+.lv1 .skill-list li::before { color: var(--sage); }
+.lv2 .skill-list li::before { color: var(--gold); }
+.lv3 .skill-list li::before { color: var(--rose); }
+.kpi-strip { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--sand); }
+.kpi-chip {
+  font-size: 10.5px; padding: 4px 12px; border-radius: var(--radius-pill); border: 1px solid;
+}
+.lv1 .kpi-chip { border-color: rgba(126,158,140,0.4); color: var(--sage);    background: rgba(126,158,140,0.06); }
+.lv2 .kpi-chip { border-color: rgba(197,169,106,0.5); color: var(--gold-dk); background: rgba(197,169,106,0.08); }
+.lv3 .kpi-chip { border-color: rgba(184,130,110,0.4); color: var(--rose);    background: rgba(184,130,110,0.06); }
+
+/* HRD bar */
+.info-bar {
+  background: var(--parchment); border: 1px solid var(--sand); border-radius: var(--radius-sm);
+  padding: 16px 22px; display: flex; align-items: center; gap: 14px; margin-bottom: 28px;
+}
+.info-bar-icon { font-size: 20px; }
+.info-bar-title { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
+.info-bar-desc  { font-size: 11.5px; color: var(--dusk); }
+
+/* ═══════════════════════════════════════
+   CHECKLIST (NAIL)
+═══════════════════════════════════════ */
+.checklist-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.cl-card { background: #fff; border: 1px solid var(--sand); border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow-sm); }
+.cl-title {
+  font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 400; letter-spacing: 1px;
+  margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid var(--sand);
+}
+.cl-title.sage-t { color: var(--sage); }
+.cl-title.rose-t { color: var(--rose); }
+.cl-title.gold-t { color: var(--gold-dk); }
+.check-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 9px 0; border-bottom: 1px solid var(--parchment);
+  font-size: 12.5px; color: var(--dusk); cursor: pointer; transition: color .15s;
+}
+.check-row:last-child { border-bottom: none; }
+.check-row:hover { color: var(--ink); }
+.check-box {
+  width: 18px; height: 18px; border: 1.5px solid var(--linen);
+  border-radius: 4px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; transition: all .18s; color: #fff;
+}
+.check-row.done .check-box { background: var(--sage); border-color: var(--sage); }
+.check-row.done span { text-decoration: line-through; opacity: 0.55; }
+.expert-block {
+  margin-top: 28px;
+  background: linear-gradient(135deg, rgba(197,169,106,0.08) 0%, rgba(126,158,140,0.06) 100%);
+  border: 1px solid rgba(197,169,106,0.35); border-radius: var(--radius);
+  padding: 30px;
+}
+.expert-title {
+  font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 400; letter-spacing: 1px;
+  color: var(--gold-dk); margin-bottom: 20px;
+}
+.metrics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap: 12px; }
+.metric {
+  background: rgba(255,255,255,0.7); border-radius: var(--radius-sm);
+  padding: 16px; border: 1px solid rgba(197,169,106,0.2);
+}
+.metric-val { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 400; color: var(--gold-dk); margin-bottom: 4px; }
+.metric-label { font-size: 11px; color: var(--dusk); }
+
+/* ═══════════════════════════════════════
+   OVERLAY
+═══════════════════════════════════════ */
+.overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(46,40,32,0.5); z-index: 200;
+  align-items: center; justify-content: center;
+  padding: 24px; backdrop-filter: blur(6px);
+}
+.overlay.open { display: flex; }
+.ov-card {
+  background: #fff;
+  border: 1px solid var(--sand);
+  box-shadow: var(--shadow-lg);
+  border-radius: var(--radius);
+  padding: 40px; max-width: 540px; width: 100%;
+  max-height: 82vh; overflow-y: auto; position: relative;
+  animation: popUp .22s ease both;
+}
+@keyframes popUp {
+  from { opacity: 0; transform: scale(.95) translateY(8px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+@media (max-width: 768px) {
+  .overlay { align-items: flex-end; padding: 0; }
+  .ov-card {
+    max-width: 100%; width: 100%; border-radius: var(--radius) var(--radius) 0 0;
+    max-height: 88vh; animation: slideUp .28s cubic-bezier(.4,0,.2,1) both;
+    padding: 28px 24px 32px;
+  }
+  /* drag handle */
+  .ov-card::before {
+    content: ''; display: block; width: 36px; height: 4px;
+    background: var(--sand); border-radius: 2px;
+    margin: 0 auto 20px;
+  }
+}
+.ov-close {
+  position: absolute; top: 16px; right: 16px;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--parchment); border: 1px solid var(--sand);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 14px; color: var(--stone); transition: all .18s;
+}
+.ov-close:hover { background: var(--sand); color: var(--ink); }
+.ov-eyebrow { font-size: 9.5px; letter-spacing: 3px; text-transform: uppercase; color: var(--stone); margin-bottom: 10px; }
+.ov-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 400; margin-bottom: 20px; line-height: 1.3; color: var(--ink); }
+.ov-body { font-size: 13px; color: var(--dusk); line-height: 1.9; white-space: pre-line; }
+.ov-body strong { color: var(--ink); font-weight: 500; }
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════ */
+@media (max-width: 720px) {
+  .hub-cards, .process-cols, .checklist-wrap { grid-template-columns: 1fr; }
+  .hub-h1 { font-size: 38px; }
+  .inner-header { padding: 20px; }
+  .inner-main { padding: 28px 20px; }
+  .inner-title-wrap h1 { font-size: 22px; }
+  .nav-tabs { margin-left: 0; }
+  .stages, .steps-grid { grid-template-columns: 1fr; }
+  .level-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── INSTALL BANNER ── -->
+<div class="install-banner" id="install-banner">
+  <span>📱</span>
+  <span>Установите SHUGA Academy на экран телефона</span>
+  <button class="install-btn" id="install-btn">Установить</button>
+  <button class="install-dismiss" onclick="document.getElementById('install-banner').classList.remove('visible')">×</button>
+</div>
+
+<!-- ── TOP NAV (desktop) ── -->
+<nav class="app-top-nav" id="app-top-nav">
+  <div class="app-top-logo">SH</div>
+  <button class="app-top-item active" id="top-hub" onclick="appNav('hub')"><span class="app-nav-icon">🏠</span> Главная</button>
+  <button class="app-top-item" id="top-admin" onclick="appNav('admin')"><span class="app-nav-icon">🗝</span> Администратор</button>
+  <button class="app-top-item" id="top-nail" onclick="appNav('nail')"><span class="app-nav-icon">💅</span> Nail-мастер</button>
+  <button class="app-top-item" id="top-admin-lk" onclick="appNav('admin-lk')"><span class="app-nav-icon">🗂</span> Адм. кабинет</button>
+  <button class="app-top-item" id="top-body-lk" onclick="appNav('body-lk')"><span class="app-nav-icon">🌿</span> Спец. по телу</button>
+  <button class="app-top-item" id="top-lk" onclick="appNav('lk')"><span class="app-nav-icon">👤</span> Nail кабинет</button>
+</nav>
+
+<!-- ── BOTTOM NAV (mobile) ── -->
+<nav class="app-bottom-nav" id="app-bottom-nav">
+  <button class="app-nav-item active" id="bot-hub" onclick="appNav('hub')">
+    <span class="app-nav-icon">🏠</span><span class="app-nav-label">Главная</span><span class="app-nav-dot"></span>
+  </button>
+  <button class="app-nav-item" id="bot-admin-lk" onclick="appNav('admin-lk')">
+    <span class="app-nav-icon">🗂</span><span class="app-nav-label">Адм.</span><span class="app-nav-dot"></span>
+  </button>
+  <button class="app-nav-item" id="bot-body-lk" onclick="appNav('body-lk')">
+    <span class="app-nav-icon">🌿</span><span class="app-nav-label">Тело</span><span class="app-nav-dot"></span>
+  </button>
+  <button class="app-nav-item" id="bot-lk" onclick="appNav('lk')">
+    <span class="app-nav-icon">💅</span><span class="app-nav-label">Nail</span><span class="app-nav-dot"></span>
+  </button>
+  <button class="app-nav-item" id="bot-nail" onclick="appNav('nail')">
+    <span class="app-nav-icon">📚</span><span class="app-nav-label">Платформа</span><span class="app-nav-dot"></span>
+  </button>
+</nav>
+
+<!-- ╔══════════════════════╗
+     ║       HUB            ║
+     ╚══════════════════════╝ -->
+<div id="page-hub" class="page active">
+  <div class="hub-emblem">SH</div>
+  <p class="hub-eyebrow">Beauty Studio</p>
+  <h1 class="hub-h1">SHUGA <em>Academy</em></h1>
+  <p class="hub-tagline">Выберите раздел для просмотра</p>
+  <div class="hub-divider"></div>
+  <div class="hub-cards">
+    <div class="hub-card hub-card-admin" onclick="goTo('admin')">
+      <div class="hub-card-num">01</div>
+      <div class="hub-card-label">Роль</div>
+      <div class="hub-card-title">Администратор</div>
+      <div class="hub-card-desc">Карта найма, адаптации, обучения и карта процессов для хранителей и менеджеров студии</div>
+      <div class="hub-tags">
+        <span class="hub-tag">Найм</span>
+        <span class="hub-tag">Адаптация</span>
+        <span class="hub-tag">Обучение</span>
+        <span class="hub-tag">Процессы</span>
+      </div>
+      <div class="hub-card-cta">Открыть <span>→</span></div>
+    </div>
+    <div class="hub-card hub-card-nail" onclick="goTo('nail')">
+      <div class="hub-card-num">02</div>
+      <div class="hub-card-label">Роль</div>
+      <div class="hub-card-title">Мастер Nail‑сервиса</div>
+      <div class="hub-card-desc">Путь найма, онбординг и индивидуальный план развития от ТОПа до мастера высшей категории</div>
+      <div class="hub-tags">
+        <span class="hub-tag">Найм</span>
+        <span class="hub-tag">Онбординг</span>
+        <span class="hub-tag">ИПР</span>
+        <span class="hub-tag">Маникюр</span>
+        <span class="hub-tag">Педикюр</span>
+      </div>
+      <div class="hub-card-cta">Открыть <span>→</span></div>
+    </div>
+
+    <!-- Личные кабинеты — строка -->
+    <div style="grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;max-width:1100px;margin:0 auto;width:100%;" class="lk-cards-row">
+      <div class="hub-card hub-card-nail" style="border-color:rgba(184,130,110,0.4);max-width:100%;" onclick="goTo('admin-lk')">
+        <div class="hub-card-num" style="opacity:0.07;">03</div>
+        <div class="hub-card-label" style="color:var(--rose);">Личный кабинет</div>
+        <div class="hub-card-title">Кабинет администратора</div>
+        <div class="hub-card-desc">Онбординг, обучение и KPI для менеджеров и хранителей</div>
+        <div class="hub-tags">
+          <span class="hub-tag" style="border-color:rgba(184,130,110,0.4);color:var(--rose);background:rgba(184,130,110,0.07);">Онбординг</span>
+          <span class="hub-tag" style="border-color:rgba(184,130,110,0.4);color:var(--rose);background:rgba(184,130,110,0.07);">Обучение</span>
+          <span class="hub-tag" style="border-color:rgba(184,130,110,0.4);color:var(--rose);background:rgba(184,130,110,0.07);">KPI</span>
+        </div>
+        <div class="hub-card-cta" style="color:var(--rose);">Войти <span>→</span></div>
+      </div>
+      <div class="hub-card hub-card-nail" style="border-color:rgba(126,158,140,0.4);max-width:100%;" onclick="goTo('body-lk')">
+        <div class="hub-card-num" style="opacity:0.07;">04</div>
+        <div class="hub-card-label" style="color:var(--sage);">Личный кабинет</div>
+        <div class="hub-card-title">Специалист по телу</div>
+        <div class="hub-card-desc">Онбординг, регламент и показатели для специалистов по телу</div>
+        <div class="hub-tags">
+          <span class="hub-tag" style="border-color:rgba(126,158,140,0.4);color:var(--sage);background:rgba(126,158,140,0.07);">Онбординг</span>
+          <span class="hub-tag" style="border-color:rgba(126,158,140,0.4);color:var(--sage);background:rgba(126,158,140,0.07);">Регламент</span>
+          <span class="hub-tag" style="border-color:rgba(126,158,140,0.4);color:var(--sage);background:rgba(126,158,140,0.07);">KPI</span>
+        </div>
+        <div class="hub-card-cta" style="color:var(--sage);">Войти <span>→</span></div>
+      </div>
+      <div class="hub-card hub-card-nail" style="border-color:rgba(197,169,106,0.4);max-width:100%;" onclick="goTo('lk')">
+        <div class="hub-card-num" style="opacity:0.07;">05</div>
+        <div class="hub-card-label" style="color:var(--gold-dk);">Личный кабинет</div>
+        <div class="hub-card-title">Путь развития мастера nail-сервиса</div>
+        <div class="hub-card-desc">Прогресс мастера: онбординг, навыки, KPI и динамика выручки</div>
+        <div class="hub-tags">
+          <span class="hub-tag" style="border-color:rgba(197,169,106,0.4);color:var(--gold-dk);background:rgba(197,169,106,0.08);">Прогресс</span>
+          <span class="hub-tag" style="border-color:rgba(197,169,106,0.4);color:var(--gold-dk);background:rgba(197,169,106,0.08);">Аналитика</span>
+          <span class="hub-tag" style="border-color:rgba(197,169,106,0.4);color:var(--gold-dk);background:rgba(197,169,106,0.08);">Навыки</span>
+        </div>
+        <div class="hub-card-cta" style="color:var(--gold-dk);">Войти <span>→</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ╔══════════════════════╗
+     ║      ADMIN           ║
+     ╚══════════════════════╝ -->
+<div id="page-admin" class="page admin-page">
+  <div class="inner-header">
+    <button class="back-btn" onclick="goTo('hub')">← Все роли</button>
+    <div class="inner-logo">SH</div>
+    <div class="inner-title-wrap">
+      <h1>SHUGA <em style="font-style:italic;color:var(--rose);">Admin</em></h1>
+      <p>Карта роли администратора</p>
+    </div>
+    <div class="nav-tabs">
+      <div class="nav-tab active" onclick="switchTab('admin','hiring',this)">Найм</div>
+      <div class="nav-tab" onclick="switchTab('admin','adapt',this)">Адаптация</div>
+      <div class="nav-tab" onclick="switchTab('admin','training',this)">Обучение</div>
+      <div class="nav-tab" onclick="switchTab('admin','processes',this)">Процессы</div>
+    </div>
+  </div>
+  <div class="inner-main">
+
+    <!-- НАЙМ -->
+    <div id="admin-hiring" class="tab-section active">
+      <div class="section-head">
+        <div class="section-num">1</div>
+        <div><div class="section-title">Найм</div><div class="section-sub">Путь кандидата от отклика до оффера</div></div>
+      </div>
+      <p class="folder-label">📁 Папка «Найм»</p>
+      <div class="folder-row">
+        <div class="doc-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Портрет кандидата</div>
+        <div class="doc-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="3"/></svg>База прособеседованных кандидатов</div>
+        <div class="doc-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Вакансия</div>
+        <div class="doc-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Таблица-шаблон представления кандидата</div>
+      </div>
+      <div class="stages">
+        <div class="stage-card" onclick="showDetail('h1')"><div class="stage-n">01</div><div class="stage-title">Отклик</div><div class="stage-desc">Первичный контакт, изучение резюме и соцсетей кандидата</div></div>
+        <div class="stage-card" onclick="showDetail('h2')"><div class="stage-n">02</div><div class="stage-title">Видеособеседование с HRD</div><div class="stage-desc">Zoom · Google Meet · Яндекс Телемост — 45–60 минут</div></div>
+        <div class="stage-card" onclick="showDetail('h3')"><div class="stage-n">03</div><div class="stage-title">Очное знакомство в студии</div><div class="stage-desc">Встреча с управляющей и собственницей в студии</div></div>
+        <div class="stage-card" onclick="showDetail('h4')"><div class="stage-n">04</div><div class="stage-title">Сбор обратной связи</div><div class="stage-desc">Проверка рекомендаций с предыдущих мест работы</div></div>
+        <div class="stage-card" onclick="showDetail('h5')"><div class="stage-n">05</div><div class="stage-title">Тестовые дни</div><div class="stage-desc">Менеджер — 3 дня · Хранитель — 2 дня</div><div class="badge-row"><span class="badge badge-rose">Менеджер: 3 дня</span><span class="badge badge-gold">Хранитель: 2 дня</span></div></div>
+        <div class="stage-card" onclick="showDetail('h6')"><div class="stage-n">06</div><div class="stage-title">Сбор обратной связи</div><div class="stage-desc">От кандидата и руководства по итогам тестовых дней</div></div>
+        <div class="stage-card" onclick="showDetail('h7')"><div class="stage-n">07</div><div class="stage-title">Оффер</div><div class="stage-desc">Финальный созвон с HRD, ценностное закрепление и оффер</div></div>
+      </div>
+    </div>
+
+    <!-- АДАПТАЦИЯ -->
+    <div id="admin-adapt" class="tab-section">
+      <div class="section-head">
+        <div class="section-num">2</div>
+        <div><div class="section-title">Адаптация</div><div class="section-sub">Первые шаги нового сотрудника</div></div>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card" onclick="showDetail('a1')"><div class="step-num">1</div><div class="step-body"><h4>Подписание документов</h4><p>NDA · Согласие на ОПД · Согласие на съёмку</p><div class="badge-row"><span class="badge badge-rose">NDA</span><span class="badge badge-rose">ОПД</span><span class="badge badge-rose">Съёмка</span></div></div></div>
+        <div class="step-card" onclick="showDetail('a2')"><div class="step-num">2</div><div class="step-body"><h4>Внутренние регламенты</h4><p>Подписание всех внутренних регламентов студии</p></div></div>
+        <div class="step-card" onclick="showDetail('a3')"><div class="step-num">3</div><div class="step-body"><h4>Регламент внешнего вида студии</h4><p>Стандарты внешнего вида студии с ежедневным фотоотчётом</p><div class="badge-row"><span class="badge badge-gold">Только хранители</span></div></div></div>
+        <div class="step-card" onclick="showDetail('a4')"><div class="step-num">4</div><div class="step-body"><h4>Карта процессов SHUGA</h4><p>Изучение всех этапов: хранитель (9 блоков) · менеджер (7 блоков)</p></div></div>
+        <div class="step-card" onclick="showDetail('a5')"><div class="step-num">5</div><div class="step-body"><h4>Итог 2 недель работы</h4><p>Синхронизационная сессия с HRD + презентация брендбука</p></div></div>
+        <div class="step-card" onclick="showDetail('a6')"><div class="step-num">6</div><div class="step-body"><h4>Знание услуг</h4><p>Тестирование / аттестация по услугам студии Shuga</p><div class="badge-row"><span class="badge badge-rose">Аттестация</span></div></div></div>
+        <div class="step-card" onclick="showDetail('a7')"><div class="step-num">7</div><div class="step-body"><h4>Конфликтология и рекламации</h4><p>Тестирование / аттестация по работе с конфликтными ситуациями</p><div class="badge-row"><span class="badge badge-rose">Аттестация</span></div></div></div>
+      </div>
+    </div>
+
+    <!-- ОБУЧЕНИЕ -->
+    <div id="admin-training" class="tab-section">
+      <div class="section-head">
+        <div class="section-num">3</div>
+        <div><div class="section-title">Обучение</div><div class="section-sub">Программа развития сотрудника</div></div>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card" onclick="showDetail('t1')"><div class="step-num">1</div><div class="step-body"><h4>Конфликтология и работа с рекламациями</h4><p>Теория и практика работы с жалобами, конфликтными гостями и нестандартными ситуациями</p></div></div>
+        <div class="step-card" onclick="showDetail('t2')"><div class="step-num">2</div><div class="step-body"><h4>Услуги Shuga Studio</h4><p>Полное знание услуг студии: составы, форматы, длительность, стандарты сервиса</p></div></div>
+      </div>
+    </div>
+
+    <!-- ПРОЦЕССЫ -->
+    <div id="admin-processes" class="tab-section">
+      <div class="section-head">
+        <div class="section-num" style="font-size:14px;font-family:'Jost',sans-serif;font-weight:500;">⚙</div>
+        <div><div class="section-title">Карта процессов</div><div class="section-sub">Хранитель и Менеджер — роли и зоны ответственности</div></div>
+      </div>
+      <div class="process-cols">
+        <div class="pcol keeper">
+          <div class="pcol-title">Хранитель</div>
+          <div class="p-item"><div class="p-num">01</div><div class="p-body"><h5>Подготовка смены</h5><p>Студия готова к приёму гостей</p><div class="p-tags"><span class="p-tag">Открытие</span><span class="p-tag">Чистота зон</span><span class="p-tag">Расходники</span><span class="p-tag">Стерилизация</span></div></div></div>
+          <div class="p-item"><div class="p-num">02</div><div class="p-body"><h5>Сервис гостя</h5><p>Атмосфера и забота</p><div class="p-tags"><span class="p-tag">Встреча</span><span class="p-tag">Чай / кофе</span><span class="p-tag">Сопровождение</span></div></div></div>
+          <div class="p-item"><div class="p-num">03</div><div class="p-body"><h5>Обслуживание мастеров</h5><p>Мастер не отвлекается на бытовые задачи</p><div class="p-tags"><span class="p-tag">Расходники</span><span class="p-tag">Рабочее место</span><span class="p-tag">Мусор</span></div></div></div>
+          <div class="p-item"><div class="p-num">04</div><div class="p-body"><h5>Поставки и склад</h5><p>Бесперебойные поставки, оптимальный расход</p><div class="p-tags"><span class="p-tag">Приём</span><span class="p-tag">Инвентаризация</span><span class="p-tag">Заказы</span></div></div></div>
+          <div class="p-item"><div class="p-num">05</div><div class="p-body"><h5>Стерилизация и чистота</h5><p>Безопасность и соблюдение стандартов</p><div class="p-tags"><span class="p-tag">Растворы</span><span class="p-tag">Сухожар</span><span class="p-tag">Контроль</span></div></div></div>
+          <div class="p-item"><div class="p-num">06</div><div class="p-body"><h5>Рекламации</h5><p>Укрепление доверия клиентов</p></div></div>
+          <div class="p-item"><div class="p-num">07</div><div class="p-body"><h5>Этические нормы</h5><p>Атмосфера и взаимодействие в коллективе</p></div></div>
+          <div class="p-item"><div class="p-num">08</div><div class="p-body"><h5>Контроль оборудования</h5><p>Мониторинг, фиксация неисправностей</p><div class="p-tags"><span class="p-tag">Проверка</span><span class="p-tag">Фиксация</span><span class="p-tag">Ремонт</span></div></div></div>
+          <div class="p-item"><div class="p-num">09</div><div class="p-body"><h5>Хозяйственное управление</h5><p>Освещение, сантехника, клининг, сезонные задачи</p><div class="p-tags"><span class="p-tag">Освещение</span><span class="p-tag">Клининг</span><span class="p-tag">Окна</span><span class="p-tag">Ковры</span></div></div></div>
+        </div>
+        <div class="pcol manager">
+          <div class="pcol-title">Менеджер</div>
+          <div class="p-item"><div class="p-num">01</div><div class="p-body"><h5>Подготовка смены</h5><p>Студия готова к приёму гостей</p><div class="p-tags"><span class="p-tag">Проверка записи на день</span></div></div></div>
+          <div class="p-item"><div class="p-num">02</div><div class="p-body"><h5>Запись и загрузка</h5><p>Максимальная загрузка студии</p><div class="p-tags"><span class="p-tag">Запись</span><span class="p-tag">Окна</span><span class="p-tag">Лист ожидания</span></div></div></div>
+          <div class="p-item"><div class="p-num">03</div><div class="p-body"><h5>Перезапись и доп. услуги</h5><p>Рост среднего чека и возврат клиентов</p><div class="p-tags"><span class="p-tag">Следующая запись</span><span class="p-tag">Доп. услуги</span></div></div></div>
+          <div class="p-item"><div class="p-num">04</div><div class="p-body"><h5>Работа с клиентской базой</h5><p>Возвращать клиентов</p><div class="p-tags"><span class="p-tag">Без записи</span><span class="p-tag">Рассылки</span></div></div></div>
+          <div class="p-item"><div class="p-num">05</div><div class="p-body"><h5>Финансы смены</h5><p>Прозрачность выручки</p><div class="p-tags"><span class="p-tag">Закрытие кассы</span><span class="p-tag">Сверка</span><span class="p-tag">Передача данных</span></div></div></div>
+          <div class="p-item"><div class="p-num">06</div><div class="p-body"><h5>Рекламации</h5><p>Укрепление доверия клиентов</p></div></div>
+          <div class="p-item"><div class="p-num">07</div><div class="p-body"><h5>Этические нормы</h5><p>Атмосфера и взаимодействие в коллективе</p></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /admin -->
+
+<!-- ╔══════════════════════════╗
+     ║   ЛИЧНЫЙ КАБИНЕТ ADMIN   ║
+     ╚══════════════════════════╝ -->
+<div id="page-admin-lk" class="page" style="background:var(--cream);">
+<style>
+/* ── Admin LK specific ── */
+.alk-login {
+  min-height:100vh; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; padding:40px 20px;
+  background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(184,130,110,0.1) 0%, transparent 60%), var(--cream);
+}
+.alk-login-box {
+  background:#fff; border:1px solid var(--sand); border-radius:var(--radius);
+  padding:52px 48px; max-width:420px; width:100%; box-shadow:var(--shadow-md);
+  position:relative; overflow:hidden;
+}
+.alk-login-box::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg, var(--rose), var(--gold));
+}
+.alk-dash { display:none; }
+.alk-dash.active { display:block; min-height:100vh; }
+.alk-header {
+  background:#fff; border-bottom:1px solid var(--sand); padding:24px 48px;
+  display:flex; align-items:center; gap:20px; position:sticky; top:0; z-index:50;
+}
+.alk-avatar {
+  width:46px; height:46px; border-radius:50%;
+  background:linear-gradient(135deg, var(--rose), var(--gold));
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Playfair Display',serif; font-size:18px; color:#fff; flex-shrink:0;
+}
+.alk-body { padding:40px 48px; max-width:1100px; margin:0 auto; }
+
+/* Welcome hero */
+.alk-welcome {
+  background:linear-gradient(135deg, rgba(184,130,110,0.08), rgba(197,169,106,0.07));
+  border:1px solid rgba(184,130,110,0.25); border-radius:var(--radius);
+  padding:40px; margin-bottom:32px; position:relative; overflow:hidden;
+}
+.alk-welcome::after {
+  content:'SH'; position:absolute; right:32px; top:50%; transform:translateY(-50%);
+  font-family:'Playfair Display',serif; font-size:96px; font-weight:400;
+  color:rgba(184,130,110,0.06); line-height:1; pointer-events:none;
+}
+.alk-welcome-eyebrow { font-size:9px; letter-spacing:4px; text-transform:uppercase; color:var(--rose); margin-bottom:12px; }
+.alk-welcome-title { font-family:'Playfair Display',serif; font-size:28px; font-weight:400; color:var(--ink); margin-bottom:16px; line-height:1.3; }
+.alk-welcome-text { font-size:13px; color:var(--dusk); line-height:1.8; max-width:600px; }
+.alk-nav-btns { display:flex; gap:10px; flex-wrap:wrap; margin-top:24px; }
+.alk-nav-btn {
+  padding:10px 22px; border-radius:var(--radius-pill); font-size:10px;
+  letter-spacing:2px; text-transform:uppercase; cursor:pointer;
+  font-family:'Jost',sans-serif; transition:all .2s; border:none;
+}
+.alk-nav-btn.rose { background:var(--rose); color:#fff; }
+.alk-nav-btn.rose:hover { background:var(--rose-lt); }
+.alk-nav-btn.outline { background:none; border:1px solid var(--sand); color:var(--stone); }
+.alk-nav-btn.outline:hover { border-color:var(--rose); color:var(--rose); }
+.alk-nav-btn.active-tab { background:var(--ink); color:#fff; }
+
+/* Section blocks */
+.alk-section { margin-bottom:40px; }
+.alk-section-title {
+  font-family:'Playfair Display',serif; font-size:22px; font-weight:400;
+  color:var(--ink); margin-bottom:20px; padding-bottom:12px;
+  border-bottom:1px solid var(--sand); display:flex; align-items:center; gap:10px;
+}
+
+/* Checklist */
+.alk-checklist { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:10px; }
+.alk-check {
+  display:flex; align-items:flex-start; gap:12px; padding:14px 16px;
+  background:#fff; border:1px solid var(--sand); border-radius:var(--radius-sm);
+  cursor:pointer; transition:all .18s; font-size:12.5px; color:var(--dusk);
+  box-shadow:var(--shadow-sm);
+}
+.alk-check:hover { border-color:rgba(184,130,110,0.4); color:var(--ink); transform:translateX(2px); }
+.alk-check.done { background:rgba(184,130,110,0.05); border-color:rgba(184,130,110,0.3); }
+.alk-check.done span { text-decoration:line-through; opacity:.5; }
+.alk-checkbox {
+  width:20px; height:20px; border:1.5px solid var(--linen); border-radius:5px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center; font-size:11px;
+  color:#fff; transition:all .18s; margin-top:1px;
+}
+.alk-check.done .alk-checkbox { background:var(--rose); border-color:var(--rose); }
+
+/* KPI metrics */
+.alk-kpi-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:16px; margin-bottom:32px; }
+.alk-kpi-card {
+  background:#fff; border:1px solid var(--sand); border-radius:var(--radius-sm);
+  padding:20px; box-shadow:var(--shadow-sm);
+}
+.alk-kpi-label { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--stone); margin-bottom:12px; }
+.alk-kpi-input {
+  width:100%; padding:10px 0; border:none; border-bottom:1.5px solid var(--sand);
+  font-family:'Playfair Display',serif; font-size:22px; color:var(--ink);
+  background:none; outline:none; transition:border-color .2s;
+}
+.alk-kpi-input:focus { border-color:var(--rose); }
+.alk-kpi-unit { font-size:10px; color:var(--stone); margin-top:6px; }
+
+/* Training blocks */
+.alk-training-card {
+  background:#fff; border:1px solid var(--sand); border-radius:var(--radius);
+  padding:28px 32px; margin-bottom:16px; box-shadow:var(--shadow-sm);
+}
+.alk-training-num {
+  width:36px; height:36px; border-radius:50%; background:rgba(184,130,110,0.12);
+  color:var(--rose); display:flex; align-items:center; justify-content:center;
+  font-family:'Playfair Display',serif; font-size:16px; flex-shrink:0;
+  margin-bottom:16px;
+}
+.alk-training-title { font-family:'Playfair Display',serif; font-size:18px; color:var(--ink); margin-bottom:8px; }
+.alk-training-desc { font-size:12.5px; color:var(--dusk); line-height:1.7; margin-bottom:16px; }
+.alk-training-links { display:flex; gap:10px; flex-wrap:wrap; }
+.alk-link {
+  display:inline-flex; align-items:center; gap:6px; padding:8px 16px;
+  border:1px solid var(--sand); border-radius:var(--radius-pill);
+  font-size:10px; letter-spacing:1.5px; text-transform:uppercase;
+  color:var(--dusk); text-decoration:none; transition:all .2s;
+  font-family:'Jost',sans-serif;
+}
+.alk-link:hover { border-color:var(--rose); color:var(--rose); }
+.alk-link.primary { background:var(--rose); border-color:var(--rose); color:#fff; }
+.alk-link.primary:hover { background:var(--rose-lt); }
+
+/* Progress bar */
+.alk-progress-hero {
+  background:linear-gradient(135deg, rgba(184,130,110,0.08), rgba(197,169,106,0.06));
+  border:1px solid rgba(184,130,110,0.25); border-radius:var(--radius);
+  padding:32px; margin-bottom:28px;
+}
+.alk-prog-pct { font-family:'Playfair Display',serif; font-size:42px; color:var(--rose); }
+.alk-prog-track { height:8px; background:var(--sand); border-radius:8px; overflow:hidden; margin:12px 0; }
+.alk-prog-fill {
+  height:100%; border-radius:8px;
+  background:linear-gradient(90deg, var(--rose), var(--gold));
+  transition:width 1s cubic-bezier(.4,0,.2,1);
+}
+
+/* Tabs inside LK */
+.alk-tabs { display:flex; gap:4px; margin-bottom:28px; overflow-x:auto; padding-bottom:4px; }
+.alk-tabs::-webkit-scrollbar { display:none; }
+.alk-tab {
+  padding:9px 20px; border-radius:var(--radius-pill); font-size:10px;
+  letter-spacing:2px; text-transform:uppercase; cursor:pointer; white-space:nowrap;
+  border:1px solid var(--sand); color:var(--stone); background:none;
+  font-family:'Jost',sans-serif; transition:all .2s;
+}
+.alk-tab.active { background:var(--rose); border-color:var(--rose); color:#fff; }
+
+.alk-tab-content { display:none; }
+.alk-tab-content.active { display:block; }
+
+/* Conflict card */
+.conflict-slide {
+  background:#fff; border:1px solid var(--sand); border-radius:var(--radius-sm);
+  padding:20px 24px; margin-bottom:10px; box-shadow:var(--shadow-sm);
+  transition:all .2s; cursor:pointer;
+}
+.conflict-slide:hover { border-color:rgba(184,130,110,0.4); transform:translateX(3px); }
+.conflict-slide-num { font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--rose); margin-bottom:6px; }
+.conflict-slide-title { font-size:14px; color:var(--ink); font-weight:500; }
+.conflict-slide-body { font-size:12px; color:var(--dusk); line-height:1.6; margin-top:8px; display:none; }
+.conflict-slide.open .conflict-slide-body { display:block; }
+
+.alk-onboard-item {
+  background:#fff; border:1px solid var(--sand); border-radius:var(--radius-sm);
+  padding:16px 20px; box-shadow:var(--shadow-sm);
+}
+@media(max-width:768px) {
+  .alk-header, .alk-body { padding:20px 16px; }
+  .alk-login-box { padding:32px 24px; }
+  .alk-kpi-grid { grid-template-columns:1fr 1fr; }
+  .alk-checklist { grid-template-columns:1fr; }
+  .alk-welcome { padding:24px; }
+  .alk-welcome-title { font-size:22px; }
+}
+</style>
+
+<!-- LOGIN -->
+<div class="alk-login" id="alk-login">
+  <div class="alk-login-box">
+    <div style="text-align:center;margin-bottom:28px;">
+      <div style="width:56px;height:56px;border:1px solid var(--rose);border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;color:var(--rose);margin:0 auto 14px;letter-spacing:2px;">SH</div>
+      <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--rose);margin-bottom:8px;">Shuga Academy</div>
+      <div style="font-family:'Playfair Display',serif;font-size:26px;color:var(--ink);margin-bottom:4px;">Кабинет администратора</div>
+      <div style="font-size:12px;color:var(--stone);">Менеджер · Хранитель</div>
+    </div>
+    <label class="lk-select-label">Выберите сотрудника</label>
+    <select class="lk-select" id="alk-user-select">
+      <option value="">— выбрать —</option>
+      <option value="ilariya">Менеджер — Илария</option>
+      <option value="svetlana">Менеджер — Светлана</option>
+      <option value="aleksandra">Хранитель — Александра</option>
+      <option value="angelina">Хранитель — Ангелина</option>
+    </select>
+    <label class="lk-pin-label">Пин-код (4 цифры)</label>
+    <input class="lk-pin-input" type="password" maxlength="4" id="alk-pin" placeholder="••••" />
+    <button class="lk-btn" style="background:var(--rose);" onclick="alkLogin()">Войти →</button>
+    <div class="lk-error" id="alk-error">Неверный пин-код</div>
+    <button class="back-btn" style="margin-top:20px;width:100%;justify-content:center;" onclick="goTo('hub')">← На главную</button>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="alk-dash-wrap"></div>
+</div><!-- /admin-lk -->
+
+<!-- ╔══════════════════════╗
+     ║       NAIL           ║
+     ╚══════════════════════╝ -->
+<div id="page-nail" class="page nail-page">
+  <div class="inner-header">
+    <button class="back-btn" onclick="goTo('hub')">← Все роли</button>
+    <div class="inner-logo" style="border-color:var(--sage);color:var(--sage);">SH</div>
+    <div class="inner-title-wrap">
+      <h1>SHUGA <em style="font-style:italic;color:var(--sage);">Nail</em></h1>
+      <p>Академия мастера ногтевого сервиса</p>
+    </div>
+    <div class="nav-tabs">
+      <div class="nav-tab active" onclick="switchTab('nail','hiring',this)">Найм</div>
+      <div class="nav-tab" onclick="switchTab('nail','onboard',this)">Онбординг</div>
+      <div class="nav-tab" onclick="switchTab('nail','ipr',this)">ИПР</div>
+      <div class="nav-tab" onclick="switchTab('nail','checklist',this)">Чек‑лист</div>
+    </div>
+  </div>
+  <div class="inner-main">
+
+    <!-- НАЙМ NAIL -->
+    <div id="nail-hiring" class="tab-section active">
+      <div class="section-head">
+        <div class="section-num">1</div>
+        <div><div class="section-title">Найм</div><div class="section-sub">Путь кандидата — мастер ногтевого сервиса</div></div>
+      </div>
+      <div class="stages">
+        <div class="stage-card" onclick="showDetail('n1')"><div class="stage-n">01</div><div class="stage-resp">HRD</div><div class="stage-title">Отбор по стоп-факторам + созвон</div><div class="stage-desc">Изучение резюме, соцсетей, запрос фото работ. Первичная проверка по ключевым критериям</div></div>
+        <div class="stage-card" onclick="showDetail('n2')"><div class="stage-n">02</div><div class="stage-resp">Управляющая</div><div class="stage-title">Тестовый маникюр на модели + очная беседа</div><div class="stage-desc">Оценка качества работы, техники, коммуникации — 20–30 мин</div></div>
+        <div class="stage-card" onclick="showDetail('n3')"><div class="stage-n">03</div><div class="stage-resp">HRD</div><div class="stage-title">Подготовка к тестовым дням + Welcome-презентация</div><div class="stage-desc">Направляется не позднее чем за 1–2 дня до выхода кандидата</div></div>
+        <div class="stage-card" onclick="showDetail('n4')"><div class="stage-n">04</div><div class="stage-resp">Управляющая + buddy</div><div class="stage-title">Первый тестовый день</div><div class="stage-desc">Кандидат приходит за 40 мин до первой записи. Экскурсия, команда, работа с гостями</div></div>
+        <div class="stage-card" onclick="showDetail('n5')"><div class="stage-n">05</div><div class="stage-resp">Управляющая + buddy</div><div class="stage-title">Второй тестовый день</div><div class="stage-desc">Кандидат работает самостоятельно. Финальная оценка и решение</div></div>
+        <div class="stage-card" onclick="showDetail('n6')"><div class="stage-n">06</div><div class="stage-resp">HRD</div><div class="stage-title">Финальный созвон, оффер и ценностное закрепление</div><div class="stage-desc">Сверка ожиданий, обсуждение рисков, закрепление договорённостей</div></div>
+        <div class="stage-card" onclick="showDetail('n7')"><div class="stage-n">07</div><div class="stage-resp">HRD + Управляющая</div><div class="stage-title">Подготовка к выходу в смены</div><div class="stage-desc">HRD передаёт кандидата управляющей. Согласование и постановка в график</div></div>
+      </div>
+    </div>
+
+    <!-- ОНБОРДИНГ NAIL -->
+    <div id="nail-onboard" class="tab-section">
+      <div class="section-head">
+        <div class="section-num">2</div>
+        <div><div class="section-title">Онбординг · Адаптация</div><div class="section-sub">Первые шаги нового мастера в студии</div></div>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card" onclick="showDetail('o1')"><div class="step-num">1</div><div class="step-body"><h4>Welcome-book</h4><p>Ознакомление с книгой добро пожаловать в студию SHUGA</p><a class="step-link" href="https://docs.google.com/presentation/d/1Qa07faHE25eRQP_nFIlPEsYPGav_Wbiv/edit?usp=sharing&ouid=117024619454996101032&rtpof=true&sd=true" target="_blank" rel="noopener" onclick="event.stopPropagation()">📖 Открыть Welcome-book →</a></div></div>
+        <div class="step-card" onclick="showDetail('o2')"><div class="step-num">2</div><div class="step-body"><h4>Подписание документов</h4><p>NDA · Согласие на ОПД · Согласие на съёмку</p><div class="badge-row"><span class="badge badge-sage">NDA</span><span class="badge badge-sage">ОПД</span><span class="badge badge-gold">Медкнижка</span><span class="badge badge-gold">Паспорт</span><span class="badge badge-gold">ИНН</span></div></div></div>
+        <div class="step-card" onclick="showDetail('o3')"><div class="step-num">3</div><div class="step-body"><h4>Внутренние регламенты</h4><p>Регламент мастера · Регламент коммуникации · Регламент онихолизиса · Правила реставраций</p></div></div>
+        <div class="step-card" onclick="showDetail('o4')"><div class="step-num">4</div><div class="step-body"><h4>Очный разбор с демонстрацией</h4><p>Правила уборки рабочих мест (маникюр + педикюр) · Протокол стерилизации</p></div></div>
+        <div class="step-card" onclick="showDetail('o5')"><div class="step-num">5</div><div class="step-body"><h4>Самостоятельное изучение</h4><p>Протоколы процедур · Ценности и устав студии · Ритейл и описание продуктов</p></div></div>
+        <div class="step-card" onclick="showDetail('o6')"><div class="step-num">6</div><div class="step-body"><h4>Видеоматериалы В. Зайцевой</h4><p>По отслойкам и сложным случаям. Дедлайн — 2 недели со старта работы</p><a class="step-link" href="https://forms.gle/b3Vbu9VWrePmDFY77" target="_blank" rel="noopener">📋 Пройти тестирование →</a></div></div>
+        <div class="step-card step-card-test" onclick="showDetail('o6t')"><div class="step-num">6т</div><div class="step-body"><h4>Тестирование по В. Зайцевой</h4><p>Тест по материалам об отслойках и сложных случаях</p><div class="badge-row"><span class="badge badge-rose">Тест</span></div></div></div>
+        <div class="step-card" onclick="showDetail('o7')"><div class="step-num">7</div><div class="step-body"><h4>Бесплатный семинар Luxio</h4><p>Посещение семинара от бренда Luxio</p></div></div>
+        <div class="step-card step-card-test" onclick="showDetail('o7t')"><div class="step-num">7т</div><div class="step-body"><h4>Тестирование по протоколу Luxio</h4><p>Проверка знания протокола Luxio после семинара</p><div class="badge-row"><span class="badge badge-rose">Тест</span></div></div></div>
+        <div class="step-card" onclick="showDetail('o8')"><div class="step-num">8</div><div class="step-body"><h4>Бесплатный семинар Straderm</h4><p>В офисе Luxio</p></div></div>
+        <div class="step-card step-card-test" onclick="showDetail('o8t')"><div class="step-num">8т</div><div class="step-body"><h4>Тестирование по протоколу Straderm</h4><p>Проверка знания протокола Straderm после семинара</p><div class="badge-row"><span class="badge badge-rose">Тест</span></div></div></div>
+        <div class="step-card" onclick="showDetail('o9')"><div class="step-num">9</div><div class="step-body"><h4>Понимание условий обучения</h4><p>Внутреннее обучение от технологов · Условия для внешнего повышения квалификации</p></div></div>
+        <div class="step-card" onclick="showDetail('o10')"><div class="step-num">10</div><div class="step-body"><h4>Синхронизационная сессия с HRD + брендбук</h4><p>Итог первых недель. Сессия + презентация брендбука студии</p></div></div>
+        <div class="step-card" onclick="showDetail('o11')"><div class="step-num">11</div><div class="step-body"><h4>Определение точки А + построение ИПР</h4><p>Оценка текущего уровня. Построение индивидуального плана развития</p></div></div>
+        <div class="step-card" onclick="showDetail('o12')"><div class="step-num">12</div><div class="step-body"><h4>Видеоматериалы: укрепление гелем</h4><p>Обучающие видео по технике укрепления гелем</p></div></div>
+        <div class="step-card" onclick="showDetail('o13')"><div class="step-num">13</div><div class="step-body"><h4>Видеоматериалы: маникюр и покрытие</h4><p>Общий курс по маникюру и покрытию</p></div></div>
+      </div>
+    </div>
+
+    <!-- ИПР NAIL -->
+    <div id="nail-ipr" class="tab-section">
+      <div class="section-head">
+        <div class="section-num">3</div>
+        <div><div class="section-title">Индивидуальный план развития</div><div class="section-sub">Маникюр · Педикюр · ТОП → Эксперт → Высшая категория</div></div>
+      </div>
+
+      <div class="info-bar">
+        <div class="info-bar-icon">📅</div>
+        <div><div class="info-bar-title">Встречи с HRD</div><div class="info-bar-desc">С ТОПами — каждые 3 месяца &nbsp;·&nbsp; С экспертами — 1–2 раза в год</div></div>
+      </div>
+
+      <div class="ipr-block">
+        <div class="ipr-title"><span>💅</span> Маникюр</div>
+        <div class="level-row">
+          <div class="lv-card lv1">
+            <div class="lv-badge"><div class="lv-icon">Ⅰ</div><div class="lv-name">ТОП</div></div>
+            <div class="lv-sub">Первые 6 месяцев · Уверенный уровень</div>
+            <ul class="skill-list"><li>Комбинированный маникюр</li><li>Аппаратный маникюр</li><li>Дизайны: френч, втирка, омбрэ</li><li>Моделирование ногтей</li><li>Укрепление ногтей</li><li>Ремонты</li></ul>
+            <div class="kpi-strip"><span class="kpi-chip">Выручка от 300 000 ₽/мес</span><span class="kpi-chip">Средний чек 5 500 ₽</span><span class="kpi-chip">Возвратность 70%+</span><span class="kpi-chip">0 рекламаций</span></div>
+          </div>
+          <div class="lv-card lv2">
+            <div class="lv-badge"><div class="lv-icon">Ⅱ</div><div class="lv-name">Эксперт</div></div>
+            <div class="lv-sub">Расширение навыков · Переход в категорию</div>
+            <ul class="skill-list"><li>Пилочный маникюр (Саша Нестерова)</li><li>Японский маникюр</li><li>IBX (видеоурок от Гульфии)</li><li>SPA Comfort Zone</li><li>Аттестация</li></ul>
+            <div class="kpi-strip"><span class="kpi-chip">Выручка от 300 000 ₽/мес</span><span class="kpi-chip">Средний чек 5 500 ₽</span><span class="kpi-chip">Отзывы клиентов</span></div>
+          </div>
+          <div class="lv-card lv3">
+            <div class="lv-badge"><div class="lv-icon">Ⅲ</div><div class="lv-name">Высшая</div></div>
+            <div class="lv-sub">Мастер высшей категории</div>
+            <ul class="skill-list"><li>Владеет всем спектром услуг маникюра</li><li>Возвратность клиентов 80%</li><li>Отсутствие рекламаций</li><li>Заполненность 80% на 3 недели вперёд</li></ul>
+            <div class="kpi-strip"><span class="kpi-chip">Выручка от 400 000 ₽/мес</span><span class="kpi-chip">Средний чек 6 000 ₽</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ipr-block">
+        <div class="ipr-title"><span>🦶</span> Педикюр</div>
+        <div class="level-row">
+          <div class="lv-card lv1">
+            <div class="lv-badge"><div class="lv-icon">Ⅰ</div><div class="lv-name">ТОП</div></div>
+            <div class="lv-sub">Первые 6 месяцев</div>
+            <ul class="skill-list"><li>Обучение от приглашённого SMART-технолога</li><li>Обучающие материалы по SMART-педикюру</li><li>Протокол SMART</li><li>Протокол STRADERM</li><li>Аттестация по SMART-педикюру</li></ul>
+          </div>
+          <div class="lv-card lv2">
+            <div class="lv-badge"><div class="lv-icon">Ⅱ</div><div class="lv-name">Эксперт</div></div>
+            <div class="lv-sub">Расширение навыков педикюра</div>
+            <ul class="skill-list"><li>Внешний семинар у Анны Романовой — техника с пинцетом</li><li>Практический семинар от ChaCure</li><li>Практика ChaCure с Ксюшей / Полиной</li><li>Пинцет</li><li>Массаж</li><li>ChaCure</li></ul>
+          </div>
+          <div class="lv-card lv3">
+            <div class="lv-badge"><div class="lv-icon">Ⅳ</div><div class="lv-name">Высшая</div></div>
+            <div class="lv-sub">Чисто мастер педикюра</div>
+            <ul class="skill-list"><li>Владеет всем спектром педикюрных услуг</li><li>Возвратность клиентов 80%</li><li>Отсутствие рекламаций</li><li>Заполненность 80% на 3 недели вперёд</li></ul>
+            <div class="kpi-strip"><span class="kpi-chip">Выручка от 400 000 ₽/мес</span><span class="kpi-chip">Средний чек 6 000 ₽</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ЧЕК-ЛИСТ NAIL -->
+    <div id="nail-checklist" class="tab-section">
+      <div class="section-head">
+        <div class="section-num" style="font-size:16px;">✓</div>
+        <div><div class="section-title">Чек-лист перехода в Эксперты</div><div class="section-sub">Отмечайте выполненные навыки</div></div>
+      </div>
+      <div class="checklist-wrap">
+        <div class="cl-card">
+          <div class="cl-title sage-t">💅 Маникюр</div>
+          <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>Комбинированный маникюр</span></div>
+          <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>Аппаратный маникюр</span></div>
+          <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>Пилочный маникюр</span></div>
+          <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>Японский маникюр</span></div>
+          <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>Моделирование ногтей</span></div>
+          <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>Укрепление ногтей</span></div>
+          <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>IBX</span></div>
+          <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>SPA Comfort Zone</span></div>
+          <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>Дизайны: френч, втирка, омбрэ</span></div>
+          <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>Ремонты</span></div>
+        </div>
+        <div class="cl-card">
+          <div class="cl-title rose-t">🦶 Педикюр</div>
+          <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>SMART-педикюр</span></div>
+          <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>STRADERM</span></div>
+          <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>ChaCure</span></div>
+          <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>Пинцет</span></div>
+          <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>Массаж</span></div>
+          <div class="cl-title gold-t" style="margin-top:20px;font-size:17px;">📊 KPI</div>
+          <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>Общая выручка от 300 000 ₽/мес</span></div>
+          <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>Средний чек 5 500 ₽</span></div>
+          <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>Отсутствие рекламаций</span></div>
+          <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>Отзывы клиентов (регулярные положительные)</span></div>
+          <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>Возвратность клиентов от 70%</span></div>
+        </div>
+      </div>
+      <div class="expert-block">
+        <div class="expert-title">Эксперт → Мастер высшей категории</div>
+        <div class="metrics-grid">
+          <div class="metric"><div class="metric-val">80%</div><div class="metric-label">Возвратность клиентов</div></div>
+          <div class="metric"><div class="metric-val">0</div><div class="metric-label">Рекламаций</div></div>
+          <div class="metric"><div class="metric-val">80%</div><div class="metric-label">Заполненность на 3 нед. вперёд</div></div>
+          <div class="metric"><div class="metric-val">6 000 ₽</div><div class="metric-label">Средний чек</div></div>
+          <div class="metric"><div class="metric-val">400 000 ₽</div><div class="metric-label">Выручка в месяц</div></div>
+          <div class="metric"><div class="metric-val">All</div><div class="metric-label">Все навыки освоены</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /nail -->
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay" onclick="closeOverlay(event)">
+  <div class="ov-card">
+    <div class="ov-close" onclick="closeOverlayDirect()">✕</div>
+    <div class="ov-eyebrow" id="ov-step"></div>
+    <div class="ov-title"   id="ov-title"></div>
+    <div class="ov-body"    id="ov-body"></div>
+  </div>
+</div>
+
+<!-- ╔══════════════════════╗
+     ║    ЛИЧНЫЙ КАБИНЕТ    ║
+     ╚══════════════════════╝ -->
+<!-- ╔══════════════════════════════╗
+     ║  ЛИЧНЫЙ КАБИНЕТ — ТЕЛО      ║
+     ╚══════════════════════════════╝ -->
+<div id="page-body-lk" class="page" style="background:var(--cream);">
+<style>
+.blk-login {
+  min-height:100vh; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; padding:40px 20px;
+  background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(126,158,140,0.1) 0%, transparent 60%), var(--cream);
+}
+.blk-login-box {
+  background:#fff; border:1px solid var(--sand); border-radius:var(--radius);
+  padding:52px 48px; max-width:420px; width:100%; box-shadow:var(--shadow-md);
+  position:relative; overflow:hidden;
+}
+.blk-login-box::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg, var(--sage), var(--blush));
+}
+.blk-dash { display:none; }
+.blk-dash.active { display:block; min-height:100vh; }
+.blk-header {
+  background:#fff; border-bottom:1px solid var(--sand); padding:24px 48px;
+  display:flex; align-items:center; gap:20px; position:sticky; top:0; z-index:50;
+}
+.blk-avatar {
+  width:46px; height:46px; border-radius:50%;
+  background:linear-gradient(135deg, var(--sage), var(--blush));
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Playfair Display',serif; font-size:18px; color:#fff; flex-shrink:0;
+}
+.blk-body { padding:40px 48px; max-width:1100px; margin:0 auto; }
+.blk-welcome {
+  background:linear-gradient(135deg, rgba(126,158,140,0.08), rgba(196,144,154,0.07));
+  border:1px solid rgba(126,158,140,0.25); border-radius:var(--radius);
+  padding:40px; margin-bottom:32px; position:relative; overflow:hidden;
+}
+.blk-welcome::after {
+  content:'SH'; position:absolute; right:32px; top:50%; transform:translateY(-50%);
+  font-family:'Playfair Display',serif; font-size:96px; font-weight:400;
+  color:rgba(126,158,140,0.06); line-height:1; pointer-events:none;
+}
+.blk-prog-track { height:8px; background:var(--sand); border-radius:8px; overflow:hidden; margin:12px 0; }
+.blk-prog-fill {
+  height:100%; border-radius:8px;
+  background:linear-gradient(90deg, var(--sage), var(--blush));
+  transition:width 1s cubic-bezier(.4,0,.2,1);
+}
+.blk-tabs { display:flex; gap:4px; margin-bottom:28px; overflow-x:auto; padding-bottom:4px; }
+.blk-tabs::-webkit-scrollbar { display:none; }
+.blk-tab {
+  padding:9px 20px; border-radius:var(--radius-pill); font-size:10px;
+  letter-spacing:2px; text-transform:uppercase; cursor:pointer; white-space:nowrap;
+  border:1px solid var(--sand); color:var(--stone); background:none;
+  font-family:'Jost',sans-serif; transition:all .2s;
+}
+.blk-tab.active { background:var(--sage); border-color:var(--sage); color:#fff; }
+.blk-tab-content { display:none; }
+.blk-tab-content.active { display:block; }
+.blk-section { margin-bottom:36px; }
+.blk-section-title {
+  font-family:'Playfair Display',serif; font-size:22px; font-weight:400;
+  color:var(--ink); margin-bottom:20px; padding-bottom:12px;
+  border-bottom:1px solid var(--sand); display:flex; align-items:center; gap:10px;
+}
+.blk-check {
+  display:flex; align-items:flex-start; gap:12px; padding:14px 16px;
+  background:#fff; border:1px solid var(--sand); border-radius:var(--radius-sm);
+  cursor:pointer; transition:all .18s; font-size:12.5px; color:var(--dusk);
+  box-shadow:var(--shadow-sm); margin-bottom:8px;
+}
+.blk-check:hover { border-color:rgba(126,158,140,0.4); color:var(--ink); transform:translateX(2px); }
+.blk-check.done { background:rgba(126,158,140,0.06); border-color:rgba(126,158,140,0.3); }
+.blk-check.done span { text-decoration:line-through; opacity:.5; }
+.blk-checkbox {
+  width:20px; height:20px; border:1.5px solid var(--linen); border-radius:5px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center; font-size:11px;
+  color:#fff; transition:all .18s; margin-top:1px;
+}
+.blk-check.done .blk-checkbox { background:var(--sage); border-color:var(--sage); }
+.blk-onboard-item {
+  background:#fff; border:1px solid var(--sand); border-radius:var(--radius-sm);
+  padding:16px 20px; box-shadow:var(--shadow-sm); margin-bottom:10px;
+}
+.blk-kpi-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:14px; margin-bottom:28px; }
+.blk-kpi-card { background:#fff; border:1px solid var(--sand); border-radius:var(--radius-sm); padding:18px 20px; box-shadow:var(--shadow-sm); }
+.blk-kpi-label { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--stone); margin-bottom:10px; }
+.blk-kpi-input {
+  width:100%; padding:8px 0; border:none; border-bottom:1.5px solid var(--sand);
+  font-family:'Playfair Display',serif; font-size:20px; color:var(--ink);
+  background:none; outline:none; transition:border-color .2s;
+}
+.blk-kpi-input:focus { border-color:var(--sage); }
+.blk-kpi-unit { font-size:10px; color:var(--stone); margin-top:5px; }
+@media(max-width:768px){
+  .blk-header, .blk-body { padding:20px 16px; }
+  .blk-login-box { padding:32px 24px; }
+  .blk-kpi-grid { grid-template-columns:1fr 1fr; }
+}
+</style>
+
+<!-- LOGIN -->
+<div class="blk-login" id="blk-login">
+  <div class="blk-login-box">
+    <div style="text-align:center;margin-bottom:28px;">
+      <div style="width:56px;height:56px;border:1px solid var(--sage);border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;color:var(--sage);margin:0 auto 14px;letter-spacing:2px;">SH</div>
+      <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--sage);margin-bottom:8px;">Shuga Academy</div>
+      <div style="font-family:'Playfair Display',serif;font-size:26px;color:var(--ink);margin-bottom:4px;">Кабинет специалиста по телу</div>
+    </div>
+    <label class="lk-select-label">Выберите специалиста</label>
+    <select class="lk-select" id="blk-user-select">
+      <option value="">— выбрать —</option>
+      <option value="elena">Елена</option>
+      <option value="elvira">Эльвира</option>
+    </select>
+    <label class="lk-pin-label">Пин-код (4 цифры)</label>
+    <input class="lk-pin-input" type="password" maxlength="4" id="blk-pin" placeholder="••••" />
+    <button class="lk-btn" style="background:var(--sage);" onclick="blkLogin()">Войти →</button>
+    <div class="lk-error" id="blk-error">Неверный пин-код</div>
+    <button class="back-btn" style="margin-top:20px;width:100%;justify-content:center;" onclick="goTo('hub')">← На главную</button>
+  </div>
+</div>
+
+<div id="blk-dash-wrap"></div>
+</div><!-- /body-lk -->
+
+<div id="page-lk" class="page" style="min-height:100vh;background:var(--cream);">
+  <!-- LK STYLES -->
+  <style>
+  /* LK specific */
+  .lk-login {
+    min-height:100vh; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; padding:40px 20px;
+    background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(126,158,140,0.12) 0%, transparent 60%), var(--cream);
+  }
+  .lk-login-box {
+    background:#fff; border:1px solid var(--sand); border-radius:var(--radius);
+    padding:52px 48px; max-width:420px; width:100%; box-shadow:var(--shadow-md);
+    position:relative; overflow:hidden;
+  }
+  .lk-login-box::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:3px;
+    background:linear-gradient(90deg, var(--sage), var(--gold));
+  }
+  .lk-login-eyebrow { font-size:9px; letter-spacing:4px; text-transform:uppercase; color:var(--sage); margin-bottom:12px; }
+  .lk-login-title { font-family:'Playfair Display',serif; font-size:28px; font-weight:400; color:var(--ink); margin-bottom:6px; }
+  .lk-login-sub { font-size:12px; color:var(--stone); margin-bottom:36px; }
+  .lk-select-label { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--stone); margin-bottom:8px; display:block; }
+  .lk-select {
+    width:100%; padding:12px 16px; border:1px solid var(--sand); border-radius:var(--radius-sm);
+    font-family:'Jost',sans-serif; font-size:13px; color:var(--ink); background:#fff;
+    appearance:none; cursor:pointer; margin-bottom:24px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23b8a898' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:right 14px center;
+  }
+  .lk-select:focus { outline:none; border-color:var(--sage); }
+  .lk-pin-label { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--stone); margin-bottom:8px; display:block; }
+  .lk-pin-input {
+    width:100%; padding:12px 16px; border:1px solid var(--sand); border-radius:var(--radius-sm);
+    font-family:'Jost',sans-serif; font-size:16px; letter-spacing:6px; color:var(--ink); background:#fff;
+    text-align:center; margin-bottom:28px;
+  }
+  .lk-pin-input:focus { outline:none; border-color:var(--sage); }
+  .lk-btn {
+    width:100%; padding:14px; background:var(--sage); color:#fff;
+    border:none; border-radius:var(--radius-sm); font-family:'Jost',sans-serif;
+    font-size:11px; letter-spacing:3px; text-transform:uppercase; cursor:pointer;
+    transition:background .2s, transform .15s;
+  }
+  .lk-btn:hover { background:var(--sage-lt); transform:translateY(-1px); }
+  .lk-error { font-size:11.5px; color:var(--rose); text-align:center; margin-top:12px; display:none; }
+
+  /* Dashboard */
+  .lk-dash { display:none; }
+  .lk-dash.active { display:block; }
+  .lk-header {
+    background:#fff; border-bottom:1px solid var(--sand); padding:24px 48px;
+    display:flex; align-items:center; gap:20px; position:sticky; top:0; z-index:50;
+    box-shadow:0 1px 0 var(--sand);
+  }
+  .lk-avatar {
+    width:46px; height:46px; border-radius:50%; background:linear-gradient(135deg, var(--sage), var(--gold));
+    display:flex; align-items:center; justify-content: center;
+    font-family:'Playfair Display',serif; font-size:18px; color:#fff; flex-shrink:0;
+  }
+  .lk-name { font-family:'Playfair Display',serif; font-size:22px; font-weight:400; color:var(--ink); }
+  .lk-since { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--stone); margin-top:2px; }
+  .lk-logout {
+    margin-left:auto; padding:8px 18px; border:1px solid var(--sand);
+    border-radius:var(--radius-pill); font-size:10px; letter-spacing:2px; text-transform:uppercase;
+    color:var(--stone); background:none; cursor:pointer; font-family:'Jost',sans-serif;
+    transition:all .2s;
+  }
+  .lk-logout:hover { border-color:var(--rose); color:var(--rose); }
+
+  .lk-body { padding:40px 48px; max-width:1300px; margin:0 auto; }
+
+  /* Progress hero */
+  .lk-progress-hero {
+    background:linear-gradient(135deg, rgba(126,158,140,0.1) 0%, rgba(197,169,106,0.08) 100%);
+    border:1px solid rgba(126,158,140,0.3); border-radius:var(--radius);
+    padding:36px; margin-bottom:36px; position:relative; overflow:hidden;
+  }
+  .lk-progress-hero::after {
+    content:''; position:absolute; right:-20px; top:-20px;
+    width:140px; height:140px; border-radius:50%;
+    background:radial-gradient(circle, rgba(197,169,106,0.15) 0%, transparent 70%);
+  }
+  .lk-ph-top { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:24px; flex-wrap:wrap; gap:16px; }
+  .lk-level-badge {
+    display:inline-flex; align-items:center; gap:10px; padding:8px 20px;
+    border-radius:var(--radius-pill); font-size:11px; letter-spacing:2px; text-transform:uppercase;
+    font-weight:500;
+  }
+  .lk-level-badge.top { background:rgba(126,158,140,0.15); color:var(--sage); border:1px solid rgba(126,158,140,0.4); }
+  .lk-level-badge.expert { background:rgba(197,169,106,0.15); color:var(--gold-dk); border:1px solid rgba(197,169,106,0.4); }
+  .lk-level-badge.high { background:rgba(184,130,110,0.15); color:var(--rose); border:1px solid rgba(184,130,110,0.4); }
+
+  .lk-progress-bar-wrap { margin-bottom:10px; }
+  .lk-progress-label { display:flex; justify-content:space-between; font-size:11px; color:var(--stone); margin-bottom:8px; letter-spacing:1px; }
+  .lk-progress-track {
+    height:10px; background:var(--sand); border-radius:10px; overflow:hidden; position:relative;
+  }
+  .lk-progress-fill {
+    height:100%; border-radius:10px; transition:width 1s cubic-bezier(.4,0,.2,1);
+    background:linear-gradient(90deg, var(--sage), var(--gold));
+    position:relative; overflow:hidden;
+  }
+  .lk-progress-fill::after {
+    content:''; position:absolute; top:0; left:-100%; width:100%; height:100%;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation:shimmer 2.5s infinite;
+  }
+  @keyframes shimmer { to { left:200%; } }
+  .lk-progress-pct { font-family:'Playfair Display',serif; font-size:42px; font-weight:400; color:var(--sage); margin-right:8px; }
+  .lk-progress-pct-unit { font-size:13px; color:var(--stone); }
+
+  /* Stats row */
+  .lk-stats { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:12px; margin-bottom:36px; }
+  .lk-stat {
+    background:#fff; border:1px solid var(--sand); border-radius:var(--radius-sm);
+    padding:18px 20px; box-shadow:var(--shadow-sm);
+  }
+  .lk-stat-val { font-family:'Playfair Display',serif; font-size:22px; font-weight:400; color:var(--ink); margin-bottom:4px; }
+  .lk-stat-label { font-size:10.5px; color:var(--stone); }
+  .lk-stat-trend { font-size:10px; margin-top:6px; }
+  .lk-stat-trend.up { color:var(--sage); }
+  .lk-stat-trend.down { color:var(--rose); }
+
+  /* Sections */
+  .lk-section { margin-bottom:40px; }
+  .lk-section-title {
+    font-family:'Playfair Display',serif; font-size:22px; font-weight:400; letter-spacing:1px;
+    margin-bottom:20px; padding-bottom:12px; border-bottom:1px solid var(--sand);
+    display:flex; align-items:center; gap:10px; color:var(--ink);
+  }
+  .lk-checklist { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:10px; }
+  .lk-check {
+    display:flex; align-items:center; gap:12px; padding:12px 16px;
+    background:#fff; border:1px solid var(--sand); border-radius:var(--radius-sm);
+    cursor:pointer; transition:all .18s; font-size:12.5px; color:var(--dusk);
+    box-shadow:var(--shadow-sm);
+  }
+  .lk-check:hover { border-color:var(--sage-lt); color:var(--ink); transform:translateX(2px); }
+  .lk-check.done { background:rgba(126,158,140,0.06); border-color:rgba(126,158,140,0.35); }
+  .lk-check.done span { text-decoration:line-through; opacity:.55; }
+  .lk-checkbox {
+    width:20px; height:20px; border:1.5px solid var(--linen); border-radius:5px; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center; font-size:11px;
+    color:#fff; transition:all .18s;
+  }
+  .lk-check.done .lk-checkbox { background:var(--sage); border-color:var(--sage); }
+
+  /* History chart */
+  .lk-chart-wrap { background:#fff; border:1px solid var(--sand); border-radius:var(--radius); padding:28px 28px 16px; box-shadow:var(--shadow-sm); }
+  .lk-chart-title { font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--stone); margin-bottom:20px; }
+  .lk-chart-outer { position:relative; }
+  .lk-chart-yaxis { position:absolute; left:0; top:0; bottom:28px; display:flex; flex-direction:column; justify-content:space-between; pointer-events:none; }
+  .lk-chart-ylabel { font-size:9px; color:var(--stone); white-space:nowrap; transform:translateY(50%); }
+  .lk-chart { display:flex; align-items:flex-end; gap:8px; height:180px; padding-left:56px; padding-bottom:24px; position:relative; box-sizing:border-box; }
+  .lk-chart-baseline { position:absolute; left:56px; right:0; bottom:24px; height:1px; background:var(--sand); }
+  .lk-bar-col { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; position:relative; height:100%; }
+  .lk-bar {
+    width:100%; border-radius:4px 4px 0 0; transition:all .6s cubic-bezier(.4,0,.2,1);
+    background:linear-gradient(180deg, var(--sage) 0%, rgba(126,158,140,0.55) 100%);
+    position:relative; min-height:3px; cursor:default; flex-shrink:0;
+  }
+  .lk-bar:hover { background:linear-gradient(180deg, var(--gold) 0%, rgba(197,169,106,0.6) 100%); }
+  .lk-bar-gold { background:linear-gradient(180deg, var(--gold) 0%, rgba(197,169,106,0.55) 100%) !important; }
+  .lk-bar-gold:hover { background:linear-gradient(180deg, var(--gold-dk) 0%, rgba(154,125,70,0.6) 100%) !important; }
+  .lk-bar-val {
+    position:absolute; top:-22px; left:50%; transform:translateX(-50%);
+    font-size:9px; color:var(--ink); font-weight:500; white-space:nowrap;
+    background:#fff; padding:1px 4px; border-radius:3px;
+    border:1px solid var(--sand);
+  }
+  .lk-bar-label { font-size:9px; color:var(--stone); text-align:center; margin-top:5px; white-space:nowrap; }
+
+  @media(max-width:720px){
+    .lk-header, .lk-body { padding:20px; }
+    .lk-login-box { padding:32px 24px; }
+    .lk-stats { grid-template-columns:1fr 1fr; }
+    .lk-checklist { grid-template-columns:1fr; }
+  }
+  </style>
+
+  <!-- LOGIN SCREEN -->
+  <div id="lk-login" class="lk-login">
+    <div class="lk-login-box">
+      <div style="text-align:center;margin-bottom:28px;">
+        <div style="width:60px;height:60px;border:1px solid var(--sage);border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:20px;color:var(--sage);margin:0 auto 16px;letter-spacing:2px;">SH</div>
+        <div class="lk-login-eyebrow">Shuga Academy</div>
+        <div class="lk-login-title">Личный кабинет</div>
+        <div class="lk-login-sub">Мастер ногтевого сервиса</div>
+      </div>
+      <label class="lk-select-label">Выберите мастера</label>
+      <select class="lk-select" id="lk-user-select">
+        <option value="">— выбрать —</option>
+        <optgroup label="ТОП-мастер">
+          <option value="mira">Мира Кузнецова</option>
+          <option value="chebaevskaya">Марина Чебаевская</option>
+          <option value="zarima">Зарима Жумабекова</option>
+          <option value="muzychenko">Екатерина Музыченко</option>
+          <option value="akzharova">Жулдуз (Женя) Акжарова</option>
+        </optgroup>
+        <optgroup label="Мастер-Эксперт">
+          <option value="furсова">Алёна Фурсова</option>
+          <option value="bashirova">Гульфия Баширова</option>
+          <option value="ivanova">Дарья Иванова</option>
+          <option value="okolnichnikova">Валерия Окольничникова</option>
+          <option value="kuznetsova_e">Евгения Кузнецова</option>
+          <option value="igonina">Александра Игонина</option>
+        </optgroup>
+        <optgroup label="Мастер Высшей категории">
+          <option value="yurchenko">Ксения Юрченко</option>
+          <option value="melnikova">Мария Мельникова</option>
+          <option value="abdrakhmanova">Алия Абдрахманова</option>
+          <option value="nesterova">Александра Нестерова</option>
+        </optgroup>
+      </select>
+      <label class="lk-pin-label">Пин-код (4 цифры)</label>
+      <input class="lk-pin-input" type="password" maxlength="4" id="lk-pin" placeholder="••••" />
+      <button class="lk-btn" onclick="lkLogin()">Войти →</button>
+      <div class="lk-error" id="lk-error">Неверный пин-код</div>
+      <button class="back-btn" style="margin-top:20px;width:100%;justify-content:center;" onclick="goTo('hub')">← На главную</button>
+    </div>
+  </div>
+
+  <!-- DASHBOARDS -->
+  <div id="lk-dash-wrap"></div>
+</div>
+
+<script>
+/* ═══════════════════════════════
+   MASTER DATA
+═══════════════════════════════ */
+const MASTER_CATEGORIES = {
+  top:     { label:'ТОП-мастер',            color:'var(--sage)',    icon:'Ⅰ' },
+  expert:  { label:'Мастер-Эксперт',        color:'var(--gold-dk)', icon:'Ⅱ' },
+  highest: { label:'Мастер Высшей категории', color:'var(--rose)',  icon:'Ⅲ' }
+};
+
+const MASTERS = {
+  muzychenko: {
+    name:'Екатерина Музыченко', initials:'ЕМ', category:'top',
+    pin:'1234', startDate:'23 апреля 2026',
+    monthsInStudio: 2,
+    analytics: [
+      {m:'Апр',rev:47549,check:3658,clients:13,ret:null,rec:0},
+      {m:'Май',rev:303764,check:3997,clients:68,ret:4.4,rec:1}
+    ],
+    kpiTarget:{rev:300000,check:5500,ret:70}
+  },
+  akzharova: {
+    name:'Жулдуз (Женя) Акжарова', initials:'ЖА', category:'top',
+    pin:'2345', startDate:'5 мая 2026',
+    monthsInStudio: 1,
+    analytics: [
+      {m:'Май',rev:143701,check:3685,clients:37,ret:0,rec:0}
+    ],
+    kpiTarget:{rev:300000,check:5500,ret:70}
+  },
+  chebaevskaya: {
+    name:'Марина Чебаевская', initials:'МЧ', category:'top',
+    pin:'4567', startDate:'2 февраля 2026',
+    monthsInStudio: 4,
+    analytics: [
+      {m:'Фев',rev:293312,check:3964,clients:71,ret:null,rec:1},
+      {m:'Мар',rev:295922,check:4054,clients:68,ret:17.6,rec:0},
+      {m:'Апр',rev:255434,check:3991,clients:58,ret:29.3,rec:0},
+      {m:'Май',rev:259651,check:4188,clients:58,ret:32.8,rec:0}
+    ],
+    kpiTarget:{rev:300000,check:5500,ret:70}
+  },
+  zarima: {
+    name:'Зарима Жумабекова', initials:'ЗЖ', category:'top',
+    pin:'5678', startDate:'2 марта 2026',
+    monthsInStudio: 3,
+    analytics: [
+      {m:'Мар',rev:235957,check:3806,clients:55,ret:null,rec:0},
+      {m:'Апр',rev:328792,check:4443,clients:70,ret:21.4,rec:0},
+      {m:'Май',rev:295672,check:4385,clients:64,ret:31.3,rec:0}
+    ],
+    kpiTarget:{rev:300000,check:5500,ret:70}
+  },
+  mira: {
+    name:'Мира Кузнецова', initials:'МК', category:'top',
+    pin:'6789', startDate:'6 декабря 2025',
+    monthsInStudio: 6,
+    analytics: [
+      {m:'Дек',rev:238462,check:2944,clients:76,ret:0,rec:0},
+      {m:'Янв',rev:534329,check:4174,clients:111,ret:18,rec:0},
+      {m:'Фев',rev:357516,check:4206,clients:75,ret:38.7,rec:1},
+      {m:'Мар',rev:460972,check:4564,clients:88,ret:40.9,rec:0},
+      {m:'Апр',rev:430650,check:4350,clients:91,ret:42.9,rec:0},
+      {m:'Май',rev:513431,check:4546,clients:95,ret:42.1,rec:0}
+    ],
+    kpiTarget:{rev:300000,check:5500,ret:70}
+  },
+  'furсова': {
+    name:'Алёна Фурсова', initials:'АФ', category:'expert',
+    pin:'7890', startDate:'7 апреля 2025',
+    monthsInStudio: 14,
+    analytics: [
+      {m:'Май\'25',rev:205979,check:3551,clients:55,ret:18.2,rec:0},
+      {m:'Июн',rev:427200,check:3502,clients:112,ret:16.1,rec:0},
+      {m:'Июл',rev:403061,check:3698,clients:96,ret:35.4,rec:0},
+      {m:'Авг',rev:452139,check:3560,clients:113,ret:40.7,rec:0},
+      {m:'Сен',rev:341932,check:3638,clients:89,ret:52.8,rec:0},
+      {m:'Окт',rev:413502,check:3335,clients:106,ret:57.5,rec:0},
+      {m:'Ноя',rev:320934,check:3451,clients:80,ret:60,rec:0},
+      {m:'Дек',rev:415090,check:3348,clients:101,ret:67.3,rec:0},
+      {m:'Янв',rev:404945,check:4584,clients:82,ret:68.3,rec:0},
+      {m:'Фев',rev:420362,check:4379,clients:82,ret:69.5,rec:1},
+      {m:'Мар',rev:333015,check:4061,clients:76,ret:61.8,rec:0},
+      {m:'Апр',rev:421011,check:4087,clients:84,ret:73.8,rec:0},
+      {m:'Май',rev:354336,check:4543,clients:76,ret:72.4,rec:0}
+    ],
+    kpiTarget:{rev:400000,check:6000,ret:80}
+  },
+
+  /* ═══ МАСТЕРА-ЭКСПЕРТЫ ═══ */
+  bashirova: {
+    name:'Гульфия Баширова', initials:'ГБ', category:'expert',
+    pin:'1001', startDate:'2 февраля 2024',
+    monthsInStudio: 28,
+    analytics: [
+      {m:'Июн',rev:235507,check:3496,clients:62,ret:66.1,rec:0},
+      {m:'Июл',rev:299915,check:3528,clients:72,ret:75,rec:0},
+      {m:'Авг',rev:294262,check:3344,clients:79,ret:78.5,rec:0},
+      {m:'Сен',rev:342043,check:3455,clients:87,ret:72.4,rec:1},
+      {m:'Окт',rev:354391,check:3375,clients:98,ret:61.2,rec:0},
+      {m:'Ноя',rev:276334,check:3436,clients:70,ret:75.7,rec:0},
+      {m:'Дек',rev:303654,check:3217,clients:79,ret:77.2,rec:0},
+      {m:'Янв',rev:218874,check:3840,clients:55,ret:76.4,rec:0},
+      {m:'Фев',rev:352261,check:4245,clients:70,ret:77.1,rec:2},
+      {m:'Мар',rev:335927,check:4199,clients:72,ret:80.6,rec:1},
+      {m:'Апр',rev:384575,check:4135,clients:79,ret:79.7,rec:0},
+      {m:'Май',rev:375696,check:4369,clients:76,ret:78.9,rec:0}
+    ],
+    kpiTarget:{rev:400000,check:6000,ret:80}
+  },
+  ivanova: {
+    name:'Дарья Иванова', initials:'ДИ', category:'expert',
+    pin:'1002', startDate:'23 мая 2024',
+    monthsInStudio: 25,
+    analytics: [
+      {m:'Июн',rev:326260,check:3296,clients:88,ret:54.5,rec:1},
+      {m:'Июл',rev:332847,check:3328,clients:91,ret:63.7,rec:1},
+      {m:'Авг',rev:308128,check:3278,clients:85,ret:64.7,rec:1},
+      {m:'Сен',rev:312239,check:3322,clients:81,ret:74.1,rec:0},
+      {m:'Окт',rev:255295,check:3316,clients:72,ret:63.9,rec:0},
+      {m:'Ноя',rev:308689,check:3589,clients:79,ret:63.3,rec:1},
+      {m:'Дек',rev:348536,check:3678,clients:86,ret:72.1,rec:0},
+      {m:'Янв',rev:319406,check:4375,clients:68,ret:66.2,rec:0},
+      {m:'Фев',rev:348077,check:4254,clients:68,ret:76.5,rec:1},
+      {m:'Мар',rev:340320,check:4363,clients:65,ret:78.5,rec:1},
+      {m:'Апр',rev:380610,check:4183,clients:78,ret:75.6,rec:0},
+      {m:'Май',rev:424938,check:4381,clients:83,ret:73.5,rec:4}
+    ],
+    kpiTarget:{rev:400000,check:6000,ret:80}
+  },
+  okolnichnikova: {
+    name:'Валерия Окольничникова', initials:'ВО', category:'expert',
+    pin:'1003', startDate:'13 ноября 2024',
+    monthsInStudio: 19,
+    analytics: [
+      {m:'Июн',rev:234671,check:3242,clients:63,ret:52.4,rec:1},
+      {m:'Июл',rev:250205,check:3363,clients:72,ret:54.2,rec:1},
+      {m:'Авг',rev:276841,check:3486,clients:72,ret:50,rec:0},
+      {m:'Сен',rev:348297,check:3255,clients:95,ret:60,rec:0},
+      {m:'Окт',rev:325771,check:3429,clients:83,ret:55.4,rec:0},
+      {m:'Ноя',rev:334554,check:3636,clients:79,ret:75.9,rec:0},
+      {m:'Дек',rev:340830,check:3514,clients:81,ret:76.5,rec:0},
+      {m:'Янв',rev:185006,check:4205,clients:43,ret:65.1,rec:0},
+      {m:'Фев',rev:389687,check:4585,clients:76,ret:67.1,rec:1},
+      {m:'Мар',rev:435676,check:4381,clients:83,ret:78.3,rec:1},
+      {m:'Апр',rev:357573,check:4644,clients:67,ret:73.1,rec:0},
+      {m:'Май',rev:453491,check:4490,clients:79,ret:72.2,rec:0}
+    ],
+    kpiTarget:{rev:400000,check:6000,ret:80}
+  },
+  kuznetsova_e: {
+    name:'Евгения Кузнецова', initials:'ЕК', category:'expert',
+    pin:'1004', startDate:'4 февраля 2022',
+    monthsInStudio: 52,
+    analytics: [
+      {m:'Июн',rev:326142,check:4077,clients:74,ret:60.8,rec:0},
+      {m:'Июл',rev:387614,check:3917,clients:85,ret:70.6,rec:0},
+      {m:'Авг',rev:419704,check:4155,clients:85,ret:74.1,rec:0},
+      {m:'Сен',rev:373330,check:4014,clients:78,ret:69.2,rec:0},
+      {m:'Окт',rev:265913,check:3969,clients:60,ret:76.7,rec:1},
+      {m:'Ноя',rev:342950,check:3942,clients:74,ret:73,rec:0},
+      {m:'Дек',rev:381707,check:3976,clients:83,ret:74.7,rec:0},
+      {m:'Янв',rev:423391,check:4867,clients:80,ret:72.5,rec:0},
+      {m:'Фев',rev:373507,check:5464,clients:63,ret:65.1,rec:0},
+      {m:'Мар',rev:462990,check:4759,clients:82,ret:73.2,rec:1},
+      {m:'Апр',rev:370111,check:4633,clients:70,ret:75.7,rec:0},
+      {m:'Май',rev:497963,check:5187,clients:79,ret:75.9,rec:0}
+    ],
+    kpiTarget:{rev:400000,check:6000,ret:80}
+  },
+  igonina: {
+    name:'Александра Игонина', initials:'АИ', category:'expert',
+    pin:'1005', startDate:'6 мая 2024',
+    monthsInStudio: 25,
+    analytics: [
+      {m:'Июн',rev:189861,check:3723,clients:48,ret:56.3,rec:0},
+      {m:'Июл',rev:272310,check:3536,clients:70,ret:51.4,rec:1},
+      {m:'Авг',rev:280380,check:3689,clients:71,ret:54.9,rec:1},
+      {m:'Сен',rev:187004,check:3596,clients:52,ret:75,rec:1},
+      {m:'Окт',rev:245385,check:3229,clients:72,ret:65.3,rec:0},
+      {m:'Ноя',rev:215286,check:3417,clients:60,ret:68.3,rec:0},
+      {m:'Дек',rev:317996,check:3278,clients:82,ret:68.3,rec:0},
+      {m:'Янв',rev:352094,check:4633,clients:70,ret:72.9,rec:0},
+      {m:'Фев',rev:251030,check:4255,clients:58,ret:55.2,rec:1},
+      {m:'Мар',rev:361537,check:5092,clients:64,ret:67.2,rec:0},
+      {m:'Апр',rev:406180,check:5142,clients:71,ret:52.1,rec:0},
+      {m:'Май',rev:404738,check:4876,clients:77,ret:66.2,rec:0}
+    ],
+    kpiTarget:{rev:400000,check:6000,ret:80}
+  },
+
+  /* ═══ МАСТЕРА ВЫСШЕЙ КАТЕГОРИИ ═══ */
+  yurchenko: {
+    name:'Ксения Юрченко', initials:'КЮ', category:'highest',
+    pin:'3456', startDate:'возврат 1 мая 2026 (ранее работала до декабря 2025)',
+    monthsInStudio: 1,
+    analytics: [
+      {m:'Июл·25',rev:359079,check:3780,clients:92,ret:null,rec:0},
+      {m:'Авг',rev:239641,check:3929,clients:57,ret:86,rec:0},
+      {m:'Сен',rev:351631,check:3690,clients:94,ret:null,rec:0},
+      {m:'Окт',rev:335473,check:3687,clients:90,ret:67.8,rec:0},
+      {m:'Ноя',rev:300637,check:3416,clients:82,ret:73.2,rec:0},
+      {m:'Дек·25 (уход)',rev:226628,check:3434,clients:64,ret:76.6,rec:0},
+      {m:'Май·26 (возврат)',rev:344453,check:4574,clients:74,ret:59.5,rec:0}
+    ],
+    kpiTarget:{rev:400000,check:6000,ret:80}
+  },
+  melnikova: {
+    name:'Мария Мельникова', initials:'ММ', category:'highest',
+    pin:'2002', startDate:'9 марта 2023',
+    monthsInStudio: 39,
+    analytics: [
+      {m:'Июн',rev:363622,check:3788,clients:75,ret:74.7,rec:0},
+      {m:'Июл',rev:335901,check:3651,clients:77,ret:79.2,rec:0},
+      {m:'Авг',rev:269956,check:3480,clients:70,ret:81.4,rec:0},
+      {m:'Сен',rev:260651,check:3549,clients:63,ret:76.2,rec:0},
+      {m:'Окт',rev:316126,check:3574,clients:76,ret:81.6,rec:0},
+      {m:'Ноя',rev:354315,check:3440,clients:79,ret:84.8,rec:0},
+      {m:'Дек',rev:320909,check:3526,clients:76,ret:80.3,rec:0},
+      {m:'Янв',rev:359052,check:4379,clients:67,ret:77.6,rec:0},
+      {m:'Фев',rev:408636,check:4697,clients:72,ret:77.8,rec:0},
+      {m:'Мар',rev:453274,check:5093,clients:71,ret:78.9,rec:0},
+      {m:'Апр',rev:485390,check:4973,clients:76,ret:76.3,rec:0},
+      {m:'Май',rev:371770,check:4957,clients:59,ret:83.1,rec:0}
+    ],
+    kpiTarget:{rev:400000,check:6000,ret:80}
+  },
+  abdrakhmanova: {
+    name:'Алия Абдрахманова', initials:'АА', category:'highest',
+    pin:'2003', startDate:'20 мая 2018',
+    monthsInStudio: 97,
+    analytics: [
+      {m:'Июн',rev:426643,check:4284,clients:80,ret:85,rec:0},
+      {m:'Июл',rev:324789,check:4162,clients:72,ret:88.9,rec:0},
+      {m:'Авг',rev:174913,check:3975,clients:42,ret:92.9,rec:1},
+      {m:'Сен',rev:393796,check:3880,clients:85,ret:74.1,rec:0},
+      {m:'Окт',rev:377634,check:4105,clients:67,ret:89.6,rec:0},
+      {m:'Ноя',rev:409566,check:4015,clients:77,ret:79.2,rec:0},
+      {m:'Дек',rev:394594,check:4131,clients:75,ret:89.3,rec:0},
+      {m:'Янв',rev:451491,check:4555,clients:86,ret:77.9,rec:0},
+      {m:'Фев',rev:434462,check:5172,clients:64,ret:89.1,rec:0},
+      {m:'Мар',rev:467296,check:5251,clients:65,ret:89.2,rec:0},
+      {m:'Апр',rev:471666,check:5018,clients:74,ret:78.4,rec:0},
+      {m:'Май',rev:430411,check:5064,clients:64,ret:85.9,rec:0}
+    ],
+    kpiTarget:{rev:400000,check:6000,ret:80}
+  },
+  nesterova: {
+    name:'Александра Нестерова', initials:'АН', category:'highest',
+    pin:'2004', startDate:'27 сентября 2023',
+    monthsInStudio: 33,
+    analytics: [
+      {m:'Июн',rev:413092,check:4050,clients:89,ret:71.9,rec:0},
+      {m:'Июл',rev:394439,check:4109,clients:84,ret:76.2,rec:0},
+      {m:'Авг',rev:406225,check:3906,clients:83,ret:69.9,rec:0},
+      {m:'Окт',rev:395825,check:4211,clients:77,ret:67.5,rec:1},
+      {m:'Ноя',rev:395529,check:4660,clients:79,ret:78.5,rec:0},
+      {m:'Дек',rev:418209,check:4267,clients:76,ret:69.7,rec:0},
+      {m:'Янв',rev:471223,check:5890,clients:68,ret:86.8,rec:0},
+      {m:'Фев',rev:419830,check:5175,clients:67,ret:82.1,rec:0},
+      {m:'Мар',rev:491273,check:5588,clients:69,ret:84.1,rec:0},
+      {m:'Апр',rev:482259,check:5674,clients:68,ret:85.3,rec:0},
+      {m:'Май',rev:576719,check:5657,clients:79,ret:74.7,rec:0}
+    ],
+    kpiTarget:{rev:400000,check:6000,ret:80}
+  }
+};
+
+/* Checklist items — shared for all masters */
+const CHECKLIST = [
+  {id:'wb', label:'Welcome-book изучен', cat:'onboard'},
+  {id:'docs', label:'Документы подписаны (NDA, ОПД, медкнижка, паспорт, ИНН)', cat:'onboard'},
+  {id:'regs', label:'Внутренние регламенты подписаны', cat:'onboard'},
+  {id:'demo', label:'Очный разбор — правила уборки и стерилизация', cat:'onboard'},
+  {id:'self', label:'Самостоятельное изучение протоколов', cat:'onboard'},
+  {id:'video_zait', label:'Видеоматериалы В. Зайцевой', cat:'onboard'},
+  {id:'test_zait', label:'Тестирование по материалам В. Зайцевой', cat:'onboard'},
+  {id:'luxio', label:'Семинар Luxio', cat:'onboard'},
+  {id:'test_luxio', label:'Тестирование на знание протокола Luxio', cat:'onboard'},
+  {id:'straderm', label:'Семинар Straderm', cat:'onboard'},
+  {id:'test_straderm', label:'Тестирование на знание протокола Straderm', cat:'onboard'},
+  {id:'sync', label:'Синхронизационная сессия с HRD + брендбук', cat:'onboard'},
+  {id:'ipr', label:'ИПР построен (точка А определена)', cat:'onboard'},
+  {id:'vid_gel', label:'Видео: укрепление гелем', cat:'onboard'},
+  {id:'vid_mani', label:'Видео: маникюр и покрытие', cat:'onboard'},
+  // Маникюр навыки
+  {id:'combo_mani', label:'Комбинированный маникюр', cat:'nail'},
+  {id:'app_mani', label:'Аппаратный маникюр', cat:'nail'},
+  {id:'design', label:'Дизайны: френч, втирка, омбрэ', cat:'nail'},
+  {id:'model', label:'Моделирование ногтей', cat:'nail'},
+  {id:'strengthen', label:'Укрепление ногтей', cat:'nail'},
+  {id:'repair', label:'Ремонты', cat:'nail'},
+  {id:'file_mani', label:'Пилочный маникюр (Саша Нестерова)', cat:'nail_exp'},
+  {id:'japan', label:'Японский маникюр', cat:'nail_exp'},
+  {id:'ibx', label:'IBX (видеоурок от Гульфии)', cat:'nail_exp'},
+  {id:'spa', label:'SPA Comfort Zone', cat:'nail_exp'},
+  {id:'attest_mani', label:'Аттестация по маникюру', cat:'nail_exp'},
+  // Педикюр навыки
+  {id:'smart', label:'Обучение SMART-педикюр + аттестация', cat:'pedi'},
+  {id:'straderm_pedi', label:'Протокол STRADERM', cat:'pedi'},
+  {id:'anna_sem', label:'Семинар Анны Романовой (пинцет)', cat:'pedi_exp'},
+  {id:'chacure_sem', label:'Практический семинар ChaCure', cat:'pedi_exp'},
+  {id:'pincet', label:'Пинцет освоен', cat:'pedi_exp'},
+  {id:'massage', label:'Массаж', cat:'pedi_exp'},
+  {id:'chacure', label:'ChaCure', cat:'pedi_exp'},
+  // KPI
+  {id:'kpi_rev', label:'Выручка от 300 000 ₽/мес', cat:'kpi'},
+  {id:'kpi_check', label:'Средний чек 5 500 ₽', cat:'kpi'},
+  {id:'kpi_rec', label:'Отсутствие рекламаций', cat:'kpi'},
+  {id:'kpi_reviews', label:'Регулярные положительные отзывы', cat:'kpi'},
+  {id:'kpi_ret', label:'Возвратность клиентов от 70%', cat:'kpi'}
+];
+
+const TOTAL_ITEMS = CHECKLIST.length;
+let currentMaster = null;
+let lkStorage = JSON.parse(localStorage.getItem('shuga_lk') || '{}');
+
+function saveLK() { localStorage.setItem('shuga_lk', JSON.stringify(lkStorage)); }
+function getMasterProgress(key) {
+  if (!lkStorage[key]) lkStorage[key] = {};
+  return lkStorage[key];
+}
+
+function lkLogin() {
+  const key = document.getElementById('lk-user-select').value;
+  const pin = document.getElementById('lk-pin').value;
+  if (!key || !MASTERS[key]) { document.getElementById('lk-error').style.display='block'; document.getElementById('lk-error').textContent='Выберите мастера'; return; }
+  if (pin !== MASTERS[key].pin) { document.getElementById('lk-error').style.display='block'; document.getElementById('lk-error').textContent='Неверный пин-код'; return; }
+  document.getElementById('lk-error').style.display='none';
+  currentMaster = key;
+  renderDashboard(key);
+}
+
+function lkLogout() {
+  currentMaster = null;
+  document.getElementById('lk-login').style.display='flex';
+  document.getElementById('lk-dash-wrap').innerHTML='';
+  document.getElementById('lk-pin').value='';
+  document.getElementById('lk-user-select').value='';
+}
+
+function formatRub(n) {
+  return new Intl.NumberFormat('ru-RU').format(Math.round(n)) + ' ₽';
+}
+
+/* ── Manual reviews tracking (until YClients integration) ── */
+function getReviewsData(key) {
+  if (!lkStorage._reviews) lkStorage._reviews = {};
+  if (!lkStorage._reviews[key]) lkStorage._reviews[key] = [];
+  return lkStorage._reviews[key];
+}
+function getReviewsTotal(key) {
+  return getReviewsData(key).reduce((sum, r) => sum + (r.count || 0), 0);
+}
+function renderReviewsList(key) {
+  const entries = getReviewsData(key);
+  if (!entries.length) return `<div style="font-size:12px;color:var(--stone);padding:12px 0;">Пока нет записей. Добавьте первый месяц выше.</div>`;
+  return `<div style="display:flex;flex-direction:column;gap:6px;">` + entries.map((r, i) => `
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--cream);border-radius:var(--radius-sm);border:1px solid var(--sand);">
+      <span style="font-size:12.5px;color:var(--ink);">${r.month}</span>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="font-size:13px;color:var(--gold-dk);font-weight:500;">⭐ ${r.count}</span>
+        <button onclick="removeReviewEntry('${key}',${i})" style="border:none;background:none;color:var(--stone);cursor:pointer;font-size:14px;line-height:1;padding:2px 4px;" title="Удалить">×</button>
+      </div>
+    </div>`).join('') + `</div>`;
+}
+function addReviewEntry(key) {
+  const monthInput = document.getElementById('rev-month-' + key);
+  const countInput = document.getElementById('rev-count-' + key);
+  const month = monthInput.value.trim();
+  const count = parseInt(countInput.value, 10);
+  if (!month || isNaN(count) || count < 0) return;
+  const entries = getReviewsData(key);
+  entries.push({ month, count });
+  saveLK();
+  monthInput.value = '';
+  countInput.value = '';
+  document.getElementById('rev-list-' + key).innerHTML = renderReviewsList(key);
+  // Update total in stats card
+  const statVal = document.querySelector('#lk-dash-wrap .lk-stat-val');
+  refreshReviewsTotalDisplay(key);
+}
+function removeReviewEntry(key, idx) {
+  const entries = getReviewsData(key);
+  entries.splice(idx, 1);
+  saveLK();
+  document.getElementById('rev-list-' + key).innerHTML = renderReviewsList(key);
+  refreshReviewsTotalDisplay(key);
+}
+function refreshReviewsTotalDisplay(key) {
+  // Find the reviews stat card and update its value live
+  document.querySelectorAll('#lk-dash-wrap .lk-stat-label').forEach(label => {
+    if (label.textContent.includes('Отзывы клиентов')) {
+      const valEl = label.previousElementSibling;
+      if (valEl) valEl.textContent = '⭐ ' + getReviewsTotal(key);
+    }
+  });
+}
+
+function getLevel(pct) {
+  if (pct < 60) return {label:'ТОП',cls:'top',icon:'Ⅰ'};
+  return {label:'Мастер-Эксперт',cls:'expert',icon:'Ⅱ'};
+}
+
+function renderDashboard(key) {
+  const m = MASTERS[key];
+  const prog = getMasterProgress(key);
+  const done = CHECKLIST.filter(c => prog[c.id]).length;
+  const isHighest = m.category === 'highest';
+  const pct = isHighest ? 100 : Math.round((done / TOTAL_ITEMS) * 100);
+  const lvl = isHighest ? {label:'Мастер Высшей категории',cls:'high',icon:'Ⅲ'} : getLevel(pct);
+  const catInfo = MASTER_CATEGORIES[m.category] || MASTER_CATEGORIES.top;
+  const analytics = m.analytics;
+  const last = analytics.length ? analytics[analytics.length-1] : null;
+  const prev = analytics.length > 1 ? analytics[analytics.length-2] : null;
+
+  document.getElementById('lk-login').style.display='none';
+
+  // Build revenue chart
+  const maxRev = analytics.length ? Math.max(...analytics.map(a=>a.rev)) : 1;
+  const yMax = Math.ceil(maxRev / 100000) * 100000;
+  const yMid = Math.round(yMax / 2 / 50000) * 50000;
+  const fmtK = v => v >= 1000000 ? (v/1000000).toFixed(1)+'М' : Math.round(v/1000)+'К';
+  const CHART_H = 156; // 180px total - 24px bottom padding
+  const bars = analytics.map(a => {
+    const h = Math.max(4, Math.round((a.rev / yMax) * CHART_H));
+    const shortVal = fmtK(a.rev);
+    return `<div class="lk-bar-col">
+      <div class="lk-bar" style="height:${h}px">
+        <div class="lk-bar-val">${shortVal}</div>
+      </div>
+      <div class="lk-bar-label">${a.m}</div>
+    </div>`;
+  }).join('');
+  const yAxisHtml = `<div class="lk-chart-yaxis">
+    <div class="lk-chart-ylabel">${fmtK(yMax)}</div>
+    <div class="lk-chart-ylabel">${fmtK(yMid)}</div>
+    <div class="lk-chart-ylabel">0</div>
+  </div>`;
+
+  // Build salary chart (35% of revenue)
+  const SALARY_RATE = 0.35;
+  const salaryData = analytics.map(a => ({ m: a.m, salary: Math.round(a.rev * SALARY_RATE) }));
+  const maxSalary = salaryData.length ? Math.max(...salaryData.map(s=>s.salary)) : 1;
+  const ySalMax = Math.ceil(maxSalary / 50000) * 50000;
+  const ySalMid = Math.round(ySalMax / 2 / 25000) * 25000;
+  const salaryBars = salaryData.map(s => {
+    const h = Math.max(4, Math.round((s.salary / ySalMax) * CHART_H));
+    return `<div class="lk-bar-col">
+      <div class="lk-bar lk-bar-gold" style="height:${h}px">
+        <div class="lk-bar-val">${fmtK(s.salary)}</div>
+      </div>
+      <div class="lk-bar-label">${s.m}</div>
+    </div>`;
+  }).join('');
+  const ySalAxisHtml = `<div class="lk-chart-yaxis">
+    <div class="lk-chart-ylabel">${fmtK(ySalMax)}</div>
+    <div class="lk-chart-ylabel">${fmtK(ySalMid)}</div>
+    <div class="lk-chart-ylabel">0</div>
+  </div>`;
+  const lastSalary = last ? Math.round(last.rev * SALARY_RATE) : null;
+
+  // Stats
+  const revTrend = last && prev ? (last.rev > prev.rev ? `↑ +${formatRub(last.rev-prev.rev)}` : `↓ ${formatRub(prev.rev-last.rev)}`) : '';
+  const revTrendCls = last && prev ? (last.rev > prev.rev ? 'up' : 'down') : '';
+
+  // Build checklist grouped
+  const catLabels = {
+    onboard:'📋 Онбординг',
+    nail:'💅 Маникюр — ТОП',
+    nail_exp:'💅 Маникюр — Эксперт',
+    pedi:'🦶 Педикюр — ТОП',
+    pedi_exp:'🦶 Педикюр — Эксперт',
+    kpi:'📊 KPI'
+  };
+  // KPI labels differ for top vs expert/highest masters
+  const isExpertOrHigher = (m.category === 'expert' || m.category === 'highest');
+  const kpiLabelOverrides = isExpertOrHigher ? {
+    kpi_rev:     'Общая выручка мастера 400 000 ₽/мес',
+    kpi_check:   'Средний чек 6 000 ₽',
+    kpi_rec:     'Отсутствие рекламаций',
+    kpi_reviews: 'Регулярные положительные отзывы',
+    kpi_ret:     'Возвратность клиентов от 80%'
+  } : {};
+  let clHtml = '';
+  const cats = ['onboard','nail','nail_exp','pedi','pedi_exp','kpi'];
+  cats.forEach(cat => {
+    const items = CHECKLIST.filter(c=>c.cat===cat);
+    clHtml += `<div class="lk-section"><div class="lk-section-title">${catLabels[cat]}</div><div class="lk-checklist">`;
+    items.forEach(c => {
+      const isDone = !!prog[c.id];
+      const label = kpiLabelOverrides[c.id] || c.label;
+      clHtml += `<div class="lk-check${isDone?' done':''}" onclick="lkToggle('${key}','${c.id}',this)">
+        <div class="lk-checkbox">${isDone?'✓':''}</div>
+        <span>${label}</span>
+      </div>`;
+    });
+    // Inject occupancy KPI item for expert/highest (not stored as a checklist item, but as a visual addition)
+    if (cat === 'kpi' && isExpertOrHigher) {
+      const fillId = 'kpi_fill80';
+      const fillDone = !!prog[fillId];
+      clHtml += `<div class="lk-check${fillDone?' done':''}" onclick="lkToggle('${key}','${fillId}',this)">
+        <div class="lk-checkbox">${fillDone?'✓':''}</div>
+        <span>Заполненность 80% на 3 недели вперёд</span>
+      </div>`;
+    }
+    clHtml += `</div></div>`;
+  });
+
+  // Rec count from analytics
+  const totalRec = analytics.reduce((s,a)=>s+(a.rec||0),0);
+
+  document.getElementById('lk-dash-wrap').innerHTML = `
+  <div class="lk-dash active">
+    <div class="lk-header">
+      <div class="lk-avatar">${m.initials}</div>
+      <div>
+        <div class="lk-name">${m.name}</div>
+        <div class="lk-since">В студии с ${m.startDate}</div>
+      </div>
+      <div style="margin-left:auto;display:flex;align-items:center;gap:12px;">
+        <div style="padding:6px 16px;border-radius:var(--radius-pill);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;background:${catInfo.color}1a;border:1px solid ${catInfo.color}66;color:${catInfo.color};">${catInfo.icon} ${catInfo.label}</div>
+        <button class="lk-logout" onclick="lkLogout()">Выйти</button>
+      </div>
+    </div>
+    <div class="lk-body">
+
+      <!-- Progress Hero -->
+      <div class="lk-progress-hero">
+        <div class="lk-ph-top">
+          <div>
+            <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--stone);margin-bottom:10px;">Путь к статусу</div>
+            <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:4px;">
+              <span class="lk-progress-pct" id="lk-pct-val">${pct}</span>
+              <span class="lk-progress-pct-unit">% выполнено</span>
+            </div>
+            <div style="font-size:12px;color:var(--dusk);">${isHighest ? 'Все пункты пути пройдены' : done + ' из ' + TOTAL_ITEMS + ' пунктов завершено'}</div>
+          </div>
+          <div class="lk-level-badge ${lvl.cls}">${lvl.icon} ${lvl.label}</div>
+        </div>
+        <div class="lk-progress-bar-wrap">
+          <div class="lk-progress-label"><span>ТОП</span><span>${isHighest ? 'Мастер Высшей категории' : 'Мастер-Эксперт →'}</span></div>
+          <div class="lk-progress-track">
+            <div class="lk-progress-fill" id="lk-pbar" style="width:${pct}%"></div>
+          </div>
+        </div>
+        <div style="display:flex;gap:24px;margin-top:20px;flex-wrap:wrap;">
+          ${isHighest
+            ? `<div style="font-size:11px;color:var(--rose);">🏆 Путь к Высшей категории пройден полностью</div>`
+            : `<div style="font-size:11px;color:var(--stone);">🎯 До Мастера-Эксперта: <strong style="color:var(--gold-dk);">${Math.max(0,100-pct)}%</strong></div>`}
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="lk-stats">
+        <div class="lk-stat">
+          <div class="lk-stat-val">${last ? formatRub(last.rev) : '—'}</div>
+          <div class="lk-stat-label">Выручка (посл. месяц)</div>
+          <div class="lk-stat-trend ${revTrendCls}">${revTrend}</div>
+          <div class="lk-stat-trend ${last && last.rev>=m.kpiTarget.rev?'up':'down'}" style="margin-top:2px;">${last && last.rev>=m.kpiTarget.rev?'✓ Цель '+new Intl.NumberFormat('ru-RU').format(m.kpiTarget.rev)+' ₽ достигнута':'Цель: '+new Intl.NumberFormat('ru-RU').format(m.kpiTarget.rev)+' ₽'}</div>
+        </div>
+        <div class="lk-stat">
+          <div class="lk-stat-val">${last ? new Intl.NumberFormat('ru-RU').format(last.check) + ' ₽' : '—'}</div>
+          <div class="lk-stat-label">Средний чек</div>
+          <div class="lk-stat-trend ${last && last.check>=m.kpiTarget.check?'up':'down'}">${last && last.check>=m.kpiTarget.check?'✓ Цель достигнута':'Цель: '+new Intl.NumberFormat('ru-RU').format(m.kpiTarget.check)+' ₽'}</div>
+        </div>
+        <div class="lk-stat">
+          <div class="lk-stat-val">${last ? last.clients : '—'}</div>
+          <div class="lk-stat-label">Клиентов (посл. месяц)</div>
+        </div>
+        <div class="lk-stat">
+          <div class="lk-stat-val">${last && last.ret!==null ? last.ret+'%' : '—'}</div>
+          <div class="lk-stat-label">Возвратность</div>
+          <div class="lk-stat-trend ${last && last.ret>=m.kpiTarget.ret?'up':'down'}">${last && last.ret!==null?(last.ret>=m.kpiTarget.ret?'✓ Цель '+m.kpiTarget.ret+'%':'Цель: '+m.kpiTarget.ret+'%'):''}</div>
+        </div>
+        <div class="lk-stat">
+          <div class="lk-stat-val" style="color:${totalRec===0?'var(--sage)':'var(--rose)'};">${totalRec}</div>
+          <div class="lk-stat-label">Рекламаций за период</div>
+          <div class="lk-stat-trend ${totalRec===0?'up':'down'}">${totalRec===0?'✓ Отличный результат':'⚠ Требует внимания'}</div>
+        </div>
+        <div class="lk-stat">
+          <div class="lk-stat-val">⭐ ${getReviewsTotal(key)}</div>
+          <div class="lk-stat-label">Отзывы клиентов (всего)</div>
+          <div class="lk-stat-trend up">Заполняется вручную ниже</div>
+        </div>
+        ${(m.category === 'expert' || m.category === 'highest') ? `<div class="lk-stat">
+          <div class="lk-stat-val">80%</div>
+          <div class="lk-stat-label">Заполненность на 3 недели вперёд</div>
+          <div class="lk-stat-trend up">Целевой показатель</div>
+        </div>` : ''}
+        <div class="lk-stat">
+          <div class="lk-stat-val">${m.monthsInStudio !== undefined ? m.monthsInStudio : analytics.length}</div>
+          <div class="lk-stat-label">Месяцев в студии</div>
+        </div>
+      </div>
+
+      <!-- Chart -->
+      ${analytics.length > 0 ? `<div class="lk-section">
+        <div class="lk-section-title">📈 Динамика выручки</div>
+        <div class="lk-chart-wrap">
+          <div class="lk-chart-title">Выручка по месяцам · ₽</div>
+          <div class="lk-chart-outer">
+            ${yAxisHtml}
+            <div class="lk-chart">${bars}<div class="lk-chart-baseline"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lk-section">
+        <div class="lk-section-title">💰 Динамика зарплаты <span style="font-size:11px;color:var(--stone);font-weight:400;letter-spacing:0;text-transform:none;font-family:'Jost',sans-serif;margin-left:8px;">(35% от выручки за услуги)</span></div>
+        <div class="lk-chart-wrap">
+          <div class="lk-chart-title">Зарплата по месяцам · ₽${lastSalary ? ` · последний месяц: <strong style="color:var(--gold-dk);">${formatRub(lastSalary)}</strong>` : ''}</div>
+          <div class="lk-chart-outer">
+            ${ySalAxisHtml}
+            <div class="lk-chart">${salaryBars}<div class="lk-chart-baseline"></div></div>
+          </div>
+        </div>
+      </div>` : ''}
+
+      <!-- Reviews tracking (manual) -->
+      <div class="lk-section">
+        <div class="lk-section-title">⭐ Отзывы клиентов <span style="font-size:11px;color:var(--stone);font-weight:400;letter-spacing:0;text-transform:none;font-family:'Jost',sans-serif;margin-left:8px;">вносится вручную, до подключения автоматической выгрузки из YClients</span></div>
+        <div class="lk-chart-wrap" style="padding:24px 28px;">
+          <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:18px;">
+            <div style="flex:1;min-width:140px;">
+              <label class="lk-select-label">Месяц</label>
+              <input class="lk-pin-input" style="letter-spacing:normal;font-size:14px;text-align:left;padding:10px 14px;" type="text" id="rev-month-${key}" placeholder="напр. Июнь 2026" />
+            </div>
+            <div style="width:120px;">
+              <label class="lk-select-label">Кол-во отзывов</label>
+              <input class="lk-pin-input" style="letter-spacing:normal;font-size:14px;text-align:left;padding:10px 14px;" type="number" min="0" id="rev-count-${key}" placeholder="0" />
+            </div>
+            <button class="lk-btn" style="width:auto;padding:11px 22px;margin-top:0;" onclick="addReviewEntry('${key}')">Добавить →</button>
+          </div>
+          <div id="rev-list-${key}">${renderReviewsList(key)}</div>
+        </div>
+      </div>
+
+      <!-- Checklists -->
+      ${clHtml}
+    </div>
+  </div>`;
+}
+
+function lkToggle(key, itemId, el) {
+  const prog = getMasterProgress(key);
+  prog[itemId] = !prog[itemId];
+  saveLK();
+  el.classList.toggle('done');
+  const box = el.querySelector('.lk-checkbox');
+  box.textContent = prog[itemId] ? '✓' : '';
+  // Recalc progress (Mастера Высшей категории always show 100%)
+  const m = MASTERS[key];
+  const isHighest = m && m.category === 'highest';
+  const done = CHECKLIST.filter(c => prog[c.id]).length;
+  const pct = isHighest ? 100 : Math.round((done / TOTAL_ITEMS) * 100);
+  const lvl = isHighest ? {label:'Мастер Высшей категории',cls:'high',icon:'Ⅲ'} : getLevel(pct);
+  const pbar = document.getElementById('lk-pbar');
+  const pval = document.getElementById('lk-pct-val');
+  if (pbar) pbar.style.width = pct+'%';
+  if (pval) pval.textContent = pct;
+  // Update level badge
+  const badge = document.querySelector('.lk-level-badge');
+  if (badge) { badge.className = `lk-level-badge ${lvl.cls}`; badge.textContent = `${lvl.icon} ${lvl.label}`; }
+}
+
+function goTo(t) { appNav(t); }
+
+function appNav(t) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('page-' + t);
+  target.classList.add('active');
+  target.scrollTo(0, 0);
+
+  // Update both navbars
+  const pages = ['hub','admin','nail','lk','admin-lk','body-lk'];
+  pages.forEach(p => {
+    const top = document.getElementById('top-' + p);
+    const bot = document.getElementById('bot-' + p);
+    if (top) top.classList.toggle('active', p === t);
+    if (bot) bot.classList.toggle('active', p === t);
+  });
+}
+
+/* PWA Install */
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  document.getElementById('install-banner').classList.add('visible');
+});
+document.getElementById('install-btn') && document.getElementById('install-btn').addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  document.getElementById('install-banner').classList.remove('visible');
+});
+window.addEventListener('appinstalled', () => {
+  document.getElementById('install-banner').classList.remove('visible');
+});
+
+/* TABS */
+function switchTab(page, tab, el) {
+  document.querySelectorAll('#page-' + page + ' .tab-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('#page-' + page + ' .nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(page + '-' + tab).classList.add('active');
+  el.classList.add('active');
+}
+
+/* CHECKLIST */
+function toggleCheck(el) {
+  el.classList.toggle('done');
+  el.querySelector('.check-box').textContent = el.classList.contains('done') ? '✓' : '';
+}
+
+/* DETAILS */
+const D = {
+  h1:{s:'Найм · Этап 01',t:'Отклик',b:`Первичная обработка входящего отклика кандидата.\n\n<strong>Действия HRD / администратора:</strong>\n• Изучить резюме и соцсети кандидата\n• Просмотреть портфолио / примеры работ при наличии\n• Проверка по стоп-факторам (опыт, возраст, график)\n• Занести в базу прособеседованных кандидатов\n• Пригласить на видеособеседование`},
+  h2:{s:'Найм · Этап 02',t:'Видеособеседование с HRD',b:`Формат: 45–60 минут (Zoom / Google Meet / Яндекс Телемост)\n\n<strong>Проверяется для менеджера:</strong>\n• Сервис в связке с коммерческим результатом\n• Уверенность в работе с гостями, записью, деньгами\n• Готовность брать ответственность за результат смены\n\n<strong>Проверяется для хранителя:</strong>\n• Сервис через заботу, порядок и опережение потребностей\n• Внимательность к деталям и рутине\n• Устойчивость в повторяющихся операционных задачах`},
+  h3:{s:'Найм · Этап 03',t:'Очное знакомство в студии',b:`Знакомство с управляющей и собственницей в формате очной встречи.\n\n<strong>Цели встречи:</strong>\n• Оценить кандидата в реальной обстановке\n• Показать студию, ценности, атмосферу\n• Взаимная проверка «совпадения» культуры\n\n<strong>После встречи:</strong>\n• Управляющая фиксирует выводы\n• Принимается решение о продолжении или отказе`},
+  h4:{s:'Найм · Этап 04',t:'Сбор обратной связи',b:`Проверка рекомендаций с предыдущих мест работы.\n\n• Верифицировать информацию, полученную от кандидата\n• Выявить возможные риски и «красные флаги»\n• Получить независимое подтверждение компетенций и soft skills`},
+  h5:{s:'Найм · Этап 05',t:'Тестовые дни',b:`<strong>Менеджер:</strong> 3 тестовых дня\n<strong>Хранитель:</strong> 2 тестовых дня\n\n<strong>День 1:</strong>\n• Кандидат приходит за 40 минут до первой записи\n• Экскурсия по студии, знакомство с командой, назначение buddy\n• Рабочий день по плану\n• Мини-встреча с управляющей в конце смены\n\n<strong>День 2:</strong>\n• Кандидат работает более самостоятельно\n• Финальная беседа (15–30 мин)\n• Официальное решение по офферу`},
+  h6:{s:'Найм · Этап 06',t:'Итоговый сбор обратной связи',b:`<strong>От кандидата:</strong>\n• Как ему/ей в пространстве студии\n• Комфортна ли команда и формат работы\n• Готовность к испытательному сроку\n\n<strong>От руководства:</strong>\n• Сильные стороны кандидата\n• Зоны роста, важные для студии\n• Соответствие культуре и регламентам`},
+  h7:{s:'Найм · Этап 07',t:'Оффер',b:`Финальный созвон с HRD, ценностное закрепление и оффер.\n\n<strong>При положительном решении:</strong>\n• Планируемая дата старта испытательного срока\n• График работы\n• Базовые условия по оплате\n• Запрос сканов документов\n• Запрос мерок для формы\n• Назначение встречи для подписания документов`},
+  a1:{s:'Адаптация · Шаг 01',t:'Подписание документов',b:`<strong>Документы:</strong>\n• NDA — соглашение о неразглашении\n• Согласие на обработку персональных данных (ОПД)\n• Согласие на фото- и видеосъёмку в студии\n\nВсе документы подписываются до начала полноценной работы.`},
+  a2:{s:'Адаптация · Шаг 02',t:'Внутренние регламенты',b:`Сотрудник изучает и подписывает все действующие регламенты студии, подтверждая понимание стандартов и правил.`},
+  a3:{s:'Адаптация · Шаг 03',t:'Регламент внешнего вида студии',b:`Только для хранителей.\n\n• Стандарты внешнего вида самой студии\n• Требования к порядку и чистоте в каждой зоне\n• Ежедневный фотоотчёт по состоянию студии`},
+  a4:{s:'Адаптация · Шаг 04',t:'Карта процессов SHUGA',b:`<strong>Хранитель — 9 блоков:</strong>\n1. Подготовка смены\n2. Сервис гостя\n3. Обслуживание мастеров\n4. Поставки и склад\n5. Стерилизация и чистота\n6. Рекламации\n7. Этические нормы\n8. Контроль оборудования\n9. Хозяйственное управление\n\n<strong>Менеджер — 7 блоков:</strong>\n1. Подготовка смены\n2. Запись и загрузка\n3. Перезапись и доп. услуги\n4. Работа с клиентской базой\n5. Финансы смены\n6. Рекламации\n7. Этические нормы`},
+  a5:{s:'Адаптация · Шаг 05',t:'Итог 2 недель работы',b:`<strong>Синхронизационная сессия с HRD:</strong>\n• Обсуждение первых двух недель\n• Сверка ожиданий и реальности\n• Ответы на накопившиеся вопросы\n\n<strong>Презентация брендбука:</strong>\n• Ценности и миссия SHUGA\n• Визуальный и коммуникационный стиль бренда`},
+  a6:{s:'Адаптация · Шаг 06',t:'Знание услуг — тестирование',b:`Сотрудник должен знать:\n• Все услуги студии, их составы и форматы\n• Длительность и стоимость каждой процедуры\n• Особенности и ограничения\n• Как правильно рекомендовать услуги гостям\n\nПо итогу — тестирование / аттестация.`},
+  a7:{s:'Адаптация · Шаг 07',t:'Конфликтология и рекламации',b:`• Типы конфликтных ситуаций в студии\n• Алгоритм работы с рекламациями\n• Как деэскалировать конфликт\n• Что делать, если гость недоволен результатом\n• Как фиксировать и передавать рекламацию\n\nПо итогу — тестирование / аттестация.`},
+  t1:{s:'Обучение · Модуль 1',t:'Конфликтология и работа с рекламациями',b:`• Психология конфликта: почему возникают претензии\n• Типы «сложных» гостей и стратегии работы\n• Алгоритм работы с рекламацией step-by-step\n• Речевые модули и скрипты для сложных диалогов\n• Как превращать недовольного клиента в лояльного\n\nОбучение завершается тестированием.`},
+  t2:{s:'Обучение · Модуль 2',t:'Услуги Shuga Studio',b:`• Все категории услуг студии\n• Состав и особенности каждой процедуры\n• Противопоказания и ограничения\n• Как рекомендовать услуги, не будучи мастером\n• Сезонность и актуальность услуг\n\nОбучение завершается тестированием.`},
+  n1:{s:'Найм · Этап 01 · HRD',t:'Отбор по стоп-факторам + созвон',b:`<strong>Изучить:</strong> резюме / соцсети / примеры работ\n\n<strong>Вопросы на созвоне:</strong>\n• Возраст, опыт работы, обучения и курсы\n• Техники, последнее место работы, желаемый график\n\n<strong>Запрос фото работ</strong>\n\nПосле успешного отбора — приглашение на тестовый маникюр. Согласовать дату, время, формат (на приглашённой модели) и условия оплаты.`},
+  n2:{s:'Найм · Этап 02 · Управляющая',t:'Тестовый маникюр + очная беседа',b:`<strong>Управляющая оценивает:</strong>\n• Чистоту и качество выполнения\n• Аккуратность формы и покрытия\n• Соблюдение гигиены и стерильности\n• Отношение к модели, коммуникацию\n• Комфорт по времени\n\n<strong>Очная беседа (20–30 мин):</strong>\n• Фидбек по тесту\n• Вопросы по квалификации и ожиданиям\n• Вопросы по мотивации и личным качествам`},
+  n3:{s:'Найм · Этап 03 · HRD',t:'Подготовка + Welcome-презентация',b:`Направляется кандидату не позднее чем за 1–2 дня до выхода.\n\n<strong>Welcome-презентация содержит:</strong>\n• Общую картину: кто мы и куда он попадает\n• Какие документы нужно прислать\n• Как нужно выглядеть\n• Правила стерилизации, уборки и коммуникации\n• Ценности и устав студии\n• Время прихода: за 40 минут до первой записи`},
+  n4:{s:'Найм · Этап 04 · Управляющая + buddy',t:'Первый тестовый день',b:`Кандидат приходит за 40 минут до первой записи.\n\n• Экскурсия по студии (рабочие места, стерилизационная, склад)\n• Знакомство с командой и buddy\n• Кандидат ведёт услуги по плану дня\n\n<strong>Итог дня:</strong>\n• Мини-встреча с управляющей\n• Обратная связь от buddy`},
+  n5:{s:'Найм · Этап 05 · Управляющая + buddy',t:'Второй тестовый день',b:`Кандидат работает более самостоятельно.\n\n<strong>Финальная беседа (15–30 мин):</strong>\n• Обратная связь студии: сильные стороны, зоны роста\n• Обратная связь кандидата: комфорт в команде, формат работы\n• Официальное решение\n\n<strong>При положительном решении:</strong>\n• Дата старта испытательного срока\n• График и базовые условия оплаты\n• Запрос документов и мерок для формы`},
+  n6:{s:'Найм · Этап 06 · HRD',t:'Финальный созвон и оффер',b:`<strong>Цель:</strong> финально сверить ожидания, обсудить риски, закрепить договорённости и ценности студии.\n\n• Ожидания студии и кандидата\n• Возможные риски\n• Ценности и культура SHUGA\n• Финальные условия оффера\n\nПосле созвона — официальный оффер.`},
+  n7:{s:'Найм · Этап 07 · HRD + Управляющая',t:'Подготовка к выходу в смены',b:`<strong>HRD:</strong>\n• Передаёт кандидата управляющей\n• Фиксирует договорённости\n\n<strong>Управляющая:</strong>\n• Согласовывает даты выхода\n• Ставит в рабочий график\n• Готовит команду к выходу нового мастера`},
+  o1:{s:'Онбординг · Шаг 01',t:'Welcome-book',b:`Первый документ, с которым знакомится новый мастер.\n\nСодержит вводную информацию о студии SHUGA: история, ценности, команда, правила взаимодействия и ожидания от каждого сотрудника.\n\n🔗 <a href="https://docs.google.com/presentation/d/1Qa07faHE25eRQP_nFIlPEsYPGav_Wbiv/edit?usp=sharing&ouid=117024619454996101032&rtpof=true&sd=true" target="_blank" rel="noopener" style="color:var(--sage);text-decoration:underline;">Открыть Welcome-book →</a>`},
+  o2:{s:'Онбординг · Шаг 02',t:'Подписание документов',b:`• NDA — соглашение о неразглашении\n• Согласие на обработку персональных данных (ОПД)\n• Согласие на фото- и видеосъёмку в студии\n\n<strong>Необходимые документы (скан/оригинал):</strong>\n• Медицинская книжка\n• Скан паспорта\n• ИНН\n\nВсе подписываются и предоставляются до начала полноценной работы.`},
+  o3:{s:'Онбординг · Шаг 03',t:'Внутренние регламенты',b:`Мастер изучает и подписывает:\n\n• Регламент мастера ногтевого сервиса\n• Регламент коммуникации с гостями\n• Регламент онихолизиса\n• Правила реставраций и ответственность мастера`},
+  o4:{s:'Онбординг · Шаг 04',t:'Очный разбор с демонстрацией',b:`Проводится управляющей или старшим мастером.\n\n• Правила уборки рабочих мест — маникюр и педикюр\n• Протокол стерилизации: шаг за шагом\n\nФормат: живая демонстрация с возможностью задать вопросы.`},
+  o5:{s:'Онбординг · Шаг 05',t:'Самостоятельное изучение',b:`• Протоколы процедур — маникюр и педикюр\n• Ценности и устав студии\n• Ритейл и описание продуктов (составы, эффекты, как рекомендовать гостю)`},
+  o6:{s:'Онбординг · Шаг 06',t:'Видеоматериалы В. Зайцевой',b:`Обучающие видео по отслойкам и сложным случаям.\n\n<strong>Дедлайн тестирования:</strong> 2 недели со старта работы.\n\nПосле просмотра мастер проходит тестирование по ссылке:\n🔗 forms.gle/b3Vbu9VWrePmDFY77\n\nРезультаты передаются HRD.`},
+  o6t:{s:'Онбординг · Тест 06',t:'Тестирование по В. Зайцевой',b:`Тест проходится после просмотра видеоматериалов об отслойках и сложных случаях.\n\n🔗 <a href="https://forms.gle/b3Vbu9VWrePmDFY77" target="_blank" rel="noopener" style="color:var(--sage);text-decoration:underline;">Пройти тестирование →</a>\n\n<strong>Дедлайн:</strong> 2 недели со старта работы.\nРезультаты передаются HRD.`},
+  o7:{s:'Онбординг · Шаг 07',t:'Бесплатный семинар Luxio',b:`Посещение бесплатного семинара от бренда Luxio.\n\nДаёт понимание продуктовой линейки, техник работы и особенностей материалов, используемых в студии.\n\nПосле семинара — тестирование на знание протокола Luxio.`},
+  o7t:{s:'Онбординг · Тест 07',t:'Тестирование по протоколу Luxio',b:`Проводится после посещения бесплатного семинара Luxio.\n\nПроверяет знание:\n• Продуктовой линейки Luxio\n• Техник нанесения и снятия\n• Протокола работы с материалами\n\nРезультаты передаются HRD.`},
+  o8:{s:'Онбординг · Шаг 08',t:'Бесплатный семинар Straderm',b:`Посещение бесплатного семинара Straderm в офисе Luxio.\n\nОхватывает протоколы работы со Straderm — уходовыми процедурами для педикюра.\n\nПосле семинара — тестирование на знание протокола Straderm.`},
+  o8t:{s:'Онбординг · Тест 08',t:'Тестирование по протоколу Straderm',b:`Проводится после посещения семинара Straderm.\n\nПроверяет знание:\n• Состава и свойств препаратов Straderm\n• Протокола педикюрной процедуры\n• Показаний и противопоказаний\n\nРезультаты передаются HRD.`},
+  o9:{s:'Онбординг · Шаг 09',t:'Понимание условий обучения',b:`<strong>Внутреннее обучение от технологов студии:</strong>\n• Условия участия, периодичность, темы\n\n<strong>Внешнее повышение квалификации:</strong>\n• Условия поддержки студии\n• Порядок согласования\n• Компенсация или частичная оплата`},
+  o10:{s:'Онбординг · Шаг 10',t:'Синхронизационная сессия + брендбук',b:`<strong>Сессия с HRD:</strong>\n• Обсуждение первых впечатлений\n• Сверка ожиданий\n• Ответы на накопившиеся вопросы\n\n<strong>Презентация брендбука:</strong>\n• Ценности и миссия SHUGA\n• Визуальный и коммуникационный стиль бренда`},
+  o11:{s:'Онбординг · Шаг 11',t:'Определение точки А + ИПР',b:`Совместно с HRD определяется текущий уровень мастера — «точка А».\n\nНа основе точки А строится ИПР:\n• Цели на 3 / 6 / 12 месяцев\n• Ключевые навыки для освоения\n• Необходимые обучения\n• KPI для перехода в следующую категорию`},
+  o12:{s:'Онбординг · Шаг 12',t:'Видеоматериалы: укрепление гелем',b:`Обучающие видео по технике укрепления ногтей гелем.\n\nПротоколы, типичные ошибки и нюансы работы с материалом.`},
+  o13:{s:'Онбординг · Шаг 13',t:'Видеоматериалы: маникюр и покрытие',b:`Общий видеокурс по маникюру и покрытию.\n\nБазовые и продвинутые техники, стандарты выполнения и критерии качества в студии SHUGA.`}
+};
+
+function showDetail(k) {
+  const d = D[k]; if (!d) return;
+  document.getElementById('ov-step').textContent = d.s;
+  document.getElementById('ov-title').textContent = d.t;
+  document.getElementById('ov-body').innerHTML = d.b;
+  document.getElementById('overlay').classList.add('open');
+}
+function closeOverlay(e) { if (e.target===document.getElementById('overlay')) document.getElementById('overlay').classList.remove('open'); }
+function closeOverlayDirect() { document.getElementById('overlay').classList.remove('open'); }
+document.addEventListener('keydown', e => { if (e.key==='Escape') document.getElementById('overlay').classList.remove('open'); });
+
+/* ═══════════════════════════════
+   ADMIN LK
+═══════════════════════════════ */
+const ADMIN_STAFF = {
+  ilariya:    { name:'Илария',    role:'Менеджер',   initials:'ИЛ', pin:'1111' },
+  svetlana:   { name:'Светлана',  role:'Менеджер',   initials:'СВ', pin:'2222' },
+  aleksandra: { name:'Александра',role:'Хранитель',  initials:'АЛ', pin:'3333' },
+  angelina:   { name:'Ангелина',  role:'Хранитель',  initials:'АН', pin:'4444' }
+};
+
+const ADMIN_CHECKLIST = [
+  // Документы — онлайн
+  { id:'nda',      label:'NDA — соглашение о неразглашении подписано',                cat:'docs' },
+  { id:'opd',      label:'Согласие на обработку персональных данных подписано',       cat:'docs' },
+  { id:'photo',    label:'Согласие на фото- и видеосъёмку подписано',                cat:'docs' },
+  // Документы — очно
+  { id:'passport', label:'Скан паспорта (1-й разворот + прописка) передан управляющей', cat:'docs_offline' },
+  { id:'inn',      label:'ИНН передан управляющей',                                  cat:'docs_offline' },
+  { id:'medbook',  label:'Медицинская книжка передана управляющей',                   cat:'docs_offline' },
+  // Онбординг
+  { id:'welcome',  label:'Welcome-book с историей SHUGA STUDIO изучен',              cat:'onboard' },
+  { id:'values',   label:'Кодекс ценностей изучен',                                  cat:'onboard' },
+  { id:'roles',    label:'Роли: своя, напарника и управляющей — разграничение зон',  cat:'onboard' },
+  { id:'procmap',  label:'Карта процессов хранителя/менеджера изучена',              cat:'onboard' },
+  { id:'ckp',      label:'ЦКП своей роли изучен',                                    cat:'onboard' },
+  { id:'kpi_exp',  label:'Ожидаемые результаты в показателях изучены',               cat:'onboard' },
+  { id:'look',     label:'Внешний вид студии — стандарты изучены (хранитель)',        cat:'onboard' },
+  { id:'sync',     label:'Итог 2 недель: синхронизация с HRD + брендбук',            cat:'onboard' },
+  // Обучение — Конфликтология
+  { id:'conflict_read',  label:'Презентация «Конфликтология» изучена',               cat:'training' },
+  { id:'conflict_test',  label:'Тестирование по конфликтологии пройдено',            cat:'training' },
+  // Обучение — Услуги
+  { id:'services_read',  label:'Материал-шпаргалка по услугам изучен',               cat:'training' },
+  { id:'services_pres',  label:'Презентация по услугам изучена',                     cat:'training' },
+  { id:'services_test',  label:'Тестирование по услугам пройдено',                   cat:'training' },
+];
+
+const ADMIN_TOTAL = ADMIN_CHECKLIST.length;
+let alkStorage = JSON.parse(localStorage.getItem('shuga_alk') || '{}');
+function saveALK() { localStorage.setItem('shuga_alk', JSON.stringify(alkStorage)); }
+function getAdminProgress(key) { if (!alkStorage[key]) alkStorage[key] = {}; return alkStorage[key]; }
+
+let currentAdmin = null;
+
+function alkLogin() {
+  const key = document.getElementById('alk-user-select').value;
+  const pin = document.getElementById('alk-pin').value;
+  const err = document.getElementById('alk-error');
+  if (!key || !ADMIN_STAFF[key]) { err.style.display='block'; err.textContent='Выберите сотрудника'; return; }
+  if (pin !== ADMIN_STAFF[key].pin) { err.style.display='block'; err.textContent='Неверный пин-код'; return; }
+  err.style.display='none';
+  currentAdmin = key;
+  renderAdminDash(key);
+}
+
+function alkLogout() {
+  currentAdmin = null;
+  document.getElementById('alk-login').style.display='flex';
+  document.getElementById('alk-dash-wrap').innerHTML='';
+  document.getElementById('alk-pin').value='';
+  document.getElementById('alk-user-select').value='';
+}
+
+function alkTab(tab) {
+  document.querySelectorAll('.alk-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+  document.querySelectorAll('.alk-tab-content').forEach(c => c.classList.toggle('active', c.id === 'alk-tc-' + tab));
+}
+
+function alkToggle(key, id, el) {
+  const prog = getAdminProgress(key);
+  prog[id] = !prog[id];
+  saveALK();
+  el.classList.toggle('done');
+  el.querySelector('.alk-checkbox').textContent = prog[id] ? '✓' : '';
+  alkUpdateProgress(key);
+}
+
+function alkUpdateProgress(key) {
+  const prog = getAdminProgress(key);
+  const done = ADMIN_CHECKLIST.filter(c => prog[c.id]).length;
+  const pct = Math.round((done / ADMIN_TOTAL) * 100);
+  const fill = document.getElementById('alk-prog-fill');
+  const pval = document.getElementById('alk-prog-pct');
+  const pdone = document.getElementById('alk-prog-done');
+  if (fill) fill.style.width = pct + '%';
+  if (pval) pval.textContent = pct;
+  if (pdone) pdone.textContent = done + ' из ' + ADMIN_TOTAL + ' пунктов';
+}
+
+function alkSaveKPI(key, field, val) {
+  if (!alkStorage[key + '_kpi']) alkStorage[key + '_kpi'] = {};
+  alkStorage[key + '_kpi'][field] = val;
+  saveALK();
+}
+
+function renderAdminDash(key) {
+  const s = ADMIN_STAFF[key];
+  const prog = getAdminProgress(key);
+  const kpi = alkStorage[key + '_kpi'] || {};
+  const done = ADMIN_CHECKLIST.filter(c => prog[c.id]).length;
+  const pct = Math.round((done / ADMIN_TOTAL) * 100);
+
+  document.getElementById('alk-login').style.display = 'none';
+
+  // Build onboard tab — rich cards with links
+  const docOnlineItems = [
+    { id:'nda',   label:'NDA — соглашение о неразглашении' },
+    { id:'opd',   label:'Согласие на обработку персональных данных' },
+    { id:'photo', label:'Согласие на фото- и видеосъёмку' },
+  ];
+  const docOfflineItems = [
+    { id:'passport', label:'Скан паспорта (1-й разворот + прописка)' },
+    { id:'inn',      label:'ИНН' },
+    { id:'medbook',  label:'Медицинская книжка' },
+  ];
+
+  const mkCheck = (cat, items) => items.map(c => {
+    const d = !!prog[c.id];
+    return `<div class="alk-check${d?' done':''}" onclick="alkToggle('${key}','${c.id}',this)">
+      <div class="alk-checkbox">${d?'✓':''}</div><span>${c.label}</span></div>`;
+  }).join('');
+
+  onboardHTML = `
+  <div class="alk-section">
+    <div class="alk-section-title">📄 Документы — онлайн-подпись</div>
+    <p style="font-size:12.5px;color:var(--dusk);line-height:1.7;margin-bottom:16px;">Документы подписываются онлайн — через приложение <strong>Заметки</strong> (iOS) или сервис <strong>Диадок</strong>. Отмечай галочкой после подписи.</p>
+    <div class="alk-checklist">${mkCheck('docs', docOnlineItems)}</div>
+  </div>
+
+  <div class="alk-section">
+    <div class="alk-section-title">📋 Документы — передать управляющей очно</div>
+    <p style="font-size:12.5px;color:var(--dusk);line-height:1.7;margin-bottom:16px;">Необходимо принести лично в студию и передать управляющей.</p>
+    <div class="alk-checklist">${mkCheck('docs_offline', docOfflineItems)}</div>
+  </div>
+
+  <div class="alk-section">
+    <div class="alk-section-title">🏠 Онбординг</div>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+
+      ${(()=>{const d=!!prog['welcome'];return`
+      <div class="alk-onboard-item">
+        <div class="alk-check${d?' done':''}" style="margin-bottom:10px;" onclick="alkToggle('${key}','welcome',this)">
+          <div class="alk-checkbox">${d?'✓':''}</div><span>Welcome-book с историей SHUGA STUDIO изучен</span></div>
+        <a class="alk-link" href="https://docs.google.com/presentation/d/1GmzLElnG1tHX-kGOA-QotpsHSNg-BJFqRum8mHDD82g/edit?usp=sharing" target="_blank" style="margin-left:32px;">📖 Открыть Welcome-book →</a>
+      </div>`;})()}
+
+      ${(()=>{const d=!!prog['values'];return`
+      <div class="alk-onboard-item">
+        <div class="alk-check${d?' done':''}" style="margin-bottom:10px;" onclick="alkToggle('${key}','values',this)">
+          <div class="alk-checkbox">${d?'✓':''}</div><span>Кодекс ценностей изучен</span></div>
+        <a class="alk-link" href="https://drive.google.com/file/d/1ZKq2dHeZF-7SyS1_mhRgt89G8-NXhezj/view?usp=sharing" target="_blank" style="margin-left:32px;">📜 Открыть Кодекс ценностей →</a>
+      </div>`;})()}
+
+      ${(()=>{const d=!!prog['roles'];return`
+      <div class="alk-onboard-item">
+        <div class="alk-check${d?' done':''}" style="margin-bottom:10px;" onclick="alkToggle('${key}','roles',this)">
+          <div class="alk-checkbox">${d?'✓':''}</div><span>Понимание своей роли, роли напарника и управляющей — разграничение зон ответственности</span></div>
+        <div style="margin-left:32px;font-size:12px;color:var(--stone);margin-bottom:8px;">Карта процессов — нажми на блок чтобы провалиться:</div>
+        <div style="margin-left:32px;display:flex;flex-wrap:wrap;gap:8px;">
+          ${['Подготовка смены','Сервис гостя','Обслуживание мастеров','Поставки и склад','Стерилизация и чистота','Рекламации','Этические нормы','Контроль оборудования','Хозяйственное управление'].map((p,i)=>`
+          <div onclick="appNav('admin');setTimeout(()=>switchTab('admin','processes',document.querySelector('.nav-tab:last-child')),150)"
+            style="padding:7px 14px;background:#fff;border:1px solid var(--sand);border-radius:var(--radius-pill);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--dusk);cursor:pointer;transition:all .18s;"
+            onmouseover="this.style.borderColor='var(--rose)';this.style.color='var(--rose)'"
+            onmouseout="this.style.borderColor='var(--sand)';this.style.color='var(--dusk)'">
+            ${String(i+1).padStart(2,'0')} ${p}
+          </div>`).join('')}
+        </div>
+      </div>`;})()}
+
+      ${(()=>{const d=!!prog['ckp'];return`
+      <div class="alk-onboard-item">
+        <div class="alk-check${d?' done':''}" onclick="alkToggle('${key}','ckp',this)">
+          <div class="alk-checkbox">${d?'✓':''}</div>
+          <div>
+            <span>ЦКП ${s.role === 'Менеджер' ? 'менеджера' : 'хранителя'} изучен</span>
+            <div style="font-size:11.5px;color:var(--stone);margin-top:6px;line-height:1.6;">
+              ${s.role === 'Менеджер'
+                ? '📌 Ценный конечный продукт менеджера — максимально заполненная студия довольными клиентами, которые возвращаются и приводят других.'
+                : '📌 Ценный конечный продукт хранителя — студия, в которой безопасно, чисто, уютно и всё работает так, чтобы мастера и гости чувствовали заботу.'}
+            </div>
+          </div>
+        </div>
+      </div>`;})()}
+
+      ${(()=>{const d=!!prog['kpi_exp'];return`
+      <div class="alk-onboard-item">
+        <div class="alk-check${d?' done':''}" onclick="alkToggle('${key}','kpi_exp',this)">
+          <div class="alk-checkbox">${d?'✓':''}</div>
+          <div>
+            <span>Ожидаемые результаты от роли в показателях изучены</span>
+            <div style="font-size:11.5px;color:var(--stone);margin-top:8px;line-height:1.7;">
+              ${s.role === 'Менеджер'
+                ? `<b>Менеджер:</b><br>• ОПЗ день в день — целевой показатель<br>• ОПЗ на следующий день — целевой показатель<br>• Выручка за товары<br>• Абонементы на массаж<br>• Выполнение плана месяца`
+                : `<b>Хранитель:</b><br>• ОПЗ день в день — готовность зон<br>• Чистота и порядок студии<br>• Расходники в наличии без перебоев<br>• Отсутствие жалоб на сервис`}
+            </div>
+          </div>
+        </div>
+      </div>`;})()}
+
+      ${s.role === 'Хранитель' ? (()=>{const d=!!prog['look'];return`
+      <div class="alk-onboard-item">
+        <div class="alk-check${d?' done':''}" style="margin-bottom:10px;" onclick="alkToggle('${key}','look',this)">
+          <div class="alk-checkbox">${d?'✓':''}</div><span>Внешний вид студии — стандарты изучены</span></div>
+        <a class="alk-link" href="https://docs.google.com/document/d/1fIES40UxkWTI8Pamdu0kJSy1KJoAjJHzZDM-1y-te88/edit?usp=sharing" target="_blank" style="margin-left:32px;">🏠 Открыть регламент внешнего вида →</a>
+      </div>`;})() : ''}
+
+      ${(()=>{const d=!!prog['sync'];return`
+      <div class="alk-onboard-item">
+        <div class="alk-check${d?' done':''}" onclick="alkToggle('${key}','sync',this)">
+          <div class="alk-checkbox">${d?'✓':''}</div><span>Итог 2 недель: синхронизация с HRD + брендбук</span></div>
+      </div>`;})()}
+
+    </div>
+  </div>`;
+
+  // Training tab
+  let trainingHTML = `
+  <div class="alk-training-card">
+    <div class="alk-training-num">1</div>
+    <div class="alk-training-title">Конфликтология и работа с рекламациями</div>
+    <div class="alk-training-desc">Как распознавать тип рекламации, держать позицию, что говорить пошагово, чего не делать, и как превратить рекламацию в инструмент роста лояльности.</div>
+    <div style="background:rgba(184,130,110,0.05);border:1px solid rgba(184,130,110,0.2);border-radius:var(--radius-sm);padding:16px 20px;margin-bottom:16px;">
+      <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--rose);margin-bottom:12px;">Содержание презентации</div>
+      ${[
+        ['Что такое рекламация', 'Момент, в котором мы либо теряем доверие, либо укрепляем его'],
+        ['Формула позиции', 'Спокойствие + уважение + ясность + процесс'],
+        ['5 типов рекламаций', 'Эмоциональная · Предметная · Сервисная · Финансовая · Пограничная'],
+        ['7-шаговый алгоритм', 'От принятия обращения до завершения ситуации с ростом лояльности'],
+        ['Стоп-лист реакций', '12 запрещённых действий при рекламации'],
+        ['Ред-флаги', '12 сигналов для подключения управляющей'],
+      ].map(([t,d]) => `<div onclick="this.classList.toggle('open')" class="conflict-slide">
+        <div class="conflict-slide-num">блок</div>
+        <div class="conflict-slide-title">${t}</div>
+        <div class="conflict-slide-body">${d}</div>
+      </div>`).join('')}
+    </div>
+    <div class="alk-training-links">
+      <a class="alk-link" href="https://docs.google.com/presentation/d/1WTjmbaWUqNtz5TRXHJbPkqvctngbFMJg/edit?usp=sharing&ouid=117024619454996101032&rtpof=true&sd=true" target="_blank">📊 Открыть презентацию</a>
+      <a class="alk-link primary" href="https://forms.gle/kftGVKrt75CFUS14A" target="_blank">📝 Пройти тестирование →</a>
+    </div>
+    <div style="margin-top:16px;" class="alk-checklist">
+      ${ADMIN_CHECKLIST.filter(c=>c.cat==='training'&&c.id.startsWith('conflict')).map(c => {
+        const d = !!prog[c.id];
+        return `<div class="alk-check${d?' done':''}" onclick="alkToggle('${key}','${c.id}',this)">
+          <div class="alk-checkbox">${d?'✓':''}</div><span>${c.label}</span></div>`;
+      }).join('')}
+    </div>
+  </div>
+
+  <div class="alk-training-card">
+    <div class="alk-training-num">2</div>
+    <div class="alk-training-title">Услуги SHUGA STUDIO</div>
+    <div class="alk-training-desc">Полное знание услуг студии: составы, форматы, длительность, стандарты сервиса и рекомендации клиентам.</div>
+    <div class="alk-training-links" style="margin-bottom:16px;">
+      <a class="alk-link" href="https://docs.google.com/document/d/1IOaWCH-xj-X_dXAYzmnQOzlZjfrUrff4mg2n75iGl04/edit?usp=sharing" target="_blank">📄 Шпаргалка по услугам</a>
+      <a class="alk-link" href="https://docs.google.com/presentation/d/1XJPzz7bGZvsFt5GDGqvtiFEIUxxLGw55kxeNOycnT4Y/edit?usp=sharing" target="_blank">📊 Презентация</a>
+      <a class="alk-link primary" href="https://forms.gle/2uEn1g7DLBEqEmoK7" target="_blank">📝 Пройти тестирование →</a>
+    </div>
+    <div class="alk-checklist">
+      ${ADMIN_CHECKLIST.filter(c=>c.cat==='training'&&c.id.startsWith('services')).map(c => {
+        const d = !!prog[c.id];
+        return `<div class="alk-check${d?' done':''}" onclick="alkToggle('${key}','${c.id}',this)">
+          <div class="alk-checkbox">${d?'✓':''}</div><span>${c.label}</span></div>`;
+      }).join('')}
+    </div>
+  </div>`;
+
+  // KPI tab
+  const kpiFields = s.role === 'Менеджер' ? [
+    { id:'opz_day',     label:'ОПЗ день в день',          unit:'%' },
+    { id:'opz_next',    label:'ОПЗ на следующий день',     unit:'%' },
+    { id:'goods_rev',   label:'Выручка за товары',         unit:'₽' },
+    { id:'abonements',  label:'Абонементы на массаж',      unit:'шт' },
+    { id:'plan',        label:'План месяца',               unit:'₽' },
+    { id:'fact',        label:'Факт месяца',               unit:'₽' },
+  ] : [
+    { id:'opz_day',     label:'ОПЗ день в день',           unit:'%' },
+    { id:'clean',       label:'Чистота и готовность зон',  unit:'балл 1–5' },
+    { id:'supplies',    label:'Расходники в наличии',       unit:'%' },
+    { id:'plan',        label:'План месяца',                unit:'₽' },
+    { id:'fact',        label:'Факт месяца',                unit:'₽' },
+  ];
+  const kpiHTML = `
+    <div class="alk-kpi-grid">
+      ${kpiFields.map(f => `
+        <div class="alk-kpi-card">
+          <div class="alk-kpi-label">${f.label}</div>
+          <input class="alk-kpi-input" type="text" placeholder="—" value="${kpi[f.id]||''}"
+            onchange="alkSaveKPI('${key}','${f.id}',this.value)" />
+          <div class="alk-kpi-unit">${f.unit}</div>
+        </div>`).join('')}
+    </div>
+    <div style="background:#fff;border:1px solid var(--sand);border-radius:var(--radius-sm);padding:20px 24px;">
+      <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:10px;">Заметки к показателям</div>
+      <textarea style="width:100%;border:none;background:none;font-family:'Jost',sans-serif;font-size:13px;color:var(--ink);resize:vertical;outline:none;min-height:80px;" placeholder="Добавьте комментарий к своим показателям..."
+        onchange="alkSaveKPI('${key}','notes',this.value)">${kpi['notes']||''}</textarea>
+    </div>`;
+
+  document.getElementById('alk-dash-wrap').innerHTML = `
+  <div class="alk-dash active">
+    <div class="alk-header">
+      <div class="alk-avatar">${s.initials}</div>
+      <div>
+        <div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--ink);">${s.name}</div>
+        <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-top:2px;">${s.role} · SHUGA Studio</div>
+      </div>
+      <button class="lk-logout" onclick="alkLogout()">Выйти</button>
+    </div>
+    <div class="alk-body">
+
+      <!-- Welcome -->
+      <div class="alk-welcome">
+        <div class="alk-welcome-eyebrow">Добро пожаловать</div>
+        <div class="alk-welcome-title">Привет, ${s.name}! 🤍</div>
+        <div class="alk-welcome-text">Добро пожаловать в нашу команду профессионалов, наполненных и отдающих человеческое тепло, для которых высокий уровень сервиса и искренность — настройки на уровне кончиков пальцев!<br><br>
+        Мы рады приветствовать тебя в SHUGA ACADEMY, где начинается твой путь развития внутри компании 🤍<br><br>
+        Ниже у тебя есть разделы, которые помогут тебе изучить нашу внутреннюю информацию, сонастроиться с нашими ценностями, понять свою роль и роль остальных членов команды, а также отследить динамику своих показателей!<br><br>
+        Надеемся, что путь адаптации для тебя будет полезным и увлекательным. Начинай с блока онбординга, а далее тебя направит управляющая и HR-директор 🫂</div>
+        <div class="alk-nav-btns">
+          <button class="alk-nav-btn rose" onclick="alkTab('onboard')">📋 Онбординг</button>
+          <button class="alk-nav-btn outline" onclick="alkTab('training')">🎓 Обучение</button>
+          <button class="alk-nav-btn outline" onclick="alkTab('kpi')">📊 Мои показатели</button>
+        </div>
+      </div>
+
+      <!-- Progress -->
+      <div class="alk-progress-hero">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+          <div>
+            <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--stone);margin-bottom:8px;">Прогресс адаптации</div>
+            <div style="display:flex;align-items:baseline;gap:6px;">
+              <span class="alk-prog-pct" id="alk-prog-pct">${pct}</span>
+              <span style="font-size:13px;color:var(--stone);">%</span>
+            </div>
+            <div style="font-size:12px;color:var(--dusk);margin-top:4px;" id="alk-prog-done">${done} из ${ADMIN_TOTAL} пунктов</div>
+          </div>
+          <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:var(--radius-pill);background:rgba(184,130,110,0.1);border:1px solid rgba(184,130,110,0.3);font-size:11px;color:var(--rose);letter-spacing:1.5px;text-transform:uppercase;">
+            ${pct < 50 ? '🌱 Адаптация' : pct < 100 ? '🚀 В процессе' : '✨ Адаптирован'}
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--stone);margin-bottom:6px;">
+          <span>Старт</span><span>Адаптация завершена</span>
+        </div>
+        <div class="alk-prog-track">
+          <div class="alk-prog-fill" id="alk-prog-fill" style="width:${pct}%"></div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="alk-tabs">
+        <button class="alk-tab active" data-tab="onboard" onclick="alkTab('onboard')">📋 Онбординг</button>
+        <button class="alk-tab" data-tab="training" onclick="alkTab('training')">🎓 Обучение</button>
+        <button class="alk-tab" data-tab="kpi" onclick="alkTab('kpi')">📊 Мои показатели</button>
+      </div>
+
+      <div id="alk-tc-onboard" class="alk-tab-content active">${onboardHTML}</div>
+      <div id="alk-tc-training" class="alk-tab-content">${trainingHTML}</div>
+      <div id="alk-tc-kpi" class="alk-tab-content">${kpiHTML}</div>
+
+    </div>
+  </div>`;
+}
+
+/* ═══════════════════════════════
+   BODY SPECIALIST LK
+═══════════════════════════════ */
+const BODY_STAFF = {
+  elena:  { name:'Елена',  initials:'ЕЛ', pin:'5555' },
+  elvira: { name:'Эльвира', initials:'ЭЛ', pin:'6666' }
+};
+
+const BODY_CHECKLIST = [
+  // Документы онлайн
+  { id:'b_nda',      label:'NDA — соглашение о неразглашении подписано',                   cat:'docs' },
+  { id:'b_opd',      label:'Согласие на обработку персональных данных подписано',          cat:'docs' },
+  { id:'b_photo',    label:'Согласие на фото- и видеосъёмку подписано',                   cat:'docs' },
+  // Документы очно
+  { id:'b_passport', label:'Скан паспорта (1-й разворот + прописка) передан управляющей', cat:'docs_offline' },
+  { id:'b_inn',      label:'ИНН передан управляющей',                                      cat:'docs_offline' },
+  { id:'b_medbook',  label:'Медицинская книжка передана управляющей',                      cat:'docs_offline' },
+  // Онбординг
+  { id:'b_welcome',  label:'Welcome-book с историей SHUGA STUDIO изучен',                 cat:'onboard' },
+  { id:'b_values',   label:'Кодекс ценностей изучен',                                     cat:'onboard' },
+  { id:'b_roles',    label:'Понимание своей роли, роли напарников и управляющей',         cat:'onboard' },
+  { id:'b_reglament',label:'Регламент работы специалиста по телу изучен',                 cat:'onboard' },
+  { id:'b_ckp',      label:'ЦКП специалиста по телу изучен',                              cat:'onboard' },
+  { id:'b_kpi_exp',  label:'Ожидаемые результаты в показателях изучены',                  cat:'onboard' },
+  { id:'b_sync',     label:'Итог 2 недель: синхронизация с HRD + брендбук',               cat:'onboard' },
+  // KPI
+  { id:'b_kpi_rev',     label:'Выполнение плана по выручке',          cat:'kpi' },
+  { id:'b_kpi_check',   label:'Средний чек — целевой показатель',     cat:'kpi' },
+  { id:'b_kpi_ret',     label:'Возвратность клиентов от 70%',         cat:'kpi' },
+  { id:'b_kpi_rec',     label:'Отсутствие рекламаций',                cat:'kpi' },
+  { id:'b_kpi_reviews', label:'Регулярные положительные отзывы',      cat:'kpi' },
+];
+
+const BODY_TOTAL = BODY_CHECKLIST.length;
+let blkStorage = JSON.parse(localStorage.getItem('shuga_blk') || '{}');
+function saveBLK() { localStorage.setItem('shuga_blk', JSON.stringify(blkStorage)); }
+function getBodyProgress(key) { if (!blkStorage[key]) blkStorage[key] = {}; return blkStorage[key]; }
+let currentBody = null;
+
+function blkLogin() {
+  const key = document.getElementById('blk-user-select').value;
+  const pin = document.getElementById('blk-pin').value;
+  const err = document.getElementById('blk-error');
+  if (!key || !BODY_STAFF[key]) { err.style.display='block'; err.textContent='Выберите специалиста'; return; }
+  if (pin !== BODY_STAFF[key].pin) { err.style.display='block'; err.textContent='Неверный пин-код'; return; }
+  err.style.display='none';
+  currentBody = key;
+  renderBodyDash(key);
+}
+
+function blkLogout() {
+  currentBody = null;
+  document.getElementById('blk-login').style.display='flex';
+  document.getElementById('blk-dash-wrap').innerHTML='';
+  document.getElementById('blk-pin').value='';
+  document.getElementById('blk-user-select').value='';
+}
+
+function blkTab(tab) {
+  document.querySelectorAll('.blk-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+  document.querySelectorAll('.blk-tab-content').forEach(c => c.classList.toggle('active', c.id === 'blk-tc-' + tab));
+}
+
+function blkToggle(key, id, el) {
+  const prog = getBodyProgress(key);
+  prog[id] = !prog[id];
+  saveBLK();
+  el.classList.toggle('done');
+  el.querySelector('.blk-checkbox').textContent = prog[id] ? '✓' : '';
+  blkUpdateProgress(key);
+}
+
+function blkUpdateProgress(key) {
+  const prog = getBodyProgress(key);
+  const done = BODY_CHECKLIST.filter(c => prog[c.id]).length;
+  const pct = Math.round((done / BODY_TOTAL) * 100);
+  const fill = document.getElementById('blk-prog-fill');
+  const pval = document.getElementById('blk-prog-pct');
+  const pdone = document.getElementById('blk-prog-done');
+  if (fill) fill.style.width = pct + '%';
+  if (pval) pval.textContent = pct;
+  if (pdone) pdone.textContent = done + ' из ' + BODY_TOTAL + ' пунктов';
+}
+
+function blkSaveKPI(key, field, val) {
+  if (!blkStorage[key + '_kpi']) blkStorage[key + '_kpi'] = {};
+  blkStorage[key + '_kpi'][field] = val;
+  saveBLK();
+}
+
+function renderBodyDash(key) {
+  const s = BODY_STAFF[key];
+  const prog = getBodyProgress(key);
+  const kpi = blkStorage[key + '_kpi'] || {};
+  const done = BODY_CHECKLIST.filter(c => prog[c.id]).length;
+  const pct = Math.round((done / BODY_TOTAL) * 100);
+
+  document.getElementById('blk-login').style.display = 'none';
+
+  const mkCheck = (items) => items.map(c => {
+    const d = !!prog[c.id];
+    return `<div class="blk-check${d?' done':''}" onclick="blkToggle('${key}','${c.id}',this)">
+      <div class="blk-checkbox">${d?'✓':''}</div><span>${c.label}</span></div>`;
+  }).join('');
+
+  const onboardHTML = `
+  <div class="blk-section">
+    <div class="blk-section-title">📄 Документы — онлайн-подпись</div>
+    <p style="font-size:12.5px;color:var(--dusk);line-height:1.7;margin-bottom:14px;">Подписываются онлайн через приложение <strong>Заметки</strong> (iOS) или сервис <strong>Диадок</strong>.</p>
+    ${mkCheck(BODY_CHECKLIST.filter(c=>c.cat==='docs'))}
+  </div>
+  <div class="blk-section">
+    <div class="blk-section-title">📋 Документы — передать управляющей очно</div>
+    ${mkCheck(BODY_CHECKLIST.filter(c=>c.cat==='docs_offline'))}
+  </div>
+  <div class="blk-section">
+    <div class="blk-section-title">🏠 Онбординг</div>
+    <div class="blk-onboard-item">
+      ${(()=>{const d=!!prog['b_welcome'];return`<div class="blk-check${d?' done':''}" style="margin-bottom:10px;" onclick="blkToggle('${key}','b_welcome',this)">
+        <div class="blk-checkbox">${d?'✓':''}</div><span>Welcome-book с историей SHUGA STUDIO изучен</span></div>
+      <a class="alk-link" href="https://docs.google.com/presentation/d/1GmzLElnG1tHX-kGOA-QotpsHSNg-BJFqRum8mHDD82g/edit?usp=sharing" target="_blank" style="margin-left:32px;">📖 Открыть Welcome-book →</a>`;})()}
+    </div>
+    <div class="blk-onboard-item" style="margin-top:10px;">
+      ${(()=>{const d=!!prog['b_values'];return`<div class="blk-check${d?' done':''}" style="margin-bottom:10px;" onclick="blkToggle('${key}','b_values',this)">
+        <div class="blk-checkbox">${d?'✓':''}</div><span>Кодекс ценностей изучен</span></div>
+      <a class="alk-link" href="https://drive.google.com/file/d/1ZKq2dHeZF-7SyS1_mhRgt89G8-NXhezj/view?usp=sharing" target="_blank" style="margin-left:32px;">📜 Открыть Кодекс ценностей →</a>`;})()}
+    </div>
+    <div class="blk-onboard-item" style="margin-top:10px;">
+      ${(()=>{const d=!!prog['b_roles'];return`<div class="blk-check${d?' done':''}" onclick="blkToggle('${key}','b_roles',this)">
+        <div class="blk-checkbox">${d?'✓':''}</div><span>Понимание своей роли, роли напарников и управляющей</span></div>`;})()}
+    </div>
+    <div class="blk-onboard-item" style="margin-top:10px;">
+      ${(()=>{const d=!!prog['b_reglament'];return`<div class="blk-check${d?' done':''}" style="margin-bottom:10px;" onclick="blkToggle('${key}','b_reglament',this)">
+        <div class="blk-checkbox">${d?'✓':''}</div><span>Регламент работы специалиста по телу изучен</span></div>
+      <a class="alk-link" href="#" target="_blank" style="margin-left:32px;opacity:0.5;pointer-events:none;">📄 Ссылка будет добавлена</a>`;})()}
+    </div>
+    <div class="blk-onboard-item" style="margin-top:10px;">
+      ${(()=>{const d=!!prog['b_ckp'];return`<div class="blk-check${d?' done':''}" onclick="blkToggle('${key}','b_ckp',this)">
+        <div class="blk-checkbox">${d?'✓':''}</div>
+        <div><span>ЦКП специалиста по телу изучен</span>
+        <div style="font-size:11.5px;color:var(--stone);margin-top:6px;line-height:1.6;">📌 Ценный конечный продукт — клиент, который чувствует себя услышанным, восстановленным и возвращается снова.</div></div></div>`;})()}
+    </div>
+    <div class="blk-onboard-item" style="margin-top:10px;">
+      ${(()=>{const d=!!prog['b_kpi_exp'];return`<div class="blk-check${d?' done':''}" onclick="blkToggle('${key}','b_kpi_exp',this)">
+        <div class="blk-checkbox">${d?'✓':''}</div>
+        <div><span>Ожидаемые результаты в показателях изучены</span>
+        <div style="font-size:11.5px;color:var(--stone);margin-top:8px;line-height:1.7;">• Выручка месячная<br>• Средний чек<br>• Возвратность клиентов<br>• Отсутствие рекламаций<br>• Отзывы клиентов</div></div></div>`;})()}
+    </div>
+    <div class="blk-onboard-item" style="margin-top:10px;">
+      ${(()=>{const d=!!prog['b_sync'];return`<div class="blk-check${d?' done':''}" onclick="blkToggle('${key}','b_sync',this)">
+        <div class="blk-checkbox">${d?'✓':''}</div><span>Итог 2 недель: синхронизация с HRD + брендбук</span></div>`;})()}
+    </div>
+  </div>`;
+
+  const kpiHTML = `
+  <div class="blk-kpi-grid">
+    ${[
+      {id:'rev',     label:'Выручка за месяц',          unit:'₽'},
+      {id:'check',   label:'Средний чек',                unit:'₽'},
+      {id:'ret',     label:'Возвратность',               unit:'%'},
+      {id:'rec',     label:'Рекламаций',                 unit:'шт'},
+      {id:'reviews', label:'Отзывы клиентов',            unit:'⭐'},
+      {id:'plan',    label:'План месяца',                unit:'₽'},
+    ].map(f=>`<div class="blk-kpi-card">
+      <div class="blk-kpi-label">${f.label}</div>
+      <input class="blk-kpi-input" type="text" placeholder="—" value="${kpi[f.id]||''}"
+        onchange="blkSaveKPI('${key}','${f.id}',this.value)" />
+      <div class="blk-kpi-unit">${f.unit}</div>
+    </div>`).join('')}
+  </div>
+  <div style="background:#fff;border:1px solid var(--sand);border-radius:var(--radius-sm);padding:20px 24px;">
+    <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:10px;">Заметки</div>
+    <textarea style="width:100%;border:none;background:none;font-family:'Jost',sans-serif;font-size:13px;color:var(--ink);resize:vertical;outline:none;min-height:80px;" placeholder="Комментарии к показателям..."
+      onchange="blkSaveKPI('${key}','notes',this.value)">${kpi['notes']||''}</textarea>
+  </div>`;
+
+  document.getElementById('blk-dash-wrap').innerHTML = `
+  <div class="blk-dash active">
+    <div class="blk-header">
+      <div class="blk-avatar">${s.initials}</div>
+      <div>
+        <div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--ink);">${s.name}</div>
+        <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-top:2px;">Специалист по телу · SHUGA Studio</div>
+      </div>
+      <button class="lk-logout" onclick="blkLogout()">Выйти</button>
+    </div>
+    <div class="blk-body">
+
+      <div class="blk-welcome">
+        <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--sage);margin-bottom:12px;">Добро пожаловать</div>
+        <div style="font-family:'Playfair Display',serif;font-size:26px;color:var(--ink);margin-bottom:16px;">Рады видеть Вас, ${s.name}! 🤍</div>
+        <div style="font-size:13px;color:var(--dusk);line-height:1.8;max-width:600px;">
+          Добро пожаловать в нашу команду профессионалов, наполненных и отдающих человеческое тепло, для которых высокий уровень сервиса и искренность — настройки на уровне кончиков пальцев!<br><br>
+          Мы рады приветствовать Вас в SHUGA ACADEMY, где начинается Ваш путь развития внутри компании 🤍<br><br>
+          Ниже у Вас есть разделы, которые помогут изучить нашу внутреннюю информацию о компании, сонастроиться с нашими ценностями, понять свою роль и роль остальных членов команды, а также отследить динамику Ваших показателей!<br><br>
+          Надеемся, что путь адаптации будет полезным и увлекательным. Начинайте с блока онбординга, а далее Вас направит управляющая и HR-директор 🫂
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;">
+          <button class="alk-nav-btn rose" style="background:var(--sage);border-color:var(--sage);" onclick="blkTab('onboard')">📋 Онбординг</button>
+          <button class="alk-nav-btn outline" onclick="blkTab('kpi')">📊 Мои показатели</button>
+        </div>
+      </div>
+
+      <!-- Progress -->
+      <div style="background:linear-gradient(135deg,rgba(126,158,140,0.08),rgba(196,144,154,0.06));border:1px solid rgba(126,158,140,0.25);border-radius:var(--radius);padding:32px;margin-bottom:28px;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+          <div>
+            <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--stone);margin-bottom:8px;">Прогресс адаптации</div>
+            <div style="display:flex;align-items:baseline;gap:6px;">
+              <span style="font-family:'Playfair Display',serif;font-size:42px;color:var(--sage);" id="blk-prog-pct">${pct}</span>
+              <span style="font-size:13px;color:var(--stone);">%</span>
+            </div>
+            <div style="font-size:12px;color:var(--dusk);margin-top:4px;" id="blk-prog-done">${done} из ${BODY_TOTAL} пунктов</div>
+          </div>
+          <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:var(--radius-pill);background:rgba(126,158,140,0.1);border:1px solid rgba(126,158,140,0.3);font-size:11px;color:var(--sage);letter-spacing:1.5px;text-transform:uppercase;">
+            ${pct < 50 ? '🌱 Адаптация' : pct < 100 ? '🚀 В процессе' : '✨ Адаптирована'}
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--stone);margin-bottom:6px;"><span>Старт</span><span>Адаптация завершена</span></div>
+        <div class="blk-prog-track"><div class="blk-prog-fill" id="blk-prog-fill" style="width:${pct}%"></div></div>
+      </div>
+
+      <div class="blk-tabs">
+        <button class="blk-tab active" data-tab="onboard" onclick="blkTab('onboard')">📋 Онбординг</button>
+        <button class="blk-tab" data-tab="kpi" onclick="blkTab('kpi')">📊 Мои показатели</button>
+      </div>
+
+      <div id="blk-tc-onboard" class="blk-tab-content active">${onboardHTML}</div>
+      <div id="blk-tc-kpi" class="blk-tab-content">${kpiHTML}</div>
+    </div>
+  </div>`;
+}
+
+/* ── Service Worker ── */
+if ('serviceWorker' in navigator) {
+  const swCode = `
+    const CACHE='shuga-v1';
+    self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(['./'])));});
+    self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)));});
+  `;
+  const blob = new Blob([swCode],{type:'application/javascript'});
+  navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(()=>{});
+}
+</script>
+</body>
+</html>
