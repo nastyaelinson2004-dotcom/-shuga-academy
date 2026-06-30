@@ -163,6 +163,7 @@
 /* Hub redesign for mobile */
 @media (max-width: 768px) {
   .lk-cards-row { grid-template-columns: 1fr !important; max-width: 100% !important; }
+  #page-hub { padding-top: 56px; }
   .hub-h1 { font-size: 36px !important; letter-spacing: 2px !important; }
   .hub-sub { font-size: 11px !important; }
   .hub-cards { grid-template-columns: 1fr !important; gap: 12px !important; }
@@ -306,10 +307,10 @@ body::before {
    HUB
 ═══════════════════════════════════════ */
 #page-hub {
-  min-height: 100vh;
   display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  padding: 0 24px 60px;
+  align-items: center;
+  padding: 0 24px 80px;
+  overflow-y: auto;
   background:
     radial-gradient(ellipse 80% 60% at 50% 0%, rgba(197,169,106,0.12) 0%, transparent 70%),
     var(--cream);
@@ -811,49 +812,30 @@ body::before {
 <!-- ── TOP NAV (desktop) ── -->
 <nav class="app-top-nav" id="app-top-nav">
   <div class="app-top-logo">SH</div>
-  <button class="app-top-item active" id="top-hub" onclick="appNav('hub')">
-    <span class="app-nav-icon">🏠</span> Главная
-  </button>
-  <button class="app-top-item" id="top-admin" onclick="appNav('admin')">
-    <span class="app-nav-icon">🗝</span> Администратор
-  </button>
-  <button class="app-top-item" id="top-nail" onclick="appNav('nail')">
-    <span class="app-nav-icon">💅</span> Nail-мастер
-  </button>
-  <button class="app-top-item" id="top-admin-lk" onclick="appNav('admin-lk')">
-    <span class="app-nav-icon">🗂</span> Кабинет адм.
-  </button>
-  <button class="app-top-item" id="top-lk" onclick="appNav('lk')">
-    <span class="app-nav-icon">👤</span> Кабинет nail
-  </button>
+  <button class="app-top-item active" id="top-hub" onclick="appNav('hub')"><span class="app-nav-icon">🏠</span> Главная</button>
+  <button class="app-top-item" id="top-admin" onclick="appNav('admin')"><span class="app-nav-icon">🗝</span> Администратор</button>
+  <button class="app-top-item" id="top-nail" onclick="appNav('nail')"><span class="app-nav-icon">💅</span> Nail-мастер</button>
+  <button class="app-top-item" id="top-admin-lk" onclick="appNav('admin-lk')"><span class="app-nav-icon">🗂</span> Адм. кабинет</button>
+  <button class="app-top-item" id="top-body-lk" onclick="appNav('body-lk')"><span class="app-nav-icon">🌿</span> Спец. по телу</button>
+  <button class="app-top-item" id="top-lk" onclick="appNav('lk')"><span class="app-nav-icon">👤</span> Nail кабинет</button>
 </nav>
 
 <!-- ── BOTTOM NAV (mobile) ── -->
 <nav class="app-bottom-nav" id="app-bottom-nav">
   <button class="app-nav-item active" id="bot-hub" onclick="appNav('hub')">
-    <span class="app-nav-icon">🏠</span>
-    <span class="app-nav-label">Главная</span>
-    <span class="app-nav-dot"></span>
-  </button>
-  <button class="app-nav-item" id="bot-admin" onclick="appNav('admin')">
-    <span class="app-nav-icon">🗝</span>
-    <span class="app-nav-label">Менеджер</span>
-    <span class="app-nav-dot"></span>
-  </button>
-  <button class="app-nav-item" id="bot-nail" onclick="appNav('nail')">
-    <span class="app-nav-icon">💅</span>
-    <span class="app-nav-label">Nail</span>
-    <span class="app-nav-dot"></span>
+    <span class="app-nav-icon">🏠</span><span class="app-nav-label">Главная</span><span class="app-nav-dot"></span>
   </button>
   <button class="app-nav-item" id="bot-admin-lk" onclick="appNav('admin-lk')">
-    <span class="app-nav-icon">🗂</span>
-    <span class="app-nav-label">Адм. кабинет</span>
-    <span class="app-nav-dot"></span>
+    <span class="app-nav-icon">🗂</span><span class="app-nav-label">Адм.</span><span class="app-nav-dot"></span>
+  </button>
+  <button class="app-nav-item" id="bot-body-lk" onclick="appNav('body-lk')">
+    <span class="app-nav-icon">🌿</span><span class="app-nav-label">Тело</span><span class="app-nav-dot"></span>
   </button>
   <button class="app-nav-item" id="bot-lk" onclick="appNav('lk')">
-    <span class="app-nav-icon">👤</span>
-    <span class="app-nav-label">Nail кабинет</span>
-    <span class="app-nav-dot"></span>
+    <span class="app-nav-icon">💅</span><span class="app-nav-label">Nail</span><span class="app-nav-dot"></span>
+  </button>
+  <button class="app-nav-item" id="bot-nail" onclick="appNav('nail')">
+    <span class="app-nav-icon">📚</span><span class="app-nav-label">Платформа</span><span class="app-nav-dot"></span>
   </button>
 </nav>
 
@@ -896,12 +878,12 @@ body::before {
     </div>
 
     <!-- Личные кабинеты — строка -->
-    <div style="grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:860px;margin:0 auto;width:100%;" class="lk-cards-row">
+    <div style="grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;max-width:1100px;margin:0 auto;width:100%;" class="lk-cards-row">
       <div class="hub-card hub-card-nail" style="border-color:rgba(184,130,110,0.4);max-width:100%;" onclick="goTo('admin-lk')">
         <div class="hub-card-num" style="opacity:0.07;">03</div>
         <div class="hub-card-label" style="color:var(--rose);">Личный кабинет</div>
         <div class="hub-card-title">Кабинет администратора</div>
-        <div class="hub-card-desc">Онбординг, обучение и KPI-показатели для менеджеров и хранителей</div>
+        <div class="hub-card-desc">Онбординг, обучение и KPI для менеджеров и хранителей</div>
         <div class="hub-tags">
           <span class="hub-tag" style="border-color:rgba(184,130,110,0.4);color:var(--rose);background:rgba(184,130,110,0.07);">Онбординг</span>
           <span class="hub-tag" style="border-color:rgba(184,130,110,0.4);color:var(--rose);background:rgba(184,130,110,0.07);">Обучение</span>
@@ -909,10 +891,22 @@ body::before {
         </div>
         <div class="hub-card-cta" style="color:var(--rose);">Войти <span>→</span></div>
       </div>
-      <div class="hub-card hub-card-nail" style="border-color:rgba(197,169,106,0.4);max-width:100%;" onclick="goTo('lk')">
+      <div class="hub-card hub-card-nail" style="border-color:rgba(126,158,140,0.4);max-width:100%;" onclick="goTo('body-lk')">
         <div class="hub-card-num" style="opacity:0.07;">04</div>
+        <div class="hub-card-label" style="color:var(--sage);">Личный кабинет</div>
+        <div class="hub-card-title">Специалист по телу</div>
+        <div class="hub-card-desc">Онбординг, регламент и показатели для специалистов по телу</div>
+        <div class="hub-tags">
+          <span class="hub-tag" style="border-color:rgba(126,158,140,0.4);color:var(--sage);background:rgba(126,158,140,0.07);">Онбординг</span>
+          <span class="hub-tag" style="border-color:rgba(126,158,140,0.4);color:var(--sage);background:rgba(126,158,140,0.07);">Регламент</span>
+          <span class="hub-tag" style="border-color:rgba(126,158,140,0.4);color:var(--sage);background:rgba(126,158,140,0.07);">KPI</span>
+        </div>
+        <div class="hub-card-cta" style="color:var(--sage);">Войти <span>→</span></div>
+      </div>
+      <div class="hub-card hub-card-nail" style="border-color:rgba(197,169,106,0.4);max-width:100%;" onclick="goTo('lk')">
+        <div class="hub-card-num" style="opacity:0.07;">05</div>
         <div class="hub-card-label" style="color:var(--gold-dk);">Личный кабинет</div>
-        <div class="hub-card-title">Мой путь к Эксперту</div>
+        <div class="hub-card-title">Путь развития мастера nail-сервиса</div>
         <div class="hub-card-desc">Прогресс мастера: онбординг, навыки, KPI и динамика выручки</div>
         <div class="hub-tags">
           <span class="hub-tag" style="border-color:rgba(197,169,106,0.4);color:var(--gold-dk);background:rgba(197,169,106,0.08);">Прогресс</span>
@@ -1428,6 +1422,132 @@ body::before {
 <!-- ╔══════════════════════╗
      ║    ЛИЧНЫЙ КАБИНЕТ    ║
      ╚══════════════════════╝ -->
+<!-- ╔══════════════════════════════╗
+     ║  ЛИЧНЫЙ КАБИНЕТ — ТЕЛО      ║
+     ╚══════════════════════════════╝ -->
+<div id="page-body-lk" class="page" style="background:var(--cream);">
+<style>
+.blk-login {
+  min-height:100vh; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; padding:40px 20px;
+  background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(126,158,140,0.1) 0%, transparent 60%), var(--cream);
+}
+.blk-login-box {
+  background:#fff; border:1px solid var(--sand); border-radius:var(--radius);
+  padding:52px 48px; max-width:420px; width:100%; box-shadow:var(--shadow-md);
+  position:relative; overflow:hidden;
+}
+.blk-login-box::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg, var(--sage), var(--blush));
+}
+.blk-dash { display:none; }
+.blk-dash.active { display:block; min-height:100vh; }
+.blk-header {
+  background:#fff; border-bottom:1px solid var(--sand); padding:24px 48px;
+  display:flex; align-items:center; gap:20px; position:sticky; top:0; z-index:50;
+}
+.blk-avatar {
+  width:46px; height:46px; border-radius:50%;
+  background:linear-gradient(135deg, var(--sage), var(--blush));
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Playfair Display',serif; font-size:18px; color:#fff; flex-shrink:0;
+}
+.blk-body { padding:40px 48px; max-width:1100px; margin:0 auto; }
+.blk-welcome {
+  background:linear-gradient(135deg, rgba(126,158,140,0.08), rgba(196,144,154,0.07));
+  border:1px solid rgba(126,158,140,0.25); border-radius:var(--radius);
+  padding:40px; margin-bottom:32px; position:relative; overflow:hidden;
+}
+.blk-welcome::after {
+  content:'SH'; position:absolute; right:32px; top:50%; transform:translateY(-50%);
+  font-family:'Playfair Display',serif; font-size:96px; font-weight:400;
+  color:rgba(126,158,140,0.06); line-height:1; pointer-events:none;
+}
+.blk-prog-track { height:8px; background:var(--sand); border-radius:8px; overflow:hidden; margin:12px 0; }
+.blk-prog-fill {
+  height:100%; border-radius:8px;
+  background:linear-gradient(90deg, var(--sage), var(--blush));
+  transition:width 1s cubic-bezier(.4,0,.2,1);
+}
+.blk-tabs { display:flex; gap:4px; margin-bottom:28px; overflow-x:auto; padding-bottom:4px; }
+.blk-tabs::-webkit-scrollbar { display:none; }
+.blk-tab {
+  padding:9px 20px; border-radius:var(--radius-pill); font-size:10px;
+  letter-spacing:2px; text-transform:uppercase; cursor:pointer; white-space:nowrap;
+  border:1px solid var(--sand); color:var(--stone); background:none;
+  font-family:'Jost',sans-serif; transition:all .2s;
+}
+.blk-tab.active { background:var(--sage); border-color:var(--sage); color:#fff; }
+.blk-tab-content { display:none; }
+.blk-tab-content.active { display:block; }
+.blk-section { margin-bottom:36px; }
+.blk-section-title {
+  font-family:'Playfair Display',serif; font-size:22px; font-weight:400;
+  color:var(--ink); margin-bottom:20px; padding-bottom:12px;
+  border-bottom:1px solid var(--sand); display:flex; align-items:center; gap:10px;
+}
+.blk-check {
+  display:flex; align-items:flex-start; gap:12px; padding:14px 16px;
+  background:#fff; border:1px solid var(--sand); border-radius:var(--radius-sm);
+  cursor:pointer; transition:all .18s; font-size:12.5px; color:var(--dusk);
+  box-shadow:var(--shadow-sm); margin-bottom:8px;
+}
+.blk-check:hover { border-color:rgba(126,158,140,0.4); color:var(--ink); transform:translateX(2px); }
+.blk-check.done { background:rgba(126,158,140,0.06); border-color:rgba(126,158,140,0.3); }
+.blk-check.done span { text-decoration:line-through; opacity:.5; }
+.blk-checkbox {
+  width:20px; height:20px; border:1.5px solid var(--linen); border-radius:5px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center; font-size:11px;
+  color:#fff; transition:all .18s; margin-top:1px;
+}
+.blk-check.done .blk-checkbox { background:var(--sage); border-color:var(--sage); }
+.blk-onboard-item {
+  background:#fff; border:1px solid var(--sand); border-radius:var(--radius-sm);
+  padding:16px 20px; box-shadow:var(--shadow-sm); margin-bottom:10px;
+}
+.blk-kpi-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:14px; margin-bottom:28px; }
+.blk-kpi-card { background:#fff; border:1px solid var(--sand); border-radius:var(--radius-sm); padding:18px 20px; box-shadow:var(--shadow-sm); }
+.blk-kpi-label { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--stone); margin-bottom:10px; }
+.blk-kpi-input {
+  width:100%; padding:8px 0; border:none; border-bottom:1.5px solid var(--sand);
+  font-family:'Playfair Display',serif; font-size:20px; color:var(--ink);
+  background:none; outline:none; transition:border-color .2s;
+}
+.blk-kpi-input:focus { border-color:var(--sage); }
+.blk-kpi-unit { font-size:10px; color:var(--stone); margin-top:5px; }
+@media(max-width:768px){
+  .blk-header, .blk-body { padding:20px 16px; }
+  .blk-login-box { padding:32px 24px; }
+  .blk-kpi-grid { grid-template-columns:1fr 1fr; }
+}
+</style>
+
+<!-- LOGIN -->
+<div class="blk-login" id="blk-login">
+  <div class="blk-login-box">
+    <div style="text-align:center;margin-bottom:28px;">
+      <div style="width:56px;height:56px;border:1px solid var(--sage);border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;color:var(--sage);margin:0 auto 14px;letter-spacing:2px;">SH</div>
+      <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--sage);margin-bottom:8px;">Shuga Academy</div>
+      <div style="font-family:'Playfair Display',serif;font-size:26px;color:var(--ink);margin-bottom:4px;">Кабинет специалиста по телу</div>
+    </div>
+    <label class="lk-select-label">Выберите специалиста</label>
+    <select class="lk-select" id="blk-user-select">
+      <option value="">— выбрать —</option>
+      <option value="elena">Елена</option>
+      <option value="elvira">Эльвира</option>
+    </select>
+    <label class="lk-pin-label">Пин-код (4 цифры)</label>
+    <input class="lk-pin-input" type="password" maxlength="4" id="blk-pin" placeholder="••••" />
+    <button class="lk-btn" style="background:var(--sage);" onclick="blkLogin()">Войти →</button>
+    <div class="lk-error" id="blk-error">Неверный пин-код</div>
+    <button class="back-btn" style="margin-top:20px;width:100%;justify-content:center;" onclick="goTo('hub')">← На главную</button>
+  </div>
+</div>
+
+<div id="blk-dash-wrap"></div>
+</div><!-- /body-lk -->
+
 <div id="page-lk" class="page" style="min-height:100vh;background:var(--cream);">
   <!-- LK STYLES -->
   <style>
@@ -1590,6 +1710,8 @@ body::before {
     position:relative; min-height:3px; cursor:default; flex-shrink:0;
   }
   .lk-bar:hover { background:linear-gradient(180deg, var(--gold) 0%, rgba(197,169,106,0.6) 100%); }
+  .lk-bar-gold { background:linear-gradient(180deg, var(--gold) 0%, rgba(197,169,106,0.55) 100%) !important; }
+  .lk-bar-gold:hover { background:linear-gradient(180deg, var(--gold-dk) 0%, rgba(154,125,70,0.6) 100%) !important; }
   .lk-bar-val {
     position:absolute; top:-22px; left:50%; transform:translateX(-50%);
     font-size:9px; color:var(--ink); font-weight:500; white-space:nowrap;
@@ -1618,13 +1740,27 @@ body::before {
       <label class="lk-select-label">Выберите мастера</label>
       <select class="lk-select" id="lk-user-select">
         <option value="">— выбрать —</option>
-        <option value="muzychenko">Екатерина Музыченко</option>
-        <option value="akzharova">Жулдуз (Женя) Акжарова</option>
-        <option value="yurchenko">Ксения Юрченко</option>
-        <option value="chebaevskaya">Марина Чебаевская</option>
-        <option value="zarima">Зарима Жумабекова</option>
-        <option value="mira">Мира Кузнецова</option>
-        <option value="furсова">Алёна Фурсова</option>
+        <optgroup label="ТОП-мастер">
+          <option value="mira">Мира Кузнецова</option>
+          <option value="chebaevskaya">Марина Чебаевская</option>
+          <option value="zarima">Зарима Жумабекова</option>
+          <option value="muzychenko">Екатерина Музыченко</option>
+          <option value="akzharova">Жулдуз (Женя) Акжарова</option>
+        </optgroup>
+        <optgroup label="Мастер-Эксперт">
+          <option value="furсова">Алёна Фурсова</option>
+          <option value="bashirova">Гульфия Баширова</option>
+          <option value="ivanova">Дарья Иванова</option>
+          <option value="okolnichnikova">Валерия Окольничникова</option>
+          <option value="kuznetsova_e">Евгения Кузнецова</option>
+          <option value="igonina">Александра Игонина</option>
+        </optgroup>
+        <optgroup label="Мастер Высшей категории">
+          <option value="yurchenko">Ксения Юрченко</option>
+          <option value="melnikova">Мария Мельникова</option>
+          <option value="abdrakhmanova">Алия Абдрахманова</option>
+          <option value="nesterova">Александра Нестерова</option>
+        </optgroup>
       </select>
       <label class="lk-pin-label">Пин-код (4 цифры)</label>
       <input class="lk-pin-input" type="password" maxlength="4" id="lk-pin" placeholder="••••" />
@@ -1642,10 +1778,17 @@ body::before {
 /* ═══════════════════════════════
    MASTER DATA
 ═══════════════════════════════ */
+const MASTER_CATEGORIES = {
+  top:     { label:'ТОП-мастер',            color:'var(--sage)',    icon:'Ⅰ' },
+  expert:  { label:'Мастер-Эксперт',        color:'var(--gold-dk)', icon:'Ⅱ' },
+  highest: { label:'Мастер Высшей категории', color:'var(--rose)',  icon:'Ⅲ' }
+};
+
 const MASTERS = {
   muzychenko: {
-    name:'Екатерина Музыченко', initials:'ЕМ',
+    name:'Екатерина Музыченко', initials:'ЕМ', category:'top',
     pin:'1234', startDate:'23 апреля 2026',
+    monthsInStudio: 2,
     analytics: [
       {m:'Апр',rev:47549,check:3658,clients:13,ret:null,rec:0},
       {m:'Май',rev:303764,check:3997,clients:68,ret:4.4,rec:1}
@@ -1653,28 +1796,18 @@ const MASTERS = {
     kpiTarget:{rev:300000,check:5500,ret:70}
   },
   akzharova: {
-    name:'Жулдуз (Женя) Акжарова', initials:'ЖА',
+    name:'Жулдуз (Женя) Акжарова', initials:'ЖА', category:'top',
     pin:'2345', startDate:'5 мая 2026',
+    monthsInStudio: 1,
     analytics: [
       {m:'Май',rev:143701,check:3685,clients:37,ret:0,rec:0}
     ],
     kpiTarget:{rev:300000,check:5500,ret:70}
   },
-  yurchenko: {
-    name:'Ксения Юрченко', initials:'КЮ',
-    pin:'3456', startDate:'1 мая 2026 (возврат)',
-    analytics: [
-      {m:'Янв',rev:290404,check:3924,clients:65,ret:70.8,rec:0},
-      {m:'Фев',rev:266756,check:3557,clients:72,ret:72.2,rec:0},
-      {m:'Мар',rev:256400,check:3465,clients:69,ret:null,rec:0},
-      {m:'Апр',rev:275406,check:3577,clients:75,ret:61.3,rec:0},
-      {m:'Май',rev:344453,check:4574,clients:74,ret:59.5,rec:0}
-    ],
-    kpiTarget:{rev:300000,check:5500,ret:70}
-  },
   chebaevskaya: {
-    name:'Марина Чебаевская', initials:'МЧ',
+    name:'Марина Чебаевская', initials:'МЧ', category:'top',
     pin:'4567', startDate:'2 февраля 2026',
+    monthsInStudio: 4,
     analytics: [
       {m:'Фев',rev:293312,check:3964,clients:71,ret:null,rec:1},
       {m:'Мар',rev:295922,check:4054,clients:68,ret:17.6,rec:0},
@@ -1684,8 +1817,9 @@ const MASTERS = {
     kpiTarget:{rev:300000,check:5500,ret:70}
   },
   zarima: {
-    name:'Зарима Жумабекова', initials:'ЗЖ',
+    name:'Зарима Жумабекова', initials:'ЗЖ', category:'top',
     pin:'5678', startDate:'2 марта 2026',
+    monthsInStudio: 3,
     analytics: [
       {m:'Мар',rev:235957,check:3806,clients:55,ret:null,rec:0},
       {m:'Апр',rev:328792,check:4443,clients:70,ret:21.4,rec:0},
@@ -1694,8 +1828,9 @@ const MASTERS = {
     kpiTarget:{rev:300000,check:5500,ret:70}
   },
   mira: {
-    name:'Мира Кузнецова', initials:'МК',
+    name:'Мира Кузнецова', initials:'МК', category:'top',
     pin:'6789', startDate:'6 декабря 2025',
+    monthsInStudio: 6,
     analytics: [
       {m:'Дек',rev:238462,check:2944,clients:76,ret:0,rec:0},
       {m:'Янв',rev:534329,check:4174,clients:111,ret:18,rec:0},
@@ -1707,8 +1842,9 @@ const MASTERS = {
     kpiTarget:{rev:300000,check:5500,ret:70}
   },
   'furсова': {
-    name:'Алёна Фурсова', initials:'АФ',
+    name:'Алёна Фурсова', initials:'АФ', category:'expert',
     pin:'7890', startDate:'7 апреля 2025',
+    monthsInStudio: 14,
     analytics: [
       {m:'Май\'25',rev:205979,check:3551,clients:55,ret:18.2,rec:0},
       {m:'Июн',rev:427200,check:3502,clients:112,ret:16.1,rec:0},
@@ -1724,7 +1860,185 @@ const MASTERS = {
       {m:'Апр',rev:421011,check:4087,clients:84,ret:73.8,rec:0},
       {m:'Май',rev:354336,check:4543,clients:76,ret:72.4,rec:0}
     ],
-    kpiTarget:{rev:300000,check:5500,ret:70}
+    kpiTarget:{rev:400000,check:6000,ret:80}
+  },
+
+  /* ═══ МАСТЕРА-ЭКСПЕРТЫ ═══ */
+  bashirova: {
+    name:'Гульфия Баширова', initials:'ГБ', category:'expert',
+    pin:'1001', startDate:'2 февраля 2024',
+    monthsInStudio: 28,
+    analytics: [
+      {m:'Июн',rev:235507,check:3496,clients:62,ret:66.1,rec:0},
+      {m:'Июл',rev:299915,check:3528,clients:72,ret:75,rec:0},
+      {m:'Авг',rev:294262,check:3344,clients:79,ret:78.5,rec:0},
+      {m:'Сен',rev:342043,check:3455,clients:87,ret:72.4,rec:1},
+      {m:'Окт',rev:354391,check:3375,clients:98,ret:61.2,rec:0},
+      {m:'Ноя',rev:276334,check:3436,clients:70,ret:75.7,rec:0},
+      {m:'Дек',rev:303654,check:3217,clients:79,ret:77.2,rec:0},
+      {m:'Янв',rev:218874,check:3840,clients:55,ret:76.4,rec:0},
+      {m:'Фев',rev:352261,check:4245,clients:70,ret:77.1,rec:2},
+      {m:'Мар',rev:335927,check:4199,clients:72,ret:80.6,rec:1},
+      {m:'Апр',rev:384575,check:4135,clients:79,ret:79.7,rec:0},
+      {m:'Май',rev:375696,check:4369,clients:76,ret:78.9,rec:0}
+    ],
+    kpiTarget:{rev:400000,check:6000,ret:80}
+  },
+  ivanova: {
+    name:'Дарья Иванова', initials:'ДИ', category:'expert',
+    pin:'1002', startDate:'23 мая 2024',
+    monthsInStudio: 25,
+    analytics: [
+      {m:'Июн',rev:326260,check:3296,clients:88,ret:54.5,rec:1},
+      {m:'Июл',rev:332847,check:3328,clients:91,ret:63.7,rec:1},
+      {m:'Авг',rev:308128,check:3278,clients:85,ret:64.7,rec:1},
+      {m:'Сен',rev:312239,check:3322,clients:81,ret:74.1,rec:0},
+      {m:'Окт',rev:255295,check:3316,clients:72,ret:63.9,rec:0},
+      {m:'Ноя',rev:308689,check:3589,clients:79,ret:63.3,rec:1},
+      {m:'Дек',rev:348536,check:3678,clients:86,ret:72.1,rec:0},
+      {m:'Янв',rev:319406,check:4375,clients:68,ret:66.2,rec:0},
+      {m:'Фев',rev:348077,check:4254,clients:68,ret:76.5,rec:1},
+      {m:'Мар',rev:340320,check:4363,clients:65,ret:78.5,rec:1},
+      {m:'Апр',rev:380610,check:4183,clients:78,ret:75.6,rec:0},
+      {m:'Май',rev:424938,check:4381,clients:83,ret:73.5,rec:4}
+    ],
+    kpiTarget:{rev:400000,check:6000,ret:80}
+  },
+  okolnichnikova: {
+    name:'Валерия Окольничникова', initials:'ВО', category:'expert',
+    pin:'1003', startDate:'13 ноября 2024',
+    monthsInStudio: 19,
+    analytics: [
+      {m:'Июн',rev:234671,check:3242,clients:63,ret:52.4,rec:1},
+      {m:'Июл',rev:250205,check:3363,clients:72,ret:54.2,rec:1},
+      {m:'Авг',rev:276841,check:3486,clients:72,ret:50,rec:0},
+      {m:'Сен',rev:348297,check:3255,clients:95,ret:60,rec:0},
+      {m:'Окт',rev:325771,check:3429,clients:83,ret:55.4,rec:0},
+      {m:'Ноя',rev:334554,check:3636,clients:79,ret:75.9,rec:0},
+      {m:'Дек',rev:340830,check:3514,clients:81,ret:76.5,rec:0},
+      {m:'Янв',rev:185006,check:4205,clients:43,ret:65.1,rec:0},
+      {m:'Фев',rev:389687,check:4585,clients:76,ret:67.1,rec:1},
+      {m:'Мар',rev:435676,check:4381,clients:83,ret:78.3,rec:1},
+      {m:'Апр',rev:357573,check:4644,clients:67,ret:73.1,rec:0},
+      {m:'Май',rev:453491,check:4490,clients:79,ret:72.2,rec:0}
+    ],
+    kpiTarget:{rev:400000,check:6000,ret:80}
+  },
+  kuznetsova_e: {
+    name:'Евгения Кузнецова', initials:'ЕК', category:'expert',
+    pin:'1004', startDate:'4 февраля 2022',
+    monthsInStudio: 52,
+    analytics: [
+      {m:'Июн',rev:326142,check:4077,clients:74,ret:60.8,rec:0},
+      {m:'Июл',rev:387614,check:3917,clients:85,ret:70.6,rec:0},
+      {m:'Авг',rev:419704,check:4155,clients:85,ret:74.1,rec:0},
+      {m:'Сен',rev:373330,check:4014,clients:78,ret:69.2,rec:0},
+      {m:'Окт',rev:265913,check:3969,clients:60,ret:76.7,rec:1},
+      {m:'Ноя',rev:342950,check:3942,clients:74,ret:73,rec:0},
+      {m:'Дек',rev:381707,check:3976,clients:83,ret:74.7,rec:0},
+      {m:'Янв',rev:423391,check:4867,clients:80,ret:72.5,rec:0},
+      {m:'Фев',rev:373507,check:5464,clients:63,ret:65.1,rec:0},
+      {m:'Мар',rev:462990,check:4759,clients:82,ret:73.2,rec:1},
+      {m:'Апр',rev:370111,check:4633,clients:70,ret:75.7,rec:0},
+      {m:'Май',rev:497963,check:5187,clients:79,ret:75.9,rec:0}
+    ],
+    kpiTarget:{rev:400000,check:6000,ret:80}
+  },
+  igonina: {
+    name:'Александра Игонина', initials:'АИ', category:'expert',
+    pin:'1005', startDate:'6 мая 2024',
+    monthsInStudio: 25,
+    analytics: [
+      {m:'Июн',rev:189861,check:3723,clients:48,ret:56.3,rec:0},
+      {m:'Июл',rev:272310,check:3536,clients:70,ret:51.4,rec:1},
+      {m:'Авг',rev:280380,check:3689,clients:71,ret:54.9,rec:1},
+      {m:'Сен',rev:187004,check:3596,clients:52,ret:75,rec:1},
+      {m:'Окт',rev:245385,check:3229,clients:72,ret:65.3,rec:0},
+      {m:'Ноя',rev:215286,check:3417,clients:60,ret:68.3,rec:0},
+      {m:'Дек',rev:317996,check:3278,clients:82,ret:68.3,rec:0},
+      {m:'Янв',rev:352094,check:4633,clients:70,ret:72.9,rec:0},
+      {m:'Фев',rev:251030,check:4255,clients:58,ret:55.2,rec:1},
+      {m:'Мар',rev:361537,check:5092,clients:64,ret:67.2,rec:0},
+      {m:'Апр',rev:406180,check:5142,clients:71,ret:52.1,rec:0},
+      {m:'Май',rev:404738,check:4876,clients:77,ret:66.2,rec:0}
+    ],
+    kpiTarget:{rev:400000,check:6000,ret:80}
+  },
+
+  /* ═══ МАСТЕРА ВЫСШЕЙ КАТЕГОРИИ ═══ */
+  yurchenko: {
+    name:'Ксения Юрченко', initials:'КЮ', category:'highest',
+    pin:'3456', startDate:'возврат 1 мая 2026 (ранее работала до декабря 2025)',
+    monthsInStudio: 1,
+    analytics: [
+      {m:'Июл·25',rev:359079,check:3780,clients:92,ret:null,rec:0},
+      {m:'Авг',rev:239641,check:3929,clients:57,ret:86,rec:0},
+      {m:'Сен',rev:351631,check:3690,clients:94,ret:null,rec:0},
+      {m:'Окт',rev:335473,check:3687,clients:90,ret:67.8,rec:0},
+      {m:'Ноя',rev:300637,check:3416,clients:82,ret:73.2,rec:0},
+      {m:'Дек·25 (уход)',rev:226628,check:3434,clients:64,ret:76.6,rec:0},
+      {m:'Май·26 (возврат)',rev:344453,check:4574,clients:74,ret:59.5,rec:0}
+    ],
+    kpiTarget:{rev:400000,check:6000,ret:80}
+  },
+  melnikova: {
+    name:'Мария Мельникова', initials:'ММ', category:'highest',
+    pin:'2002', startDate:'9 марта 2023',
+    monthsInStudio: 39,
+    analytics: [
+      {m:'Июн',rev:363622,check:3788,clients:75,ret:74.7,rec:0},
+      {m:'Июл',rev:335901,check:3651,clients:77,ret:79.2,rec:0},
+      {m:'Авг',rev:269956,check:3480,clients:70,ret:81.4,rec:0},
+      {m:'Сен',rev:260651,check:3549,clients:63,ret:76.2,rec:0},
+      {m:'Окт',rev:316126,check:3574,clients:76,ret:81.6,rec:0},
+      {m:'Ноя',rev:354315,check:3440,clients:79,ret:84.8,rec:0},
+      {m:'Дек',rev:320909,check:3526,clients:76,ret:80.3,rec:0},
+      {m:'Янв',rev:359052,check:4379,clients:67,ret:77.6,rec:0},
+      {m:'Фев',rev:408636,check:4697,clients:72,ret:77.8,rec:0},
+      {m:'Мар',rev:453274,check:5093,clients:71,ret:78.9,rec:0},
+      {m:'Апр',rev:485390,check:4973,clients:76,ret:76.3,rec:0},
+      {m:'Май',rev:371770,check:4957,clients:59,ret:83.1,rec:0}
+    ],
+    kpiTarget:{rev:400000,check:6000,ret:80}
+  },
+  abdrakhmanova: {
+    name:'Алия Абдрахманова', initials:'АА', category:'highest',
+    pin:'2003', startDate:'20 мая 2018',
+    monthsInStudio: 97,
+    analytics: [
+      {m:'Июн',rev:426643,check:4284,clients:80,ret:85,rec:0},
+      {m:'Июл',rev:324789,check:4162,clients:72,ret:88.9,rec:0},
+      {m:'Авг',rev:174913,check:3975,clients:42,ret:92.9,rec:1},
+      {m:'Сен',rev:393796,check:3880,clients:85,ret:74.1,rec:0},
+      {m:'Окт',rev:377634,check:4105,clients:67,ret:89.6,rec:0},
+      {m:'Ноя',rev:409566,check:4015,clients:77,ret:79.2,rec:0},
+      {m:'Дек',rev:394594,check:4131,clients:75,ret:89.3,rec:0},
+      {m:'Янв',rev:451491,check:4555,clients:86,ret:77.9,rec:0},
+      {m:'Фев',rev:434462,check:5172,clients:64,ret:89.1,rec:0},
+      {m:'Мар',rev:467296,check:5251,clients:65,ret:89.2,rec:0},
+      {m:'Апр',rev:471666,check:5018,clients:74,ret:78.4,rec:0},
+      {m:'Май',rev:430411,check:5064,clients:64,ret:85.9,rec:0}
+    ],
+    kpiTarget:{rev:400000,check:6000,ret:80}
+  },
+  nesterova: {
+    name:'Александра Нестерова', initials:'АН', category:'highest',
+    pin:'2004', startDate:'27 сентября 2023',
+    monthsInStudio: 33,
+    analytics: [
+      {m:'Июн',rev:413092,check:4050,clients:89,ret:71.9,rec:0},
+      {m:'Июл',rev:394439,check:4109,clients:84,ret:76.2,rec:0},
+      {m:'Авг',rev:406225,check:3906,clients:83,ret:69.9,rec:0},
+      {m:'Окт',rev:395825,check:4211,clients:77,ret:67.5,rec:1},
+      {m:'Ноя',rev:395529,check:4660,clients:79,ret:78.5,rec:0},
+      {m:'Дек',rev:418209,check:4267,clients:76,ret:69.7,rec:0},
+      {m:'Янв',rev:471223,check:5890,clients:68,ret:86.8,rec:0},
+      {m:'Фев',rev:419830,check:5175,clients:67,ret:82.1,rec:0},
+      {m:'Мар',rev:491273,check:5588,clients:69,ret:84.1,rec:0},
+      {m:'Апр',rev:482259,check:5674,clients:68,ret:85.3,rec:0},
+      {m:'Май',rev:576719,check:5657,clients:79,ret:74.7,rec:0}
+    ],
+    kpiTarget:{rev:400000,check:6000,ret:80}
   }
 };
 
@@ -1805,6 +2119,60 @@ function formatRub(n) {
   return new Intl.NumberFormat('ru-RU').format(Math.round(n)) + ' ₽';
 }
 
+/* ── Manual reviews tracking (until YClients integration) ── */
+function getReviewsData(key) {
+  if (!lkStorage._reviews) lkStorage._reviews = {};
+  if (!lkStorage._reviews[key]) lkStorage._reviews[key] = [];
+  return lkStorage._reviews[key];
+}
+function getReviewsTotal(key) {
+  return getReviewsData(key).reduce((sum, r) => sum + (r.count || 0), 0);
+}
+function renderReviewsList(key) {
+  const entries = getReviewsData(key);
+  if (!entries.length) return `<div style="font-size:12px;color:var(--stone);padding:12px 0;">Пока нет записей. Добавьте первый месяц выше.</div>`;
+  return `<div style="display:flex;flex-direction:column;gap:6px;">` + entries.map((r, i) => `
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--cream);border-radius:var(--radius-sm);border:1px solid var(--sand);">
+      <span style="font-size:12.5px;color:var(--ink);">${r.month}</span>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="font-size:13px;color:var(--gold-dk);font-weight:500;">⭐ ${r.count}</span>
+        <button onclick="removeReviewEntry('${key}',${i})" style="border:none;background:none;color:var(--stone);cursor:pointer;font-size:14px;line-height:1;padding:2px 4px;" title="Удалить">×</button>
+      </div>
+    </div>`).join('') + `</div>`;
+}
+function addReviewEntry(key) {
+  const monthInput = document.getElementById('rev-month-' + key);
+  const countInput = document.getElementById('rev-count-' + key);
+  const month = monthInput.value.trim();
+  const count = parseInt(countInput.value, 10);
+  if (!month || isNaN(count) || count < 0) return;
+  const entries = getReviewsData(key);
+  entries.push({ month, count });
+  saveLK();
+  monthInput.value = '';
+  countInput.value = '';
+  document.getElementById('rev-list-' + key).innerHTML = renderReviewsList(key);
+  // Update total in stats card
+  const statVal = document.querySelector('#lk-dash-wrap .lk-stat-val');
+  refreshReviewsTotalDisplay(key);
+}
+function removeReviewEntry(key, idx) {
+  const entries = getReviewsData(key);
+  entries.splice(idx, 1);
+  saveLK();
+  document.getElementById('rev-list-' + key).innerHTML = renderReviewsList(key);
+  refreshReviewsTotalDisplay(key);
+}
+function refreshReviewsTotalDisplay(key) {
+  // Find the reviews stat card and update its value live
+  document.querySelectorAll('#lk-dash-wrap .lk-stat-label').forEach(label => {
+    if (label.textContent.includes('Отзывы клиентов')) {
+      const valEl = label.previousElementSibling;
+      if (valEl) valEl.textContent = '⭐ ' + getReviewsTotal(key);
+    }
+  });
+}
+
 function getLevel(pct) {
   if (pct < 60) return {label:'ТОП',cls:'top',icon:'Ⅰ'};
   return {label:'Мастер-Эксперт',cls:'expert',icon:'Ⅱ'};
@@ -1814,15 +2182,17 @@ function renderDashboard(key) {
   const m = MASTERS[key];
   const prog = getMasterProgress(key);
   const done = CHECKLIST.filter(c => prog[c.id]).length;
-  const pct = Math.round((done / TOTAL_ITEMS) * 100);
-  const lvl = getLevel(pct);
+  const isHighest = m.category === 'highest';
+  const pct = isHighest ? 100 : Math.round((done / TOTAL_ITEMS) * 100);
+  const lvl = isHighest ? {label:'Мастер Высшей категории',cls:'high',icon:'Ⅲ'} : getLevel(pct);
+  const catInfo = MASTER_CATEGORIES[m.category] || MASTER_CATEGORIES.top;
   const analytics = m.analytics;
   const last = analytics.length ? analytics[analytics.length-1] : null;
   const prev = analytics.length > 1 ? analytics[analytics.length-2] : null;
 
   document.getElementById('lk-login').style.display='none';
 
-  // Build chart
+  // Build revenue chart
   const maxRev = analytics.length ? Math.max(...analytics.map(a=>a.rev)) : 1;
   const yMax = Math.ceil(maxRev / 100000) * 100000;
   const yMid = Math.round(yMax / 2 / 50000) * 50000;
@@ -1844,6 +2214,28 @@ function renderDashboard(key) {
     <div class="lk-chart-ylabel">0</div>
   </div>`;
 
+  // Build salary chart (35% of revenue)
+  const SALARY_RATE = 0.35;
+  const salaryData = analytics.map(a => ({ m: a.m, salary: Math.round(a.rev * SALARY_RATE) }));
+  const maxSalary = salaryData.length ? Math.max(...salaryData.map(s=>s.salary)) : 1;
+  const ySalMax = Math.ceil(maxSalary / 50000) * 50000;
+  const ySalMid = Math.round(ySalMax / 2 / 25000) * 25000;
+  const salaryBars = salaryData.map(s => {
+    const h = Math.max(4, Math.round((s.salary / ySalMax) * CHART_H));
+    return `<div class="lk-bar-col">
+      <div class="lk-bar lk-bar-gold" style="height:${h}px">
+        <div class="lk-bar-val">${fmtK(s.salary)}</div>
+      </div>
+      <div class="lk-bar-label">${s.m}</div>
+    </div>`;
+  }).join('');
+  const ySalAxisHtml = `<div class="lk-chart-yaxis">
+    <div class="lk-chart-ylabel">${fmtK(ySalMax)}</div>
+    <div class="lk-chart-ylabel">${fmtK(ySalMid)}</div>
+    <div class="lk-chart-ylabel">0</div>
+  </div>`;
+  const lastSalary = last ? Math.round(last.rev * SALARY_RATE) : null;
+
   // Stats
   const revTrend = last && prev ? (last.rev > prev.rev ? `↑ +${formatRub(last.rev-prev.rev)}` : `↓ ${formatRub(prev.rev-last.rev)}`) : '';
   const revTrendCls = last && prev ? (last.rev > prev.rev ? 'up' : 'down') : '';
@@ -1857,6 +2249,15 @@ function renderDashboard(key) {
     pedi_exp:'🦶 Педикюр — Эксперт',
     kpi:'📊 KPI'
   };
+  // KPI labels differ for top vs expert/highest masters
+  const isExpertOrHigher = (m.category === 'expert' || m.category === 'highest');
+  const kpiLabelOverrides = isExpertOrHigher ? {
+    kpi_rev:     'Общая выручка мастера 400 000 ₽/мес',
+    kpi_check:   'Средний чек 6 000 ₽',
+    kpi_rec:     'Отсутствие рекламаций',
+    kpi_reviews: 'Регулярные положительные отзывы',
+    kpi_ret:     'Возвратность клиентов от 80%'
+  } : {};
   let clHtml = '';
   const cats = ['onboard','nail','nail_exp','pedi','pedi_exp','kpi'];
   cats.forEach(cat => {
@@ -1864,11 +2265,21 @@ function renderDashboard(key) {
     clHtml += `<div class="lk-section"><div class="lk-section-title">${catLabels[cat]}</div><div class="lk-checklist">`;
     items.forEach(c => {
       const isDone = !!prog[c.id];
+      const label = kpiLabelOverrides[c.id] || c.label;
       clHtml += `<div class="lk-check${isDone?' done':''}" onclick="lkToggle('${key}','${c.id}',this)">
         <div class="lk-checkbox">${isDone?'✓':''}</div>
-        <span>${c.label}</span>
+        <span>${label}</span>
       </div>`;
     });
+    // Inject occupancy KPI item for expert/highest (not stored as a checklist item, but as a visual addition)
+    if (cat === 'kpi' && isExpertOrHigher) {
+      const fillId = 'kpi_fill80';
+      const fillDone = !!prog[fillId];
+      clHtml += `<div class="lk-check${fillDone?' done':''}" onclick="lkToggle('${key}','${fillId}',this)">
+        <div class="lk-checkbox">${fillDone?'✓':''}</div>
+        <span>Заполненность 80% на 3 недели вперёд</span>
+      </div>`;
+    }
     clHtml += `</div></div>`;
   });
 
@@ -1883,7 +2294,10 @@ function renderDashboard(key) {
         <div class="lk-name">${m.name}</div>
         <div class="lk-since">В студии с ${m.startDate}</div>
       </div>
-      <button class="lk-logout" onclick="lkLogout()">Выйти</button>
+      <div style="margin-left:auto;display:flex;align-items:center;gap:12px;">
+        <div style="padding:6px 16px;border-radius:var(--radius-pill);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;background:${catInfo.color}1a;border:1px solid ${catInfo.color}66;color:${catInfo.color};">${catInfo.icon} ${catInfo.label}</div>
+        <button class="lk-logout" onclick="lkLogout()">Выйти</button>
+      </div>
     </div>
     <div class="lk-body">
 
@@ -1896,18 +2310,20 @@ function renderDashboard(key) {
               <span class="lk-progress-pct" id="lk-pct-val">${pct}</span>
               <span class="lk-progress-pct-unit">% выполнено</span>
             </div>
-            <div style="font-size:12px;color:var(--dusk);">${done} из ${TOTAL_ITEMS} пунктов завершено</div>
+            <div style="font-size:12px;color:var(--dusk);">${isHighest ? 'Все пункты пути пройдены' : done + ' из ' + TOTAL_ITEMS + ' пунктов завершено'}</div>
           </div>
           <div class="lk-level-badge ${lvl.cls}">${lvl.icon} ${lvl.label}</div>
         </div>
         <div class="lk-progress-bar-wrap">
-          <div class="lk-progress-label"><span>ТОП</span><span>Мастер-Эксперт →</span></div>
+          <div class="lk-progress-label"><span>ТОП</span><span>${isHighest ? 'Мастер Высшей категории' : 'Мастер-Эксперт →'}</span></div>
           <div class="lk-progress-track">
             <div class="lk-progress-fill" id="lk-pbar" style="width:${pct}%"></div>
           </div>
         </div>
         <div style="display:flex;gap:24px;margin-top:20px;flex-wrap:wrap;">
-          <div style="font-size:11px;color:var(--stone);">🎯 До Мастера-Эксперта: <strong style="color:var(--gold-dk);">${Math.max(0,100-pct)}%</strong></div>
+          ${isHighest
+            ? `<div style="font-size:11px;color:var(--rose);">🏆 Путь к Высшей категории пройден полностью</div>`
+            : `<div style="font-size:11px;color:var(--stone);">🎯 До Мастера-Эксперта: <strong style="color:var(--gold-dk);">${Math.max(0,100-pct)}%</strong></div>`}
         </div>
       </div>
 
@@ -1917,11 +2333,12 @@ function renderDashboard(key) {
           <div class="lk-stat-val">${last ? formatRub(last.rev) : '—'}</div>
           <div class="lk-stat-label">Выручка (посл. месяц)</div>
           <div class="lk-stat-trend ${revTrendCls}">${revTrend}</div>
+          <div class="lk-stat-trend ${last && last.rev>=m.kpiTarget.rev?'up':'down'}" style="margin-top:2px;">${last && last.rev>=m.kpiTarget.rev?'✓ Цель '+new Intl.NumberFormat('ru-RU').format(m.kpiTarget.rev)+' ₽ достигнута':'Цель: '+new Intl.NumberFormat('ru-RU').format(m.kpiTarget.rev)+' ₽'}</div>
         </div>
         <div class="lk-stat">
           <div class="lk-stat-val">${last ? new Intl.NumberFormat('ru-RU').format(last.check) + ' ₽' : '—'}</div>
           <div class="lk-stat-label">Средний чек</div>
-          <div class="lk-stat-trend ${last && last.check>=5500?'up':''}">${last && last.check>=5500?'✓ Цель достигнута':'Цель: 5 500 ₽'}</div>
+          <div class="lk-stat-trend ${last && last.check>=m.kpiTarget.check?'up':'down'}">${last && last.check>=m.kpiTarget.check?'✓ Цель достигнута':'Цель: '+new Intl.NumberFormat('ru-RU').format(m.kpiTarget.check)+' ₽'}</div>
         </div>
         <div class="lk-stat">
           <div class="lk-stat-val">${last ? last.clients : '—'}</div>
@@ -1930,7 +2347,7 @@ function renderDashboard(key) {
         <div class="lk-stat">
           <div class="lk-stat-val">${last && last.ret!==null ? last.ret+'%' : '—'}</div>
           <div class="lk-stat-label">Возвратность</div>
-          <div class="lk-stat-trend ${last && last.ret>=70?'up':'down'}">${last && last.ret!==null?(last.ret>=70?'✓ Цель 70%':'Цель: 70%'):''}</div>
+          <div class="lk-stat-trend ${last && last.ret>=m.kpiTarget.ret?'up':'down'}">${last && last.ret!==null?(last.ret>=m.kpiTarget.ret?'✓ Цель '+m.kpiTarget.ret+'%':'Цель: '+m.kpiTarget.ret+'%'):''}</div>
         </div>
         <div class="lk-stat">
           <div class="lk-stat-val" style="color:${totalRec===0?'var(--sage)':'var(--rose)'};">${totalRec}</div>
@@ -1938,7 +2355,17 @@ function renderDashboard(key) {
           <div class="lk-stat-trend ${totalRec===0?'up':'down'}">${totalRec===0?'✓ Отличный результат':'⚠ Требует внимания'}</div>
         </div>
         <div class="lk-stat">
-          <div class="lk-stat-val">${analytics.length}</div>
+          <div class="lk-stat-val">⭐ ${getReviewsTotal(key)}</div>
+          <div class="lk-stat-label">Отзывы клиентов (всего)</div>
+          <div class="lk-stat-trend up">Заполняется вручную ниже</div>
+        </div>
+        ${(m.category === 'expert' || m.category === 'highest') ? `<div class="lk-stat">
+          <div class="lk-stat-val">80%</div>
+          <div class="lk-stat-label">Заполненность на 3 недели вперёд</div>
+          <div class="lk-stat-trend up">Целевой показатель</div>
+        </div>` : ''}
+        <div class="lk-stat">
+          <div class="lk-stat-val">${m.monthsInStudio !== undefined ? m.monthsInStudio : analytics.length}</div>
           <div class="lk-stat-label">Месяцев в студии</div>
         </div>
       </div>
@@ -1953,7 +2380,37 @@ function renderDashboard(key) {
             <div class="lk-chart">${bars}<div class="lk-chart-baseline"></div></div>
           </div>
         </div>
+      </div>
+
+      <div class="lk-section">
+        <div class="lk-section-title">💰 Динамика зарплаты <span style="font-size:11px;color:var(--stone);font-weight:400;letter-spacing:0;text-transform:none;font-family:'Jost',sans-serif;margin-left:8px;">(35% от выручки за услуги)</span></div>
+        <div class="lk-chart-wrap">
+          <div class="lk-chart-title">Зарплата по месяцам · ₽${lastSalary ? ` · последний месяц: <strong style="color:var(--gold-dk);">${formatRub(lastSalary)}</strong>` : ''}</div>
+          <div class="lk-chart-outer">
+            ${ySalAxisHtml}
+            <div class="lk-chart">${salaryBars}<div class="lk-chart-baseline"></div></div>
+          </div>
+        </div>
       </div>` : ''}
+
+      <!-- Reviews tracking (manual) -->
+      <div class="lk-section">
+        <div class="lk-section-title">⭐ Отзывы клиентов <span style="font-size:11px;color:var(--stone);font-weight:400;letter-spacing:0;text-transform:none;font-family:'Jost',sans-serif;margin-left:8px;">вносится вручную, до подключения автоматической выгрузки из YClients</span></div>
+        <div class="lk-chart-wrap" style="padding:24px 28px;">
+          <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:18px;">
+            <div style="flex:1;min-width:140px;">
+              <label class="lk-select-label">Месяц</label>
+              <input class="lk-pin-input" style="letter-spacing:normal;font-size:14px;text-align:left;padding:10px 14px;" type="text" id="rev-month-${key}" placeholder="напр. Июнь 2026" />
+            </div>
+            <div style="width:120px;">
+              <label class="lk-select-label">Кол-во отзывов</label>
+              <input class="lk-pin-input" style="letter-spacing:normal;font-size:14px;text-align:left;padding:10px 14px;" type="number" min="0" id="rev-count-${key}" placeholder="0" />
+            </div>
+            <button class="lk-btn" style="width:auto;padding:11px 22px;margin-top:0;" onclick="addReviewEntry('${key}')">Добавить →</button>
+          </div>
+          <div id="rev-list-${key}">${renderReviewsList(key)}</div>
+        </div>
+      </div>
 
       <!-- Checklists -->
       ${clHtml}
@@ -1968,10 +2425,12 @@ function lkToggle(key, itemId, el) {
   el.classList.toggle('done');
   const box = el.querySelector('.lk-checkbox');
   box.textContent = prog[itemId] ? '✓' : '';
-  // Recalc progress
+  // Recalc progress (Mастера Высшей категории always show 100%)
+  const m = MASTERS[key];
+  const isHighest = m && m.category === 'highest';
   const done = CHECKLIST.filter(c => prog[c.id]).length;
-  const pct = Math.round((done / TOTAL_ITEMS) * 100);
-  const lvl = getLevel(pct);
+  const pct = isHighest ? 100 : Math.round((done / TOTAL_ITEMS) * 100);
+  const lvl = isHighest ? {label:'Мастер Высшей категории',cls:'high',icon:'Ⅲ'} : getLevel(pct);
   const pbar = document.getElementById('lk-pbar');
   const pval = document.getElementById('lk-pct-val');
   if (pbar) pbar.style.width = pct+'%';
@@ -1990,7 +2449,7 @@ function appNav(t) {
   target.scrollTo(0, 0);
 
   // Update both navbars
-  const pages = ['hub','admin','nail','lk','admin-lk'];
+  const pages = ['hub','admin','nail','lk','admin-lk','body-lk'];
   pages.forEach(p => {
     const top = document.getElementById('top-' + p);
     const bot = document.getElementById('bot-' + p);
@@ -2444,6 +2903,239 @@ function renderAdminDash(key) {
       <div id="alk-tc-training" class="alk-tab-content">${trainingHTML}</div>
       <div id="alk-tc-kpi" class="alk-tab-content">${kpiHTML}</div>
 
+    </div>
+  </div>`;
+}
+
+/* ═══════════════════════════════
+   BODY SPECIALIST LK
+═══════════════════════════════ */
+const BODY_STAFF = {
+  elena:  { name:'Елена',  initials:'ЕЛ', pin:'5555' },
+  elvira: { name:'Эльвира', initials:'ЭЛ', pin:'6666' }
+};
+
+const BODY_CHECKLIST = [
+  // Документы онлайн
+  { id:'b_nda',      label:'NDA — соглашение о неразглашении подписано',                   cat:'docs' },
+  { id:'b_opd',      label:'Согласие на обработку персональных данных подписано',          cat:'docs' },
+  { id:'b_photo',    label:'Согласие на фото- и видеосъёмку подписано',                   cat:'docs' },
+  // Документы очно
+  { id:'b_passport', label:'Скан паспорта (1-й разворот + прописка) передан управляющей', cat:'docs_offline' },
+  { id:'b_inn',      label:'ИНН передан управляющей',                                      cat:'docs_offline' },
+  { id:'b_medbook',  label:'Медицинская книжка передана управляющей',                      cat:'docs_offline' },
+  // Онбординг
+  { id:'b_welcome',  label:'Welcome-book с историей SHUGA STUDIO изучен',                 cat:'onboard' },
+  { id:'b_values',   label:'Кодекс ценностей изучен',                                     cat:'onboard' },
+  { id:'b_roles',    label:'Понимание своей роли, роли напарников и управляющей',         cat:'onboard' },
+  { id:'b_reglament',label:'Регламент работы специалиста по телу изучен',                 cat:'onboard' },
+  { id:'b_ckp',      label:'ЦКП специалиста по телу изучен',                              cat:'onboard' },
+  { id:'b_kpi_exp',  label:'Ожидаемые результаты в показателях изучены',                  cat:'onboard' },
+  { id:'b_sync',     label:'Итог 2 недель: синхронизация с HRD + брендбук',               cat:'onboard' },
+  // KPI
+  { id:'b_kpi_rev',     label:'Выполнение плана по выручке',          cat:'kpi' },
+  { id:'b_kpi_check',   label:'Средний чек — целевой показатель',     cat:'kpi' },
+  { id:'b_kpi_ret',     label:'Возвратность клиентов от 70%',         cat:'kpi' },
+  { id:'b_kpi_rec',     label:'Отсутствие рекламаций',                cat:'kpi' },
+  { id:'b_kpi_reviews', label:'Регулярные положительные отзывы',      cat:'kpi' },
+];
+
+const BODY_TOTAL = BODY_CHECKLIST.length;
+let blkStorage = JSON.parse(localStorage.getItem('shuga_blk') || '{}');
+function saveBLK() { localStorage.setItem('shuga_blk', JSON.stringify(blkStorage)); }
+function getBodyProgress(key) { if (!blkStorage[key]) blkStorage[key] = {}; return blkStorage[key]; }
+let currentBody = null;
+
+function blkLogin() {
+  const key = document.getElementById('blk-user-select').value;
+  const pin = document.getElementById('blk-pin').value;
+  const err = document.getElementById('blk-error');
+  if (!key || !BODY_STAFF[key]) { err.style.display='block'; err.textContent='Выберите специалиста'; return; }
+  if (pin !== BODY_STAFF[key].pin) { err.style.display='block'; err.textContent='Неверный пин-код'; return; }
+  err.style.display='none';
+  currentBody = key;
+  renderBodyDash(key);
+}
+
+function blkLogout() {
+  currentBody = null;
+  document.getElementById('blk-login').style.display='flex';
+  document.getElementById('blk-dash-wrap').innerHTML='';
+  document.getElementById('blk-pin').value='';
+  document.getElementById('blk-user-select').value='';
+}
+
+function blkTab(tab) {
+  document.querySelectorAll('.blk-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+  document.querySelectorAll('.blk-tab-content').forEach(c => c.classList.toggle('active', c.id === 'blk-tc-' + tab));
+}
+
+function blkToggle(key, id, el) {
+  const prog = getBodyProgress(key);
+  prog[id] = !prog[id];
+  saveBLK();
+  el.classList.toggle('done');
+  el.querySelector('.blk-checkbox').textContent = prog[id] ? '✓' : '';
+  blkUpdateProgress(key);
+}
+
+function blkUpdateProgress(key) {
+  const prog = getBodyProgress(key);
+  const done = BODY_CHECKLIST.filter(c => prog[c.id]).length;
+  const pct = Math.round((done / BODY_TOTAL) * 100);
+  const fill = document.getElementById('blk-prog-fill');
+  const pval = document.getElementById('blk-prog-pct');
+  const pdone = document.getElementById('blk-prog-done');
+  if (fill) fill.style.width = pct + '%';
+  if (pval) pval.textContent = pct;
+  if (pdone) pdone.textContent = done + ' из ' + BODY_TOTAL + ' пунктов';
+}
+
+function blkSaveKPI(key, field, val) {
+  if (!blkStorage[key + '_kpi']) blkStorage[key + '_kpi'] = {};
+  blkStorage[key + '_kpi'][field] = val;
+  saveBLK();
+}
+
+function renderBodyDash(key) {
+  const s = BODY_STAFF[key];
+  const prog = getBodyProgress(key);
+  const kpi = blkStorage[key + '_kpi'] || {};
+  const done = BODY_CHECKLIST.filter(c => prog[c.id]).length;
+  const pct = Math.round((done / BODY_TOTAL) * 100);
+
+  document.getElementById('blk-login').style.display = 'none';
+
+  const mkCheck = (items) => items.map(c => {
+    const d = !!prog[c.id];
+    return `<div class="blk-check${d?' done':''}" onclick="blkToggle('${key}','${c.id}',this)">
+      <div class="blk-checkbox">${d?'✓':''}</div><span>${c.label}</span></div>`;
+  }).join('');
+
+  const onboardHTML = `
+  <div class="blk-section">
+    <div class="blk-section-title">📄 Документы — онлайн-подпись</div>
+    <p style="font-size:12.5px;color:var(--dusk);line-height:1.7;margin-bottom:14px;">Подписываются онлайн через приложение <strong>Заметки</strong> (iOS) или сервис <strong>Диадок</strong>.</p>
+    ${mkCheck(BODY_CHECKLIST.filter(c=>c.cat==='docs'))}
+  </div>
+  <div class="blk-section">
+    <div class="blk-section-title">📋 Документы — передать управляющей очно</div>
+    ${mkCheck(BODY_CHECKLIST.filter(c=>c.cat==='docs_offline'))}
+  </div>
+  <div class="blk-section">
+    <div class="blk-section-title">🏠 Онбординг</div>
+    <div class="blk-onboard-item">
+      ${(()=>{const d=!!prog['b_welcome'];return`<div class="blk-check${d?' done':''}" style="margin-bottom:10px;" onclick="blkToggle('${key}','b_welcome',this)">
+        <div class="blk-checkbox">${d?'✓':''}</div><span>Welcome-book с историей SHUGA STUDIO изучен</span></div>
+      <a class="alk-link" href="https://docs.google.com/presentation/d/1GmzLElnG1tHX-kGOA-QotpsHSNg-BJFqRum8mHDD82g/edit?usp=sharing" target="_blank" style="margin-left:32px;">📖 Открыть Welcome-book →</a>`;})()}
+    </div>
+    <div class="blk-onboard-item" style="margin-top:10px;">
+      ${(()=>{const d=!!prog['b_values'];return`<div class="blk-check${d?' done':''}" style="margin-bottom:10px;" onclick="blkToggle('${key}','b_values',this)">
+        <div class="blk-checkbox">${d?'✓':''}</div><span>Кодекс ценностей изучен</span></div>
+      <a class="alk-link" href="https://drive.google.com/file/d/1ZKq2dHeZF-7SyS1_mhRgt89G8-NXhezj/view?usp=sharing" target="_blank" style="margin-left:32px;">📜 Открыть Кодекс ценностей →</a>`;})()}
+    </div>
+    <div class="blk-onboard-item" style="margin-top:10px;">
+      ${(()=>{const d=!!prog['b_roles'];return`<div class="blk-check${d?' done':''}" onclick="blkToggle('${key}','b_roles',this)">
+        <div class="blk-checkbox">${d?'✓':''}</div><span>Понимание своей роли, роли напарников и управляющей</span></div>`;})()}
+    </div>
+    <div class="blk-onboard-item" style="margin-top:10px;">
+      ${(()=>{const d=!!prog['b_reglament'];return`<div class="blk-check${d?' done':''}" style="margin-bottom:10px;" onclick="blkToggle('${key}','b_reglament',this)">
+        <div class="blk-checkbox">${d?'✓':''}</div><span>Регламент работы специалиста по телу изучен</span></div>
+      <a class="alk-link" href="#" target="_blank" style="margin-left:32px;opacity:0.5;pointer-events:none;">📄 Ссылка будет добавлена</a>`;})()}
+    </div>
+    <div class="blk-onboard-item" style="margin-top:10px;">
+      ${(()=>{const d=!!prog['b_ckp'];return`<div class="blk-check${d?' done':''}" onclick="blkToggle('${key}','b_ckp',this)">
+        <div class="blk-checkbox">${d?'✓':''}</div>
+        <div><span>ЦКП специалиста по телу изучен</span>
+        <div style="font-size:11.5px;color:var(--stone);margin-top:6px;line-height:1.6;">📌 Ценный конечный продукт — клиент, который чувствует себя услышанным, восстановленным и возвращается снова.</div></div></div>`;})()}
+    </div>
+    <div class="blk-onboard-item" style="margin-top:10px;">
+      ${(()=>{const d=!!prog['b_kpi_exp'];return`<div class="blk-check${d?' done':''}" onclick="blkToggle('${key}','b_kpi_exp',this)">
+        <div class="blk-checkbox">${d?'✓':''}</div>
+        <div><span>Ожидаемые результаты в показателях изучены</span>
+        <div style="font-size:11.5px;color:var(--stone);margin-top:8px;line-height:1.7;">• Выручка месячная<br>• Средний чек<br>• Возвратность клиентов<br>• Отсутствие рекламаций<br>• Отзывы клиентов</div></div></div>`;})()}
+    </div>
+    <div class="blk-onboard-item" style="margin-top:10px;">
+      ${(()=>{const d=!!prog['b_sync'];return`<div class="blk-check${d?' done':''}" onclick="blkToggle('${key}','b_sync',this)">
+        <div class="blk-checkbox">${d?'✓':''}</div><span>Итог 2 недель: синхронизация с HRD + брендбук</span></div>`;})()}
+    </div>
+  </div>`;
+
+  const kpiHTML = `
+  <div class="blk-kpi-grid">
+    ${[
+      {id:'rev',     label:'Выручка за месяц',          unit:'₽'},
+      {id:'check',   label:'Средний чек',                unit:'₽'},
+      {id:'ret',     label:'Возвратность',               unit:'%'},
+      {id:'rec',     label:'Рекламаций',                 unit:'шт'},
+      {id:'reviews', label:'Отзывы клиентов',            unit:'⭐'},
+      {id:'plan',    label:'План месяца',                unit:'₽'},
+    ].map(f=>`<div class="blk-kpi-card">
+      <div class="blk-kpi-label">${f.label}</div>
+      <input class="blk-kpi-input" type="text" placeholder="—" value="${kpi[f.id]||''}"
+        onchange="blkSaveKPI('${key}','${f.id}',this.value)" />
+      <div class="blk-kpi-unit">${f.unit}</div>
+    </div>`).join('')}
+  </div>
+  <div style="background:#fff;border:1px solid var(--sand);border-radius:var(--radius-sm);padding:20px 24px;">
+    <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:10px;">Заметки</div>
+    <textarea style="width:100%;border:none;background:none;font-family:'Jost',sans-serif;font-size:13px;color:var(--ink);resize:vertical;outline:none;min-height:80px;" placeholder="Комментарии к показателям..."
+      onchange="blkSaveKPI('${key}','notes',this.value)">${kpi['notes']||''}</textarea>
+  </div>`;
+
+  document.getElementById('blk-dash-wrap').innerHTML = `
+  <div class="blk-dash active">
+    <div class="blk-header">
+      <div class="blk-avatar">${s.initials}</div>
+      <div>
+        <div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--ink);">${s.name}</div>
+        <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-top:2px;">Специалист по телу · SHUGA Studio</div>
+      </div>
+      <button class="lk-logout" onclick="blkLogout()">Выйти</button>
+    </div>
+    <div class="blk-body">
+
+      <div class="blk-welcome">
+        <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--sage);margin-bottom:12px;">Добро пожаловать</div>
+        <div style="font-family:'Playfair Display',serif;font-size:26px;color:var(--ink);margin-bottom:16px;">Рады видеть Вас, ${s.name}! 🤍</div>
+        <div style="font-size:13px;color:var(--dusk);line-height:1.8;max-width:600px;">
+          Добро пожаловать в нашу команду профессионалов, наполненных и отдающих человеческое тепло, для которых высокий уровень сервиса и искренность — настройки на уровне кончиков пальцев!<br><br>
+          Мы рады приветствовать Вас в SHUGA ACADEMY, где начинается Ваш путь развития внутри компании 🤍<br><br>
+          Ниже у Вас есть разделы, которые помогут изучить нашу внутреннюю информацию о компании, сонастроиться с нашими ценностями, понять свою роль и роль остальных членов команды, а также отследить динамику Ваших показателей!<br><br>
+          Надеемся, что путь адаптации будет полезным и увлекательным. Начинайте с блока онбординга, а далее Вас направит управляющая и HR-директор 🫂
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;">
+          <button class="alk-nav-btn rose" style="background:var(--sage);border-color:var(--sage);" onclick="blkTab('onboard')">📋 Онбординг</button>
+          <button class="alk-nav-btn outline" onclick="blkTab('kpi')">📊 Мои показатели</button>
+        </div>
+      </div>
+
+      <!-- Progress -->
+      <div style="background:linear-gradient(135deg,rgba(126,158,140,0.08),rgba(196,144,154,0.06));border:1px solid rgba(126,158,140,0.25);border-radius:var(--radius);padding:32px;margin-bottom:28px;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+          <div>
+            <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--stone);margin-bottom:8px;">Прогресс адаптации</div>
+            <div style="display:flex;align-items:baseline;gap:6px;">
+              <span style="font-family:'Playfair Display',serif;font-size:42px;color:var(--sage);" id="blk-prog-pct">${pct}</span>
+              <span style="font-size:13px;color:var(--stone);">%</span>
+            </div>
+            <div style="font-size:12px;color:var(--dusk);margin-top:4px;" id="blk-prog-done">${done} из ${BODY_TOTAL} пунктов</div>
+          </div>
+          <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:var(--radius-pill);background:rgba(126,158,140,0.1);border:1px solid rgba(126,158,140,0.3);font-size:11px;color:var(--sage);letter-spacing:1.5px;text-transform:uppercase;">
+            ${pct < 50 ? '🌱 Адаптация' : pct < 100 ? '🚀 В процессе' : '✨ Адаптирована'}
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--stone);margin-bottom:6px;"><span>Старт</span><span>Адаптация завершена</span></div>
+        <div class="blk-prog-track"><div class="blk-prog-fill" id="blk-prog-fill" style="width:${pct}%"></div></div>
+      </div>
+
+      <div class="blk-tabs">
+        <button class="blk-tab active" data-tab="onboard" onclick="blkTab('onboard')">📋 Онбординг</button>
+        <button class="blk-tab" data-tab="kpi" onclick="blkTab('kpi')">📊 Мои показатели</button>
+      </div>
+
+      <div id="blk-tc-onboard" class="blk-tab-content active">${onboardHTML}</div>
+      <div id="blk-tc-kpi" class="blk-tab-content">${kpiHTML}</div>
     </div>
   </div>`;
 }
