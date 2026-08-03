@@ -816,7 +816,6 @@ body::before {
   <button class="app-top-item" id="top-admin" onclick="appNav('admin')"><span class="app-nav-icon">🗝</span> Администратор</button>
   <button class="app-top-item" id="top-nail" onclick="appNav('nail')"><span class="app-nav-icon">💅</span> Nail-мастер</button>
   <button class="app-top-item" id="top-admin-lk" onclick="appNav('admin-lk')"><span class="app-nav-icon">🗂</span> Адм. кабинет</button>
-  <button class="app-top-item" id="top-body-lk" onclick="appNav('body-lk')"><span class="app-nav-icon">🌿</span> Спец. по телу</button>
   <button class="app-top-item" id="top-lk" onclick="appNav('lk')"><span class="app-nav-icon">👤</span> Nail кабинет</button>
 </nav>
 
@@ -827,9 +826,6 @@ body::before {
   </button>
   <button class="app-nav-item" id="bot-admin-lk" onclick="appNav('admin-lk')">
     <span class="app-nav-icon">🗂</span><span class="app-nav-label">Адм.</span><span class="app-nav-dot"></span>
-  </button>
-  <button class="app-nav-item" id="bot-body-lk" onclick="appNav('body-lk')">
-    <span class="app-nav-icon">🌿</span><span class="app-nav-label">Тело</span><span class="app-nav-dot"></span>
   </button>
   <button class="app-nav-item" id="bot-lk" onclick="appNav('lk')">
     <span class="app-nav-icon">💅</span><span class="app-nav-label">Nail</span><span class="app-nav-dot"></span>
@@ -891,20 +887,8 @@ body::before {
         </div>
         <div class="hub-card-cta" style="color:var(--rose);">Войти <span>→</span></div>
       </div>
-      <div class="hub-card hub-card-nail" style="border-color:rgba(126,158,140,0.4);max-width:100%;" onclick="goTo('body-lk')">
-        <div class="hub-card-num" style="opacity:0.07;">04</div>
-        <div class="hub-card-label" style="color:var(--sage);">Личный кабинет</div>
-        <div class="hub-card-title">Специалист по телу</div>
-        <div class="hub-card-desc">Онбординг, регламент и показатели для специалистов по телу</div>
-        <div class="hub-tags">
-          <span class="hub-tag" style="border-color:rgba(126,158,140,0.4);color:var(--sage);background:rgba(126,158,140,0.07);">Онбординг</span>
-          <span class="hub-tag" style="border-color:rgba(126,158,140,0.4);color:var(--sage);background:rgba(126,158,140,0.07);">Регламент</span>
-          <span class="hub-tag" style="border-color:rgba(126,158,140,0.4);color:var(--sage);background:rgba(126,158,140,0.07);">KPI</span>
-        </div>
-        <div class="hub-card-cta" style="color:var(--sage);">Войти <span>→</span></div>
-      </div>
       <div class="hub-card hub-card-nail" style="border-color:rgba(197,169,106,0.4);max-width:100%;" onclick="goTo('lk')">
-        <div class="hub-card-num" style="opacity:0.07;">05</div>
+        <div class="hub-card-num" style="opacity:0.07;">04</div>
         <div class="hub-card-label" style="color:var(--gold-dk);">Личный кабинет</div>
         <div class="hub-card-title">Путь развития мастера nail-сервиса</div>
         <div class="hub-card-desc">Прогресс мастера: онбординг, навыки, KPI и динамика выручки</div>
@@ -916,6 +900,10 @@ body::before {
         <div class="hub-card-cta" style="color:var(--gold-dk);">Войти <span>→</span></div>
       </div>
     </div>
+  </div>
+  <!-- Скрытый доступ к управленческому дашборду -->
+  <div style="text-align:center;margin-top:32px;padding-bottom:16px;">
+    <button onclick="goTo('mgmt')" style="background:none;border:none;font-family:'Jost',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(139,126,114,0.35);cursor:pointer;padding:8px 16px;transition:color .3s;" onmouseover="this.style.color='var(--stone)'" onmouseout="this.style.color='rgba(139,126,114,0.35)'">Управление ·</button>
   </div>
 </div>
 
@@ -1419,134 +1407,395 @@ body::before {
   </div>
 </div>
 
-<!-- ╔══════════════════════╗
-     ║    ЛИЧНЫЙ КАБИНЕТ    ║
-     ╚══════════════════════╝ -->
-<!-- ╔══════════════════════════════╗
-     ║  ЛИЧНЫЙ КАБИНЕТ — ТЕЛО      ║
-     ╚══════════════════════════════╝ -->
-<div id="page-body-lk" class="page" style="background:var(--cream);">
+<!-- ╔══════════════════════════════════╗
+     ║   УПРАВЛЕНЧЕСКИЙ ДАШБОРД        ║
+     ╚══════════════════════════════════╝ -->
+<div id="page-mgmt" class="page" style="background:var(--cream);">
 <style>
-.blk-login {
-  min-height:100vh; display:flex; flex-direction:column;
-  align-items:center; justify-content:center; padding:40px 20px;
-  background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(126,158,140,0.1) 0%, transparent 60%), var(--cream);
+/* ── Management Dashboard ── */
+.mgmt-login {
+  min-height:100vh; display:flex; align-items:center; justify-content:center;
+  padding:40px 20px;
+  background:radial-gradient(ellipse 70% 50% at 50% 0%, rgba(46,40,32,0.06) 0%, transparent 60%), var(--cream);
 }
-.blk-login-box {
+.mgmt-login-box {
   background:#fff; border:1px solid var(--sand); border-radius:var(--radius);
   padding:52px 48px; max-width:420px; width:100%; box-shadow:var(--shadow-md);
   position:relative; overflow:hidden;
 }
-.blk-login-box::before {
-  content:''; position:absolute; top:0; left:0; right:0; height:3px;
-  background:linear-gradient(90deg, var(--sage), var(--blush));
+.mgmt-login-box::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--ink),var(--gold)); }
+.mgmt-body { padding:32px 40px; max-width:1400px; margin:0 auto; }
+.mgmt-header {
+  background:#fff; border-bottom:1px solid var(--sand); padding:20px 40px;
+  display:flex; align-items:center; gap:16px; position:sticky; top:0; z-index:50;
 }
-.blk-dash { display:none; }
-.blk-dash.active { display:block; min-height:100vh; }
-.blk-header {
-  background:#fff; border-bottom:1px solid var(--sand); padding:24px 48px;
-  display:flex; align-items:center; gap:20px; position:sticky; top:0; z-index:50;
+.mgmt-header-title { font-family:'Playfair Display',serif; font-size:20px; color:var(--ink); }
+.mgmt-header-sub { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--stone); }
+.mgmt-logout { margin-left:auto; padding:8px 18px; border:1px solid var(--sand); border-radius:var(--radius-pill); font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--stone); background:none; cursor:pointer; font-family:'Jost',sans-serif; transition:all .2s; }
+.mgmt-logout:hover { border-color:var(--rose); color:var(--rose); }
+
+/* Section titles */
+.mgmt-section { margin-bottom:40px; }
+.mgmt-section-title {
+  font-family:'Playfair Display',serif; font-size:20px; font-weight:400; color:var(--ink);
+  margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid var(--sand);
+  display:flex; align-items:center; gap:10px;
 }
-.blk-avatar {
-  width:46px; height:46px; border-radius:50%;
-  background:linear-gradient(135deg, var(--sage), var(--blush));
-  display:flex; align-items:center; justify-content:center;
-  font-family:'Playfair Display',serif; font-size:18px; color:#fff; flex-shrink:0;
+.mgmt-sub-title { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--stone); margin-bottom:14px; }
+
+/* Cohort pills */
+.cohort-pill {
+  display:inline-flex; align-items:center; gap:6px; padding:4px 12px;
+  border-radius:var(--radius-pill); font-size:10px; letter-spacing:1.5px; text-transform:uppercase; font-weight:500;
 }
-.blk-body { padding:40px 48px; max-width:1100px; margin:0 auto; }
-.blk-welcome {
-  background:linear-gradient(135deg, rgba(126,158,140,0.08), rgba(196,144,154,0.07));
-  border:1px solid rgba(126,158,140,0.25); border-radius:var(--radius);
-  padding:40px; margin-bottom:32px; position:relative; overflow:hidden;
-}
-.blk-welcome::after {
-  content:'SH'; position:absolute; right:32px; top:50%; transform:translateY(-50%);
-  font-family:'Playfair Display',serif; font-size:96px; font-weight:400;
-  color:rgba(126,158,140,0.06); line-height:1; pointer-events:none;
-}
-.blk-prog-track { height:8px; background:var(--sand); border-radius:8px; overflow:hidden; margin:12px 0; }
-.blk-prog-fill {
-  height:100%; border-radius:8px;
-  background:linear-gradient(90deg, var(--sage), var(--blush));
-  transition:width 1s cubic-bezier(.4,0,.2,1);
-}
-.blk-tabs { display:flex; gap:4px; margin-bottom:28px; overflow-x:auto; padding-bottom:4px; }
-.blk-tabs::-webkit-scrollbar { display:none; }
-.blk-tab {
-  padding:9px 20px; border-radius:var(--radius-pill); font-size:10px;
-  letter-spacing:2px; text-transform:uppercase; cursor:pointer; white-space:nowrap;
-  border:1px solid var(--sand); color:var(--stone); background:none;
-  font-family:'Jost',sans-serif; transition:all .2s;
-}
-.blk-tab.active { background:var(--sage); border-color:var(--sage); color:#fff; }
-.blk-tab-content { display:none; }
-.blk-tab-content.active { display:block; }
-.blk-section { margin-bottom:36px; }
-.blk-section-title {
-  font-family:'Playfair Display',serif; font-size:22px; font-weight:400;
-  color:var(--ink); margin-bottom:20px; padding-bottom:12px;
-  border-bottom:1px solid var(--sand); display:flex; align-items:center; gap:10px;
-}
-.blk-check {
-  display:flex; align-items:flex-start; gap:12px; padding:14px 16px;
+.cohort-new { background:rgba(184,130,110,0.12); color:var(--rose); border:1px solid rgba(184,130,110,0.3); }
+.cohort-adapt { background:rgba(197,169,106,0.12); color:var(--gold-dk); border:1px solid rgba(197,169,106,0.3); }
+.cohort-perm { background:rgba(126,158,140,0.12); color:var(--sage); border:1px solid rgba(126,158,140,0.3); }
+
+/* Master row cards */
+.mgmt-grid { display:flex; flex-direction:column; gap:10px; }
+.mgmt-card {
   background:#fff; border:1px solid var(--sand); border-radius:var(--radius-sm);
-  cursor:pointer; transition:all .18s; font-size:12.5px; color:var(--dusk);
-  box-shadow:var(--shadow-sm); margin-bottom:8px;
+  padding:18px 22px; box-shadow:var(--shadow-sm);
+  display:grid; grid-template-columns:200px 120px 1fr auto; align-items:center; gap:16px;
 }
-.blk-check:hover { border-color:rgba(126,158,140,0.4); color:var(--ink); transform:translateX(2px); }
-.blk-check.done { background:rgba(126,158,140,0.06); border-color:rgba(126,158,140,0.3); }
-.blk-check.done span { text-decoration:line-through; opacity:.5; }
-.blk-checkbox {
-  width:20px; height:20px; border:1.5px solid var(--linen); border-radius:5px; flex-shrink:0;
-  display:flex; align-items:center; justify-content:center; font-size:11px;
-  color:#fff; transition:all .18s; margin-top:1px;
+.mgmt-card:hover { border-color:var(--sage-lt); }
+.mgmt-name { font-family:'Playfair Display',serif; font-size:15px; color:var(--ink); }
+.mgmt-months { font-size:11px; color:var(--stone); margin-top:2px; }
+
+/* Progress bars in cards */
+.mgmt-bar-wrap { display:flex; flex-direction:column; gap:4px; }
+.mgmt-bar-row { display:flex; align-items:center; gap:8px; }
+.mgmt-bar-label { font-size:9px; letter-spacing:1px; text-transform:uppercase; color:var(--stone); width:70px; flex-shrink:0; }
+.mgmt-bar-track { flex:1; height:6px; background:var(--sand); border-radius:6px; overflow:hidden; }
+.mgmt-bar-fill { height:100%; border-radius:6px; transition:width .5s ease; }
+.mgmt-bar-fill.onboard { background:var(--rose); }
+.mgmt-bar-fill.ipr { background:var(--sage); }
+.mgmt-bar-fill.kpi { background:var(--gold); }
+.mgmt-bar-pct { font-size:9px; color:var(--stone); width:28px; text-align:right; flex-shrink:0; }
+
+/* Sync session toggle */
+.mgmt-sync { display:flex; flex-direction:column; gap:6px; align-items:flex-end; }
+.sync-btn {
+  display:flex; align-items:center; gap:6px; padding:6px 14px;
+  border-radius:var(--radius-pill); font-size:9px; letter-spacing:1.5px; text-transform:uppercase;
+  cursor:pointer; border:1px solid var(--sand); background:none; font-family:'Jost',sans-serif;
+  transition:all .18s; color:var(--stone); white-space:nowrap;
 }
-.blk-check.done .blk-checkbox { background:var(--sage); border-color:var(--sage); }
-.blk-onboard-item {
-  background:#fff; border:1px solid var(--sand); border-radius:var(--radius-sm);
-  padding:16px 20px; box-shadow:var(--shadow-sm); margin-bottom:10px;
+.sync-btn.done { background:rgba(126,158,140,0.1); border-color:var(--sage); color:var(--sage); }
+.sync-btn:hover:not(.done) { border-color:var(--gold); color:var(--gold-dk); }
+.sync-date { font-size:9px; color:var(--stone); text-align:right; }
+
+/* Summary stats row */
+.mgmt-stats { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; margin-bottom:32px; }
+.mgmt-stat { background:#fff; border:1px solid var(--sand); border-radius:var(--radius-sm); padding:16px 18px; }
+.mgmt-stat-val { font-family:'Playfair Display',serif; font-size:26px; color:var(--ink); }
+.mgmt-stat-label { font-size:10px; color:var(--stone); margin-top:3px; }
+.mgmt-stat-sub { font-size:10px; margin-top:5px; }
+.mgmt-stat-sub.good { color:var(--sage); }
+
+/* Signal table */
+.signal-row { cursor:pointer; transition:background .15s; }
+.signal-row:hover td { background:rgba(126,158,140,0.05); }
+.signal-row.expanded td { background:rgba(126,158,140,0.08); border-bottom:2px solid var(--sage); }
+.signal-badge {
+  display:inline-flex; align-items:center; gap:5px;
+  padding:3px 10px; border-radius:var(--radius-pill);
+  font-size:9px; letter-spacing:1px; text-transform:uppercase; font-weight:500; white-space:nowrap;
 }
-.blk-kpi-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:14px; margin-bottom:28px; }
-.blk-kpi-card { background:#fff; border:1px solid var(--sand); border-radius:var(--radius-sm); padding:18px 20px; box-shadow:var(--shadow-sm); }
-.blk-kpi-label { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--stone); margin-bottom:10px; }
-.blk-kpi-input {
-  width:100%; padding:8px 0; border:none; border-bottom:1.5px solid var(--sand);
-  font-family:'Playfair Display',serif; font-size:20px; color:var(--ink);
-  background:none; outline:none; transition:border-color .2s;
+.sig-anchor { color:var(--sage); background:rgba(126,158,140,0.12); border:1px solid rgba(126,158,140,0.3); }
+.sig-loco { color:var(--gold-dk); background:rgba(197,169,106,0.12); border:1px solid rgba(197,169,106,0.3); }
+.sig-watch { color:var(--rose); background:rgba(184,130,110,0.12); border:1px solid rgba(184,130,110,0.3); }
+.sig-risk { color:#fff; background:var(--rose); border:1px solid var(--rose); }
+.sig-new { color:var(--stone); background:var(--cream); border:1px solid var(--sand); }
+.sig-ok { color:var(--sage); font-size:13px; }
+.sig-warn { color:var(--gold-dk); font-size:13px; }
+.sig-bad { color:var(--rose); font-size:13px; }
+
+/* Expanded master card */
+.team-exp-card {
+  background:#fff; border:1px solid var(--sand); border-top:3px solid var(--sage);
+  border-radius:0 0 var(--radius-sm) var(--radius-sm);
+  padding:20px 24px; margin-bottom:4px; display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:16px;
 }
-.blk-kpi-input:focus { border-color:var(--sage); }
-.blk-kpi-unit { font-size:10px; color:var(--stone); margin-top:5px; }
+.exp-block { display:flex; flex-direction:column; gap:4px; }
+.exp-label { font-size:9px; letter-spacing:1.5px; text-transform:uppercase; color:var(--stone); }
+.exp-val { font-family:'Playfair Display',serif; font-size:18px; color:var(--ink); }
+.exp-sub { font-size:10.5px; margin-top:2px; }
+.exp-rec { grid-column:1/-1; background:rgba(197,169,106,0.07); border:1px solid rgba(197,169,106,0.25); border-radius:var(--radius-sm); padding:12px 16px; font-size:12px; color:var(--dusk); line-height:1.7; }
+.exp-ipr { grid-column:1/-1; display:flex; flex-direction:column; gap:6px; }
+.exp-prog-row { display:flex; align-items:center; gap:10px; }
+.exp-prog-label { font-size:10px; color:var(--stone); width:100px; flex-shrink:0; }
+.exp-prog-track { flex:1; height:6px; background:var(--sand); border-radius:6px; overflow:hidden; }
+.exp-prog-fill { height:100%; border-radius:6px; transition:width .5s; }
+
+/* Onboarding tracker table */
+.obt-check { text-align:center; font-size:14px; }
+.obt-pct { font-size:11px; font-weight:500; }
+.obt-row-new td { background:rgba(184,130,110,0.03); }
+.obt-row-adapt td { background:rgba(197,169,106,0.03); }
+.obt-badge { font-size:9px; padding:1px 7px; border-radius:10px; display:inline-block; }
+.obt-badge-new { background:rgba(184,130,110,0.12); color:var(--rose); }
+.obt-badge-adapt { background:rgba(197,169,106,0.12); color:var(--gold-dk); }
+.obt-sync-btn { padding:4px 10px; border-radius:var(--radius-pill); font-size:9px; letter-spacing:1px; text-transform:uppercase; border:1px solid var(--sand); background:none; cursor:pointer; font-family:'Jost',sans-serif; color:var(--stone); transition:all .18s; }
+.obt-sync-btn.done { background:rgba(126,158,140,0.1); border-color:var(--sage); color:var(--sage); }
+
+.mgmt-stat-sub.warn { color:var(--gold-dk); }
+.mgmt-stat-sub.bad { color:var(--rose); }
+
+/* Prognosis cards */
+.prognosis-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:14px; }
+.prognosis-card {
+  background:#fff; border:1px solid rgba(197,169,106,0.4); border-radius:var(--radius-sm);
+  padding:20px; box-shadow:var(--shadow-sm);
+}
+.prognosis-name { font-family:'Playfair Display',serif; font-size:16px; color:var(--ink); margin-bottom:4px; }
+.prognosis-reason { font-size:11.5px; color:var(--dusk); line-height:1.6; margin-top:8px; }
+.prognosis-badge { display:inline-flex; padding:3px 10px; border-radius:var(--radius-pill); font-size:9px; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:8px; }
+.prognosis-badge.ready { background:rgba(126,158,140,0.1); color:var(--sage); border:1px solid rgba(126,158,140,0.3); }
+.prognosis-badge.soon { background:rgba(197,169,106,0.1); color:var(--gold-dk); border:1px solid rgba(197,169,106,0.3); }
+
+/* eNPS section */
+.enps-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:12px; margin-bottom:24px; }
+.enps-card { background:#fff; border:1px solid var(--sand); border-radius:var(--radius-sm); padding:16px 18px; }
+.enps-name { font-size:12px; color:var(--ink); font-weight:500; margin-bottom:8px; }
+.enps-stars { display:flex; gap:3px; }
+.enps-star { font-size:18px; cursor:default; }
+.enps-history { font-size:10px; color:var(--stone); margin-top:6px; }
+.enps-no-data { font-size:11px; color:var(--stone); font-style:italic; }
+
+/* Weekly snapshot */
+.week-table { width:100%; border-collapse:collapse; font-size:12px; }
+.week-table th { text-align:left; padding:10px 14px; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--stone); border-bottom:1px solid var(--sand); font-weight:400; }
+.week-table td { padding:11px 14px; border-bottom:1px solid var(--parchment, #f5f0ea); color:var(--dusk); vertical-align:middle; }
+.week-table tr:last-child td { border-bottom:none; }
+.week-table tr:hover td { background:var(--cream); }
+
+/* Hire section */
+.hire-pipeline { display:flex; gap:0; overflow-x:auto; }
+.hire-stage {
+  flex:1; min-width:150px; padding:16px 18px;
+  border:1px solid var(--sand); border-right:none; background:#fff;
+}
+.hire-stage:last-child { border-right:1px solid var(--sand); border-radius:0 var(--radius-sm) var(--radius-sm) 0; }
+.hire-stage:first-child { border-radius:var(--radius-sm) 0 0 var(--radius-sm); }
+.hire-stage-title { font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--stone); margin-bottom:10px; }
+.hire-count { font-family:'Playfair Display',serif; font-size:28px; color:var(--ink); }
+.hire-input { width:100%; border:none; background:none; font-family:'Jost',sans-serif; font-size:28px; color:var(--ink); outline:none; max-width:60px; }
+
+/* Tabs inside dashboard */
+.mgmt-tabs { display:flex; gap:4px; margin-bottom:28px; overflow-x:auto; padding-bottom:2px; }
+.mgmt-tabs::-webkit-scrollbar { display:none; }
+.mgmt-tab { padding:9px 20px; border-radius:var(--radius-pill); font-size:10px; letter-spacing:2px; text-transform:uppercase; cursor:pointer; white-space:nowrap; border:1px solid var(--sand); color:var(--stone); background:none; font-family:'Jost',sans-serif; transition:all .2s; }
+.mgmt-tab.active { background:var(--ink); border-color:var(--ink); color:#fff; }
+.mgmt-tab-content { display:none; }
+.mgmt-tab-content.active { display:block; }
+
 @media(max-width:768px){
-  .blk-header, .blk-body { padding:20px 16px; }
-  .blk-login-box { padding:32px 24px; }
-  .blk-kpi-grid { grid-template-columns:1fr 1fr; }
+  .mgmt-body, .mgmt-header { padding:16px; }
+  .mgmt-card { grid-template-columns:1fr; gap:12px; }
+  .mgmt-stats { grid-template-columns:1fr 1fr; }
+  .mgmt-login-box { padding:32px 24px; }
+  .hire-pipeline { flex-direction:column; }
+  .hire-stage { border-right:1px solid var(--sand); border-bottom:none; border-radius:0; }
+  .hire-stage:first-child { border-radius:var(--radius-sm) var(--radius-sm) 0 0; }
+  .hire-stage:last-child { border-bottom:1px solid var(--sand); border-radius:0 0 var(--radius-sm) var(--radius-sm); }
 }
 </style>
 
 <!-- LOGIN -->
-<div class="blk-login" id="blk-login">
-  <div class="blk-login-box">
+<div class="mgmt-login" id="mgmt-login">
+  <div class="mgmt-login-box">
     <div style="text-align:center;margin-bottom:28px;">
-      <div style="width:56px;height:56px;border:1px solid var(--sage);border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;color:var(--sage);margin:0 auto 14px;letter-spacing:2px;">SH</div>
-      <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--sage);margin-bottom:8px;">Shuga Academy</div>
-      <div style="font-family:'Playfair Display',serif;font-size:26px;color:var(--ink);margin-bottom:4px;">Кабинет специалиста по телу</div>
+      <div style="width:52px;height:52px;border:1px solid var(--ink);border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:17px;color:var(--ink);margin:0 auto 14px;letter-spacing:2px;">SH</div>
+      <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--stone);margin-bottom:8px;">Управление</div>
+      <div style="font-family:'Playfair Display',serif;font-size:26px;color:var(--ink);margin-bottom:4px;">Дашборд команды</div>
+      <div style="font-size:12px;color:var(--stone);">Только для управляющей и HRD</div>
     </div>
-    <label class="lk-select-label">Выберите специалиста</label>
-    <select class="lk-select" id="blk-user-select">
-      <option value="">— выбрать —</option>
-      <option value="elena">Елена</option>
-      <option value="elvira">Эльвира</option>
-    </select>
-    <label class="lk-pin-label">Пин-код (4 цифры)</label>
-    <input class="lk-pin-input" type="password" maxlength="4" id="blk-pin" placeholder="••••" />
-    <button class="lk-btn" style="background:var(--sage);" onclick="blkLogin()">Войти →</button>
-    <div class="lk-error" id="blk-error">Неверный пин-код</div>
+    <label class="lk-pin-label">Пароль доступа</label>
+    <input class="lk-pin-input" type="password" id="mgmt-pin" placeholder="••••••" style="letter-spacing:4px;" />
+    <button class="lk-btn" style="background:var(--ink);" onclick="mgmtLogin()">Войти →</button>
+    <div class="lk-error" id="mgmt-error">Неверный пароль</div>
     <button class="back-btn" style="margin-top:20px;width:100%;justify-content:center;" onclick="goTo('hub')">← На главную</button>
   </div>
 </div>
 
-<div id="blk-dash-wrap"></div>
-</div><!-- /body-lk -->
+<!-- DASHBOARD -->
+<div id="mgmt-dash" style="display:none;">
+  <div class="mgmt-header">
+    <div>
+      <div class="mgmt-header-title">Команда SHUGA</div>
+      <div class="mgmt-header-sub" id="mgmt-date-label"></div>
+    </div>
+    <button class="mgmt-logout" onclick="mgmtLogout()">Выйти</button>
+  </div>
+  <div class="mgmt-body">
+
+    <!-- TABS -->
+    <div class="mgmt-tabs">
+      <button class="mgmt-tab active" onclick="mgmtTab('team')">👥 Команда</button>
+      <button class="mgmt-tab" onclick="mgmtTab('topmasters')">🏷 Команда — аналитика</button>
+      <button class="mgmt-tab" onclick="mgmtTab('onboarding')">✅ Онбординг</button>
+      <button class="mgmt-tab" onclick="mgmtTab('quarterly')">📊 Квартальный срез</button>
+      <button class="mgmt-tab" onclick="mgmtTab('enps')">⭐ eNPS</button>
+      <button class="mgmt-tab" onclick="mgmtTab('hire')">🔍 Найм</button>
+    </div>
+
+    <!-- TAB: TEAM -->
+    <div id="mgmt-tc-team" class="mgmt-tab-content active">
+
+      <!-- Summary stats -->
+      <div class="mgmt-stats" id="mgmt-stats-row"></div>
+
+      <!-- Quarter selector -->
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:24px;" id="mgmt-quarter-selector"></div>
+
+      <!-- СИГНАЛЫ: общая таблица всей команды -->
+      <div class="mgmt-section">
+        <div class="mgmt-section-title">📡 Команда — сигналы по мастерам
+          <span style="font-size:11px;color:var(--stone);font-weight:400;text-transform:none;letter-spacing:0;margin-left:8px;">клик по строке раскрывает карточку</span>
+          <span id="team-norm-outflow-label" style="font-size:11px;color:var(--stone);font-weight:400;text-transform:none;letter-spacing:0;margin-left:8px;"></span>
+        </div>
+        <div style="overflow-x:auto;margin-bottom:8px;">
+          <table class="week-table" id="team-signal-table" style="min-width:900px;">
+            <thead>
+              <tr>
+                <th style="width:160px;">Мастер</th>
+                <th>Категория</th>
+                <th>Стаж</th>
+                <th>Выручка</th>
+                <th>Ср.чек</th>
+                <th>Смен</th>
+                <th>Возврат.</th>
+                <th>Отток</th>
+                <th>Заполн.</th>
+                <th>Сигнал</th>
+                <th>Созвон</th>
+              </tr>
+            </thead>
+            <tbody id="team-signal-body"></tbody>
+          </table>
+        </div>
+        <!-- Expandable card area -->
+        <div id="team-expanded-card" style="display:none;"></div>
+      </div>
+
+      <!-- Ссылка на подробный трекинг ТОП-мастеров -->
+      <div class="mgmt-section">
+        <div style="background:rgba(126,158,140,0.07);border:1px solid rgba(126,158,140,0.3);border-radius:var(--radius-sm);padding:14px 20px;font-size:12.5px;color:var(--dusk);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:10px;">
+          <span>🌱 Класс, флаги и отчёт по каждому мастеру — во вкладке <strong>🏷 Команда — аналитика</strong>.</span>
+          <button onclick="mgmtTab('topmasters')" style="padding:8px 18px;border:1px solid var(--sage);border-radius:var(--radius-pill);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--sage);background:none;cursor:pointer;font-family:'Jost',sans-serif;">Открыть →</button>
+        </div>
+        <div style="background:rgba(197,169,106,0.07);border:1px solid rgba(197,169,106,0.3);border-radius:var(--radius-sm);padding:14px 20px;font-size:12.5px;color:var(--dusk);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+          <span>🌱 Трекинг онбординга и адаптации ТОП-мастеров — во вкладке <strong>✅ Онбординг</strong>.</span>
+          <button onclick="mgmtTab('onboarding')" style="padding:8px 18px;border:1px solid var(--gold-dk);border-radius:var(--radius-pill);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-dk);background:none;cursor:pointer;font-family:'Jost',sans-serif;">Открыть →</button>
+        </div>
+      </div>
+
+      <!-- Прогноз повышения -->
+      <div class="mgmt-section">
+        <div class="mgmt-section-title">📈 Прогноз повышения</div>
+        <div class="prognosis-grid" id="mgmt-prognosis"></div>
+      </div>
+
+    </div>
+
+    <!-- TAB: КОМАНДА — АНАЛИТИКА -->
+    <div id="mgmt-tc-topmasters" class="mgmt-tab-content">
+
+      <div style="background:rgba(197,169,106,0.08);border:1px solid rgba(197,169,106,0.3);border-radius:var(--radius-sm);padding:16px 20px;margin-bottom:24px;font-size:12.5px;color:var(--dusk);line-height:1.7;">
+        Отчёт по каждому мастеру nail-сервиса — формат как на экране собственника. Онбординг и чек-лист компетенций — во вкладке «✅ Онбординг».
+        Другие направления (депиляция, брови, косметология) появятся здесь позже. Финансовая аналитика — из отчёта Залины (KPI по мастерам) и YCLIENTS.
+      </div>
+
+      <!-- Отчёт по каждому — формат как на дашборде СЕО -->
+      <div class="mgmt-section">
+        <div class="mgmt-section-title">📋 Отчёт по мастеру — класс, сильные стороны, фокус внимания</div>
+        <div id="topmasters-reports"></div>
+      </div>
+
+      <!-- Итог: кого отметить / на кого обратить фокус -->
+      <div class="mgmt-section">
+        <div class="mgmt-section-title">🏆 Итог месяца — кого отметить и на кого обратить фокус</div>
+        <div id="team-highlights"></div>
+      </div>
+
+      <!-- Фокусы месяца для HRD -->
+      <div class="mgmt-section">
+        <div class="mgmt-section-title">🎯 Фокусы месяца для HRD
+          <span style="font-size:11px;color:var(--stone);font-weight:400;text-transform:none;letter-spacing:0;margin-left:8px;">рычаги по команде — на что смотреть весь месяц</span>
+        </div>
+        <div id="hrd-focus"></div>
+      </div>
+
+    </div>
+
+    <!-- TAB: ОНБОРДИНГ -->
+    <div id="mgmt-tc-onboarding" class="mgmt-tab-content">
+
+      <div style="background:rgba(197,169,106,0.08);border:1px solid rgba(197,169,106,0.3);border-radius:var(--radius-sm);padding:16px 20px;margin-bottom:24px;font-size:12.5px;color:var(--dusk);line-height:1.7;">
+        Путь онбординга и адаптации ТОП-мастеров: документы, регламент, обучение, компетенции.
+      </div>
+
+      <!-- Сводная матрица: чек-лист × ТОП-мастера -->
+      <div class="mgmt-section">
+        <div class="mgmt-section-title">✅ Онбординг и адаптация — чек-лист по каждому ТОП-мастеру
+          <span style="font-size:11px;color:var(--stone);font-weight:400;text-transform:none;letter-spacing:0;margin-left:8px;">имена мастеров сверху · этапы и компетенции слева · галочка = пройдено</span>
+        </div>
+        <div id="topmasters-matrix"></div>
+      </div>
+
+    </div>
+
+    <!-- TAB: QUARTERLY -->
+    <div id="mgmt-tc-quarterly" class="mgmt-tab-content">
+
+      <!-- Quarter selector -->
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:28px;flex-wrap:wrap;">
+        <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);">Квартал:</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;" id="q-selector"></div>
+      </div>
+
+      <!-- Quarter summary strip -->
+      <div id="q-summary" style="margin-bottom:28px;"></div>
+
+      <!-- Per-master detailed cards -->
+      <div id="q-master-cards"></div>
+
+    </div>
+
+    <!-- TAB: eNPS -->
+    <div id="mgmt-tc-enps" class="mgmt-tab-content">
+      <div class="mgmt-section">
+        <div class="mgmt-section-title">⭐ eNPS — удовлетворённость команды</div>
+        <div style="background:rgba(197,169,106,0.08);border:1px solid rgba(197,169,106,0.3);border-radius:var(--radius-sm);padding:16px 20px;margin-bottom:24px;font-size:12.5px;color:var(--dusk);line-height:1.7;">
+          Каждый мастер оценивает уровень своей удовлетворённости в первых числах месяца прямо из личного кабинета. Здесь собраны все оценки.
+        </div>
+        <div id="enps-month-selector" style="margin-bottom:20px;"></div>
+        <div class="enps-grid" id="mgmt-enps-grid"></div>
+        <div style="background:#fff;border:1px solid var(--sand);border-radius:var(--radius-sm);padding:20px 24px;margin-top:16px;">
+          <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:12px;">Средний балл по команде</div>
+          <div id="enps-avg" style="font-family:'Playfair Display',serif;font-size:36px;color:var(--ink);"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: HIRE -->
+    <div id="mgmt-tc-hire" class="mgmt-tab-content">
+      <div class="mgmt-section">
+        <div class="mgmt-section-title">🔍 Воронка найма</div>
+        <div class="hire-pipeline" id="mgmt-hire-pipeline"></div>
+        <div style="margin-top:20px;background:#fff;border:1px solid var(--sand);border-radius:var(--radius-sm);padding:20px 24px;">
+          <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:12px;">Заметки по найму</div>
+          <textarea id="hire-notes" style="width:100%;border:none;background:none;font-family:'Jost',sans-serif;font-size:13px;color:var(--ink);resize:vertical;outline:none;min-height:100px;" placeholder="Источники, статусы кандидатов, договорённости..." onchange="mgmtSave('hire_notes',this.value)"></textarea>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div><!-- /mgmt -->
 
 <div id="page-lk" class="page" style="min-height:100vh;background:var(--cream);">
   <!-- LK STYLES -->
@@ -1790,75 +2039,81 @@ const MASTERS = {
     pin:'1234', startDate:'23 апреля 2026',
     monthsInStudio: 2,
     analytics: [
-      {m:'Апр',rev:47549,check:3658,clients:13,ret:null,rec:0},
-      {m:'Май',rev:303764,check:3997,clients:68,ret:4.4,rec:1}
+      {m:'Апр',rev:47549,check:3658,clients:13,ret:null,rec:0,shifts:4},
+      {m:'Май',rev:303764,check:3997,clients:68,ret:4.4,rec:1,shifts:15},
+      {m:'Июн',rev:314042,check:3926,clients:73,ret:16.4,rec:0,shifts:15}
     ],
     kpiTarget:{rev:300000,check:5500,ret:70}
   },
   akzharova: {
     name:'Жулдуз (Женя) Акжарова', initials:'ЖА', category:'top',
     pin:'2345', startDate:'5 мая 2026',
-    monthsInStudio: 1,
+    monthsInStudio: 2,
     analytics: [
-      {m:'Май',rev:143701,check:3685,clients:37,ret:0,rec:0}
+      {m:'Май',rev:143701,check:3685,clients:37,ret:0,rec:0,shifts:12},
+      {m:'Июн',rev:318972,check:3666,clients:79,ret:17.7,rec:0,shifts:17}
     ],
     kpiTarget:{rev:300000,check:5500,ret:70}
   },
   chebaevskaya: {
     name:'Марина Чебаевская', initials:'МЧ', category:'top',
     pin:'4567', startDate:'2 февраля 2026',
-    monthsInStudio: 4,
+    monthsInStudio: 5,
     analytics: [
-      {m:'Фев',rev:293312,check:3964,clients:71,ret:null,rec:1},
-      {m:'Мар',rev:295922,check:4054,clients:68,ret:17.6,rec:0},
-      {m:'Апр',rev:255434,check:3991,clients:58,ret:29.3,rec:0},
-      {m:'Май',rev:259651,check:4188,clients:58,ret:32.8,rec:0}
+      {m:'Фев',rev:293312,check:3964,clients:71,ret:null,rec:1,shifts:14},
+      {m:'Мар',rev:295922,check:4054,clients:68,ret:17.6,rec:0,shifts:14},
+      {m:'Апр',rev:255434,check:3991,clients:58,ret:29.3,rec:0,shifts:12},
+      {m:'Май',rev:259651,check:4188,clients:58,ret:32.8,rec:0,shifts:14},
+      {m:'Июн',rev:319515,check:4204,clients:72,ret:33.3,rec:1,shifts:15}
     ],
     kpiTarget:{rev:300000,check:5500,ret:70}
   },
   zarima: {
     name:'Зарима Жумабекова', initials:'ЗЖ', category:'top',
     pin:'5678', startDate:'2 марта 2026',
-    monthsInStudio: 3,
+    monthsInStudio: 4,
     analytics: [
-      {m:'Мар',rev:235957,check:3806,clients:55,ret:null,rec:0},
-      {m:'Апр',rev:328792,check:4443,clients:70,ret:21.4,rec:0},
-      {m:'Май',rev:295672,check:4385,clients:64,ret:31.3,rec:0}
+      {m:'Мар',rev:235957,check:3806,clients:55,ret:null,rec:0,shifts:14},
+      {m:'Апр',rev:328792,check:4443,clients:70,ret:21.4,rec:0,shifts:15},
+      {m:'Май',rev:295672,check:4385,clients:64,ret:31.3,rec:0,shifts:14},
+      {m:'Июн',rev:261804,check:4363,clients:59,ret:35.6,rec:0,shifts:12}
     ],
     kpiTarget:{rev:300000,check:5500,ret:70}
   },
   mira: {
     name:'Мира Кузнецова', initials:'МК', category:'top',
     pin:'6789', startDate:'6 декабря 2025',
-    monthsInStudio: 6,
+    monthsInStudio: 7,
     analytics: [
-      {m:'Дек',rev:238462,check:2944,clients:76,ret:0,rec:0},
-      {m:'Янв',rev:534329,check:4174,clients:111,ret:18,rec:0},
-      {m:'Фев',rev:357516,check:4206,clients:75,ret:38.7,rec:1},
-      {m:'Мар',rev:460972,check:4564,clients:88,ret:40.9,rec:0},
-      {m:'Апр',rev:430650,check:4350,clients:91,ret:42.9,rec:0},
-      {m:'Май',rev:513431,check:4546,clients:95,ret:42.1,rec:0}
+      {m:'Дек',rev:238462,check:2944,clients:76,ret:0,rec:0,shifts:13},
+      {m:'Янв',rev:534329,check:4174,clients:111,ret:18,rec:0,shifts:18},
+      {m:'Фев',rev:357516,check:4206,clients:75,ret:38.7,rec:1,shifts:12},
+      {m:'Мар',rev:460972,check:4564,clients:88,ret:40.9,rec:0,shifts:16},
+      {m:'Апр',rev:430650,check:4350,clients:91,ret:42.9,rec:0,shifts:15},
+      {m:'Май',rev:513431,check:4546,clients:95,ret:42.1,rec:0,shifts:18},
+      {m:'Июн',rev:385667,check:4647,clients:76,ret:53.9,rec:0,shifts:13}
     ],
     kpiTarget:{rev:300000,check:5500,ret:70}
   },
   'furсова': {
     name:'Алёна Фурсова', initials:'АФ', category:'expert',
     pin:'7890', startDate:'7 апреля 2025',
-    monthsInStudio: 14,
+    monthsInStudio: 15,
     analytics: [
       {m:'Май\'25',rev:205979,check:3551,clients:55,ret:18.2,rec:0},
-      {m:'Июн',rev:427200,check:3502,clients:112,ret:16.1,rec:0},
-      {m:'Июл',rev:403061,check:3698,clients:96,ret:35.4,rec:0},
-      {m:'Авг',rev:452139,check:3560,clients:113,ret:40.7,rec:0},
-      {m:'Сен',rev:341932,check:3638,clients:89,ret:52.8,rec:0},
-      {m:'Окт',rev:413502,check:3335,clients:106,ret:57.5,rec:0},
-      {m:'Ноя',rev:320934,check:3451,clients:80,ret:60,rec:0},
-      {m:'Дек',rev:415090,check:3348,clients:101,ret:67.3,rec:0},
-      {m:'Янв',rev:404945,check:4584,clients:82,ret:68.3,rec:0},
-      {m:'Фев',rev:420362,check:4379,clients:82,ret:69.5,rec:1},
-      {m:'Мар',rev:333015,check:4061,clients:76,ret:61.8,rec:0},
-      {m:'Апр',rev:421011,check:4087,clients:84,ret:73.8,rec:0},
-      {m:'Май',rev:354336,check:4543,clients:76,ret:72.4,rec:0}
+      {m:'Июн',rev:427200,check:3502,clients:112,ret:16.1,rec:0,shifts:21},
+      {m:'Июл',rev:403061,check:3698,clients:96,ret:35.4,rec:0,shifts:20},
+      {m:'Авг',rev:452139,check:3560,clients:113,ret:40.7,rec:0,shifts:22},
+      {m:'Сен',rev:341932,check:3638,clients:89,ret:52.8,rec:0,shifts:16},
+      {m:'Окт',rev:413502,check:3335,clients:106,ret:57.5,rec:0,shifts:19},
+      {m:'Ноя',rev:320934,check:3451,clients:80,ret:60,rec:0,shifts:15},
+      {m:'Дек',rev:415090,check:3348,clients:101,ret:67.3,rec:0,shifts:21},
+      {m:'Янв',rev:404945,check:4584,clients:82,ret:68.3,rec:0,shifts:17},
+      {m:'Фев',rev:420362,check:4379,clients:82,ret:69.5,rec:1,shifts:16},
+      {m:'Мар',rev:333015,check:4061,clients:76,ret:61.8,rec:0,shifts:15},
+      {m:'Апр',rev:421011,check:4087,clients:84,ret:73.8,rec:0,shifts:16},
+      {m:'Май',rev:354336,check:4543,clients:76,ret:72.4,rec:0,shifts:14},
+      {m:'Июн',rev:433905,check:5074,clients:81,ret:64.2,rec:0,shifts:13}
     ],
     kpiTarget:{rev:400000,check:6000,ret:80}
   },
@@ -1867,20 +2122,21 @@ const MASTERS = {
   bashirova: {
     name:'Гульфия Баширова', initials:'ГБ', category:'expert',
     pin:'1001', startDate:'2 февраля 2024',
-    monthsInStudio: 28,
+    monthsInStudio: 29,
     analytics: [
-      {m:'Июн',rev:235507,check:3496,clients:62,ret:66.1,rec:0},
-      {m:'Июл',rev:299915,check:3528,clients:72,ret:75,rec:0},
-      {m:'Авг',rev:294262,check:3344,clients:79,ret:78.5,rec:0},
-      {m:'Сен',rev:342043,check:3455,clients:87,ret:72.4,rec:1},
-      {m:'Окт',rev:354391,check:3375,clients:98,ret:61.2,rec:0},
-      {m:'Ноя',rev:276334,check:3436,clients:70,ret:75.7,rec:0},
-      {m:'Дек',rev:303654,check:3217,clients:79,ret:77.2,rec:0},
-      {m:'Янв',rev:218874,check:3840,clients:55,ret:76.4,rec:0},
-      {m:'Фев',rev:352261,check:4245,clients:70,ret:77.1,rec:2},
-      {m:'Мар',rev:335927,check:4199,clients:72,ret:80.6,rec:1},
-      {m:'Апр',rev:384575,check:4135,clients:79,ret:79.7,rec:0},
-      {m:'Май',rev:375696,check:4369,clients:76,ret:78.9,rec:0}
+      {m:'Июн',rev:235507,check:3496,clients:62,ret:66.1,rec:0,shifts:11},
+      {m:'Июл',rev:299915,check:3528,clients:72,ret:75,rec:0,shifts:15},
+      {m:'Авг',rev:294262,check:3344,clients:79,ret:78.5,rec:0,shifts:16},
+      {m:'Сен',rev:342043,check:3455,clients:87,ret:72.4,rec:1,shifts:17},
+      {m:'Окт',rev:354391,check:3375,clients:98,ret:61.2,rec:0,shifts:18},
+      {m:'Ноя',rev:276334,check:3436,clients:70,ret:75.7,rec:0,shifts:15},
+      {m:'Дек',rev:303654,check:3217,clients:79,ret:77.2,rec:0,shifts:16},
+      {m:'Янв',rev:218874,check:3840,clients:55,ret:76.4,rec:0,shifts:10},
+      {m:'Фев',rev:352261,check:4245,clients:70,ret:77.1,rec:2,shifts:16},
+      {m:'Мар',rev:335927,check:4199,clients:72,ret:80.6,rec:1,shifts:15},
+      {m:'Апр',rev:384575,check:4135,clients:79,ret:79.7,rec:0,shifts:16},
+      {m:'Май',rev:375696,check:4369,clients:76,ret:78.9,rec:0,shifts:15},
+      {m:'Июн',rev:333315,check:4273,clients:67,ret:83.6,rec:0,shifts:14}
     ],
     kpiTarget:{rev:400000,check:6000,ret:80}
   },
@@ -1889,18 +2145,19 @@ const MASTERS = {
     pin:'1002', startDate:'23 мая 2024',
     monthsInStudio: 25,
     analytics: [
-      {m:'Июн',rev:326260,check:3296,clients:88,ret:54.5,rec:1},
-      {m:'Июл',rev:332847,check:3328,clients:91,ret:63.7,rec:1},
-      {m:'Авг',rev:308128,check:3278,clients:85,ret:64.7,rec:1},
-      {m:'Сен',rev:312239,check:3322,clients:81,ret:74.1,rec:0},
-      {m:'Окт',rev:255295,check:3316,clients:72,ret:63.9,rec:0},
-      {m:'Ноя',rev:308689,check:3589,clients:79,ret:63.3,rec:1},
-      {m:'Дек',rev:348536,check:3678,clients:86,ret:72.1,rec:0},
-      {m:'Янв',rev:319406,check:4375,clients:68,ret:66.2,rec:0},
-      {m:'Фев',rev:348077,check:4254,clients:68,ret:76.5,rec:1},
-      {m:'Мар',rev:340320,check:4363,clients:65,ret:78.5,rec:1},
-      {m:'Апр',rev:380610,check:4183,clients:78,ret:75.6,rec:0},
-      {m:'Май',rev:424938,check:4381,clients:83,ret:73.5,rec:4}
+      {m:'Июн',rev:326260,check:3296,clients:88,ret:54.5,rec:1,shifts:18},
+      {m:'Июл',rev:332847,check:3328,clients:91,ret:63.7,rec:1,shifts:17},
+      {m:'Авг',rev:308128,check:3278,clients:85,ret:64.7,rec:1,shifts:16},
+      {m:'Сен',rev:312239,check:3322,clients:81,ret:74.1,rec:0,shifts:17},
+      {m:'Окт',rev:255295,check:3316,clients:72,ret:63.9,rec:0,shifts:14},
+      {m:'Ноя',rev:308689,check:3589,clients:79,ret:63.3,rec:1,shifts:16},
+      {m:'Дек',rev:348536,check:3678,clients:86,ret:72.1,rec:0,shifts:18},
+      {m:'Янв',rev:319406,check:4375,clients:68,ret:66.2,rec:0,shifts:15},
+      {m:'Фев',rev:348077,check:4254,clients:68,ret:76.5,rec:1,shifts:16},
+      {m:'Мар',rev:340320,check:4363,clients:65,ret:78.5,rec:1,shifts:16},
+      {m:'Апр',rev:380610,check:4183,clients:78,ret:75.6,rec:0,shifts:16},
+      {m:'Май',rev:424938,check:4381,clients:83,ret:73.5,rec:4,shifts:17},
+      {m:'Июн',rev:338949,check:4185,clients:67,ret:77.6,rec:0,shifts:14}
     ],
     kpiTarget:{rev:400000,check:6000,ret:80}
   },
@@ -1909,58 +2166,61 @@ const MASTERS = {
     pin:'1003', startDate:'13 ноября 2024',
     monthsInStudio: 19,
     analytics: [
-      {m:'Июн',rev:234671,check:3242,clients:63,ret:52.4,rec:1},
-      {m:'Июл',rev:250205,check:3363,clients:72,ret:54.2,rec:1},
-      {m:'Авг',rev:276841,check:3486,clients:72,ret:50,rec:0},
-      {m:'Сен',rev:348297,check:3255,clients:95,ret:60,rec:0},
-      {m:'Окт',rev:325771,check:3429,clients:83,ret:55.4,rec:0},
-      {m:'Ноя',rev:334554,check:3636,clients:79,ret:75.9,rec:0},
-      {m:'Дек',rev:340830,check:3514,clients:81,ret:76.5,rec:0},
-      {m:'Янв',rev:185006,check:4205,clients:43,ret:65.1,rec:0},
-      {m:'Фев',rev:389687,check:4585,clients:76,ret:67.1,rec:1},
-      {m:'Мар',rev:435676,check:4381,clients:83,ret:78.3,rec:1},
-      {m:'Апр',rev:357573,check:4644,clients:67,ret:73.1,rec:0},
-      {m:'Май',rev:453491,check:4490,clients:79,ret:72.2,rec:0}
+      {m:'Июн',rev:234671,check:3242,clients:63,ret:52.4,rec:1,shifts:13},
+      {m:'Июл',rev:250205,check:3363,clients:72,ret:54.2,rec:1,shifts:14},
+      {m:'Авг',rev:276841,check:3486,clients:72,ret:50,rec:0,shifts:14},
+      {m:'Сен',rev:348297,check:3255,clients:95,ret:60,rec:0,shifts:18},
+      {m:'Окт',rev:325771,check:3429,clients:83,ret:55.4,rec:0,shifts:18},
+      {m:'Ноя',rev:334554,check:3636,clients:79,ret:75.9,rec:0,shifts:18},
+      {m:'Дек',rev:340830,check:3514,clients:81,ret:76.5,rec:0,shifts:18},
+      {m:'Янв',rev:185006,check:4205,clients:43,ret:65.1,rec:0,shifts:9},
+      {m:'Фев',rev:389687,check:4585,clients:76,ret:67.1,rec:1,shifts:16},
+      {m:'Мар',rev:435676,check:4381,clients:83,ret:78.3,rec:1,shifts:19},
+      {m:'Апр',rev:357573,check:4644,clients:67,ret:73.1,rec:0,shifts:15},
+      {m:'Май',rev:453491,check:4490,clients:79,ret:72.2,rec:0,shifts:18},
+      {m:'Июн',rev:295369,check:4693,clients:56,ret:85.7,rec:1,shifts:12}
     ],
     kpiTarget:{rev:400000,check:6000,ret:80}
   },
   kuznetsova_e: {
     name:'Евгения Кузнецова', initials:'ЕК', category:'expert',
     pin:'1004', startDate:'4 февраля 2022',
-    monthsInStudio: 52,
+    monthsInStudio: 53,
     analytics: [
-      {m:'Июн',rev:326142,check:4077,clients:74,ret:60.8,rec:0},
-      {m:'Июл',rev:387614,check:3917,clients:85,ret:70.6,rec:0},
-      {m:'Авг',rev:419704,check:4155,clients:85,ret:74.1,rec:0},
-      {m:'Сен',rev:373330,check:4014,clients:78,ret:69.2,rec:0},
-      {m:'Окт',rev:265913,check:3969,clients:60,ret:76.7,rec:1},
-      {m:'Ноя',rev:342950,check:3942,clients:74,ret:73,rec:0},
-      {m:'Дек',rev:381707,check:3976,clients:83,ret:74.7,rec:0},
-      {m:'Янв',rev:423391,check:4867,clients:80,ret:72.5,rec:0},
-      {m:'Фев',rev:373507,check:5464,clients:63,ret:65.1,rec:0},
-      {m:'Мар',rev:462990,check:4759,clients:82,ret:73.2,rec:1},
-      {m:'Апр',rev:370111,check:4633,clients:70,ret:75.7,rec:0},
-      {m:'Май',rev:497963,check:5187,clients:79,ret:75.9,rec:0}
+      {m:'Июн',rev:326142,check:4077,clients:74,ret:60.8,rec:0,shifts:14},
+      {m:'Июл',rev:387614,check:3917,clients:85,ret:70.6,rec:0,shifts:19},
+      {m:'Авг',rev:419704,check:4155,clients:85,ret:74.1,rec:0,shifts:18},
+      {m:'Сен',rev:373330,check:4014,clients:78,ret:69.2,rec:0,shifts:17},
+      {m:'Окт',rev:265913,check:3969,clients:60,ret:76.7,rec:1,shifts:12},
+      {m:'Ноя',rev:342950,check:3942,clients:74,ret:73,rec:0,shifts:16},
+      {m:'Дек',rev:381707,check:3976,clients:83,ret:74.7,rec:0,shifts:18},
+      {m:'Янв',rev:423391,check:4867,clients:80,ret:72.5,rec:0,shifts:17},
+      {m:'Фев',rev:373507,check:5464,clients:63,ret:65.1,rec:0,shifts:14},
+      {m:'Мар',rev:462990,check:4759,clients:82,ret:73.2,rec:1,shifts:17},
+      {m:'Апр',rev:370111,check:4633,clients:70,ret:75.7,rec:0,shifts:15},
+      {m:'Май',rev:497963,check:5187,clients:79,ret:75.9,rec:0,shifts:18},
+      {m:'Июн',rev:485383,check:4903,clients:82,ret:76.8,rec:0,shifts:17}
     ],
     kpiTarget:{rev:400000,check:6000,ret:80}
   },
   igonina: {
     name:'Александра Игонина', initials:'АИ', category:'expert',
     pin:'1005', startDate:'6 мая 2024',
-    monthsInStudio: 25,
+    monthsInStudio: 26,
     analytics: [
-      {m:'Июн',rev:189861,check:3723,clients:48,ret:56.3,rec:0},
-      {m:'Июл',rev:272310,check:3536,clients:70,ret:51.4,rec:1},
-      {m:'Авг',rev:280380,check:3689,clients:71,ret:54.9,rec:1},
-      {m:'Сен',rev:187004,check:3596,clients:52,ret:75,rec:1},
-      {m:'Окт',rev:245385,check:3229,clients:72,ret:65.3,rec:0},
-      {m:'Ноя',rev:215286,check:3417,clients:60,ret:68.3,rec:0},
-      {m:'Дек',rev:317996,check:3278,clients:82,ret:68.3,rec:0},
-      {m:'Янв',rev:352094,check:4633,clients:70,ret:72.9,rec:0},
-      {m:'Фев',rev:251030,check:4255,clients:58,ret:55.2,rec:1},
-      {m:'Мар',rev:361537,check:5092,clients:64,ret:67.2,rec:0},
-      {m:'Апр',rev:406180,check:5142,clients:71,ret:52.1,rec:0},
-      {m:'Май',rev:404738,check:4876,clients:77,ret:66.2,rec:0}
+      {m:'Июн',rev:189861,check:3723,clients:48,ret:56.3,rec:0,shifts:9},
+      {m:'Июл',rev:272310,check:3536,clients:70,ret:51.4,rec:1,shifts:14},
+      {m:'Авг',rev:280380,check:3689,clients:71,ret:54.9,rec:1,shifts:16},
+      {m:'Сен',rev:187004,check:3596,clients:52,ret:75,rec:1,shifts:10},
+      {m:'Окт',rev:245385,check:3229,clients:72,ret:65.3,rec:0,shifts:13},
+      {m:'Ноя',rev:215286,check:3417,clients:60,ret:68.3,rec:0,shifts:12},
+      {m:'Дек',rev:317996,check:3278,clients:82,ret:68.3,rec:0,shifts:17},
+      {m:'Янв',rev:352094,check:4633,clients:70,ret:72.9,rec:0,shifts:15},
+      {m:'Фев',rev:251030,check:4255,clients:58,ret:55.2,rec:1,shifts:10},
+      {m:'Мар',rev:361537,check:5092,clients:64,ret:67.2,rec:0,shifts:14},
+      {m:'Апр',rev:406180,check:5142,clients:71,ret:52.1,rec:0,shifts:15},
+      {m:'Май',rev:404738,check:4876,clients:77,ret:66.2,rec:0,shifts:16},
+      {m:'Июн',rev:308607,check:4978,clients:54,ret:87.0,rec:0,shifts:12}
     ],
     kpiTarget:{rev:400000,check:6000,ret:80}
   },
@@ -1969,35 +2229,37 @@ const MASTERS = {
   yurchenko: {
     name:'Ксения Юрченко', initials:'КЮ', category:'highest',
     pin:'3456', startDate:'возврат 1 мая 2026 (ранее работала до декабря 2025)',
-    monthsInStudio: 1,
+    monthsInStudio: 2,
     analytics: [
-      {m:'Июл·25',rev:359079,check:3780,clients:92,ret:null,rec:0},
-      {m:'Авг',rev:239641,check:3929,clients:57,ret:86,rec:0},
-      {m:'Сен',rev:351631,check:3690,clients:94,ret:null,rec:0},
-      {m:'Окт',rev:335473,check:3687,clients:90,ret:67.8,rec:0},
-      {m:'Ноя',rev:300637,check:3416,clients:82,ret:73.2,rec:0},
-      {m:'Дек·25 (уход)',rev:226628,check:3434,clients:64,ret:76.6,rec:0},
-      {m:'Май·26 (возврат)',rev:344453,check:4574,clients:74,ret:59.5,rec:0}
+      {m:'Июл·25',rev:359079,check:3780,clients:92,ret:null,rec:0,shifts:17},
+      {m:'Авг',rev:239641,check:3929,clients:57,ret:86,rec:0,shifts:10},
+      {m:'Сен',rev:351631,check:3690,clients:94,ret:26,rec:0,shifts:17},
+      {m:'Окт',rev:335473,check:3687,clients:90,ret:67.8,rec:0,shifts:15},
+      {m:'Ноя',rev:300637,check:3416,clients:82,ret:73.2,rec:0,shifts:15},
+      {m:'Дек·25 (уход)',rev:226628,check:3434,clients:64,ret:76.6,rec:0,shifts:11},
+      {m:'Май·26 (возврат)',rev:344453,check:4574,clients:74,ret:59.5,rec:0,shifts:13},
+      {m:'Июн',rev:463872,check:5209,clients:82,ret:70.7,rec:0,shifts:16}
     ],
     kpiTarget:{rev:400000,check:6000,ret:80}
   },
   melnikova: {
     name:'Мария Мельникова', initials:'ММ', category:'highest',
     pin:'2002', startDate:'9 марта 2023',
-    monthsInStudio: 39,
+    monthsInStudio: 40,
     analytics: [
-      {m:'Июн',rev:363622,check:3788,clients:75,ret:74.7,rec:0},
-      {m:'Июл',rev:335901,check:3651,clients:77,ret:79.2,rec:0},
-      {m:'Авг',rev:269956,check:3480,clients:70,ret:81.4,rec:0},
-      {m:'Сен',rev:260651,check:3549,clients:63,ret:76.2,rec:0},
-      {m:'Окт',rev:316126,check:3574,clients:76,ret:81.6,rec:0},
-      {m:'Ноя',rev:354315,check:3440,clients:79,ret:84.8,rec:0},
-      {m:'Дек',rev:320909,check:3526,clients:76,ret:80.3,rec:0},
-      {m:'Янв',rev:359052,check:4379,clients:67,ret:77.6,rec:0},
-      {m:'Фев',rev:408636,check:4697,clients:72,ret:77.8,rec:0},
-      {m:'Мар',rev:453274,check:5093,clients:71,ret:78.9,rec:0},
-      {m:'Апр',rev:485390,check:4973,clients:76,ret:76.3,rec:0},
-      {m:'Май',rev:371770,check:4957,clients:59,ret:83.1,rec:0}
+      {m:'Июн',rev:363622,check:3788,clients:75,ret:74.7,rec:0,shifts:16},
+      {m:'Июл',rev:335901,check:3651,clients:77,ret:79.2,rec:0,shifts:15},
+      {m:'Авг',rev:269956,check:3480,clients:70,ret:81.4,rec:0,shifts:13},
+      {m:'Сен',rev:260651,check:3549,clients:63,ret:76.2,rec:0,shifts:12},
+      {m:'Окт',rev:316126,check:3574,clients:76,ret:81.6,rec:0,shifts:16},
+      {m:'Ноя',rev:354315,check:3440,clients:79,ret:84.8,rec:0,shifts:17},
+      {m:'Дек',rev:320909,check:3526,clients:76,ret:80.3,rec:0,shifts:16},
+      {m:'Янв',rev:359052,check:4379,clients:67,ret:77.6,rec:0,shifts:15},
+      {m:'Фев',rev:408636,check:4697,clients:72,ret:77.8,rec:0,shifts:15},
+      {m:'Мар',rev:453274,check:5093,clients:71,ret:78.9,rec:0,shifts:17},
+      {m:'Апр',rev:485390,check:4973,clients:76,ret:76.3,rec:0,shifts:17},
+      {m:'Май',rev:371770,check:4957,clients:59,ret:83.1,rec:0,shifts:13},
+      {m:'Июн',rev:430046,check:4832,clients:70,ret:81.4,rec:1,shifts:16}
     ],
     kpiTarget:{rev:400000,check:6000,ret:80}
   },
@@ -2006,18 +2268,19 @@ const MASTERS = {
     pin:'2003', startDate:'20 мая 2018',
     monthsInStudio: 97,
     analytics: [
-      {m:'Июн',rev:426643,check:4284,clients:80,ret:85,rec:0},
-      {m:'Июл',rev:324789,check:4162,clients:72,ret:88.9,rec:0},
-      {m:'Авг',rev:174913,check:3975,clients:42,ret:92.9,rec:1},
-      {m:'Сен',rev:393796,check:3880,clients:85,ret:74.1,rec:0},
-      {m:'Окт',rev:377634,check:4105,clients:67,ret:89.6,rec:0},
-      {m:'Ноя',rev:409566,check:4015,clients:77,ret:79.2,rec:0},
-      {m:'Дек',rev:394594,check:4131,clients:75,ret:89.3,rec:0},
-      {m:'Янв',rev:451491,check:4555,clients:86,ret:77.9,rec:0},
-      {m:'Фев',rev:434462,check:5172,clients:64,ret:89.1,rec:0},
-      {m:'Мар',rev:467296,check:5251,clients:65,ret:89.2,rec:0},
-      {m:'Апр',rev:471666,check:5018,clients:74,ret:78.4,rec:0},
-      {m:'Май',rev:430411,check:5064,clients:64,ret:85.9,rec:0}
+      {m:'Июн',rev:426643,check:4284,clients:80,ret:85,rec:0,shifts:17},
+      {m:'Июл',rev:324789,check:4162,clients:72,ret:88.9,rec:0,shifts:13},
+      {m:'Авг',rev:174913,check:3975,clients:42,ret:92.9,rec:1,shifts:7},
+      {m:'Сен',rev:393796,check:3880,clients:85,ret:74.1,rec:0,shifts:16},
+      {m:'Окт',rev:377634,check:4105,clients:67,ret:89.6,rec:0,shifts:15},
+      {m:'Ноя',rev:409566,check:4015,clients:77,ret:79.2,rec:0,shifts:17},
+      {m:'Дек',rev:394594,check:4131,clients:75,ret:89.3,rec:0,shifts:17},
+      {m:'Янв',rev:451491,check:4555,clients:86,ret:77.9,rec:0,shifts:16},
+      {m:'Фев',rev:434462,check:5172,clients:64,ret:89.1,rec:0,shifts:14},
+      {m:'Мар',rev:467296,check:5251,clients:65,ret:89.2,rec:0,shifts:16},
+      {m:'Апр',rev:471666,check:5018,clients:74,ret:78.4,rec:0,shifts:16},
+      {m:'Май',rev:430411,check:5064,clients:64,ret:85.9,rec:0,shifts:15},
+      {m:'Июн',rev:484386,check:5046,clients:71,ret:87.3,rec:0,shifts:16}
     ],
     kpiTarget:{rev:400000,check:6000,ret:80}
   },
@@ -2026,17 +2289,18 @@ const MASTERS = {
     pin:'2004', startDate:'27 сентября 2023',
     monthsInStudio: 33,
     analytics: [
-      {m:'Июн',rev:413092,check:4050,clients:89,ret:71.9,rec:0},
-      {m:'Июл',rev:394439,check:4109,clients:84,ret:76.2,rec:0},
-      {m:'Авг',rev:406225,check:3906,clients:83,ret:69.9,rec:0},
-      {m:'Окт',rev:395825,check:4211,clients:77,ret:67.5,rec:1},
-      {m:'Ноя',rev:395529,check:4660,clients:79,ret:78.5,rec:0},
-      {m:'Дек',rev:418209,check:4267,clients:76,ret:69.7,rec:0},
-      {m:'Янв',rev:471223,check:5890,clients:68,ret:86.8,rec:0},
-      {m:'Фев',rev:419830,check:5175,clients:67,ret:82.1,rec:0},
-      {m:'Мар',rev:491273,check:5588,clients:69,ret:84.1,rec:0},
-      {m:'Апр',rev:482259,check:5674,clients:68,ret:85.3,rec:0},
-      {m:'Май',rev:576719,check:5657,clients:79,ret:74.7,rec:0}
+      {m:'Июн',rev:413092,check:4050,clients:89,ret:71.9,rec:0,shifts:17},
+      {m:'Июл',rev:394439,check:4109,clients:84,ret:76.2,rec:0,shifts:17},
+      {m:'Авг',rev:406225,check:3906,clients:83,ret:69.9,rec:0,shifts:18},
+      {m:'Окт',rev:395825,check:4211,clients:77,ret:67.5,rec:1,shifts:16},
+      {m:'Ноя',rev:395529,check:4660,clients:79,ret:78.5,rec:0,shifts:15},
+      {m:'Дек',rev:418209,check:4267,clients:76,ret:69.7,rec:0,shifts:17},
+      {m:'Янв',rev:471223,check:5890,clients:68,ret:86.8,rec:0,shifts:15},
+      {m:'Фев',rev:419830,check:5175,clients:67,ret:82.1,rec:0,shifts:14},
+      {m:'Мар',rev:491273,check:5588,clients:69,ret:84.1,rec:0,shifts:17},
+      {m:'Апр',rev:482259,check:5674,clients:68,ret:85.3,rec:0,shifts:17},
+      {m:'Май',rev:576719,check:5657,clients:79,ret:74.7,rec:0,shifts:18},
+      {m:'Июн',rev:527559,check:5951,clients:70,ret:78.6,rec:0,shifts:16}
     ],
     kpiTarget:{rev:400000,check:6000,ret:80}
   }
@@ -2045,20 +2309,33 @@ const MASTERS = {
 /* Checklist items — shared for all masters */
 const CHECKLIST = [
   {id:'wb', label:'Welcome-book изучен', cat:'onboard'},
-  {id:'docs', label:'Документы подписаны (NDA, ОПД, медкнижка, паспорт, ИНН)', cat:'onboard'},
+  // Документы
+  {id:'doc_nda', label:'NDA', cat:'onboard', sub:'docs'},
+  {id:'doc_pd', label:'Обработка персональных данных', cat:'onboard', sub:'docs'},
+  {id:'doc_photo', label:'Согласие на фото- и видеосъёмку', cat:'onboard', sub:'docs'},
+  {id:'doc_medbook', label:'Медкнижка', cat:'onboard', sub:'docs'},
+  {id:'doc_passport', label:'Паспорт', cat:'onboard', sub:'docs'},
+  {id:'doc_inn', label:'ИНН', cat:'onboard', sub:'docs'},
+  {id:'tk_rf', label:'Оформление по ТК РФ', cat:'onboard'},
+  {id:'tk_rf_journals', label:'Подписаны журналы при оформлении по ТК РФ', cat:'onboard'},
   {id:'regs', label:'Внутренние регламенты подписаны', cat:'onboard'},
   {id:'demo', label:'Очный разбор — правила уборки и стерилизация', cat:'onboard'},
   {id:'self', label:'Самостоятельное изучение протоколов', cat:'onboard'},
   {id:'video_zait', label:'Видеоматериалы В. Зайцевой', cat:'onboard'},
-  {id:'test_zait', label:'Тестирование по материалам В. Зайцевой', cat:'onboard'},
-  {id:'luxio', label:'Семинар Luxio', cat:'onboard'},
-  {id:'test_luxio', label:'Тестирование на знание протокола Luxio', cat:'onboard'},
-  {id:'straderm', label:'Семинар Straderm', cat:'onboard'},
-  {id:'test_straderm', label:'Тестирование на знание протокола Straderm', cat:'onboard'},
+  {id:'test_zait', label:'Тестирование по материалам В. Зайцевой', cat:'onboard', link:'https://forms.gle/5JPwgoftafMmTF1E8'},
+  {id:'seminar_luxio_straderm', label:'Семинар Luxio и Straderm', cat:'onboard'},
+  {id:'test_luxio_straderm', label:'Тестирование на знание протокола Luxio и Straderm', cat:'onboard'},
+  // Повышение квалификации «Маникюр» — Катя Туркеева
+  {id:'turk_m1', label:'Модуль 1: «Снятие гель-лака»', cat:'onboard', sub:'turkeeva', hasScore:true},
+  {id:'turk_m2', label:'Модуль 2: «Раскрытие кармана. Работа пушером»', cat:'onboard', sub:'turkeeva', hasScore:true},
+  {id:'turk_m3', label:'Модуль 3: «Аппаратная подготовка к срезу»', cat:'onboard', sub:'turkeeva', hasScore:true},
+  {id:'turk_m4', label:'Модуль 4: «Срез ножницами»', cat:'onboard', sub:'turkeeva', hasScore:true},
+  {id:'turk_m5', label:'Модуль 5: «Шлифовка кутикулы»', cat:'onboard', sub:'turkeeva', hasScore:true},
+  {id:'turk_m6', label:'Модуль 6: «Выравнивание базой и опил формы»', cat:'onboard', sub:'turkeeva', hasScore:true},
+  {id:'turk_m7', label:'Модуль 7: «Покрытие»', cat:'onboard', sub:'turkeeva', hasScore:true},
+  {id:'turk_m8', label:'Модуль 8: «Доработка до идеала»', cat:'onboard', sub:'turkeeva', hasScore:true},
   {id:'sync', label:'Синхронизационная сессия с HRD + брендбук', cat:'onboard'},
   {id:'ipr', label:'ИПР построен (точка А определена)', cat:'onboard'},
-  {id:'vid_gel', label:'Видео: укрепление гелем', cat:'onboard'},
-  {id:'vid_mani', label:'Видео: маникюр и покрытие', cat:'onboard'},
   // Маникюр навыки
   {id:'combo_mani', label:'Комбинированный маникюр', cat:'nail'},
   {id:'app_mani', label:'Аппаратный маникюр', cat:'nail'},
@@ -2066,8 +2343,9 @@ const CHECKLIST = [
   {id:'model', label:'Моделирование ногтей', cat:'nail'},
   {id:'strengthen', label:'Укрепление ногтей', cat:'nail'},
   {id:'repair', label:'Ремонты', cat:'nail'},
-  {id:'file_mani', label:'Пилочный маникюр (Саша Нестерова)', cat:'nail_exp'},
+  {id:'file_mani', label:'Пилочный маникюр', cat:'nail_exp'},
   {id:'japan', label:'Японский маникюр', cat:'nail_exp'},
+  {id:'german_mani', label:'Немецкий маникюр', cat:'nail_exp'},
   {id:'ibx', label:'IBX (видеоурок от Гульфии)', cat:'nail_exp'},
   {id:'spa', label:'SPA Comfort Zone', cat:'nail_exp'},
   {id:'attest_mani', label:'Аттестация по маникюру', cat:'nail_exp'},
@@ -2086,15 +2364,41 @@ const CHECKLIST = [
   {id:'kpi_reviews', label:'Регулярные положительные отзывы', cat:'kpi'},
   {id:'kpi_ret', label:'Возвратность клиентов от 70%', cat:'kpi'}
 ];
+const CHECKLIST_SUB_LABELS = {
+  docs: '📄 Документы',
+  turkeeva: '🎓 Повышение квалификации «Маникюр» — Катя Туркеева'
+};
 
 const TOTAL_ITEMS = CHECKLIST.length;
 let currentMaster = null;
 let lkStorage = JSON.parse(localStorage.getItem('shuga_lk') || '{}');
 
+/* ── Salon-wide outflow benchmark ──
+   Отток отдельного мастера сравнивается не с фиксированной нормой,
+   а со средним оттоком по салону за последний месяц у каждого мастера. */
+function getSalonAvgOutflow() {
+  const vals = Object.keys(MASTERS).map(k => {
+    const arr = MASTERS[k].analytics;
+    const last = arr && arr.length ? arr[arr.length-1] : null;
+    return (last && last.ret !== null && last.ret !== undefined) ? (100 - last.ret) : null;
+  }).filter(v => v !== null);
+  return vals.length ? (vals.reduce((a,b)=>a+b,0)/vals.length) : 15;
+}
+
 function saveLK() { localStorage.setItem('shuga_lk', JSON.stringify(lkStorage)); }
 function getMasterProgress(key) {
   if (!lkStorage[key]) lkStorage[key] = {};
   return lkStorage[key];
+}
+function getModuleScore(key, itemId) {
+  const scores = lkStorage[key+'_scores'] || {};
+  return scores[itemId] || {got:'', max:''};
+}
+function setModuleScore(key, itemId, field, value) {
+  if (!lkStorage[key+'_scores']) lkStorage[key+'_scores'] = {};
+  if (!lkStorage[key+'_scores'][itemId]) lkStorage[key+'_scores'][itemId] = {got:'', max:''};
+  lkStorage[key+'_scores'][itemId][field] = value;
+  saveLK();
 }
 
 function lkLogin() {
@@ -2205,7 +2509,7 @@ function renderDashboard(key) {
       <div class="lk-bar" style="height:${h}px">
         <div class="lk-bar-val">${shortVal}</div>
       </div>
-      <div class="lk-bar-label">${a.m}</div>
+      <div class="lk-bar-label">${a.m}${a.shifts!==undefined?`<br><span style="opacity:0.6;font-size:9px;">${a.shifts} см.</span>`:''}</div>
     </div>`;
   }).join('');
   const yAxisHtml = `<div class="lk-chart-yaxis">
@@ -2263,13 +2567,31 @@ function renderDashboard(key) {
   cats.forEach(cat => {
     const items = CHECKLIST.filter(c=>c.cat===cat);
     clHtml += `<div class="lk-section"><div class="lk-section-title">${catLabels[cat]}</div><div class="lk-checklist">`;
+    let lastSub = null;
     items.forEach(c => {
+      if (c.sub !== lastSub) {
+        lastSub = c.sub;
+        if (lastSub && CHECKLIST_SUB_LABELS[lastSub]) {
+          clHtml += `<div style="grid-column:1/-1;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--stone);margin:10px 0 2px;padding-top:6px;border-top:1px dashed var(--sand);">${CHECKLIST_SUB_LABELS[lastSub]}</div>`;
+        }
+      }
       const isDone = !!prog[c.id];
       const label = kpiLabelOverrides[c.id] || c.label;
+      const linkHtml = c.link ? `<a href="${c.link}" target="_blank" rel="noopener" onclick="event.stopPropagation();" style="margin-left:8px;font-size:11px;color:var(--gold-dk);text-decoration:underline;white-space:nowrap;">пройти тест →</a>` : '';
       clHtml += `<div class="lk-check${isDone?' done':''}" onclick="lkToggle('${key}','${c.id}',this)">
         <div class="lk-checkbox">${isDone?'✓':''}</div>
-        <span>${label}</span>
+        <span>${label}${linkHtml}</span>
       </div>`;
+      if (c.hasScore) {
+        const sc = getModuleScore(key, c.id);
+        clHtml += `<div style="grid-column:1/-1;display:flex;align-items:center;gap:6px;margin:-4px 0 6px 30px;font-size:11.5px;color:var(--stone);" onclick="event.stopPropagation();">
+          <span>Балл:</span>
+          <input type="number" min="0" value="${sc.got}" placeholder="—" style="width:44px;padding:3px 6px;border:1px solid var(--sand);border-radius:6px;font-size:11.5px;" oninput="setModuleScore('${key}','${c.id}','got',this.value)">
+          <span>из</span>
+          <input type="number" min="0" value="${sc.max}" placeholder="—" style="width:44px;padding:3px 6px;border:1px solid var(--sand);border-radius:6px;font-size:11.5px;" oninput="setModuleScore('${key}','${c.id}','max',this.value)">
+          <span>баллов</span>
+        </div>`;
+      }
     });
     // Inject occupancy KPI item for expert/highest (not stored as a checklist item, but as a visual addition)
     if (cat === 'kpi' && isExpertOrHigher) {
@@ -2327,6 +2649,18 @@ function renderDashboard(key) {
         </div>
       </div>
 
+      <!-- eNPS monthly banner (shows 1st-5th of month) -->
+      ${(()=>{
+        const d = new Date();
+        const showBanner = d.getDate() <= 7; // show first 7 days of month
+        const mk = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0');
+        return showBanner ? `<div style="background:linear-gradient(135deg,rgba(197,169,106,0.1),rgba(126,158,140,0.07));border:1px solid rgba(197,169,106,0.35);border-radius:var(--radius);padding:24px 28px;margin-bottom:28px;position:relative;">
+          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-dk);margin-bottom:8px;">Новый месяц</div>
+          <div style="font-family:'Playfair Display',serif;font-size:18px;color:var(--ink);margin-bottom:12px;">Оцените удовлетворённость за прошедший месяц</div>
+          <div id="enps-lk-${key}" style=""></div>
+        </div>` : `<div id="enps-lk-${key}" style="display:none;"></div>`;
+      })()}
+
       <!-- Stats -->
       <div class="lk-stats">
         <div class="lk-stat">
@@ -2343,6 +2677,11 @@ function renderDashboard(key) {
         <div class="lk-stat">
           <div class="lk-stat-val">${last ? last.clients : '—'}</div>
           <div class="lk-stat-label">Клиентов (посл. месяц)</div>
+        </div>
+        <div class="lk-stat">
+          <div class="lk-stat-val">${last && last.shifts!==undefined ? last.shifts : '—'}</div>
+          <div class="lk-stat-label">Смен за месяц</div>
+          <div class="lk-stat-trend up">${last && last.shifts ? new Intl.NumberFormat('ru-RU').format(Math.round(last.rev/last.shifts))+' ₽/смену' : ''}</div>
         </div>
         <div class="lk-stat">
           <div class="lk-stat-val">${last && last.ret!==null ? last.ret+'%' : '—'}</div>
@@ -2416,6 +2755,8 @@ function renderDashboard(key) {
       ${clHtml}
     </div>
   </div>`;
+  // Inject eNPS widget into the banner
+  injectEnpsWidget(key);
 }
 
 function lkToggle(key, itemId, el) {
@@ -2449,7 +2790,7 @@ function appNav(t) {
   target.scrollTo(0, 0);
 
   // Update both navbars
-  const pages = ['hub','admin','nail','lk','admin-lk','body-lk'];
+  const pages = ['hub','admin','nail','lk','admin-lk','mgmt'];
   pages.forEach(p => {
     const top = document.getElementById('top-' + p);
     const bot = document.getElementById('bot-' + p);
@@ -2907,237 +3248,1512 @@ function renderAdminDash(key) {
   </div>`;
 }
 
-/* ═══════════════════════════════
-   BODY SPECIALIST LK
-═══════════════════════════════ */
-const BODY_STAFF = {
-  elena:  { name:'Елена',  initials:'ЕЛ', pin:'5555' },
-  elvira: { name:'Эльвира', initials:'ЭЛ', pin:'6666' }
-};
+/* ═══════════════════════════════════════
+   MANAGEMENT DASHBOARD
+═══════════════════════════════════════ */
+const MGMT_PIN = 'shuga2026';
+let mgmtStorage = JSON.parse(localStorage.getItem('shuga_mgmt') || '{}');
+function mgmtSave(key, val) { mgmtStorage[key] = val; localStorage.setItem('shuga_mgmt', JSON.stringify(mgmtStorage)); }
+function mgmtGet(key, def) { return mgmtStorage[key] !== undefined ? mgmtStorage[key] : def; }
 
-const BODY_CHECKLIST = [
-  // Документы онлайн
-  { id:'b_nda',      label:'NDA — соглашение о неразглашении подписано',                   cat:'docs' },
-  { id:'b_opd',      label:'Согласие на обработку персональных данных подписано',          cat:'docs' },
-  { id:'b_photo',    label:'Согласие на фото- и видеосъёмку подписано',                   cat:'docs' },
-  // Документы очно
-  { id:'b_passport', label:'Скан паспорта (1-й разворот + прописка) передан управляющей', cat:'docs_offline' },
-  { id:'b_inn',      label:'ИНН передан управляющей',                                      cat:'docs_offline' },
-  { id:'b_medbook',  label:'Медицинская книжка передана управляющей',                      cat:'docs_offline' },
-  // Онбординг
-  { id:'b_welcome',  label:'Welcome-book с историей SHUGA STUDIO изучен',                 cat:'onboard' },
-  { id:'b_values',   label:'Кодекс ценностей изучен',                                     cat:'onboard' },
-  { id:'b_roles',    label:'Понимание своей роли, роли напарников и управляющей',         cat:'onboard' },
-  { id:'b_reglament',label:'Регламент работы специалиста по телу изучен',                 cat:'onboard' },
-  { id:'b_ckp',      label:'ЦКП специалиста по телу изучен',                              cat:'onboard' },
-  { id:'b_kpi_exp',  label:'Ожидаемые результаты в показателях изучены',                  cat:'onboard' },
-  { id:'b_sync',     label:'Итог 2 недель: синхронизация с HRD + брендбук',               cat:'onboard' },
-  // KPI
-  { id:'b_kpi_rev',     label:'Выполнение плана по выручке',          cat:'kpi' },
-  { id:'b_kpi_check',   label:'Средний чек — целевой показатель',     cat:'kpi' },
-  { id:'b_kpi_ret',     label:'Возвратность клиентов от 70%',         cat:'kpi' },
-  { id:'b_kpi_rec',     label:'Отсутствие рекламаций',                cat:'kpi' },
-  { id:'b_kpi_reviews', label:'Регулярные положительные отзывы',      cat:'kpi' },
+function mgmtLogin() {
+  const pin = document.getElementById('mgmt-pin').value;
+  if (pin !== MGMT_PIN) { document.getElementById('mgmt-error').style.display='block'; return; }
+  document.getElementById('mgmt-error').style.display='none';
+  document.getElementById('mgmt-login').style.display='none';
+  document.getElementById('mgmt-dash').style.display='block';
+  renderMgmtDash();
+}
+function mgmtLogout() {
+  document.getElementById('mgmt-login').style.display='flex';
+  document.getElementById('mgmt-dash').style.display='none';
+  document.getElementById('mgmt-pin').value='';
+}
+function mgmtTab(tab) {
+  const tabs = ['team','topmasters','onboarding','quarterly','enps','hire'];
+  document.querySelectorAll('.mgmt-tab').forEach((t,i) => t.classList.toggle('active', tabs[i] === tab));
+  document.querySelectorAll('.mgmt-tab-content').forEach(c => c.classList.toggle('active', c.id === 'mgmt-tc-' + tab));
+  if (tab === 'topmasters') renderTopMasters();
+  if (tab === 'onboarding') renderTopMastersMatrix();
+  if (tab === 'quarterly') renderQuarterly(activeQuarter || getLatestDataQuarter());
+  if (tab === 'enps') renderEnpsTab();
+  if (tab === 'hire') renderHireTab();
+}
+
+/* ═══════════════════════════════════════
+   КОМАНДА — АНАЛИТИКА: классы, флаги, отчёт по каждому,
+   итог месяца, фокусы для HRD
+═══════════════════════════════════════ */
+const TM_GROUPS = [
+  { cat:'onboard',  label:'Онбординг' },
+  { cat:'nail',     label:'Навыки — маникюр (база)' },
+  { cat:'nail_exp', label:'Навыки — маникюр (эксперт)' },
+  { cat:'pedi',     label:'Навыки — педикюр (база)' },
+  { cat:'pedi_exp', label:'Навыки — педикюр (эксперт)' },
+  { cat:'kpi',      label:'KPI' }
 ];
 
-const BODY_TOTAL = BODY_CHECKLIST.length;
-let blkStorage = JSON.parse(localStorage.getItem('shuga_blk') || '{}');
-function saveBLK() { localStorage.setItem('shuga_blk', JSON.stringify(blkStorage)); }
-function getBodyProgress(key) { if (!blkStorage[key]) blkStorage[key] = {}; return blkStorage[key]; }
-let currentBody = null;
+function getTopMasterKeys() {
+  return Object.keys(MASTERS)
+    .filter(k => MASTERS[k].category === 'top')
+    .sort((a,b) => (MASTERS[a].monthsInStudio||0) - (MASTERS[b].monthsInStudio||0));
+}
+function getAllMasterKeys() {
+  return Object.keys(MASTERS)
+    .sort((a,b) => {
+      const la = MASTERS[a].analytics, lb = MASTERS[b].analytics;
+      const ra = la.length ? la[la.length-1].rev : 0;
+      const rb = lb.length ? lb[lb.length-1].rev : 0;
+      return rb - ra;
+    });
+}
+const fmtRub = v => v===null||v===undefined ? '—' : new Intl.NumberFormat('ru-RU').format(Math.round(v));
 
-function blkLogin() {
-  const key = document.getElementById('blk-user-select').value;
-  const pin = document.getElementById('blk-pin').value;
-  const err = document.getElementById('blk-error');
-  if (!key || !BODY_STAFF[key]) { err.style.display='block'; err.textContent='Выберите специалиста'; return; }
-  if (pin !== BODY_STAFF[key].pin) { err.style.display='block'; err.textContent='Неверный пин-код'; return; }
-  err.style.display='none';
-  currentBody = key;
-  renderBodyDash(key);
+/* ── Класс мастера: Опора / Локомотив / Крепкий середняк / Адаптация затянулась / Тянет вниз / Новичок · разгон ── */
+function revenueP85() {
+  const revs = Object.keys(MASTERS).map(k => {
+    const a = MASTERS[k].analytics;
+    return a.length ? a[a.length-1].rev : 0;
+  }).sort((a,b)=>a-b);
+  if (!revs.length) return Infinity;
+  return revs[Math.floor(revs.length*0.85)];
+}
+function getMasterClass(key) {
+  const m = MASTERS[key];
+  const months = m.monthsInStudio || 0;
+  const arr = m.analytics;
+  const last = arr.length ? arr[arr.length-1] : null;
+  if (!last || months <= 2) return { label:'Новичок · разгон', cls:'cls-new', color:'var(--gold-dk)' };
+
+  const target = m.kpiTarget.rev;
+  const revRatio = last.rev / target;
+  const salonNorm = getSalonAvgOutflow();
+  const outflow = last.ret !== null && last.ret !== undefined ? (100 - last.ret) : null;
+  const outflowOk = outflow === null || outflow <= salonNorm;
+
+  if (months >= 3 && months <= 6) {
+    if (revRatio < 0.7 || !outflowOk) return { label:'Адаптация затянулась', cls:'cls-adapt', color:'var(--gold-dk)' };
+    return revRatio >= 1
+      ? { label:'Опора', cls:'cls-anchor', color:'var(--sage)' }
+      : { label:'Крепкий середняк', cls:'cls-mid', color:'var(--stone)' };
+  }
+  // established (>6 месяцев)
+  if (revRatio < 0.7 && !outflowOk) return { label:'Тянет вниз', cls:'cls-drag', color:'var(--rose)' };
+  if (last.rev >= revenueP85() && outflowOk && revRatio >= 1) return { label:'Локомотив', cls:'cls-loco', color:'var(--dusk)' };
+  if (revRatio >= 1 && outflowOk) return { label:'Опора', cls:'cls-anchor', color:'var(--sage)' };
+  if (revRatio >= 0.8) return { label:'Крепкий середняк', cls:'cls-mid', color:'var(--stone)' };
+  return { label:'Тянет вниз', cls:'cls-drag', color:'var(--rose)' };
 }
 
-function blkLogout() {
-  currentBody = null;
-  document.getElementById('blk-login').style.display='flex';
-  document.getElementById('blk-dash-wrap').innerHTML='';
-  document.getElementById('blk-pin').value='';
-  document.getElementById('blk-user-select').value='';
+/* ── Флаги: сильные стороны и фокус внимания ── */
+function getMasterStrengths(key) {
+  const m = MASTERS[key];
+  const arr = m.analytics;
+  const last = arr.length ? arr[arr.length-1] : null;
+  const prev = arr.length > 1 ? arr[arr.length-2] : null;
+  const chips = [];
+  if (!last) return chips;
+  const salonNorm = getSalonAvgOutflow();
+  const outflow = last.ret !== null && last.ret !== undefined ? (100-last.ret) : null;
+
+  if (last.rev >= revenueP85()) chips.push('Локомотив оборота');
+  if (last.rev >= m.kpiTarget.rev * 1.1) chips.push('Высокая выручка');
+  if (prev && last.rev > prev.rev) chips.push(`Растёт · +${fmtRub(last.rev-prev.rev)} ₽`);
+  if (last.ret !== null && last.ret !== undefined && last.ret >= 80) chips.push(`Лояльная база ${last.ret}%`);
+  if (outflow !== null && outflow <= salonNorm) chips.push('Отток в норме');
+  if ((last.rec||0) === 0) chips.push('Без рекламаций');
+  if (last.check >= m.kpiTarget.check) chips.push('Чек на уровне цели');
+  return chips;
+}
+function getMasterFocus(key) {
+  const m = MASTERS[key];
+  const arr = m.analytics;
+  const last = arr.length ? arr[arr.length-1] : null;
+  const prev = arr.length > 1 ? arr[arr.length-2] : null;
+  const chips = [];
+  if (!last) { chips.push('Нет данных за месяц'); return chips; }
+  const salonNorm = getSalonAvgOutflow();
+  const outflow = last.ret !== null && last.ret !== undefined ? (100-last.ret) : null;
+  const revOk = last.rev >= m.kpiTarget.rev;
+
+  if (!revOk) chips.push(`Выручка ниже цели · до цели ${fmtRub(m.kpiTarget.rev-last.rev)} ₽`);
+  if (last.check < m.kpiTarget.check) chips.push('Чек ниже цели');
+  if (outflow !== null && outflow > salonNorm && !revOk) chips.push(`Отток ${outflow.toFixed(1)}% выше среднего`);
+  if (prev && last.rev < prev.rev) chips.push(`Просела выручка · −${fmtRub(prev.rev-last.rev)} ₽`);
+  if ((last.rec||0) > 0) chips.push(`Рекламации: ${last.rec}`);
+  const months = m.monthsInStudio||0;
+  if (months <= 6) {
+    const onb = getOnboardPct(key);
+    if (onb < 100) chips.push(`Онбординг ${onb}%`);
+  }
+  return chips;
 }
 
-function blkTab(tab) {
-  document.querySelectorAll('.blk-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
-  document.querySelectorAll('.blk-tab-content').forEach(c => c.classList.toggle('active', c.id === 'blk-tc-' + tab));
+function renderTopMasters() {
+  renderMasterReports();
+  renderTeamHighlights();
+  renderHrdFocus();
 }
 
-function blkToggle(key, id, el) {
-  const prog = getBodyProgress(key);
-  prog[id] = !prog[id];
-  saveBLK();
-  el.classList.toggle('done');
-  el.querySelector('.blk-checkbox').textContent = prog[id] ? '✓' : '';
-  blkUpdateProgress(key);
+/* Примечание: сводная таблица «Команда · классы и флаги» удалена — дублировала
+   отчёт по мастеру (карточки ниже) и раздел «Итог месяца». */
+
+function renderTopMastersMatrix() {
+  const el = document.getElementById('topmasters-matrix');
+  if (!el) return;
+  const keys = getTopMasterKeys();
+  if (!keys.length) { el.innerHTML = `<div style="font-size:12px;color:var(--stone);font-style:italic;">Нет мастеров в категории «ТОП-мастер»</div>`; return; }
+
+  const header = `<tr>
+      <th style="min-width:280px;position:sticky;left:0;background:#fff;z-index:2;text-align:left;">Этап / компетенция</th>
+      ${keys.map(k => {
+        const m = MASTERS[k];
+        const prog = getMasterProgress(k);
+        const done = CHECKLIST.filter(c => prog[c.id]).length;
+        const pct = Math.round(done/TOTAL_ITEMS*100);
+        return `<th style="min-width:120px;text-align:center;">
+          <div style="font-family:'Playfair Display',serif;font-size:13px;color:var(--ink);">${m.name}</div>
+          <div style="font-size:9px;color:var(--stone);">${m.monthsInStudio||0} мес. · ${pct}% всего</div>
+        </th>`;
+      }).join('')}
+    </tr>`;
+
+  let body = '';
+  TM_GROUPS.forEach(g => {
+    const items = CHECKLIST.filter(c => c.cat === g.cat);
+    if (!items.length) return;
+    body += `<tr><td colspan="${keys.length+1}" style="background:rgba(197,169,106,0.08);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);padding:8px 14px;position:sticky;left:0;">${g.label}</td></tr>`;
+    let lastSub = null;
+    items.forEach(item => {
+      if (item.sub !== lastSub) {
+        lastSub = item.sub;
+        if (lastSub && CHECKLIST_SUB_LABELS[lastSub]) {
+          body += `<tr><td colspan="${keys.length+1}" style="background:rgba(139,126,114,0.06);font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--dusk);padding:6px 14px 6px 24px;position:sticky;left:0;">${CHECKLIST_SUB_LABELS[lastSub]}</td></tr>`;
+        }
+      }
+      body += `<tr>
+        <td style="position:sticky;left:0;background:#fff;font-size:12px;color:var(--ink);padding:8px 14px;${item.sub?'padding-left:24px;':''}">${item.label}</td>
+        ${keys.map(k => {
+          const prog = getMasterProgress(k);
+          const d = !!prog[item.id];
+          if (item.hasScore) {
+            const sc = getModuleScore(k, item.id);
+            const scoreTxt = (sc.got!==''&&sc.max!=='') ? `${sc.got}/${sc.max}` : '';
+            return `<td style="text-align:center;">${d?'<span style="color:var(--sage);font-size:14px;">✓</span>':'<span style="color:var(--sand);font-size:14px;">–</span>'}${scoreTxt?`<div style="font-size:9px;color:var(--stone);">${scoreTxt}</div>`:''}</td>`;
+          }
+          return `<td style="text-align:center;">${d?'<span style="color:var(--sage);font-size:16px;">✓</span>':'<span style="color:var(--sand);font-size:14px;">–</span>'}</td>`;
+        }).join('')}
+      </tr>`;
+    });
+  });
+
+  el.innerHTML = `<div style="overflow-x:auto;"><table class="week-table" style="min-width:${300+keys.length*130}px;border-collapse:collapse;">
+    <thead>${header}</thead>
+    <tbody>${body}</tbody>
+  </table></div>`;
 }
 
-function blkUpdateProgress(key) {
-  const prog = getBodyProgress(key);
-  const done = BODY_CHECKLIST.filter(c => prog[c.id]).length;
-  const pct = Math.round((done / BODY_TOTAL) * 100);
-  const fill = document.getElementById('blk-prog-fill');
-  const pval = document.getElementById('blk-prog-pct');
-  const pdone = document.getElementById('blk-prog-done');
-  if (fill) fill.style.width = pct + '%';
-  if (pval) pval.textContent = pct;
-  if (pdone) pdone.textContent = done + ' из ' + BODY_TOTAL + ' пунктов';
+/* ── Отчёт по мастеру: класс, сильные стороны, фокус, факты, маяк ── */
+function renderMasterReports() {
+  const el = document.getElementById('topmasters-reports');
+  if (!el) return;
+  const keys = getAllMasterKeys();
+  const fmt = fmtRub;
+
+  el.innerHTML = keys.map(key => {
+    const m = MASTERS[key];
+    const prog = getMasterProgress(key);
+    const last = m.analytics.length ? m.analytics[m.analytics.length-1] : null;
+    const months = m.monthsInStudio||0;
+    const cls = getMasterClass(key);
+    const strengths = getMasterStrengths(key);
+    const focus = getMasterFocus(key);
+    const onb = getOnboardPct(key);
+    const nailIds = CHECKLIST.filter(c=>['nail','pedi'].includes(c.cat));
+    const expIds  = CHECKLIST.filter(c=>['nail_exp','pedi_exp'].includes(c.cat));
+    const iprT = nailIds.length ? Math.round(nailIds.filter(c=>prog[c.id]).length/nailIds.length*100) : 0;
+    const outflow = last && last.ret !== null ? (100-last.ret).toFixed(1) : null;
+    const salonNorm = getSalonAvgOutflow();
+    const showOnboard = months <= 8 || m.category === 'top';
+
+    return `<div id="report-${key}" style="background:#fff;border:1px solid var(--sand);border-radius:var(--radius-sm);padding:20px 24px;margin-bottom:16px;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
+        <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;">
+          <div style="font-family:'Playfair Display',serif;font-size:17px;color:var(--ink);">${m.name}</div>
+          <span style="font-size:10px;padding:3px 10px;border-radius:var(--radius-pill);background:${cls.color};color:#fff;">${cls.label}</span>
+        </div>
+        <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);">${months} мес. в студии · старт ${m.startDate}</div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;">
+        ${strengths.map(c=>`<span style="font-size:10px;padding:3px 10px;border-radius:var(--radius-pill);background:rgba(126,158,140,0.1);color:var(--sage);">${c}</span>`).join('')}
+        ${focus.map(c=>`<span style="font-size:10px;padding:3px 10px;border-radius:var(--radius-pill);background:rgba(184,130,110,0.1);color:var(--rose);">${c}</span>`).join('')}
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:8px;">
+        <div><div style="font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--stone);">Выручка</div><div style="font-family:'Playfair Display',serif;font-size:20px;color:${last&&last.rev>=m.kpiTarget.rev?'var(--sage)':'var(--rose)'};">${last?fmt(last.rev)+' ₽':'—'}</div></div>
+        <div><div style="font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--stone);">Ср. чек</div><div style="font-family:'Playfair Display',serif;font-size:20px;color:${last&&last.check>=m.kpiTarget.check?'var(--sage)':'var(--rose)'};">${last?fmt(last.check)+' ₽':'—'}</div></div>
+        <div><div style="font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--stone);">Смен за месяц</div><div style="font-family:'Playfair Display',serif;font-size:20px;color:var(--ink);">${last&&last.shifts!==undefined?last.shifts:'—'}</div><div style="font-size:9px;color:var(--stone);">${last&&last.shifts?fmt(Math.round(last.rev/last.shifts))+' ₽/смену':''}</div></div>
+        <div><div style="font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--stone);">Отток (прокси)</div><div style="font-family:'Playfair Display',serif;font-size:20px;color:${outflow&&parseFloat(outflow)<=salonNorm?'var(--sage)':'var(--rose)'};">${outflow?outflow+'%':'—'}</div><div style="font-size:9px;color:var(--stone);">по салону: ${salonNorm.toFixed(1)}%</div></div>
+        ${showOnboard ? `<div><div style="font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--stone);">Онбординг</div><div style="font-family:'Playfair Display',serif;font-size:20px;color:var(--ink);">${onb}%</div></div>
+        <div><div style="font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--stone);">ИПР ТОП</div><div style="font-family:'Playfair Display',serif;font-size:20px;color:var(--ink);">${iprT}%</div></div>` : ''}
+      </div>
+    </div>`;
+  }).join('');
 }
 
-function blkSaveKPI(key, field, val) {
-  if (!blkStorage[key + '_kpi']) blkStorage[key + '_kpi'] = {};
-  blkStorage[key + '_kpi'][field] = val;
-  saveBLK();
+/* ── Итог месяца: кого отметить / на кого обратить фокус ── */
+function getMasterScore(key) {
+  const m = MASTERS[key];
+  const arr = m.analytics;
+  const last = arr.length ? arr[arr.length-1] : null;
+  const prev = arr.length > 1 ? arr[arr.length-2] : null;
+  if (!last) return -Infinity;
+  const salonNorm = getSalonAvgOutflow();
+  const outflow = last.ret !== null && last.ret !== undefined ? (100-last.ret) : null;
+  let s = 0;
+  if (last.rev >= m.kpiTarget.rev) s++;
+  if (last.check >= m.kpiTarget.check) s++;
+  if (outflow===null || outflow<=salonNorm) s++;
+  if ((last.rec||0)===0) s++;
+  if (prev && last.rev > prev.rev) s++;
+  return s;
+}
+function renderTeamHighlights() {
+  const el = document.getElementById('team-highlights');
+  if (!el) return;
+  const keys = getAllMasterKeys().filter(k => (MASTERS[k].monthsInStudio||0) > 2); // исключаем совсем новых из рейтинга
+  const scored = keys.map(k => ({ key:k, score:getMasterScore(k) })).sort((a,b)=>b.score-a.score);
+  const top = scored.slice(0,3);
+  const bottom = scored.slice(-3).reverse();
+
+  const cardTop = ({key}) => {
+    const m = MASTERS[key]; const last = m.analytics[m.analytics.length-1];
+    const s = getMasterStrengths(key);
+    return `<div style="background:rgba(126,158,140,0.08);border:1px solid rgba(126,158,140,0.3);border-radius:var(--radius-sm);padding:16px 18px;">
+      <div style="font-weight:500;color:var(--ink);margin-bottom:4px;">${m.name} · ${fmtRub(last.rev)} ₽</div>
+      <div style="font-size:11.5px;color:var(--dusk);">${s.length?s.join(' · '):'Стабильные показатели'}</div>
+    </div>`;
+  };
+  const cardBottom = ({key}) => {
+    const m = MASTERS[key]; const last = m.analytics.length?m.analytics[m.analytics.length-1]:null;
+    const f = getMasterFocus(key);
+    return `<div style="background:rgba(184,130,110,0.08);border:1px solid rgba(184,130,110,0.3);border-radius:var(--radius-sm);padding:16px 18px;">
+      <div style="font-weight:500;color:var(--ink);margin-bottom:4px;">${m.name}${last?' · '+fmtRub(last.rev)+' ₽':''}</div>
+      <div style="font-size:11.5px;color:var(--dusk);">${f.length?f.join(' · '):'Нет данных'}</div>
+    </div>`;
+  };
+
+  el.innerHTML = `
+    <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--sage);margin-bottom:10px;">✓ Отметить</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:24px;">${top.map(cardTop).join('')}</div>
+    <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--rose);margin-bottom:10px;">○ Фокус внимания</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;">${bottom.map(cardBottom).join('')}</div>`;
 }
 
-function renderBodyDash(key) {
-  const s = BODY_STAFF[key];
-  const prog = getBodyProgress(key);
-  const kpi = blkStorage[key + '_kpi'] || {};
-  const done = BODY_CHECKLIST.filter(c => prog[c.id]).length;
-  const pct = Math.round((done / BODY_TOTAL) * 100);
+/* ── Фокусы месяца для HRD ── */
+function renderHrdFocus() {
+  const el = document.getElementById('hrd-focus');
+  if (!el) return;
+  const keys = getAllMasterKeys();
+  const salonNorm = getSalonAvgOutflow();
 
-  document.getElementById('blk-login').style.display = 'none';
+  // 1. Выручка ниже цели
+  const belowRev = keys.filter(k => { const a=MASTERS[k].analytics; const l=a.length?a[a.length-1]:null; return l && l.rev < MASTERS[k].kpiTarget.rev; });
+  const gapSum = belowRev.reduce((s,k)=>{ const a=MASTERS[k].analytics; const l=a[a.length-1]; return s+(MASTERS[k].kpiTarget.rev-l.rev); },0);
 
-  const mkCheck = (items) => items.map(c => {
-    const d = !!prog[c.id];
-    return `<div class="blk-check${d?' done':''}" onclick="blkToggle('${key}','${c.id}',this)">
-      <div class="blk-checkbox">${d?'✓':''}</div><span>${c.label}</span></div>`;
+  // 2. Онбординг / адаптация не завершены
+  const adaptingKeys = keys.filter(k => (MASTERS[k].monthsInStudio||0) <= 6 && getOnboardPct(k) < 100);
+
+  // 3. Отток выше среднего при слабой загрузке (реальный риск)
+  const riskKeys = keys.filter(k => {
+    const cls = getMasterClass(k);
+    return cls.cls === 'cls-drag' || cls.cls === 'cls-adapt';
+  });
+
+  // 4. ИПР не завершён у ТОП-мастеров
+  const iprKeys = getTopMasterKeys().filter(k => {
+    const prog = getMasterProgress(k);
+    const nailIds = CHECKLIST.filter(c=>['nail','pedi'].includes(c.cat));
+    const pct = nailIds.length ? Math.round(nailIds.filter(c=>prog[c.id]).length/nailIds.length*100) : 0;
+    return pct < 100;
+  });
+
+  // 5. eNPS
+  const enpsScores = keys.map(k=>getEnpsScore(k,currentMonthKey())).filter(s=>s!==null);
+
+  const chip = name => `<span style="font-size:10px;padding:3px 10px;border-radius:var(--radius-pill);background:rgba(139,126,114,0.1);color:var(--dusk);margin:2px 4px 2px 0;display:inline-block;">${name}</span>`;
+  const card = (title, sub, valueHtml, keysList, note) => `
+    <div style="background:#fff;border:1px solid var(--sand);border-radius:var(--radius-sm);border-left:3px solid var(--dusk);padding:18px 22px;margin-bottom:14px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+      <div style="flex:1;min-width:240px;">
+        <div style="font-weight:500;color:var(--ink);margin-bottom:4px;">${title}</div>
+        <div style="font-size:12px;color:var(--stone);margin-bottom:8px;">${sub}</div>
+        ${note?`<div style="font-size:12px;color:var(--dusk);margin-bottom:8px;">${note}</div>`:''}
+        <div>${keysList.map(k=>chip(MASTERS[k]?MASTERS[k].name:k)).join('')}</div>
+      </div>
+      <div style="text-align:right;">${valueHtml}</div>
+    </div>`;
+
+  el.innerHTML = [
+    card(
+      'Закрыть отставание по выручке',
+      `${belowRev.length} мастер(ов) ниже своей цели`,
+      `<div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--rose);">${fmtRub(gapSum)} ₽</div><div style="font-size:9px;color:var(--stone);">суммарный разрыв/мес</div>`,
+      belowRev
+    ),
+    card(
+      'Онбординг и адаптация',
+      `${adaptingKeys.length} мастер(ов) в процессе — не завершили чек-лист онбординга`,
+      `<div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--gold-dk);">${adaptingKeys.length}</div><div style="font-size:9px;color:var(--stone);">в работе</div>`,
+      adaptingKeys
+    ),
+    card(
+      'Отток выше среднего при слабой загрузке',
+      `Реальный риск потери клиентов — норма ориентир: ${salonNorm.toFixed(1)}% (среднее по салону)`,
+      `<div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--rose);">${riskKeys.length}</div><div style="font-size:9px;color:var(--stone);">мастер(ов)</div>`,
+      riskKeys,
+      riskKeys.length ? 'Точечный разбор + пул реактивации у администраторов (RFM).' : ''
+    ),
+    card(
+      'ИПР — план развития ТОП-мастеров',
+      `Компетенции маникюр/педикюр не закрыты полностью`,
+      `<div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--gold-dk);">${iprKeys.length}</div><div style="font-size:9px;color:var(--stone);">не завершили</div>`,
+      iprKeys
+    ),
+    card(
+      'eNPS месяца',
+      `Оценки удовлетворённости команды за текущий месяц`,
+      `<div style="font-family:'Playfair Display',serif;font-size:22px;color:${enpsScores.length===keys.length?'var(--sage)':'var(--gold-dk)'};">${enpsScores.length}/${keys.length}</div><div style="font-size:9px;color:var(--stone);">ответили</div>`,
+      keys.filter(k=>getEnpsScore(k,currentMonthKey())===null)
+    )
+  ].join('');
+}
+
+// ── Sync sessions ──
+/* ══════════════════════════════════════════════
+   MANAGEMENT DASHBOARD — FULL QUARTERLY VERSION
+══════════════════════════════════════════════ */
+
+// Quarter helpers
+function getQuarter(date) {
+  const m = date.getMonth(); // 0-indexed
+  return Math.floor(m / 3) + 1;
+}
+function quarterLabel(q, year) {
+  const labels = {1:'Q1 (Янв–Мар)', 2:'Q2 (Апр–Июн)', 3:'Q3 (Июл–Сен)', 4:'Q4 (Окт–Дек)'};
+  return labels[q] + ' ' + year;
+}
+function currentQuarter() {
+  const d = new Date();
+  return { q: getQuarter(d), year: d.getFullYear() };
+}
+// Analytics month abbreviations → quarter mapping
+const MONTH_TO_Q = {
+  'Янв':1,'Фев':1,'Мар':1,
+  'Апр':2,'Май':2,'Июн':2,
+  'Июл':3,'Авг':3,'Сен':3,
+  'Окт':4,'Ноя':4,'Дек':4
+};
+function monthToQ(mStr) {
+  const short = mStr.replace(/[·'\d\s]|25|26|24/g,'').trim().substring(0,3);
+  return MONTH_TO_Q[short] || null;
+}
+function getQuarterAnalytics(masterKey, q) {
+  // Returns analytics entries that belong to quarter q (all years)
+  return MASTERS[masterKey].analytics.filter(a => monthToQ(a.m) === q);
+}
+function quarterAvg(entries, field) {
+  const vals = entries.map(e => e[field]).filter(v => v !== null && v !== undefined && !isNaN(v));
+  return vals.length ? Math.round(vals.reduce((a,b)=>a+b,0)/vals.length) : null;
+}
+function quarterSum(entries, field) {
+  return entries.reduce((s,e) => s + (e[field]||0), 0);
+}
+
+// ── Sync sessions — per-quarter with editable date ──
+function getSyncKey(masterKey, q, year) { return `sync_${masterKey}_Q${q}_${year}`; }
+function getSyncData(masterKey, q, year) {
+  return mgmtGet(getSyncKey(masterKey, q, year), {done: false, date: ''});
+}
+function saveSyncData(masterKey, q, year, data) {
+  mgmtSave(getSyncKey(masterKey, q, year), data);
+}
+// For summary count: use current quarter
+function getSyncDone(masterKey) {
+  const {q, year} = currentQuarter();
+  return getSyncData(masterKey, q, year).done;
+}
+
+function toggleSync(masterKey, q, year) {
+  const data = getSyncData(masterKey, q, year);
+  data.done = !data.done;
+  if (data.done && !data.date) data.date = new Date().toLocaleDateString('ru-RU');
+  if (!data.done) data.date = '';
+  saveSyncData(masterKey, q, year, data);
+  // Re-render the sync block only
+  const container = document.getElementById(`sync-block-${masterKey}-Q${q}-${year}`);
+  if (container) container.outerHTML = renderSyncBlock(masterKey, q, year);
+  // Update summary count
+  updateSyncCount();
+}
+
+function saveSyncDate(masterKey, q, year, val) {
+  const data = getSyncData(masterKey, q, year);
+  data.date = val;
+  saveSyncData(masterKey, q, year, data);
+}
+
+function updateSyncCount() {
+  const {q, year} = currentQuarter();
+  const allKeys = Object.keys(MASTERS);
+  const count = allKeys.filter(k => getSyncData(k, q, year).done).length;
+  const el = document.getElementById('mgmt-sync-count');
+  if (el) el.textContent = count + '/' + allKeys.length;
+}
+
+function renderSyncBlock(masterKey, q, year) {
+  const data = getSyncData(masterKey, q, year);
+  return `<div id="sync-block-${masterKey}-Q${q}-${year}" style="display:flex;flex-direction:column;gap:6px;align-items:flex-end;">
+    <button class="sync-btn${data.done?' done':''}" onclick="toggleSync('${masterKey}',${q},${year})">
+      ${data.done ? '✓ Созвон проведён' : '○ Отметить созвон'}
+    </button>
+    <input type="date" value="${data.date ? convertDateToISO(data.date) : ''}"
+      style="border:1px solid var(--sand);border-radius:4px;padding:4px 8px;font-size:10px;font-family:'Jost',sans-serif;color:var(--dusk);outline:none;cursor:pointer;"
+      onchange="saveSyncDate('${masterKey}',${q},${year},formatDateRU(this.value))"
+      title="Дата созвона" />
+  </div>`;
+}
+
+function convertDateToISO(ruDate) {
+  if (!ruDate) return '';
+  const parts = ruDate.split('.');
+  if (parts.length === 3) return `${parts[2]}-${parts[1]}-${parts[0]}`;
+  return '';
+}
+function formatDateRU(isoDate) {
+  if (!isoDate) return '';
+  const parts = isoDate.split('-');
+  return `${parts[2]}.${parts[1]}.${parts[0]}`;
+}
+
+// ── KPI helpers ──
+function getOnboardPct(key) {
+  const prog = getMasterProgress(key);
+  const items = CHECKLIST.filter(c => c.cat === 'onboard');
+  return Math.round(items.filter(c => prog[c.id]).length / items.length * 100);
+}
+function getIprPct(key) {
+  const prog = getMasterProgress(key);
+  const items = CHECKLIST.filter(c => ['nail','nail_exp','pedi','pedi_exp'].includes(c.cat));
+  return Math.round(items.filter(c => prog[c.id]).length / items.length * 100);
+}
+function getKpiPct(key) {
+  const prog = getMasterProgress(key);
+  const items = CHECKLIST.filter(c => c.cat === 'kpi');
+  return Math.round(items.filter(c => prog[c.id]).length / items.length * 100);
+}
+
+// ── Recommendations engine ──
+function getMasterRecommendations(key) {
+  const m = MASTERS[key];
+  const last = m.analytics.length ? m.analytics[m.analytics.length-1] : null;
+  const recs = [];
+  const warnings = [];
+  const grows = [];
+
+  if (!last) {
+    recs.push({type:'info', text:'Недостаточно данных для анализа — мастер только начала работу'});
+    return {recs, warnings, grows, verdict: 'new'};
+  }
+
+  const revTarget = m.kpiTarget.rev;
+  const checkTarget = m.kpiTarget.check;
+  const retTarget = m.kpiTarget.ret;
+  const totalRec = m.analytics.reduce((s,a)=>s+(a.rec||0),0);
+
+  // Revenue
+  if (last.rev >= revTarget * 1.1) grows.push('Выручка превышает цель на ' + Math.round((last.rev/revTarget-1)*100) + '%');
+  else if (last.rev >= revTarget) grows.push('Выручка на уровне цели (' + Math.round(last.rev/1000) + 'К ₽)');
+  else warnings.push('Выручка ниже цели на ' + Math.round((1-last.rev/revTarget)*100) + '% → усилить заполняемость, работать с записью');
+
+  // Avg check
+  if (last.check >= checkTarget) grows.push('Средний чек ' + new Intl.NumberFormat('ru-RU').format(last.check) + ' ₽ — на уровне цели');
+  else warnings.push('Средний чек ' + new Intl.NumberFormat('ru-RU').format(last.check) + ' ₽ (цель ' + new Intl.NumberFormat('ru-RU').format(checkTarget) + ' ₽) → развивать продажи доп. услуг и ухода');
+
+  // Retention
+  if (last.ret !== null) {
+    if (last.ret >= retTarget) grows.push('Возвратность ' + last.ret + '% — клиенты лояльны');
+    else if (last.ret >= retTarget * 0.8) warnings.push('Возвратность ' + last.ret + '% — немного ниже цели ' + retTarget + '% → работать с сервисом и ощущением клиента');
+    else warnings.push('Возвратность ' + last.ret + '% — значительно ниже цели ' + retTarget + '% → провести разговор о сервисе, выявить причины оттока');
+  }
+
+  // Reclamations
+  if (totalRec === 0) grows.push('Рекламаций нет — работает чисто');
+  else if (totalRec <= 2) warnings.push(totalRec + ' рекламации за период → разобрать каждый случай, проработать технику');
+  else warnings.push(totalRec + ' рекламаций — критически много → требует немедленного внимания и разбора');
+
+  // Months & category
+  const months = m.monthsInStudio || 0;
+  const ipr = getIprPct(key);
+  const onboard = getOnboardPct(key);
+
+  if (months <= 3 && onboard < 80) warnings.push('Онбординг пройден на ' + onboard + '% — ускорить прохождение обязательных этапов');
+  if (months > 6 && ipr < 50) warnings.push('ИПР проработан на ' + ipr + '% — нужна сессия по целям развития');
+  if (months > 3 && ipr >= 80 && m.category === 'top') grows.push('ИПР ' + ipr + '% + показатели позволяют рассмотреть повышение до Эксперта');
+  if (m.category === 'expert' && ipr >= 90 && last.ret >= 75 && last.rev >= 380000) grows.push('Показатели соответствуют Высшей категории — рассмотреть повышение');
+
+  // Verdict
+  let verdict = 'stable';
+  if (warnings.length === 0 && grows.length >= 2) verdict = 'star';
+  else if (warnings.length >= 3 || (totalRec > 2 && last.ret < retTarget * 0.7)) verdict = 'risk';
+  else if (warnings.length >= 2) verdict = 'attention';
+
+  return {recs, warnings, grows, verdict};
+}
+
+const VERDICTS = {
+  star:      {label:'⭐ Звезда команды', color:'var(--sage)'},
+  stable:    {label:'✓ Стабильный результат', color:'var(--dusk)'},
+  attention: {label:'⚠ Требует внимания', color:'var(--gold-dk)'},
+  risk:      {label:'🔴 Зона риска', color:'var(--rose)'},
+  new:       {label:'🌱 Новый сотрудник', color:'var(--stone)'},
+};
+
+// ── Master full card with quarterly breakdown ──
+function renderMasterFullCard(key, q, year) {
+  const m = MASTERS[key];
+  const catInfo = MASTER_CATEGORIES[m.category] || MASTER_CATEGORIES.top;
+  const months = m.monthsInStudio || 0;
+  const onboard = getOnboardPct(key);
+  const ipr = getIprPct(key);
+  const kpiP = getKpiPct(key);
+  const {warnings, grows, verdict} = getMasterRecommendations(key);
+  const v = VERDICTS[verdict];
+
+  // Quarter analytics
+  const qEntries = getQuarterAnalytics(key, q);
+  const qRev = quarterSum(qEntries, 'rev');
+  const qCheck = quarterAvg(qEntries, 'check');
+  const qRet = quarterAvg(qEntries, 'ret');
+  const qRec = quarterSum(qEntries, 'rec');
+  const qClients = quarterSum(qEntries, 'clients');
+
+  const fK = v => v ? Math.round(v/1000)+'К ₽' : '—';
+  const fP = v => v !== null && v !== undefined ? v+'%' : '—';
+
+  return `<div style="background:#fff;border:1px solid var(--sand);border-radius:var(--radius);box-shadow:var(--shadow-sm);margin-bottom:12px;overflow:hidden;">
+    <!-- Header -->
+    <div style="padding:18px 22px;border-bottom:1px solid var(--sand);display:grid;grid-template-columns:1fr auto;align-items:start;gap:12px;">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px;">
+          <div style="font-family:'Playfair Display',serif;font-size:17px;color:var(--ink);">${m.name}</div>
+          <div style="padding:3px 10px;border-radius:var(--radius-pill);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;background:${catInfo.color}1a;border:1px solid ${catInfo.color}66;color:${catInfo.color};">${catInfo.label}</div>
+          <div style="padding:3px 10px;border-radius:var(--radius-pill);font-size:9px;letter-spacing:1px;text-transform:uppercase;color:${v.color};border:1px solid ${v.color}33;background:${v.color}11;">${v.label}</div>
+        </div>
+        <div style="font-size:11px;color:var(--stone);">${months} мес. в студии · Старт: ${m.startDate}</div>
+      </div>
+      ${renderSyncBlock(key, q, year)}
+    </div>
+
+    <!-- Quarterly stats -->
+    <div style="padding:16px 22px;border-bottom:1px solid var(--sand);background:var(--cream);">
+      <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:12px;">${quarterLabel(q,year)} · ${qEntries.length ? qEntries.length+' месяцев данных' : 'нет данных за квартал'}</div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;">
+        ${[
+          {label:'Выручка (сумма)', val: qRev ? fK(qRev) : '—', ok: qRev >= m.kpiTarget.rev * qEntries.length * 0.85},
+          {label:'Ср. чек', val: qCheck ? new Intl.NumberFormat('ru-RU').format(qCheck)+' ₽' : '—', ok: qCheck >= m.kpiTarget.check},
+          {label:'Возвратность', val: fP(qRet), ok: qRet >= m.kpiTarget.ret},
+          {label:'Рекламаций', val: qRec, ok: qRec === 0},
+          {label:'Клиентов', val: qClients || '—', ok: true},
+        ].map(s => `<div style="background:#fff;border-radius:var(--radius-sm);padding:10px 12px;border:1px solid ${s.ok?'rgba(126,158,140,0.3)':'rgba(184,130,110,0.3)'};">
+          <div style="font-size:13px;font-family:'Playfair Display',serif;color:var(--ink);">${s.val}</div>
+          <div style="font-size:9px;color:var(--stone);margin-top:3px;">${s.label}</div>
+          <div style="font-size:9px;margin-top:2px;color:${s.ok?'var(--sage)':'var(--rose)'};">${s.ok?'✓':'↓'}</div>
+        </div>`).join('')}
+      </div>
+    </div>
+
+    <!-- Progress bars + Recommendations -->
+    <div style="padding:16px 22px;display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+      <div>
+        <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:10px;">Прогресс</div>
+        ${[['Онбординг', onboard, 'var(--rose)'],['ИПР', ipr, 'var(--sage)'],['KPI', kpiP, 'var(--gold)']].map(([l,p,c]) =>
+          `<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+            <div style="font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--stone);width:72px;">${l}</div>
+            <div style="flex:1;height:6px;background:var(--sand);border-radius:6px;overflow:hidden;">
+              <div style="height:100%;width:${p}%;border-radius:6px;background:${c};"></div>
+            </div>
+            <div style="font-size:9px;color:var(--stone);width:28px;text-align:right;">${p}%</div>
+          </div>`).join('')}
+      </div>
+      <div>
+        <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:10px;">Рекомендации</div>
+        ${grows.map(g => `<div style="font-size:11px;color:var(--sage);margin-bottom:5px;">✓ ${g}</div>`).join('')}
+        ${warnings.map(w => `<div style="font-size:11px;color:var(--rose);margin-bottom:5px;">→ ${w}</div>`).join('')}
+        ${!grows.length && !warnings.length ? '<div style="font-size:11px;color:var(--stone);">Недостаточно данных</div>' : ''}
+      </div>
+    </div>
+  </div>`;
+}
+
+// ── Prognosis ──
+function getPrognosisCards() {
+  const cards = [];
+  Object.entries(MASTERS).forEach(([key, m]) => {
+    if (m.category !== 'top' && m.category !== 'expert') return;
+    const last = m.analytics.length ? m.analytics[m.analytics.length-1] : null;
+    if (!last) return;
+    const ipr = getIprPct(key);
+    const revOk = last.rev >= (m.category === 'top' ? 280000 : 380000);
+    const retOk = last.ret && last.ret >= (m.category === 'top' ? 65 : 75);
+    const iprOk = ipr >= 70;
+    const recOk = m.analytics.slice(-3).reduce((s,a)=>s+(a.rec||0),0) <= 1;
+    const score = (revOk?1:0)+(retOk?1:0)+(iprOk?1:0)+(recOk?1:0);
+    if (score >= 2) {
+      const target = m.category === 'top' ? 'Мастер-Эксперт' : 'Высшая категория';
+      cards.push({key, m, score, revOk, retOk, iprOk, recOk, target, ready: score >= 3});
+    }
+  });
+  return cards.sort((a,b) => b.score - a.score);
+}
+
+// ── Main dashboard render ──
+function renderMgmtDash() {
+  const now = new Date();
+  const days = ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'];
+  const months = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+  document.getElementById('mgmt-date-label').textContent =
+    days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+
+  const allKeys = Object.keys(MASTERS);
+  // Открываем квартал с последними закрытыми данными (не реальный календарный квартал,
+  // чтобы не показывать по умолчанию пустой ещё не закрытый квартал).
+  const latestQKey = getLatestDataQuarter(); // "2026-Q2"
+  const [ly, lq] = latestQKey.split('-Q');
+  const q = parseInt(lq), year = parseInt(ly);
+
+  // Set active quarter selector
+  mgmtRenderTeamTab(q, year);
+  renderEnpsTab();
+  renderHireTab();
+}
+
+let activeQ = null, activeYear = null;
+function mgmtRenderTeamTab(q, year) {
+  activeQ = q; activeYear = year;
+  const allKeys = Object.keys(MASTERS);
+  const newKeys   = allKeys.filter(k => (MASTERS[k].monthsInStudio||0) < 3);
+  const adaptKeys = allKeys.filter(k => { const mo=MASTERS[k].monthsInStudio||0; return mo>=3&&mo<=6; });
+  const permKeys  = allKeys.filter(k => (MASTERS[k].monthsInStudio||0) > 6);
+
+  const syncedCount = allKeys.filter(k => getSyncData(k,q,year).done).length;
+  const avgOnboard = Math.round(allKeys.reduce((s,k)=>s+getOnboardPct(k),0)/allKeys.length);
+  const avgIpr = Math.round(allKeys.reduce((s,k)=>s+getIprPct(k),0)/allKeys.length);
+  const enpsScores = allKeys.map(k=>getEnpsScore(k,currentMonthKey())).filter(s=>s!==null);
+  const enpsAvg = enpsScores.length?(enpsScores.reduce((a,b)=>a+b,0)/enpsScores.length).toFixed(1):'—';
+
+  document.getElementById('mgmt-stats-row').innerHTML = `
+    <div class="mgmt-stat"><div class="mgmt-stat-val">${allKeys.length}</div><div class="mgmt-stat-label">Мастеров</div>
+      <div class="mgmt-stat-sub warn">${newKeys.length} новых · ${adaptKeys.length} адаптация · ${permKeys.length} команда</div></div>
+    <div class="mgmt-stat"><div class="mgmt-stat-val" id="mgmt-sync-count">${syncedCount}/${allKeys.length}</div><div class="mgmt-stat-label">Созвоны Q</div>
+      <div class="mgmt-stat-sub ${syncedCount===allKeys.length?'good':'warn'}">${syncedCount===allKeys.length?'✓ Все':'Осталось '+(allKeys.length-syncedCount)}</div></div>
+    <div class="mgmt-stat"><div class="mgmt-stat-val">${avgOnboard}%</div><div class="mgmt-stat-label">Ср. онбординг</div>
+      <div class="mgmt-stat-sub ${avgOnboard>=80?'good':avgOnboard>=50?'warn':'bad'}">${avgOnboard>=80?'На уровне':avgOnboard>=50?'В процессе':'Внимание'}</div></div>
+    <div class="mgmt-stat"><div class="mgmt-stat-val">${avgIpr}%</div><div class="mgmt-stat-label">Ср. ИПР</div>
+      <div class="mgmt-stat-sub ${avgIpr>=70?'good':avgIpr>=40?'warn':'bad'}">${avgIpr>=70?'Хорошо':avgIpr>=40?'Растут':'Поддержка'}</div></div>
+    <div class="mgmt-stat"><div class="mgmt-stat-val">${enpsAvg!=='—'?enpsAvg+'⭐':'—'}</div><div class="mgmt-stat-label">eNPS</div>
+      <div class="mgmt-stat-sub ${enpsScores.length?'good':'warn'}">${enpsScores.length?enpsScores.length+' из '+allKeys.length:'Ожидаем'}</div></div>`;
+
+  // Quarter selector — фиксированный список, только 2026 год
+  const quarters=[4,3,2,1].map(qi=>({q:qi,year:2026}));
+  document.getElementById('mgmt-quarter-selector').innerHTML=quarters.map(({q:qi,year:yi})=>
+    `<button class="mgmt-tab${qi===q&&yi===year?' active':''}" style="font-size:9px;padding:6px 14px;" onclick="mgmtRenderTeamTab(${qi},${yi})">${quarterLabel(qi,yi)}</button>`
+  ).join('');
+
+  // ── SIGNAL TABLE ──
+  // Sort: риск → наблюдать → опора → новые
+  // Норма оттока — не фиксированное число, а средний отток по салону
+  // (среднее по последнему месяцу каждого мастера).
+  const NORM_OUTFLOW = getSalonAvgOutflow();
+  const normLabelEl = document.getElementById('team-norm-outflow-label');
+  if (normLabelEl) normLabelEl.textContent = `· ориентир по оттоку — среднее по салону: ${NORM_OUTFLOW.toFixed(1)}%`;
+
+  function getMasterSignal(key) {
+    const m = MASTERS[key];
+    const last = m.analytics.length ? m.analytics[m.analytics.length-1] : null;
+    const months = m.monthsInStudio||0;
+    if (!last) return { label:'Новичок · разгон', cls:'sig-new', priority:4 };
+    const ret = last.ret; // возвратность %
+    const outflow = ret !== null ? (100 - ret) : null; // прокси оттока
+    const rev = last.rev;
+    const target = m.kpiTarget.rev;
+    const revOk = rev >= target;
+
+    // Логика сигналов:
+    // Отток выше среднего по салону + слабая заполненность (прокси — выручка ниже цели) = теряет клиентов, дыры в записи
+    // Отток выше среднего по салону, но хорошая заполненность (выручка ок) = нормально, к мастеру просто сложно записаться
+    const highOutflow = outflow !== null && outflow > NORM_OUTFLOW;
+    const goodRev = revOk;
+
+    if (highOutflow && !goodRev) return { label:'⚠ Риск · теряет клиентов', cls:'sig-risk', priority:0 };
+    if (highOutflow && goodRev)  return { label:'Загружен · сложно записаться', cls:'sig-loco', priority:2 };
+    if (!goodRev && months > 3)  return { label:'Наблюдать', cls:'sig-watch', priority:1 };
+    if (months <= 2)             return { label:'Новичок · разгон', cls:'sig-new', priority:4 };
+    return { label:'Опора', cls:'sig-anchor', priority:3 };
+  }
+
+  const sortedKeys = [...allKeys].sort((a,b) => getMasterSignal(a).priority - getMasterSignal(b).priority);
+
+  const fmt = v => v!==null&&v!==undefined ? new Intl.NumberFormat('ru-RU').format(Math.round(v)):'—';
+  const fmtK = v => Math.round(v/1000)+'К';
+  const NORM_OUTFLOW_DISPLAY = NORM_OUTFLOW;
+
+  document.getElementById('team-signal-body').innerHTML = sortedKeys.map(key => {
+    const m = MASTERS[key];
+    const last = m.analytics.length ? m.analytics[m.analytics.length-1] : null;
+    const sig = getMasterSignal(key);
+    const catInfo = MASTER_CATEGORIES[m.category]||MASTER_CATEGORIES.top;
+    const months = m.monthsInStudio||0;
+    const syncDone = getSyncData(key,q,year).done;
+    const syncDate = getSyncData(key,q,year).date||'';
+
+    const rev = last ? last.rev : null;
+    const check = last ? last.check : null;
+    const ret = last ? last.ret : null;
+    const outflow = ret!==null&&ret!==undefined ? (100-ret).toFixed(1) : null;
+    const rec = last ? (last.rec||0) : null;
+
+    const revColor = rev!==null ? (rev>=m.kpiTarget.rev?'var(--sage)':'var(--rose)') : 'var(--stone)';
+    const checkColor = check!==null ? (check>=m.kpiTarget.check?'var(--sage)':'var(--rose)') : 'var(--stone)';
+    const retColor = ret!==null ? (ret>=m.kpiTarget.ret?'var(--sage)':'var(--rose)') : 'var(--stone)';
+    const outflowColor = outflow!==null ? (parseFloat(outflow)<=NORM_OUTFLOW_DISPLAY?'var(--sage)':'var(--rose)') : 'var(--stone)';
+    const iprPct = getIprPct(key);
+
+    return `<tr class="signal-row week-table" id="sig-row-${key}" onclick="toggleTeamExpand('${key}','${q}','${year}')">
+      <td style="font-weight:500;color:var(--ink);">${m.name}</td>
+      <td><span style="font-size:10px;color:${catInfo.color};">${catInfo.label}</span></td>
+      <td style="color:var(--stone);font-size:11px;">${months} мес.</td>
+      <td style="color:${revColor};font-weight:500;">${rev!==null?fmtK(rev)+' ₽':'—'}</td>
+      <td style="color:${checkColor};">${check!==null?fmt(check)+' ₽':'—'}</td>
+      <td style="color:var(--stone);" title="${last&&last.shifts?fmt(Math.round(last.rev/last.shifts))+' ₽/смену':''}">${last&&last.shifts!==undefined?last.shifts:'—'}</td>
+      <td style="color:${retColor};">${ret!==null?ret+'%':'—'}</td>
+      <td style="color:${outflowColor};">${outflow!==null?outflow+'%':'—'}</td>
+      <td style="color:${iprPct>=60?'var(--sage)':'var(--stone)'};">${iprPct}%</td>
+      <td><span class="signal-badge ${sig.cls}">${sig.label}</span></td>
+      <td><button class="obt-sync-btn${syncDone?' done':''}" onclick="event.stopPropagation();toggleTeamSync('${key}','${q}','${year}',this)" title="${syncDate}">${syncDone?'✓ '+syncDate:'○ Отметить'}</button></td>
+    </tr>`;
   }).join('');
 
-  const onboardHTML = `
-  <div class="blk-section">
-    <div class="blk-section-title">📄 Документы — онлайн-подпись</div>
-    <p style="font-size:12.5px;color:var(--dusk);line-height:1.7;margin-bottom:14px;">Подписываются онлайн через приложение <strong>Заметки</strong> (iOS) или сервис <strong>Диадок</strong>.</p>
-    ${mkCheck(BODY_CHECKLIST.filter(c=>c.cat==='docs'))}
-  </div>
-  <div class="blk-section">
-    <div class="blk-section-title">📋 Документы — передать управляющей очно</div>
-    ${mkCheck(BODY_CHECKLIST.filter(c=>c.cat==='docs_offline'))}
-  </div>
-  <div class="blk-section">
-    <div class="blk-section-title">🏠 Онбординг</div>
-    <div class="blk-onboard-item">
-      ${(()=>{const d=!!prog['b_welcome'];return`<div class="blk-check${d?' done':''}" style="margin-bottom:10px;" onclick="blkToggle('${key}','b_welcome',this)">
-        <div class="blk-checkbox">${d?'✓':''}</div><span>Welcome-book с историей SHUGA STUDIO изучен</span></div>
-      <a class="alk-link" href="https://docs.google.com/presentation/d/1GmzLElnG1tHX-kGOA-QotpsHSNg-BJFqRum8mHDD82g/edit?usp=sharing" target="_blank" style="margin-left:32px;">📖 Открыть Welcome-book →</a>`;})()}
-    </div>
-    <div class="blk-onboard-item" style="margin-top:10px;">
-      ${(()=>{const d=!!prog['b_values'];return`<div class="blk-check${d?' done':''}" style="margin-bottom:10px;" onclick="blkToggle('${key}','b_values',this)">
-        <div class="blk-checkbox">${d?'✓':''}</div><span>Кодекс ценностей изучен</span></div>
-      <a class="alk-link" href="https://drive.google.com/file/d/1ZKq2dHeZF-7SyS1_mhRgt89G8-NXhezj/view?usp=sharing" target="_blank" style="margin-left:32px;">📜 Открыть Кодекс ценностей →</a>`;})()}
-    </div>
-    <div class="blk-onboard-item" style="margin-top:10px;">
-      ${(()=>{const d=!!prog['b_roles'];return`<div class="blk-check${d?' done':''}" onclick="blkToggle('${key}','b_roles',this)">
-        <div class="blk-checkbox">${d?'✓':''}</div><span>Понимание своей роли, роли напарников и управляющей</span></div>`;})()}
-    </div>
-    <div class="blk-onboard-item" style="margin-top:10px;">
-      ${(()=>{const d=!!prog['b_reglament'];return`<div class="blk-check${d?' done':''}" style="margin-bottom:10px;" onclick="blkToggle('${key}','b_reglament',this)">
-        <div class="blk-checkbox">${d?'✓':''}</div><span>Регламент работы специалиста по телу изучен</span></div>
-      <a class="alk-link" href="#" target="_blank" style="margin-left:32px;opacity:0.5;pointer-events:none;">📄 Ссылка будет добавлена</a>`;})()}
-    </div>
-    <div class="blk-onboard-item" style="margin-top:10px;">
-      ${(()=>{const d=!!prog['b_ckp'];return`<div class="blk-check${d?' done':''}" onclick="blkToggle('${key}','b_ckp',this)">
-        <div class="blk-checkbox">${d?'✓':''}</div>
-        <div><span>ЦКП специалиста по телу изучен</span>
-        <div style="font-size:11.5px;color:var(--stone);margin-top:6px;line-height:1.6;">📌 Ценный конечный продукт — клиент, который чувствует себя услышанным, восстановленным и возвращается снова.</div></div></div>`;})()}
-    </div>
-    <div class="blk-onboard-item" style="margin-top:10px;">
-      ${(()=>{const d=!!prog['b_kpi_exp'];return`<div class="blk-check${d?' done':''}" onclick="blkToggle('${key}','b_kpi_exp',this)">
-        <div class="blk-checkbox">${d?'✓':''}</div>
-        <div><span>Ожидаемые результаты в показателях изучены</span>
-        <div style="font-size:11.5px;color:var(--stone);margin-top:8px;line-height:1.7;">• Выручка месячная<br>• Средний чек<br>• Возвратность клиентов<br>• Отсутствие рекламаций<br>• Отзывы клиентов</div></div></div>`;})()}
-    </div>
-    <div class="blk-onboard-item" style="margin-top:10px;">
-      ${(()=>{const d=!!prog['b_sync'];return`<div class="blk-check${d?' done':''}" onclick="blkToggle('${key}','b_sync',this)">
-        <div class="blk-checkbox">${d?'✓':''}</div><span>Итог 2 недель: синхронизация с HRD + брендбук</span></div>`;})()}
-    </div>
-  </div>`;
+  // ── PROGNOSIS ──
+  const progCards = getPrognosisCards();
+  document.getElementById('mgmt-prognosis').innerHTML = progCards.length
+    ? progCards.map(p=>`
+      <div class="prognosis-card">
+        <div class="prognosis-badge ${p.ready?'ready':'soon'}">${p.ready?'✓ Готова к повышению':'Приближается'}</div>
+        <div class="prognosis-name">${p.m.name}</div>
+        <div style="font-size:10px;color:var(--stone);margin-bottom:8px;">→ ${p.target}</div>
+        <div class="prognosis-reason">
+          ${p.revOk?'<span style="color:var(--sage);">✓</span>':'<span style="color:var(--rose);">○</span>'} Выручка&nbsp;&nbsp;
+          ${p.retOk?'<span style="color:var(--sage);">✓</span>':'<span style="color:var(--rose);">○</span>'} Возвратность&nbsp;&nbsp;
+          ${p.iprOk?'<span style="color:var(--sage);">✓</span>':'<span style="color:var(--rose);">○</span>'} ИПР ≥70%
+        </div>
+      </div>`).join('')
+    : `<div style="font-size:12px;color:var(--stone);font-style:italic;">Нет кандидатов на повышение по текущим показателям</div>`;
+}
 
-  const kpiHTML = `
-  <div class="blk-kpi-grid">
-    ${[
-      {id:'rev',     label:'Выручка за месяц',          unit:'₽'},
-      {id:'check',   label:'Средний чек',                unit:'₽'},
-      {id:'ret',     label:'Возвратность',               unit:'%'},
-      {id:'rec',     label:'Рекламаций',                 unit:'шт'},
-      {id:'reviews', label:'Отзывы клиентов',            unit:'⭐'},
-      {id:'plan',    label:'План месяца',                unit:'₽'},
-    ].map(f=>`<div class="blk-kpi-card">
-      <div class="blk-kpi-label">${f.label}</div>
-      <input class="blk-kpi-input" type="text" placeholder="—" value="${kpi[f.id]||''}"
-        onchange="blkSaveKPI('${key}','${f.id}',this.value)" />
-      <div class="blk-kpi-unit">${f.unit}</div>
-    </div>`).join('')}
-  </div>
-  <div style="background:#fff;border:1px solid var(--sand);border-radius:var(--radius-sm);padding:20px 24px;">
-    <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:10px;">Заметки</div>
-    <textarea style="width:100%;border:none;background:none;font-family:'Jost',sans-serif;font-size:13px;color:var(--ink);resize:vertical;outline:none;min-height:80px;" placeholder="Комментарии к показателям..."
-      onchange="blkSaveKPI('${key}','notes',this.value)">${kpi['notes']||''}</textarea>
-  </div>`;
+// ── expanded master card on row click ──
+let currentExpandedKey = null;
+function toggleTeamExpand(key, q, year) {
+  const card = document.getElementById('team-expanded-card');
+  const rows = document.querySelectorAll('.signal-row');
+  if (currentExpandedKey === key) {
+    card.style.display='none'; card.innerHTML='';
+    rows.forEach(r=>r.classList.remove('expanded'));
+    currentExpandedKey=null; return;
+  }
+  rows.forEach(r=>r.classList.remove('expanded'));
+  document.getElementById('sig-row-'+key)?.classList.add('expanded');
+  currentExpandedKey=key;
 
-  document.getElementById('blk-dash-wrap').innerHTML = `
-  <div class="blk-dash active">
-    <div class="blk-header">
-      <div class="blk-avatar">${s.initials}</div>
+  const m = MASTERS[key];
+  const prog = getMasterProgress(key);
+  const last = m.analytics.length ? m.analytics[m.analytics.length-1] : null;
+  const catInfo = MASTER_CATEGORIES[m.category]||MASTER_CATEGORIES.top;
+  const fmt = v => new Intl.NumberFormat('ru-RU').format(Math.round(v));
+  const onb = getOnboardPct(key);
+  const iprT = Math.round(CHECKLIST.filter(c=>['nail','pedi'].includes(c.cat)&&prog[c.id]).length/CHECKLIST.filter(c=>['nail','pedi'].includes(c.cat)).length*100);
+  const iprE = Math.round(CHECKLIST.filter(c=>['nail_exp','pedi_exp'].includes(c.cat)&&prog[c.id]).length/CHECKLIST.filter(c=>['nail_exp','pedi_exp'].includes(c.cat)).length*100);
+  const salary = last ? Math.round(last.rev*0.35) : null;
+  const outflow = last&&last.ret!==null ? (100-last.ret).toFixed(1) : null;
+
+  // Auto signal text — отток сравнивается со средним по салону, а не с фиксированной нормой
+  const NORM = getSalonAvgOutflow();
+  let signalText = '';
+  if (last) {
+    const highOut = outflow && parseFloat(outflow)>NORM;
+    const revOk = last.rev >= m.kpiTarget.rev;
+    if (highOut && !revOk) signalText=`⚠ Отток ${outflow}% выше среднего по салону (${NORM.toFixed(1)}%) + выручка ниже цели → теряет клиентов, дыры в записи. Нужен разбор.`;
+    else if (highOut && revOk) signalText=`ℹ Отток ${outflow}% выше среднего по салону (${NORM.toFixed(1)}%), но выручка хорошая → к мастеру просто сложно записаться. Фокус: расширить расписание.`;
+    else if (!revOk) signalText='↗ Выручка ниже цели. Проверить заполненность и доп.услуги.';
+    else signalText='✓ Показатели в норме. Держать динамику.';
+  }
+
+  card.style.display='block';
+  card.innerHTML=`<div class="team-exp-card">
+    <div class="exp-block">
+      <div class="exp-label">Выручка (посл.мес)</div>
+      <div class="exp-val" style="color:${last&&last.rev>=m.kpiTarget.rev?'var(--sage)':'var(--rose)'};">${last?fmt(last.rev)+' ₽':'—'}</div>
+      <div class="exp-sub" style="color:var(--stone);">Цель: ${fmt(m.kpiTarget.rev)} ₽</div>
+    </div>
+    <div class="exp-block">
+      <div class="exp-label">Средний чек</div>
+      <div class="exp-val" style="color:${last&&last.check>=m.kpiTarget.check?'var(--sage)':'var(--rose)'};">${last?fmt(last.check)+' ₽':'—'}</div>
+      <div class="exp-sub" style="color:var(--stone);">Цель: ${fmt(m.kpiTarget.check)} ₽</div>
+    </div>
+    <div class="exp-block">
+      <div class="exp-label">Возвратность</div>
+      <div class="exp-val" style="color:${last&&last.ret>=m.kpiTarget.ret?'var(--sage)':'var(--rose)'};">${last&&last.ret!==null?last.ret+'%':'—'}</div>
+      <div class="exp-sub" style="color:var(--stone);">Цель: ${m.kpiTarget.ret}%</div>
+    </div>
+    <div class="exp-block">
+      <div class="exp-label">Отток (прокси)</div>
+      <div class="exp-val" style="color:${outflow&&parseFloat(outflow)<=NORM?'var(--sage)':'var(--rose)'};">${outflow?outflow+'%':'—'}</div>
+      <div class="exp-sub" style="color:var(--stone);">По салону: ${NORM.toFixed(1)}%</div>
+    </div>
+    <div class="exp-block">
+      <div class="exp-label">Смен за месяц</div>
+      <div class="exp-val">${last&&last.shifts!==undefined?last.shifts:'—'}</div>
+      <div class="exp-sub" style="color:var(--stone);">${last&&last.shifts?fmt(Math.round(last.rev/last.shifts))+' ₽/смену':''}</div>
+    </div>
+    <div class="exp-block">
+      <div class="exp-label">Рекламации</div>
+      <div class="exp-val" style="color:${last&&(last.rec||0)===0?'var(--sage)':'var(--rose)'};">${last?(last.rec||0):'—'}</div>
+      <div class="exp-sub" style="color:var(--stone);">Норма: 0</div>
+    </div>
+    <div class="exp-block">
+      <div class="exp-label">З/П (35%)</div>
+      <div class="exp-val">${salary?fmt(salary)+' ₽':'—'}</div>
+      <div class="exp-sub" style="color:var(--stone);">от выручки услуг</div>
+    </div>
+    <div class="exp-ipr">
+      <div class="exp-label" style="margin-bottom:4px;">Прогресс ИПР</div>
+      <div class="exp-prog-row"><div class="exp-prog-label">Онбординг</div><div class="exp-prog-track"><div class="exp-prog-fill" style="width:${onb}%;background:var(--rose);"></div></div><div style="font-size:10px;color:var(--stone);width:28px;">${onb}%</div></div>
+      <div class="exp-prog-row"><div class="exp-prog-label">ИПР ТОП</div><div class="exp-prog-track"><div class="exp-prog-fill" style="width:${iprT}%;background:var(--sage);"></div></div><div style="font-size:10px;color:var(--stone);width:28px;">${iprT}%</div></div>
+      <div class="exp-prog-row"><div class="exp-prog-label">ИПР Эксперт</div><div class="exp-prog-track"><div class="exp-prog-fill" style="width:${iprE}%;background:var(--gold);"></div></div><div style="font-size:10px;color:var(--stone);width:28px;">${iprE}%</div></div>
+    </div>
+    <div class="exp-rec">${signalText}</div>
+  </div>`;
+  card.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function toggleTeamSync(key,q,year,btn) {
+  const cur = getSyncData(key,q,year);
+  const newDone = !cur.done;
+  const today = new Date().toLocaleDateString('ru-RU');
+  const date = newDone?(cur.date||today):cur.date;
+  saveSyncData(key,q,year,newDone,date);
+  btn.classList.toggle('done',newDone);
+  btn.textContent = newDone?'✓ '+(date||''):'○ Отметить';
+  // update counter
+  const allKeys=Object.keys(MASTERS);
+  const cnt=allKeys.filter(k=>getSyncData(k,q,year).done).length;
+  const el=document.getElementById('mgmt-sync-count');
+  if(el)el.textContent=cnt+'/'+allKeys.length;
+}
+
+function renderEnpsTab() {
+  const months = [];
+  const now = new Date();
+  for (let i = 0; i < 6; i++) {
+    const d = new Date(now.getFullYear(), now.getMonth()-i, 1);
+    months.push(d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'));
+  }
+  document.getElementById('enps-month-selector').innerHTML = `
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;">
+      ${months.map((m,i) => `<button onclick="renderEnpsForMonth('${m}')" class="mgmt-tab${i===0?' active':''}" style="font-size:9px;padding:6px 14px;">${monthLabel(m)}</button>`).join('')}
+    </div>`;
+  renderEnpsForMonth(months[0]);
+}
+
+function renderEnpsForMonth(mk) {
+  document.querySelectorAll('#enps-month-selector .mgmt-tab').forEach(b => {
+    b.classList.toggle('active', b.textContent.trim() === monthLabel(mk));
+  });
+  const allKeys = Object.keys(MASTERS);
+  const scores = allKeys.map(k=>getEnpsScore(k,mk)).filter(s=>s!==null);
+  const avg = scores.length ? (scores.reduce((a,b)=>a+b,0)/scores.length).toFixed(1) : '—';
+  document.getElementById('mgmt-enps-grid').innerHTML = allKeys.map(k => {
+    const score = getEnpsScore(k, mk);
+    const m = MASTERS[k];
+    return `<div class="enps-card">
+      <div class="enps-name">${m.name}</div>
+      ${score !== null
+        ? `<div style="font-size:18px;">${'⭐'.repeat(score)}${'☆'.repeat(5-score)}</div>
+           <div style="font-size:11px;color:var(--gold-dk);margin-top:3px;font-weight:500;">${score} / 5</div>`
+        : `<div style="font-size:11px;color:var(--stone);font-style:italic;">Нет оценки</div>`}
+    </div>`;
+  }).join('');
+  document.getElementById('enps-avg').innerHTML = avg !== '—'
+    ? `${avg} <span style="font-size:18px;color:var(--stone);">/ 5</span> <span style="font-size:14px;color:var(--stone);">(${scores.length} из ${allKeys.length})</span>`
+    : `<span style="font-size:18px;color:var(--stone);">Нет данных</span>`;
+}
+
+function renderHireTab() {
+  document.getElementById('mgmt-hire-pipeline').innerHTML = HIRE_STAGES.map(s => {
+    const count = mgmtGet('hire_'+s.id, '0');
+    return `<div class="hire-stage">
+      <div class="hire-stage-title">${s.label}</div>
+      <input class="hire-input" type="number" min="0" value="${count}" onchange="mgmtSave('hire_${s.id}',this.value)" placeholder="0"/>
+      <div style="font-size:10px;color:var(--stone);margin-top:4px;">кандидатов</div>
+    </div>`;
+  }).join('');
+  document.getElementById('hire-notes').value = mgmtGet('hire_notes','');
+}
+
+function getEnpsScore(masterKey, monthKey) { return mgmtGet('enps_'+masterKey+'_'+monthKey, null); }
+function getEnpsKey(masterKey, month) { return 'enps_'+masterKey+'_'+month; }
+function currentMonthKey() {
+  const d = new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
+}
+function monthLabel(key) {
+  const [y,m] = key.split('-');
+  const ms = ['','Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+  return ms[parseInt(m)]+' '+y;
+}
+
+/* ── eNPS widget injected into master LK ── */
+
+// ── eNPS from master LK (called when star clicked) ──
+function submitEnps(masterKey, score, monthKey) {
+  mgmtSave(getEnpsKey(masterKey, monthKey), score);
+  // re-render stars in master LK if open
+  const container = document.getElementById('enps-lk-' + masterKey);
+  if (container) renderEnpsLkWidget(masterKey, container);
+}
+
+function renderEnpsLkWidget(masterKey, container) {
+  const mk = currentMonthKey();
+  const existing = getEnpsScore(masterKey, mk);
+  const label = monthLabel(mk);
+  container.innerHTML = existing !== null
+    ? `<div style="text-align:center;padding:8px 0;">
+        <div style="font-size:11px;color:var(--stone);margin-bottom:6px;">Ваша оценка за ${label}</div>
+        <div style="font-size:20px;">${'⭐'.repeat(existing)}${'☆'.repeat(5-existing)}</div>
+        <div style="font-size:10px;color:var(--sage);margin-top:4px;">✓ Спасибо! Оценка сохранена</div>
+       </div>`
+    : `<div style="text-align:center;padding:8px 0;">
+        <div style="font-size:11px;color:var(--stone);margin-bottom:8px;">Оцените удовлетворённость за ${label}</div>
+        <div style="display:flex;justify-content:center;gap:4px;">
+          ${[1,2,3,4,5].map(s=>`<span onclick="submitEnps('${masterKey}',${s},'${mk}')" style="font-size:26px;cursor:pointer;transition:transform .15s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">${s <= (existing||0) ? '⭐' : '☆'}</span>`).join('')}
+        </div>
+       </div>`;
+}
+
+// ── Hire pipeline ──
+const HIRE_STAGES = [
+  {id:'sourcing', label:'Сорсинг'},
+  {id:'screen', label:'Скрининг'},
+  {id:'interview', label:'Интервью'},
+  {id:'trial', label:'Пробный день'},
+  {id:'offer', label:'Оффер'},
+];
+
+
+/* ── eNPS widget injected into master LK ──
+   Called after renderDashboard builds the DOM */
+function injectEnpsWidget(key) {
+  const anchor = document.getElementById('enps-lk-' + key);
+  if (anchor) renderEnpsLkWidget(key, anchor);
+}
+
+/* ═══════════════════════════════════════
+   QUARTERLY ANALYTICS
+═══════════════════════════════════════ */
+
+/* CSS injected inline for quarterly cards */
+const Q_CSS = `
+.q-master-card {
+  background:#fff; border:1px solid var(--sand); border-radius:var(--radius);
+  margin-bottom:16px; overflow:hidden; box-shadow:var(--shadow-sm);
+}
+.q-card-header {
+  display:grid; grid-template-columns:220px 1fr auto;
+  align-items:center; gap:16px; padding:18px 22px;
+  cursor:pointer; transition:background .15s;
+}
+.q-card-header:hover { background:var(--cream); }
+.q-card-name { font-family:'Playfair Display',serif; font-size:16px; color:var(--ink); }
+.q-card-meta { font-size:10px; color:var(--stone); margin-top:3px; }
+.q-card-metrics { display:flex; gap:20px; flex-wrap:wrap; }
+.q-metric { text-align:center; }
+.q-metric-val { font-family:'Playfair Display',serif; font-size:18px; color:var(--ink); }
+.q-metric-label { font-size:9px; letter-spacing:1px; text-transform:uppercase; color:var(--stone); margin-top:2px; }
+.q-metric-trend { font-size:9px; margin-top:2px; }
+.q-metric-trend.good { color:var(--sage); }
+.q-metric-trend.bad { color:var(--rose); }
+.q-metric-trend.warn { color:var(--gold-dk); }
+.q-card-chevron { font-size:18px; color:var(--stone); transition:transform .2s; }
+.q-card-chevron.open { transform:rotate(180deg); }
+.q-card-body { display:none; padding:0 22px 22px; border-top:1px solid var(--sand); }
+.q-card-body.open { display:block; }
+.q-section-head { font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--stone); margin:18px 0 10px; }
+.q-kpi-row { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; }
+.q-kpi-chip {
+  padding:7px 14px; border-radius:var(--radius-sm); font-size:11px;
+  border:1px solid var(--sand); background:var(--cream);
+}
+.q-kpi-chip.green { background:rgba(126,158,140,0.1); border-color:rgba(126,158,140,0.35); color:var(--sage); }
+.q-kpi-chip.red { background:rgba(184,130,110,0.1); border-color:rgba(184,130,110,0.35); color:var(--rose); }
+.q-kpi-chip.yellow { background:rgba(197,169,106,0.1); border-color:rgba(197,169,106,0.35); color:var(--gold-dk); }
+.q-rec-box {
+  background:linear-gradient(135deg,rgba(46,40,32,0.03),rgba(197,169,106,0.05));
+  border:1px solid rgba(197,169,106,0.25); border-radius:var(--radius-sm);
+  padding:16px 18px; margin-top:4px;
+}
+.q-rec-verdict {
+  font-size:10px; letter-spacing:2px; text-transform:uppercase; margin-bottom:8px; font-weight:500;
+}
+.q-rec-verdict.grow { color:var(--sage); }
+.q-rec-verdict.watch { color:var(--gold-dk); }
+.q-rec-verdict.risk { color:var(--rose); }
+.q-rec-text { font-size:12.5px; color:var(--dusk); line-height:1.8; }
+.q-rec-actions { margin-top:12px; display:flex; flex-direction:column; gap:6px; }
+.q-rec-action { font-size:12px; color:var(--ink); padding-left:14px; position:relative; }
+.q-rec-action::before { content:'→'; position:absolute; left:0; color:var(--gold-dk); }
+.q-notes-area { width:100%; border:1px solid var(--sand); border-radius:var(--radius-sm); padding:10px 14px; font-family:'Jost',sans-serif; font-size:12.5px; color:var(--ink); background:none; outline:none; resize:vertical; min-height:70px; margin-top:10px; transition:border-color .2s; }
+.q-notes-area:focus { border-color:var(--sage); }
+.q-sync-row { display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:14px; padding-top:14px; border-top:1px solid var(--sand); }
+.q-sync-label { font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--stone); }
+.q-sync-btn { padding:7px 16px; border-radius:var(--radius-pill); font-size:9px; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; border:1px solid var(--sand); background:none; font-family:'Jost',sans-serif; transition:all .18s; color:var(--stone); }
+.q-sync-btn.done { background:rgba(126,158,140,0.1); border-color:var(--sage); color:var(--sage); }
+.q-date-input { padding:6px 12px; border:1px solid var(--sand); border-radius:var(--radius-sm); font-family:'Jost',sans-serif; font-size:12px; color:var(--ink); outline:none; transition:border-color .2s; }
+.q-date-input:focus { border-color:var(--sage); }
+.q-extra-row { margin-top:8px; }
+.q-add-sync { background:none; border:1px dashed var(--sand); border-radius:var(--radius-pill); padding:6px 14px; font-size:9px; letter-spacing:1.5px; text-transform:uppercase; color:var(--stone); cursor:pointer; font-family:'Jost',sans-serif; transition:all .18s; }
+.q-add-sync:hover { border-color:var(--gold); color:var(--gold-dk); }
+.q-summary-strip { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:10px; margin-bottom:20px; }
+.q-sum-card { background:#fff; border:1px solid var(--sand); border-radius:var(--radius-sm); padding:14px 16px; }
+.q-sum-val { font-family:'Playfair Display',serif; font-size:22px; color:var(--ink); }
+.q-sum-label { font-size:9px; letter-spacing:1.5px; text-transform:uppercase; color:var(--stone); margin-top:3px; }
+`;
+
+// inject CSS once
+if (!document.getElementById('q-css')) {
+  const s = document.createElement('style');
+  s.id = 'q-css'; s.textContent = Q_CSS;
+  document.head.appendChild(s);
+}
+
+/* ── Quarter helpers ── */
+let activeQuarter = null;
+
+function getCurrentQuarter() {
+  const now = new Date();
+  const y = now.getFullYear();
+  const q = Math.ceil((now.getMonth() + 1) / 3);
+  return `${y}-Q${q}`;
+}
+
+/* Квартал с последними фактическими данными (сейчас — июнь 2026 закрыт,
+   июль ещё не выгружен). Открывается по умолчанию, чтобы не показывать
+   пустой текущий квартал. */
+function getLatestDataQuarter() {
+  const q = Math.ceil(ANALYTICS_ANCHOR.month / 3);
+  return `${ANALYTICS_ANCHOR.year}-Q${q}`;
+}
+
+function getAvailableQuarters() {
+  // Только кварталы 2026 года — фиксированный список, не зависит от текущего выбора
+  return ['2026-Q4','2026-Q3','2026-Q2','2026-Q1'];
+}
+
+function quarterLabelKey(key) {
+  const [y, q] = key.split('-');
+  const labels = {Q1:'Q1 (янв–мар)', Q2:'Q2 (апр–июн)', Q3:'Q3 (июл–сен)', Q4:'Q4 (окт–дек)'};
+  return `${labels[q]} ${y}`;
+}
+
+function quarterMonths(key) {
+  const [y, q] = key.split('-');
+  const yr = parseInt(y);
+  const qn = parseInt(q.replace('Q',''));
+  const starts = {1:[1,2,3], 2:[4,5,6], 3:[7,8,9], 4:[10,11,12]};
+  return starts[qn].map(m => ({ year: yr, month: m }));
+}
+
+/* Analytics entries only carry a month label (no year). All masters' LAST
+   entry is the most recently closed month (Июнь 2026, per the June report).
+   We reconstruct each entry's real (year, month) by walking backward from
+   that anchor — an increase in month number while going backward means we
+   crossed a New Year. This correctly separates same-named months that
+   belong to different years (e.g. Апр 2025 vs Апр 2026) so quarterly
+   aggregates don't silently mix two years together. */
+const RU_MONTH_NUM = {'Янв':1,'Фев':2,'Мар':3,'Апр':4,'Май':5,'Июн':6,'Июл':7,'Авг':8,'Сен':9,'Окт':10,'Ноя':11,'Дек':12};
+function parseMonthNum(mStr) {
+  return RU_MONTH_NUM[String(mStr).substring(0,3)] || null;
+}
+const ANALYTICS_ANCHOR = { year: 2026, month: 6 }; // последний закрытый месяц во всех отчётах — июнь 2026
+function getMasterEntryDates(key) {
+  const analytics = MASTERS[key].analytics;
+  const dates = new Array(analytics.length).fill(null);
+  if (!analytics.length) return dates;
+  let curYear = ANALYTICS_ANCHOR.year, curMonth = ANALYTICS_ANCHOR.month;
+  dates[analytics.length-1] = { year: curYear, month: curMonth };
+  for (let i = analytics.length - 2; i >= 0; i--) {
+    const mo = parseMonthNum(analytics[i].m);
+    if (mo === null) continue;
+    if (mo > curMonth) curYear -= 1;
+    curMonth = mo;
+    dates[i] = { year: curYear, month: curMonth };
+  }
+  return dates;
+}
+
+function getMasterQuarterData(key, qKey) {
+  const qm = quarterMonths(qKey); // [{year,month},...]
+  const dates = getMasterEntryDates(key);
+  return MASTERS[key].analytics.filter((a, i) => {
+    const d = dates[i];
+    return d && qm.some(x => x.year === d.year && x.month === d.month);
+  });
+}
+
+/* ── Auto recommendations engine ── */
+function generateRecommendation(key, qData, qKey) {
+  const m = MASTERS[key];
+  if (!qData.length) return null;
+
+  const avgRev = Math.round(qData.reduce((s,a) => s+a.rev, 0) / qData.length);
+  const avgCheck = Math.round(qData.reduce((s,a) => s+a.check, 0) / qData.length);
+  const retVals = qData.filter(a => a.ret !== null).map(a => a.ret);
+  const avgRet = retVals.length ? Math.round(retVals.reduce((s,v)=>s+v,0)/retVals.length) : null;
+  const totalRec = qData.reduce((s,a) => s+(a.rec||0), 0);
+
+  const targetRev = m.kpiTarget.rev;
+  const targetCheck = m.kpiTarget.check;
+  const targetRet = m.kpiTarget.ret;
+
+  const revOk = avgRev >= targetRev;
+  const checkOk = avgCheck >= targetCheck;
+  const retOk = avgRet !== null && avgRet >= targetRet;
+  const recOk = totalRec === 0;
+  const score = (revOk?1:0) + (checkOk?1:0) + (retOk?1:0) + (recOk?1:0);
+
+  const catLabel = MASTER_CATEGORIES[m.category]?.label || 'ТОП';
+  const months = m.monthsInStudio || 0;
+
+  let verdict, verdictCls, text, actions = [];
+
+  if (score === 4) {
+    verdict = '✦ РАСТИТЬ'; verdictCls = 'grow';
+    if (m.category === 'top') {
+      text = `${m.name} стабильно выполняет все показатели уровня ТОП. Сильный кандидат на повышение до Мастера-Эксперта.`;
+      actions = ['Инициировать аттестацию', 'Обсудить новые технику/направление', 'Поставить индивидуальную цель по среднему чеку'];
+    } else if (m.category === 'expert') {
+      text = `${m.name} стабильно выполняет показатели уровня Эксперт. Есть потенциал для перехода в Высшую категорию.`;
+      actions = ['Поставить цель по среднему чеку 6 500 ₽', 'Подключить наставничество для новых мастеров', 'Рассмотреть повышение до Высшей категории'];
+    } else {
+      text = `${m.name} — мастер Высшей категории с отличными показателями квартала. Ключевой актив команды.`;
+      actions = ['Поддерживать вовлечённость через интересные задачи', 'Рассмотреть роль наставника', 'Благодарить публично на командных встречах'];
+    }
+  } else if (score >= 2) {
+    verdict = '↗ НАБЛЮДАТЬ'; verdictCls = 'watch';
+    const issues = [];
+    if (!revOk) issues.push(`выручка ниже цели (${Math.round(avgRev/1000)}К vs ${Math.round(targetRev/1000)}К)`);
+    if (!checkOk) issues.push(`средний чек ${avgCheck} ₽ < цель ${targetCheck} ₽`);
+    if (!retOk && avgRet !== null) issues.push(`возвратность ${avgRet}% < цель ${targetRet}%`);
+    if (!recOk) issues.push(`${totalRec} рекламаций за квартал`);
+    text = `Есть точки роста: ${issues.join('; ')}. В целом динамика рабочая, нужна поддержка по слабым показателям.`;
+    if (!revOk) actions.push('Разобрать расписание — добавить смены или перераспределить клиентов');
+    if (!checkOk) actions.push('Обучение допродажам: комплексный уход, сезонные процедуры');
+    if (!retOk && avgRet !== null) actions.push('Анализ оттока: провести созвон, выявить причину ухода клиентов');
+    if (!recOk) actions.push('Разбор рекламаций совместно с мастером, корректировка техники');
+    if (months < 6) actions.push('Усилить сопровождение — мастер ещё в адаптации');
+  } else {
+    verdict = '⚠ РИСК'; verdictCls = 'risk';
+    const issues = [];
+    if (!revOk) issues.push(`выручка ${Math.round(avgRev/1000)}К при цели ${Math.round(targetRev/1000)}К`);
+    if (!checkOk) issues.push(`чек ${avgCheck} ₽`);
+    if (!retOk && avgRet !== null) issues.push(`возвратность ${avgRet}%`);
+    if (!recOk) issues.push(`${totalRec} рекламаций`);
+    text = `Показатели ниже нормы по большинству метрик: ${issues.join(', ')}. Требуется активное вмешательство.`;
+    actions = [
+      'Срочный созвон — выяснить причины и ситуацию',
+      'Совместный анализ записи клиентов и загрузки',
+      'Определить: вопрос мотивации, навыков или внешних факторов',
+    ];
+    if (months > 6) actions.push('Если нет улучшения за следующий квартал — рассмотреть расставание');
+    if (months <= 3) actions.push('Мастер в адаптации — усилить поддержку, дать конкретные задачи');
+  }
+
+  return { verdict, verdictCls, text, actions, avgRev, avgCheck, avgRet, totalRec, score,
+    revOk, checkOk, retOk, recOk, targetRev, targetCheck, targetRet };
+}
+
+/* ── Sync session helpers (quarterly) ── */
+function getQSyncKey(masterKey, qKey) { return `qsync_${masterKey}_${qKey}`; }
+function getQExtraKey(masterKey, qKey) { return `qsyncex_${masterKey}_${qKey}`; }
+
+function saveQSync(masterKey, qKey, done, date) {
+  const data = mgmtGet(getQSyncKey(masterKey, qKey), {});
+  data.done = done; data.date = date;
+  mgmtSave(getQSyncKey(masterKey, qKey), data);
+  updateSyncCounter();
+}
+
+function getQSync(masterKey, qKey) {
+  return mgmtGet(getQSyncKey(masterKey, qKey), { done: false, date: '' });
+}
+
+function updateSyncCounter() {
+  // Update the summary stats row synced count
+  const allKeys = Object.keys(MASTERS);
+  const qKey = activeQuarter || getLatestDataQuarter();
+  const syncedCount = allKeys.filter(k => getQSync(k, qKey).done).length;
+  const el = document.getElementById('q-sync-count');
+  if (el) el.textContent = `${syncedCount}/${allKeys.length}`;
+}
+
+/* ── Render quarterly tab ── */
+function renderQuarterly(qKey) {
+  activeQuarter = qKey;
+  const allKeys = Object.keys(MASTERS);
+  const qm = quarterMonths(qKey);
+
+  // Quarter selector buttons
+  document.getElementById('q-selector').innerHTML = getAvailableQuarters().map(q =>
+    `<button class="mgmt-tab${q===qKey?' active':''}" style="font-size:9px;padding:6px 14px;" onclick="renderQuarterly('${q}')">${quarterLabelKey(q)}</button>`
+  ).join('');
+
+  // Summary strip
+  const allQData = allKeys.map(k => getMasterQuarterData(k, qKey)).filter(d => d.length);
+  const totalRevQ = allQData.reduce((s,d) => s + d.reduce((ss,a) => ss+a.rev,0), 0);
+  const avgCheckQ = allQData.length ? Math.round(allQData.flat().reduce((s,a) => s+a.check,0) / allQData.flat().length) : 0;
+  const totalRecQ = allQData.flat().reduce((s,a) => s+(a.rec||0), 0);
+  const syncedQ = allKeys.filter(k => getQSync(k, qKey).done).length;
+  const recs = allKeys.map(k => {
+    const d = getMasterQuarterData(k, qKey);
+    return d.length ? generateRecommendation(k, d, qKey) : null;
+  }).filter(Boolean);
+  const growCount = recs.filter(r => r.verdictCls === 'grow').length;
+  const watchCount = recs.filter(r => r.verdictCls === 'watch').length;
+  const riskCount = recs.filter(r => r.verdictCls === 'risk').length;
+
+  document.getElementById('q-summary').innerHTML = `
+    <div class="q-summary-strip">
+      <div class="q-sum-card"><div class="q-sum-val">${Math.round(totalRevQ/1000000*10)/10}М ₽</div><div class="q-sum-label">Выручка команды</div></div>
+      <div class="q-sum-card"><div class="q-sum-val">${avgCheckQ ? new Intl.NumberFormat('ru-RU').format(avgCheckQ)+' ₽' : '—'}</div><div class="q-sum-label">Средний чек</div></div>
+      <div class="q-sum-card"><div class="q-sum-val" style="color:${totalRecQ===0?'var(--sage)':'var(--rose)'};">${totalRecQ}</div><div class="q-sum-label">Рекламаций</div></div>
+      <div class="q-sum-card"><div class="q-sum-val" id="q-sync-count">${syncedQ}/${allKeys.length}</div><div class="q-sum-label">Созвонов проведено</div></div>
+      <div class="q-sum-card"><div class="q-sum-val" style="color:var(--sage);">${growCount}</div><div class="q-sum-label">Растить</div></div>
+      <div class="q-sum-card"><div class="q-sum-val" style="color:var(--gold-dk);">${watchCount}</div><div class="q-sum-label">Наблюдать</div></div>
+      <div class="q-sum-card"><div class="q-sum-val" style="color:var(--rose);">${riskCount}</div><div class="q-sum-label">Риск</div></div>
+    </div>`;
+
+  // Master cards — sorted: risk first, then watch, then grow
+  const order = {risk:0, watch:1, grow:2};
+  const sortedKeys = [...allKeys].sort((a, b) => {
+    const da = getMasterQuarterData(a, qKey);
+    const db = getMasterQuarterData(b, qKey);
+    const ra = da.length ? (generateRecommendation(a, da, qKey)?.verdictCls || 'watch') : 'watch';
+    const rb = db.length ? (generateRecommendation(b, db, qKey)?.verdictCls || 'watch') : 'watch';
+    return (order[ra]||1) - (order[rb]||1);
+  });
+
+  document.getElementById('q-master-cards').innerHTML = sortedKeys.map(key => renderQMasterCard(key, qKey)).join('');
+}
+
+function renderQMasterCard(key, qKey) {
+  const m = MASTERS[key];
+  const qData = getMasterQuarterData(key, qKey);
+  const catInfo = MASTER_CATEGORIES[m.category] || MASTER_CATEGORIES.top;
+  const rec = qData.length ? generateRecommendation(key, qData, qKey) : null;
+  const qSync = getQSync(key, qKey);
+  const extraSyncs = mgmtGet(getQExtraKey(key, qKey), []);
+  const notes = mgmtGet(`qnotes_${key}_${qKey}`, '');
+  const months = m.monthsInStudio || 0;
+
+  if (!qData.length) {
+    return `<div class="q-master-card">
+      <div class="q-card-header" onclick="toggleQCard('${key}')">
+        <div><div class="q-card-name">${m.name}</div><div class="q-card-meta">${months} мес · ${catInfo.label}</div></div>
+        <div style="font-size:12px;color:var(--stone);">Нет данных за этот квартал</div>
+        <div class="q-card-chevron" id="chev-${key}">▾</div>
+      </div>
+    </div>`;
+  }
+
+  const avgRev = rec.avgRev;
+  const avgCheck = rec.avgCheck;
+  const avgRet = rec.avgRet;
+  const totalRec2 = rec.totalRec;
+
+  // Monthly breakdown table
+  const monthRows = qData.map(a => `
+    <tr>
+      <td style="color:var(--stone);padding:7px 12px;">${a.m}</td>
+      <td style="padding:7px 12px;">${new Intl.NumberFormat('ru-RU').format(a.rev)} ₽</td>
+      <td style="padding:7px 12px;">${new Intl.NumberFormat('ru-RU').format(a.check)} ₽</td>
+      <td style="padding:7px 12px;color:var(--stone);">${a.shifts!==undefined?a.shifts:'—'}</td>
+      <td style="padding:7px 12px;">${a.ret !== null ? a.ret+'%' : '—'}</td>
+      <td style="padding:7px 12px;color:${a.rec>0?'var(--rose)':'var(--sage)'};">${a.rec}</td>
+      <td style="padding:7px 12px;">${Math.round(a.rev * 0.35 / 1000)}К ₽</td>
+    </tr>`).join('');
+
+  // Extra sync sessions
+  const extraHtml = extraSyncs.map((ex, i) => `
+    <div class="q-extra-row" style="display:flex;align-items:center;gap:10px;">
+      <span style="font-size:10px;color:var(--stone);">Внеплановый ${i+1}:</span>
+      <input class="q-date-input" type="date" value="${ex.date||''}" onchange="updateExtraSync('${key}','${qKey}',${i},this.value)" />
+      <button onclick="removeExtraSync('${key}','${qKey}',${i})" style="border:none;background:none;color:var(--stone);cursor:pointer;font-size:16px;" title="Удалить">×</button>
+    </div>`).join('');
+
+  return `<div class="q-master-card">
+    <div class="q-card-header" onclick="toggleQCard('${key}-${qKey.replace('-','')}')">
       <div>
-        <div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--ink);">${s.name}</div>
-        <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-top:2px;">Специалист по телу · SHUGA Studio</div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div class="q-card-name">${m.name}</div>
+          ${rec ? `<span style="font-size:8px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;border-radius:10px;background:${rec.verdictCls==='grow'?'rgba(126,158,140,0.15)':rec.verdictCls==='risk'?'rgba(184,130,110,0.15)':'rgba(197,169,106,0.15)'};color:${rec.verdictCls==='grow'?'var(--sage)':rec.verdictCls==='risk'?'var(--rose)':'var(--gold-dk)'};">${rec.verdict}</span>` : ''}
+        </div>
+        <div class="q-card-meta">${months} мес · ${catInfo.label} · ${qSync.done ? '✓ Созвон '+qSync.date : '○ Созвон не отмечен'}</div>
       </div>
-      <button class="lk-logout" onclick="blkLogout()">Выйти</button>
+      <div class="q-card-metrics">
+        <div class="q-metric">
+          <div class="q-metric-val">${Math.round(avgRev/1000)}К</div>
+          <div class="q-metric-label">Ср. выручка</div>
+          <div class="q-metric-trend ${rec.revOk?'good':'bad'}">${rec.revOk?'✓':'↓'} цель ${Math.round(rec.targetRev/1000)}К</div>
+        </div>
+        <div class="q-metric">
+          <div class="q-metric-val">${new Intl.NumberFormat('ru-RU').format(avgCheck)}</div>
+          <div class="q-metric-label">Ср. чек</div>
+          <div class="q-metric-trend ${rec.checkOk?'good':'bad'}">${rec.checkOk?'✓':'↓'} цель ${new Intl.NumberFormat('ru-RU').format(rec.targetCheck)}</div>
+        </div>
+        <div class="q-metric">
+          <div class="q-metric-val">${avgRet !== null ? avgRet+'%' : '—'}</div>
+          <div class="q-metric-label">Возвратность</div>
+          <div class="q-metric-trend ${rec.retOk?'good':avgRet!==null?'bad':''}">${avgRet!==null?(rec.retOk?'✓':'↓ цель '+rec.targetRet+'%'):''}</div>
+        </div>
+        <div class="q-metric">
+          <div class="q-metric-val" style="color:${totalRec2===0?'var(--sage)':'var(--rose)'};">${totalRec2}</div>
+          <div class="q-metric-label">Рекламации</div>
+          <div class="q-metric-trend ${rec.recOk?'good':'bad'}">${rec.recOk?'✓ 0':'⚠ есть'}</div>
+        </div>
+      </div>
+      <div class="q-card-chevron" id="chev-${key}-${qKey.replace('-','')}">▾</div>
     </div>
-    <div class="blk-body">
-
-      <div class="blk-welcome">
-        <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--sage);margin-bottom:12px;">Добро пожаловать</div>
-        <div style="font-family:'Playfair Display',serif;font-size:26px;color:var(--ink);margin-bottom:16px;">Рады видеть Вас, ${s.name}! 🤍</div>
-        <div style="font-size:13px;color:var(--dusk);line-height:1.8;max-width:600px;">
-          Добро пожаловать в нашу команду профессионалов, наполненных и отдающих человеческое тепло, для которых высокий уровень сервиса и искренность — настройки на уровне кончиков пальцев!<br><br>
-          Мы рады приветствовать Вас в SHUGA ACADEMY, где начинается Ваш путь развития внутри компании 🤍<br><br>
-          Ниже у Вас есть разделы, которые помогут изучить нашу внутреннюю информацию о компании, сонастроиться с нашими ценностями, понять свою роль и роль остальных членов команды, а также отследить динамику Ваших показателей!<br><br>
-          Надеемся, что путь адаптации будет полезным и увлекательным. Начинайте с блока онбординга, а далее Вас направит управляющая и HR-директор 🫂
-        </div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;">
-          <button class="alk-nav-btn rose" style="background:var(--sage);border-color:var(--sage);" onclick="blkTab('onboard')">📋 Онбординг</button>
-          <button class="alk-nav-btn outline" onclick="blkTab('kpi')">📊 Мои показатели</button>
-        </div>
+    <div class="q-card-body" id="body-${key}-${qKey.replace('-','')}">
+      <!-- Monthly breakdown -->
+      <div class="q-section-head">Помесячные показатели</div>
+      <div style="overflow-x:auto;">
+        <table class="week-table" style="min-width:500px;">
+          <thead><tr>
+            <th>Месяц</th><th>Выручка</th><th>Ср. чек</th><th>Смен</th><th>Возвратность</th><th>Рекламации</th><th>З/П (35%)</th>
+          </tr></thead>
+          <tbody>${monthRows}</tbody>
+          <tfoot><tr style="font-weight:500;border-top:1px solid var(--sand);">
+            <td style="padding:8px 12px;color:var(--stone);">Итог квартала</td>
+            <td style="padding:8px 12px;">${new Intl.NumberFormat('ru-RU').format(qData.reduce((s,a)=>s+a.rev,0))} ₽</td>
+            <td style="padding:8px 12px;">${new Intl.NumberFormat('ru-RU').format(avgCheck)} ₽</td>
+            <td style="padding:8px 12px;color:var(--stone);">${qData.reduce((s,a)=>s+(a.shifts||0),0)}</td>
+            <td style="padding:8px 12px;">${avgRet !== null ? avgRet+'%' : '—'}</td>
+            <td style="padding:8px 12px;color:${totalRec2>0?'var(--rose)':'var(--sage)'};">${totalRec2}</td>
+            <td style="padding:8px 12px;">${new Intl.NumberFormat('ru-RU').format(Math.round(qData.reduce((s,a)=>s+a.rev,0)*0.35))} ₽</td>
+          </tfoot>
+        </table>
       </div>
 
-      <!-- Progress -->
-      <div style="background:linear-gradient(135deg,rgba(126,158,140,0.08),rgba(196,144,154,0.06));border:1px solid rgba(126,158,140,0.25);border-radius:var(--radius);padding:32px;margin-bottom:28px;">
-        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
-          <div>
-            <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--stone);margin-bottom:8px;">Прогресс адаптации</div>
-            <div style="display:flex;align-items:baseline;gap:6px;">
-              <span style="font-family:'Playfair Display',serif;font-size:42px;color:var(--sage);" id="blk-prog-pct">${pct}</span>
-              <span style="font-size:13px;color:var(--stone);">%</span>
-            </div>
-            <div style="font-size:12px;color:var(--dusk);margin-top:4px;" id="blk-prog-done">${done} из ${BODY_TOTAL} пунктов</div>
-          </div>
-          <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:var(--radius-pill);background:rgba(126,158,140,0.1);border:1px solid rgba(126,158,140,0.3);font-size:11px;color:var(--sage);letter-spacing:1.5px;text-transform:uppercase;">
-            ${pct < 50 ? '🌱 Адаптация' : pct < 100 ? '🚀 В процессе' : '✨ Адаптирована'}
-          </div>
-        </div>
-        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--stone);margin-bottom:6px;"><span>Старт</span><span>Адаптация завершена</span></div>
-        <div class="blk-prog-track"><div class="blk-prog-fill" id="blk-prog-fill" style="width:${pct}%"></div></div>
+      <!-- KPI chips -->
+      <div class="q-section-head">KPI-оценка</div>
+      <div class="q-kpi-row">
+        <div class="q-kpi-chip ${rec.revOk?'green':'red'}">Выручка: ${rec.revOk?'✓ Выполнено':'✗ Не выполнено'}</div>
+        <div class="q-kpi-chip ${rec.checkOk?'green':'red'}">Чек: ${rec.checkOk?'✓ Выполнено':'✗ Не выполнено'}</div>
+        <div class="q-kpi-chip ${rec.retOk?'green':avgRet!==null?'red':'yellow'}">Возвратность: ${avgRet!==null?(rec.retOk?'✓ Выполнено':'✗ Не выполнено'):'Нет данных'}</div>
+        <div class="q-kpi-chip ${rec.recOk?'green':'red'}">Рекламации: ${rec.recOk?'✓ Чисто':'✗ Есть'}</div>
       </div>
 
-      <div class="blk-tabs">
-        <button class="blk-tab active" data-tab="onboard" onclick="blkTab('onboard')">📋 Онбординг</button>
-        <button class="blk-tab" data-tab="kpi" onclick="blkTab('kpi')">📊 Мои показатели</button>
+      <!-- Auto recommendation -->
+      <div class="q-section-head">Рекомендация</div>
+      <div class="q-rec-box">
+        <div class="q-rec-verdict ${rec.verdictCls}">${rec.verdict}</div>
+        <div class="q-rec-text">${rec.text}</div>
+        <div class="q-rec-actions">${rec.actions.map(a=>`<div class="q-rec-action">${a}</div>`).join('')}</div>
       </div>
 
-      <div id="blk-tc-onboard" class="blk-tab-content active">${onboardHTML}</div>
-      <div id="blk-tc-kpi" class="blk-tab-content">${kpiHTML}</div>
+      <!-- Manager notes -->
+      <div class="q-section-head">Заметки управляющей</div>
+      <textarea class="q-notes-area" placeholder="Дополнительный контекст, личные наблюдения, договорённости с мастером..."
+        onchange="mgmtSave('qnotes_${key}_${qKey}',this.value)">${notes}</textarea>
+
+      <!-- Quarterly sync session -->
+      <div class="q-sync-row">
+        <div class="q-sync-label">Квартальный созвон</div>
+        <button class="q-sync-btn${qSync.done?' done':''}" id="qsync-btn-${key}-${qKey.replace('-','')}"
+          onclick="toggleQSync('${key}','${qKey}',this)">
+          ${qSync.done ? '✓ Проведён' : '○ Отметить'}
+        </button>
+        <input class="q-date-input" type="date" value="${qSync.date||''}" placeholder="дата"
+          onchange="saveQSyncDate('${key}','${qKey}',this.value)" title="Дата созвона" />
+        <div id="qsync-date-${key}-${qKey.replace('-','')}" style="font-size:10px;color:var(--stone);">${qSync.date||''}</div>
+      </div>
+      <div id="qextra-${key}-${qKey.replace('-','')}">${extraHtml}</div>
+      <button class="q-add-sync" style="margin-top:8px;" onclick="addExtraSync('${key}','${qKey}')">+ Добавить внеплановый созвон</button>
     </div>
   </div>`;
+}
+
+function toggleQCard(id) {
+  const body = document.getElementById('body-' + id);
+  const chev = document.getElementById('chev-' + id);
+  if (!body) return;
+  body.classList.toggle('open');
+  if (chev) chev.classList.toggle('open');
+}
+
+function toggleQSync(masterKey, qKey, btn) {
+  const cur = getQSync(masterKey, qKey);
+  const newDone = !cur.done;
+  const today = new Date().toISOString().split('T')[0];
+  const date = newDone ? (cur.date || today) : cur.date;
+  saveQSync(masterKey, qKey, newDone, date);
+  btn.classList.toggle('done', newDone);
+  btn.textContent = newDone ? '✓ Проведён' : '○ Отметить';
+  updateSyncCounter();
+}
+
+function saveQSyncDate(masterKey, qKey, date) {
+  const cur = getQSync(masterKey, qKey);
+  saveQSync(masterKey, qKey, cur.done, date);
+  const dateEl = document.getElementById(`qsync-date-${masterKey}-${qKey.replace('-','')}`);
+  if (dateEl) dateEl.textContent = date;
+}
+
+function addExtraSync(masterKey, qKey) {
+  const extras = mgmtGet(getQExtraKey(masterKey, qKey), []);
+  extras.push({ date: '' });
+  mgmtSave(getQExtraKey(masterKey, qKey), extras);
+  const container = document.getElementById(`qextra-${masterKey}-${qKey.replace('-','')}`);
+  if (container) {
+    const i = extras.length - 1;
+    const div = document.createElement('div');
+    div.className = 'q-extra-row';
+    div.style.display = 'flex'; div.style.alignItems = 'center'; div.style.gap = '10px';
+    div.innerHTML = `<span style="font-size:10px;color:var(--stone);">Внеплановый ${i+1}:</span>
+      <input class="q-date-input" type="date" onchange="updateExtraSync('${masterKey}','${qKey}',${i},this.value)" />
+      <button onclick="removeExtraSync('${masterKey}','${qKey}',${i})" style="border:none;background:none;color:var(--stone);cursor:pointer;font-size:16px;">×</button>`;
+    container.appendChild(div);
+  }
+}
+
+function updateExtraSync(masterKey, qKey, idx, date) {
+  const extras = mgmtGet(getQExtraKey(masterKey, qKey), []);
+  if (extras[idx]) extras[idx].date = date;
+  mgmtSave(getQExtraKey(masterKey, qKey), extras);
+}
+
+function removeExtraSync(masterKey, qKey, idx) {
+  const extras = mgmtGet(getQExtraKey(masterKey, qKey), []);
+  extras.splice(idx, 1);
+  mgmtSave(getQExtraKey(masterKey, qKey), extras);
+  renderQuarterly(qKey); // re-render
 }
 
 /* ── Service Worker ── */
