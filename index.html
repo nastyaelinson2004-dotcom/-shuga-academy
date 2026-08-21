@@ -735,7 +735,7 @@ body::before {
 ═══════════════════════════════════════ */
 .overlay {
   display: none; position: fixed; inset: 0;
-  background: rgba(46,40,32,0.5); z-index: 200;
+  background: rgba(46,40,32,0.5); z-index: 1100;
   align-items: center; justify-content: center;
   padding: 24px; backdrop-filter: blur(6px);
 }
@@ -958,13 +958,18 @@ body::before {
         <div><div class="section-title">Адаптация</div><div class="section-sub">Первые шаги нового сотрудника</div></div>
       </div>
       <div class="steps-grid">
-        <div class="step-card" onclick="showDetail('a1')"><div class="step-num">1</div><div class="step-body"><h4>Подписание документов</h4><p>NDA · Согласие на ОПД · Согласие на съёмку</p><div class="badge-row"><span class="badge badge-rose">NDA</span><span class="badge badge-rose">ОПД</span><span class="badge badge-rose">Съёмка</span></div></div></div>
-        <div class="step-card" onclick="showDetail('a2')"><div class="step-num">2</div><div class="step-body"><h4>Внутренние регламенты</h4><p>Подписание всех внутренних регламентов студии</p></div></div>
-        <div class="step-card" onclick="showDetail('a3')"><div class="step-num">3</div><div class="step-body"><h4>Регламент внешнего вида студии</h4><p>Стандарты внешнего вида студии с ежедневным фотоотчётом</p><div class="badge-row"><span class="badge badge-gold">Только хранители</span></div></div></div>
-        <div class="step-card" onclick="showDetail('a4')"><div class="step-num">4</div><div class="step-body"><h4>Карта процессов SHUGA</h4><p>Изучение всех этапов: хранитель (9 блоков) · менеджер (7 блоков)</p></div></div>
-        <div class="step-card" onclick="showDetail('a5')"><div class="step-num">5</div><div class="step-body"><h4>Итог 2 недель работы</h4><p>Синхронизационная сессия с HRD + презентация брендбука</p></div></div>
-        <div class="step-card" onclick="showDetail('a6')"><div class="step-num">6</div><div class="step-body"><h4>Знание услуг</h4><p>Тестирование / аттестация по услугам студии Shuga</p><div class="badge-row"><span class="badge badge-rose">Аттестация</span></div></div></div>
-        <div class="step-card" onclick="showDetail('a7')"><div class="step-num">7</div><div class="step-body"><h4>Конфликтология и рекламации</h4><p>Тестирование / аттестация по работе с конфликтными ситуациями</p><div class="badge-row"><span class="badge badge-rose">Аттестация</span></div></div></div>
+        <div class="step-card" onclick="showDetail('a1')"><div class="step-num">1</div><div class="step-body"><h4>Welcome-book</h4><p>Знакомство с историей и укладом студии SHUGA</p><a class="step-link" href="https://docs.google.com/presentation/d/1GmzLElnG1tHX-kGOA-QotpsHSNg-BJFqRum8mHDD82g/edit?usp=sharing" target="_blank" rel="noopener" onclick="event.stopPropagation()">📖 Открыть Welcome-book →</a></div></div>
+        <div class="step-card" onclick="showDetail('a2')"><div class="step-num">2</div><div class="step-body"><h4>Дресс-код, этика и правила посещения</h4><p>Дресс-код SHUGA · этика поведения администратора · правила посещения студии</p></div></div>
+        <div class="step-card" onclick="showDetail('a3')"><div class="step-num">3</div><div class="step-body"><h4>Подписание документов</h4><p>NDA · Согласие на ОПД · Согласие на съёмку</p><div class="badge-row"><span class="badge badge-rose">NDA</span><span class="badge badge-rose">ОПД</span><span class="badge badge-rose">Съёмка</span></div></div></div>
+        <div class="step-card" onclick="showDetail('a4')"><div class="step-num">4</div><div class="step-body"><h4>Внутренние регламенты</h4><p>Подписание всех внутренних регламентов студии</p></div></div>
+        <div class="step-card" onclick="showDetail('a5')"><div class="step-num">5</div><div class="step-body"><h4>Понимание своей роли</h4><p>Роль менеджера · роль хранителя · карта коммуникаций</p></div></div>
+        <div class="step-card" onclick="showDetail('a6')"><div class="step-num">6</div><div class="step-body"><h4>Визуал студии</h4><p>Зона ответственности хранителя, зона понимания менеджера</p></div></div>
+        <div class="step-card" onclick="showDetail('a7')"><div class="step-num">7</div><div class="step-body"><h4>Карта процессов SHUGA</h4><p>Изучение всех этапов: хранитель (11 блоков) · менеджер (10 блоков)</p></div></div>
+        <div class="step-card" onclick="showDetail('a8')"><div class="step-num">8</div><div class="step-body"><h4>Знание услуг, ритейла и стерилизации</h4><p>Услуги по мастерам · продукция ритейла · регламент стерилизации</p></div></div>
+        <div class="step-card" onclick="showDetail('a9')"><div class="step-num">9</div><div class="step-body"><h4>Встреча гостей и лояльность</h4><p>Технология встречи и рассадки гостей · система лояльности SHUGA</p></div></div>
+        <div class="step-card" onclick="showDetail('a10')"><div class="step-num">10</div><div class="step-body"><h4>Итог 2 недель работы</h4><p>Синхронизационная сессия с HRD + презентация брендбука</p></div></div>
+        <div class="step-card" onclick="showDetail('a11')"><div class="step-num">11</div><div class="step-body"><h4>Знание услуг</h4><p>Тестирование / аттестация по услугам студии Shuga</p><div class="badge-row"><span class="badge badge-rose">Аттестация</span></div></div></div>
+        <div class="step-card" onclick="showDetail('a12')"><div class="step-num">12</div><div class="step-body"><h4>Конфликтология, рекламации и скрипты</h4><p>Работа с конфликтами · регламент рекламаций · книга скриптов (менеджер)</p><div class="badge-row"><span class="badge badge-rose">Аттестация</span></div></div></div>
       </div>
     </div>
 
@@ -990,24 +995,29 @@ body::before {
         <div class="pcol keeper">
           <div class="pcol-title">Хранитель</div>
           <div class="p-item"><div class="p-num">01</div><div class="p-body"><h5>Подготовка смены</h5><p>Студия готова к приёму гостей</p><div class="p-tags"><span class="p-tag">Открытие</span><span class="p-tag">Чистота зон</span><span class="p-tag">Расходники</span><span class="p-tag">Стерилизация</span></div></div></div>
-          <div class="p-item"><div class="p-num">02</div><div class="p-body"><h5>Сервис гостя</h5><p>Атмосфера и забота</p><div class="p-tags"><span class="p-tag">Встреча</span><span class="p-tag">Чай / кофе</span><span class="p-tag">Сопровождение</span></div></div></div>
+          <div class="p-item"><div class="p-num">02</div><div class="p-body"><h5>Сервис гостя</h5><p>Атмосфера и забота</p><div class="p-tags"><span class="p-tag">Встреча</span><span class="p-tag">Чай / кофе</span><span class="p-tag">Сопровождение</span><span class="p-tag">Плед / вода / комфорт</span></div></div></div>
           <div class="p-item"><div class="p-num">03</div><div class="p-body"><h5>Обслуживание мастеров</h5><p>Мастер не отвлекается на бытовые задачи</p><div class="p-tags"><span class="p-tag">Расходники</span><span class="p-tag">Рабочее место</span><span class="p-tag">Мусор</span></div></div></div>
-          <div class="p-item"><div class="p-num">04</div><div class="p-body"><h5>Поставки и склад</h5><p>Бесперебойные поставки, оптимальный расход</p><div class="p-tags"><span class="p-tag">Приём</span><span class="p-tag">Инвентаризация</span><span class="p-tag">Заказы</span></div></div></div>
-          <div class="p-item"><div class="p-num">05</div><div class="p-body"><h5>Стерилизация и чистота</h5><p>Безопасность и соблюдение стандартов</p><div class="p-tags"><span class="p-tag">Растворы</span><span class="p-tag">Сухожар</span><span class="p-tag">Контроль</span></div></div></div>
+          <div class="p-item"><div class="p-num">04</div><div class="p-body"><h5>Поставки и склад</h5><p>Бесперебойные поставки, оптимальный расход</p><div class="p-tags"><span class="p-tag">Приём</span><span class="p-tag">Раскладка по полочкам</span><span class="p-tag">Выдача мастерам</span><span class="p-tag">Инвентаризация</span><span class="p-tag">Заказы</span></div></div></div>
+          <div class="p-item"><div class="p-num">05</div><div class="p-body"><h5>Стерилизация и чистота</h5><p>Безопасность и соблюдение стандартов</p><div class="p-tags"><span class="p-tag">Растворы</span><span class="p-tag">Сухожар</span><span class="p-tag">Контроль</span><span class="p-tag">Чек-листы по чистоте</span><span class="p-tag">Reception / санузлы</span></div></div></div>
           <div class="p-item"><div class="p-num">06</div><div class="p-body"><h5>Рекламации</h5><p>Укрепление доверия клиентов</p></div></div>
           <div class="p-item"><div class="p-num">07</div><div class="p-body"><h5>Этические нормы</h5><p>Атмосфера и взаимодействие в коллективе</p></div></div>
           <div class="p-item"><div class="p-num">08</div><div class="p-body"><h5>Контроль оборудования</h5><p>Мониторинг, фиксация неисправностей</p><div class="p-tags"><span class="p-tag">Проверка</span><span class="p-tag">Фиксация</span><span class="p-tag">Ремонт</span></div></div></div>
           <div class="p-item"><div class="p-num">09</div><div class="p-body"><h5>Хозяйственное управление</h5><p>Освещение, сантехника, клининг, сезонные задачи</p><div class="p-tags"><span class="p-tag">Освещение</span><span class="p-tag">Клининг</span><span class="p-tag">Окна</span><span class="p-tag">Ковры</span></div></div></div>
+          <div class="p-item"><div class="p-num">10</div><div class="p-body"><h5>Дисциплина мастеров</h5><p>Мастера пришли вовремя, гости не ждут</p><div class="p-tags"><span class="p-tag">Мастера вовремя</span><span class="p-tag">Рабочие места готовы</span><span class="p-tag">Гости не ждут</span></div></div></div>
+          <div class="p-item"><div class="p-num">11</div><div class="p-body"><h5>Синхронная работа салона</h5><p>Связка с менеджерами и мастерами, контроль таймингов</p><div class="p-tags"><span class="p-tag">Работа в связке</span><span class="p-tag">Тайминги</span><span class="p-tag">Рутинные задачи</span></div></div></div>
         </div>
         <div class="pcol manager">
           <div class="pcol-title">Менеджер</div>
           <div class="p-item"><div class="p-num">01</div><div class="p-body"><h5>Подготовка смены</h5><p>Студия готова к приёму гостей</p><div class="p-tags"><span class="p-tag">Проверка записи на день</span></div></div></div>
-          <div class="p-item"><div class="p-num">02</div><div class="p-body"><h5>Запись и загрузка</h5><p>Максимальная загрузка студии</p><div class="p-tags"><span class="p-tag">Запись</span><span class="p-tag">Окна</span><span class="p-tag">Лист ожидания</span></div></div></div>
-          <div class="p-item"><div class="p-num">03</div><div class="p-body"><h5>Перезапись и доп. услуги</h5><p>Рост среднего чека и возврат клиентов</p><div class="p-tags"><span class="p-tag">Следующая запись</span><span class="p-tag">Доп. услуги</span></div></div></div>
+          <div class="p-item"><div class="p-num">02</div><div class="p-body"><h5>Запись и загрузка</h5><p>Максимальная загрузка студии</p><div class="p-tags"><span class="p-tag">Запись</span><span class="p-tag">Окна</span><span class="p-tag">Лист ожидания</span><span class="p-tag">Фактические услуги в чеке</span></div></div></div>
+          <div class="p-item"><div class="p-num">03</div><div class="p-body"><h5>Перезапись, доп. услуги и ритейл</h5><p>Рост среднего чека и возврат клиентов</p><div class="p-tags"><span class="p-tag">Следующая запись</span><span class="p-tag">Доп. услуги</span><span class="p-tag">Ритейл</span><span class="p-tag">Инвентаризация ритейла</span><span class="p-tag">План смены</span></div></div></div>
           <div class="p-item"><div class="p-num">04</div><div class="p-body"><h5>Работа с клиентской базой</h5><p>Возвращать клиентов</p><div class="p-tags"><span class="p-tag">Без записи</span><span class="p-tag">Рассылки</span></div></div></div>
-          <div class="p-item"><div class="p-num">05</div><div class="p-body"><h5>Финансы смены</h5><p>Прозрачность выручки</p><div class="p-tags"><span class="p-tag">Закрытие кассы</span><span class="p-tag">Сверка</span><span class="p-tag">Передача данных</span></div></div></div>
+          <div class="p-item"><div class="p-num">05</div><div class="p-body"><h5>Финансы смены</h5><p>Прозрачность выручки</p><div class="p-tags"><span class="p-tag">Закрытие кассы</span><span class="p-tag">Нал / безнал</span><span class="p-tag">Сверка</span><span class="p-tag">Передача данных</span></div></div></div>
           <div class="p-item"><div class="p-num">06</div><div class="p-body"><h5>Рекламации</h5><p>Укрепление доверия клиентов</p></div></div>
           <div class="p-item"><div class="p-num">07</div><div class="p-body"><h5>Этические нормы</h5><p>Атмосфера и взаимодействие в коллективе</p></div></div>
+          <div class="p-item"><div class="p-num">08</div><div class="p-body"><h5>Обратная связь и карточки клиентов</h5><p>Впечатления, жалобы и повторы — зафиксированы</p><div class="p-tags"><span class="p-tag">Впечатление гостя</span><span class="p-tag">Жалобы и повторы</span><span class="p-tag">Отзыв</span><span class="p-tag">Карточка клиента</span></div></div></div>
+          <div class="p-item"><div class="p-num">09</div><div class="p-body"><h5>Оборудование</h5><p>Исправность и фиксация обращений</p><div class="p-tags"><span class="p-tag">Проверка</span><span class="p-tag">Обращения</span><span class="p-tag">Решения</span></div></div></div>
+          <div class="p-item"><div class="p-num">10</div><div class="p-body"><h5>Итог смены</h5><p>День закрыт без расхождений</p><div class="p-tags"><span class="p-tag">Без расхождений</span><span class="p-tag">Сигналы управляющей</span></div></div></div>
         </div>
       </div>
     </div>
@@ -1207,7 +1217,7 @@ body::before {
     <label class="lk-select-label">Выберите сотрудника</label>
     <select class="lk-select" id="alk-user-select">
       <option value="">— выбрать —</option>
-      <option value="ilariya">Менеджер — Илария</option>
+      <option value="anastasiya">Менеджер — Анастасия Волчик</option>
       <option value="svetlana">Менеджер — Светлана</option>
       <option value="aleksandra">Хранитель — Александра</option>
       <option value="angelina">Хранитель — Ангелина</option>
@@ -1265,27 +1275,67 @@ body::before {
     <div id="nail-onboard" class="tab-section">
       <div class="section-head">
         <div class="section-num">2</div>
-        <div><div class="section-title">Онбординг · Адаптация</div><div class="section-sub">Первые шаги нового мастера в студии</div></div>
+        <div><div class="section-title">Онбординг · Адаптация</div><div class="section-sub">Путь нового мастера в студии — 4 этапа</div></div>
       </div>
+
+      <div class="section-head" style="margin-top:4px;"><div class="section-num" style="font-size:14px;">1</div><div><div class="section-title" style="font-size:18px;">Старт работы</div></div></div>
       <div class="steps-grid">
         <div class="step-card" onclick="showDetail('o1')"><div class="step-num">1</div><div class="step-body"><h4>Welcome-book</h4><p>Ознакомление с книгой добро пожаловать в студию SHUGA</p><a class="step-link" href="https://docs.google.com/presentation/d/1Qa07faHE25eRQP_nFIlPEsYPGav_Wbiv/edit?usp=sharing&ouid=117024619454996101032&rtpof=true&sd=true" target="_blank" rel="noopener" onclick="event.stopPropagation()">📖 Открыть Welcome-book →</a></div></div>
-        <div class="step-card" onclick="showDetail('o2')"><div class="step-num">2</div><div class="step-body"><h4>Подписание документов</h4><p>NDA · Согласие на ОПД · Согласие на съёмку</p><div class="badge-row"><span class="badge badge-sage">NDA</span><span class="badge badge-sage">ОПД</span><span class="badge badge-gold">Медкнижка</span><span class="badge badge-gold">Паспорт</span><span class="badge badge-gold">ИНН</span></div></div></div>
-        <div class="step-card" onclick="showDetail('o3')"><div class="step-num">3</div><div class="step-body"><h4>Внутренние регламенты</h4><p>Регламент мастера · Регламент коммуникации · Регламент онихолизиса · Правила реставраций</p></div></div>
-        <div class="step-card" onclick="showDetail('o4')"><div class="step-num">4</div><div class="step-body"><h4>Очный разбор с демонстрацией</h4><p>Правила уборки рабочих мест (маникюр + педикюр) · Протокол стерилизации</p></div></div>
-        <div class="step-card" onclick="showDetail('o5')"><div class="step-num">5</div><div class="step-body"><h4>Самостоятельное изучение</h4><p>Протоколы процедур · Ценности и устав студии · Ритейл и описание продуктов</p></div></div>
-        <div class="step-card" onclick="showDetail('o6')"><div class="step-num">6</div><div class="step-body"><h4>Видеоматериалы В. Зайцевой</h4><p>По отслойкам и сложным случаям. Дедлайн — 2 недели со старта работы</p><a class="step-link" href="https://forms.gle/b3Vbu9VWrePmDFY77" target="_blank" rel="noopener">📋 Пройти тестирование →</a></div></div>
-        <div class="step-card step-card-test" onclick="showDetail('o6t')"><div class="step-num">6т</div><div class="step-body"><h4>Тестирование по В. Зайцевой</h4><p>Тест по материалам об отслойках и сложных случаях</p><div class="badge-row"><span class="badge badge-rose">Тест</span></div></div></div>
-        <div class="step-card" onclick="showDetail('o7')"><div class="step-num">7</div><div class="step-body"><h4>Бесплатный семинар Luxio</h4><p>Посещение семинара от бренда Luxio</p></div></div>
-        <div class="step-card step-card-test" onclick="showDetail('o7t')"><div class="step-num">7т</div><div class="step-body"><h4>Тестирование по протоколу Luxio</h4><p>Проверка знания протокола Luxio после семинара</p><div class="badge-row"><span class="badge badge-rose">Тест</span></div></div></div>
-        <div class="step-card" onclick="showDetail('o8')"><div class="step-num">8</div><div class="step-body"><h4>Бесплатный семинар Straderm</h4><p>В офисе Luxio</p></div></div>
-        <div class="step-card step-card-test" onclick="showDetail('o8t')"><div class="step-num">8т</div><div class="step-body"><h4>Тестирование по протоколу Straderm</h4><p>Проверка знания протокола Straderm после семинара</p><div class="badge-row"><span class="badge badge-rose">Тест</span></div></div></div>
-        <div class="step-card" onclick="showDetail('o9')"><div class="step-num">9</div><div class="step-body"><h4>Понимание условий обучения</h4><p>Внутреннее обучение от технологов · Условия для внешнего повышения квалификации</p></div></div>
-        <div class="step-card" onclick="showDetail('o10')"><div class="step-num">10</div><div class="step-body"><h4>Синхронизационная сессия с HRD + брендбук</h4><p>Итог первых недель. Сессия + презентация брендбука студии</p></div></div>
-        <div class="step-card" onclick="showDetail('o11')"><div class="step-num">11</div><div class="step-body"><h4>Определение точки А + построение ИПР</h4><p>Оценка текущего уровня. Построение индивидуального плана развития</p></div></div>
-        <div class="step-card" onclick="showDetail('o12')"><div class="step-num">12</div><div class="step-body"><h4>Видеоматериалы: укрепление гелем</h4><p>Обучающие видео по технике укрепления гелем</p></div></div>
-        <div class="step-card" onclick="showDetail('o13')"><div class="step-num">13</div><div class="step-body"><h4>Видеоматериалы: маникюр и покрытие</h4><p>Общий курс по маникюру и покрытию</p></div></div>
+        <div class="step-card" onclick="showDetail('o2')"><div class="step-num">2</div><div class="step-body"><h4>Передать управляющей сканы документов</h4><p>Паспорт (разворот + прописка) · ИНН · оригинал медкнижки · СНИЛС</p><div class="badge-row"><span class="badge badge-gold">Паспорт</span><span class="badge badge-gold">ИНН</span><span class="badge badge-gold">Медкнижка</span><span class="badge badge-gold">СНИЛС</span></div></div></div>
+        <div class="step-card" onclick="showDetail('o3')"><div class="step-num">3</div><div class="step-body"><h4>Подписать документы</h4><p>Согласие на ОПД · Согласие на фото- и видеосъёмку · NDA</p><div class="badge-row"><span class="badge badge-sage">ОПД</span><span class="badge badge-sage">Съёмка</span><span class="badge badge-sage">NDA</span></div></div></div>
+        <div class="step-card" onclick="showDetail('o4')"><div class="step-num">4</div><div class="step-body"><h4>Знакомство с процессами</h4><p>YClients · форма · чаты · материалы · зона ответственности · зарплатный цикл и дисциплина</p></div></div>
+      </div>
+
+      <div class="section-head" style="margin-top:24px;"><div class="section-num" style="font-size:14px;">2</div><div><div class="section-title" style="font-size:18px;">Ценности, правила и дисциплина</div></div></div>
+      <div class="steps-grid">
+        <div class="step-card" onclick="showDetail('o5')"><div class="step-num">5</div><div class="step-body"><h4>Очно с управляющей</h4><p>Ценности и миссия · общие правила · скидки и комплименты · поведение при конфликтах · общие пространства</p></div></div>
+      </div>
+
+      <div class="section-head" style="margin-top:24px;"><div class="section-num" style="font-size:14px;">3</div><div><div class="section-title" style="font-size:18px;">Технологический стандарт</div></div></div>
+      <div class="steps-grid">
+        <div class="step-card" onclick="showDetail('o6')"><div class="step-num">6</div><div class="step-body"><h4>Очный разбор под подпись</h4><p>Регламент мастера · регламент коммуникации · регламент онихолизиса · правила реставраций</p></div></div>
+        <div class="step-card" onclick="showDetail('o7')"><div class="step-num">7</div><div class="step-body"><h4>Очный разбор с демонстрацией</h4><p>Правила уборки рабочих мест (ман+пед) · протокол стерилизации</p></div></div>
+        <div class="step-card" onclick="showDetail('o8')"><div class="step-num">8</div><div class="step-body"><h4>Самостоятельное изучение</h4><p>Протоколы процедур · ценности и устав студии · ритейл — срок 2 дня</p></div></div>
+      </div>
+
+      <div class="section-head" style="margin-top:24px;"><div class="section-num" style="font-size:14px;">4</div><div><div class="section-title" style="font-size:18px;">Обучение материалам и сложным случаям</div></div></div>
+      <div class="steps-grid">
+        <div class="step-card" onclick="showDetail('o9')"><div class="step-num">9</div><div class="step-body"><h4>Семинар Luxio и Straderm</h4><p>Посещение семинара + аттестация по обоим протоколам</p><a class="step-link" href="https://docs.google.com/forms/d/e/1FAIpQLSdqRsLSjvWyULWn74nND2cqd_ElFnLmPuYJkId07KFsSKYs0A/viewform" target="_blank" rel="noopener" onclick="event.stopPropagation()">📋 Пройти аттестацию →</a></div></div>
+        <div class="step-card" onclick="showDetail('o10')"><div class="step-num">10</div><div class="step-body"><h4>Видео В. Зайцевой</h4><p>«Отслойки и сложные случаи» — в канале SHUGA Academy, далее аттестация</p><a class="step-link" href="https://forms.gle/VMjFhUvmQwfunUn47" target="_blank" rel="noopener" onclick="event.stopPropagation()">📋 Пройти аттестацию →</a></div></div>
+        <div class="step-card" onclick="showDetail('o11')"><div class="step-num">11</div><div class="step-body"><h4>Спецуслуги: мастер-класс от бадди</h4><p>SPA для рук · немецкий/японский маникюр · бондирование · IBX · ChaCure</p></div></div>
+        <div class="step-card" onclick="showDetail('o12')"><div class="step-num">12</div><div class="step-body"><h4>Возможности дальнейшего обучения</h4><p>Условия внутреннего обучения у технологов · условия внешнего повышения квалификации</p></div></div>
+      </div>
+
+      <div class="section-head" style="margin-top:24px;"><div class="section-num" style="font-size:14px;">5</div><div><div class="section-title" style="font-size:18px;">Гости и сервис</div></div></div>
+      <div class="steps-grid">
+        <div class="step-card" onclick="showDetail('o13')"><div class="step-num">13</div><div class="step-body"><h4>Стабильный сервис и коммуникация</h4><p>Скрипты общения, сценарий конфликта, recovery-правила · гейт: 2 кейса + 4–6 отзывов</p></div></div>
+      </div>
+
+      <div class="section-head" style="margin-top:24px;"><div class="section-num" style="font-size:14px;">6</div><div><div class="section-title" style="font-size:18px;">Рабочее пространство и операционные процессы</div></div></div>
+      <div class="steps-grid">
+        <div class="step-card" onclick="showDetail('o14')"><div class="step-num">14</div><div class="step-body"><h4>Стерилизация, инструменты, хранение</h4><p>Полный цикл стерилизации, своя полка, хранение и график</p></div></div>
+        <div class="step-card" onclick="showDetail('o15')"><div class="step-num">15</div><div class="step-body"><h4>Материалы и снабжение</h4><p>Доступ к материалам, заказ и замена, полная экипировка</p></div></div>
+        <div class="step-card" onclick="showDetail('o16')"><div class="step-num">16</div><div class="step-body"><h4>Зона отдыха, кухня, курение</h4><p>Правила зоны отдыха, посудомоечная машина, курение</p></div></div>
+        <div class="step-card" onclick="showDetail('o17')"><div class="step-num">17</div><div class="step-body"><h4>Рабочее место и уборки</h4><p>Ежедневная уборка по чек-листу, генеральная уборка по четвергам</p></div></div>
+        <div class="step-card" onclick="showDetail('o18')"><div class="step-num">18</div><div class="step-body"><h4>Неисправности и инциденты</h4><p>Что делать, если закончился гель-лак или сломалось оборудование</p></div></div>
+      </div>
+
+      <div class="section-head" style="margin-top:24px;"><div class="section-num" style="font-size:14px;">7</div><div><div class="section-title" style="font-size:18px;">Корпоративная культура</div></div></div>
+      <div class="steps-grid">
+        <div class="step-card" onclick="showDetail('o19')"><div class="step-num">19</div><div class="step-body"><h4>Карьерная траектория и категории</h4><p>Текущая категория, требования к переходу, план развития</p></div></div>
+        <div class="step-card" onclick="showDetail('o20')"><div class="step-num">20</div><div class="step-body"><h4>Чаевые и личные показатели</h4><p>Начисление чаевых, свои показатели, где смотреть результаты</p></div></div>
+        <div class="step-card" onclick="showDetail('o21')"><div class="step-num">21</div><div class="step-body"><h4>Трудоустройство и условия</h4><p>Статус, испытательный срок, оплата, отпуска и замены</p></div></div>
+        <div class="step-card" onclick="showDetail('o22')"><div class="step-num">22</div><div class="step-body"><h4>Корпоративная культура и активности</h4><p>Правила, мероприятия, чаты и каналы, поздравления</p></div></div>
+        <div class="step-card" onclick="showDetail('o23')"><div class="step-num">23</div><div class="step-body"><h4>Материальная ответственность и штрафы</h4><p>Случаи ответственности, порядок действий при ущербе</p></div></div>
+      </div>
+
+      <div class="section-head" style="margin-top:24px;"><div class="section-num" style="font-size:14px;">📍</div><div><div class="section-title" style="font-size:18px;">Контрольные точки первого месяца</div></div></div>
+      <div class="steps-grid">
+        <div class="step-card" onclick="showDetail('o24')"><div class="step-num">24</div><div class="step-body"><h4>Встреча с HRD</h4><p>Через 2–3 недели: синхронизация, обратная связь, брендбук</p></div></div>
+        <div class="step-card" onclick="showDetail('o25')"><div class="step-num">25</div><div class="step-body"><h4>Точка А + ИПР</h4><p>Через 1 месяц: оценка навыков и построение плана развития</p></div></div>
       </div>
     </div>
+
 
     <!-- ИПР NAIL -->
     <div id="nail-ipr" class="tab-section">
@@ -1311,7 +1361,7 @@ body::before {
           <div class="lv-card lv2">
             <div class="lv-badge"><div class="lv-icon">Ⅱ</div><div class="lv-name">Эксперт</div></div>
             <div class="lv-sub">Расширение навыков · Переход в категорию</div>
-            <ul class="skill-list"><li>Пилочный маникюр (Саша Нестерова)</li><li>Японский маникюр</li><li>IBX (видеоурок от Гульфии)</li><li>SPA Comfort Zone</li><li>Аттестация</li></ul>
+            <ul class="skill-list"><li>Пилочный маникюр</li><li>Японский маникюр</li><li>Немецкий маникюр</li><li>Бондирование</li><li>Мужской маникюр</li><li>IBX</li><li>SPA Comfort Zone</li><li>Аттестация</li></ul>
             <div class="kpi-strip"><span class="kpi-chip">Выручка от 300 000 ₽/мес</span><span class="kpi-chip">Средний чек 5 500 ₽</span><span class="kpi-chip">Отзывы клиентов</span></div>
           </div>
           <div class="lv-card lv3">
@@ -1329,12 +1379,12 @@ body::before {
           <div class="lv-card lv1">
             <div class="lv-badge"><div class="lv-icon">Ⅰ</div><div class="lv-name">ТОП</div></div>
             <div class="lv-sub">Первые 6 месяцев</div>
-            <ul class="skill-list"><li>Обучение от приглашённого SMART-технолога</li><li>Обучающие материалы по SMART-педикюру</li><li>Протокол SMART</li><li>Протокол STRADERM</li><li>Аттестация по SMART-педикюру</li></ul>
+            <ul class="skill-list"><li>Обучение от приглашённого SMART-технолога</li><li>Обучающие материалы по SMART-педикюру</li><li>Протокол SMART</li><li>Протокол STRADERM</li><li>Мужской педикюр</li><li>Аттестация по SMART-педикюру</li></ul>
           </div>
           <div class="lv-card lv2">
             <div class="lv-badge"><div class="lv-icon">Ⅱ</div><div class="lv-name">Эксперт</div></div>
             <div class="lv-sub">Расширение навыков педикюра</div>
-            <ul class="skill-list"><li>Внешний семинар у Анны Романовой — техника с пинцетом</li><li>Практический семинар от ChaCure</li><li>Практика ChaCure с Ксюшей / Полиной</li><li>Пинцет</li><li>Массаж</li><li>ChaCure</li></ul>
+            <ul class="skill-list"><li>Внешний семинар у Анны Романовой — техника с пинцетом</li><li>Практический семинар от ChaCure</li><li>Практика ChaCure с Ксюшей / Полиной</li><li>Массаж</li><li>ChaCure</li></ul>
           </div>
           <div class="lv-card lv3">
             <div class="lv-badge"><div class="lv-icon">Ⅳ</div><div class="lv-name">Высшая</div></div>
@@ -1359,6 +1409,9 @@ body::before {
           <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>Аппаратный маникюр</span></div>
           <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>Пилочный маникюр</span></div>
           <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>Японский маникюр</span></div>
+          <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>Немецкий маникюр</span></div>
+          <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>Бондирование</span></div>
+          <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>Мужской маникюр</span></div>
           <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>Моделирование ногтей</span></div>
           <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>Укрепление ногтей</span></div>
           <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>IBX</span></div>
@@ -1369,9 +1422,9 @@ body::before {
         <div class="cl-card">
           <div class="cl-title rose-t">🦶 Педикюр</div>
           <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>SMART-педикюр</span></div>
+          <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>Мужской педикюр</span></div>
           <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>STRADERM</span></div>
           <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>ChaCure</span></div>
-          <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>Пинцет</span></div>
           <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>Массаж</span></div>
           <div class="cl-title gold-t" style="margin-top:20px;font-size:17px;">📊 KPI</div>
           <div class="check-row" onclick="toggleCheck(this)"><div class="check-box"></div><span>Общая выручка от 300 000 ₽/мес</span></div>
@@ -1995,6 +2048,8 @@ body::before {
           <option value="zarima">Зарима Жумабекова</option>
           <option value="muzychenko">Екатерина Музыченко</option>
           <option value="akzharova">Жулдуз (Женя) Акжарова</option>
+          <option value="taran">Олеся Таран</option>
+          <option value="zhanna">Жанна</option>
         </optgroup>
         <optgroup label="Мастер-Эксперт">
           <option value="furсова">Алёна Фурсова</option>
@@ -2037,53 +2092,57 @@ const MASTERS = {
   muzychenko: {
     name:'Екатерина Музыченко', initials:'ЕМ', category:'top',
     pin:'1234', startDate:'23 апреля 2026',
-    monthsInStudio: 2,
+    monthsInStudio: 3,
     analytics: [
       {m:'Апр',rev:47549,check:3658,clients:13,ret:null,rec:0,shifts:4},
       {m:'Май',rev:303764,check:3997,clients:68,ret:4.4,rec:1,shifts:15},
-      {m:'Июн',rev:314042,check:3926,clients:73,ret:16.4,rec:0,shifts:15}
+      {m:'Июн',rev:314042,check:3926,clients:73,ret:16.4,rec:0,shifts:15},
+      {m:'Июл',rev:290125,check:4176,clients:64,ret:18.8,rec:0,shifts:14}
     ],
     kpiTarget:{rev:300000,check:5500,ret:70}
   },
   akzharova: {
     name:'Жулдуз (Женя) Акжарова', initials:'ЖА', category:'top',
     pin:'2345', startDate:'5 мая 2026',
-    monthsInStudio: 2,
+    monthsInStudio: 3,
     analytics: [
       {m:'Май',rev:143701,check:3685,clients:37,ret:0,rec:0,shifts:12},
-      {m:'Июн',rev:318972,check:3666,clients:79,ret:17.7,rec:0,shifts:17}
+      {m:'Июн',rev:318972,check:3666,clients:79,ret:17.7,rec:0,shifts:17},
+      {m:'Июл',rev:335728,check:4094,clients:73,ret:38.4,rec:0,shifts:16}
     ],
     kpiTarget:{rev:300000,check:5500,ret:70}
   },
   chebaevskaya: {
     name:'Марина Чебаевская', initials:'МЧ', category:'top',
     pin:'4567', startDate:'2 февраля 2026',
-    monthsInStudio: 5,
+    monthsInStudio: 6,
     analytics: [
       {m:'Фев',rev:293312,check:3964,clients:71,ret:null,rec:1,shifts:14},
       {m:'Мар',rev:295922,check:4054,clients:68,ret:17.6,rec:0,shifts:14},
       {m:'Апр',rev:255434,check:3991,clients:58,ret:29.3,rec:0,shifts:12},
       {m:'Май',rev:259651,check:4188,clients:58,ret:32.8,rec:0,shifts:14},
-      {m:'Июн',rev:319515,check:4204,clients:72,ret:33.3,rec:1,shifts:15}
+      {m:'Июн',rev:319515,check:4204,clients:72,ret:33.3,rec:1,shifts:15},
+      {m:'Июл',rev:391750,check:4452,clients:81,ret:38.3,rec:0,shifts:15}
     ],
     kpiTarget:{rev:300000,check:5500,ret:70}
   },
   zarima: {
     name:'Зарима Жумабекова', initials:'ЗЖ', category:'top',
     pin:'5678', startDate:'2 марта 2026',
-    monthsInStudio: 4,
+    monthsInStudio: 5,
     analytics: [
       {m:'Мар',rev:235957,check:3806,clients:55,ret:null,rec:0,shifts:14},
       {m:'Апр',rev:328792,check:4443,clients:70,ret:21.4,rec:0,shifts:15},
       {m:'Май',rev:295672,check:4385,clients:64,ret:31.3,rec:0,shifts:14},
-      {m:'Июн',rev:261804,check:4363,clients:59,ret:35.6,rec:0,shifts:12}
+      {m:'Июн',rev:261804,check:4363,clients:59,ret:35.6,rec:0,shifts:12},
+      {m:'Июл',rev:377169,check:4392,clients:80,ret:41.3,rec:0,shifts:15}
     ],
     kpiTarget:{rev:300000,check:5500,ret:70}
   },
   mira: {
     name:'Мира Кузнецова', initials:'МК', category:'top',
     pin:'6789', startDate:'6 декабря 2025',
-    monthsInStudio: 7,
+    monthsInStudio: 8,
     analytics: [
       {m:'Дек',rev:238462,check:2944,clients:76,ret:0,rec:0,shifts:13},
       {m:'Янв',rev:534329,check:4174,clients:111,ret:18,rec:0,shifts:18},
@@ -2091,14 +2150,29 @@ const MASTERS = {
       {m:'Мар',rev:460972,check:4564,clients:88,ret:40.9,rec:0,shifts:16},
       {m:'Апр',rev:430650,check:4350,clients:91,ret:42.9,rec:0,shifts:15},
       {m:'Май',rev:513431,check:4546,clients:95,ret:42.1,rec:0,shifts:18},
-      {m:'Июн',rev:385667,check:4647,clients:76,ret:53.9,rec:0,shifts:13}
+      {m:'Июн',rev:385667,check:4647,clients:76,ret:53.9,rec:0,shifts:13},
+      {m:'Июл',rev:529704,check:4815,clients:94,ret:53.2,rec:0,shifts:16}
     ],
+    kpiTarget:{rev:300000,check:5500,ret:70}
+  },
+  taran: {
+    name:'Олеся Таран', initials:'ОТ', category:'top',
+    pin:'2408', startDate:'24 августа 2026',
+    monthsInStudio: 0,
+    analytics: [],
+    kpiTarget:{rev:300000,check:5500,ret:70}
+  },
+  zhanna: {
+    name:'Жанна', initials:'ЖН', category:'top',
+    pin:'1508', startDate:'15 августа 2026',
+    monthsInStudio: 0,
+    analytics: [],
     kpiTarget:{rev:300000,check:5500,ret:70}
   },
   'furсова': {
     name:'Алёна Фурсова', initials:'АФ', category:'expert',
     pin:'7890', startDate:'7 апреля 2025',
-    monthsInStudio: 15,
+    monthsInStudio: 16,
     analytics: [
       {m:'Май\'25',rev:205979,check:3551,clients:55,ret:18.2,rec:0},
       {m:'Июн',rev:427200,check:3502,clients:112,ret:16.1,rec:0,shifts:21},
@@ -2113,7 +2187,8 @@ const MASTERS = {
       {m:'Мар',rev:333015,check:4061,clients:76,ret:61.8,rec:0,shifts:15},
       {m:'Апр',rev:421011,check:4087,clients:84,ret:73.8,rec:0,shifts:16},
       {m:'Май',rev:354336,check:4543,clients:76,ret:72.4,rec:0,shifts:14},
-      {m:'Июн',rev:433905,check:5074,clients:81,ret:64.2,rec:0,shifts:13}
+      {m:'Июн',rev:433905,check:5074,clients:81,ret:64.2,rec:0,shifts:13},
+      {m:'Июл',rev:509899,check:4950,clients:94,ret:68.1,rec:0,shifts:16}
     ],
     kpiTarget:{rev:400000,check:6000,ret:80}
   },
@@ -2122,7 +2197,7 @@ const MASTERS = {
   bashirova: {
     name:'Гульфия Баширова', initials:'ГБ', category:'expert',
     pin:'1001', startDate:'2 февраля 2024',
-    monthsInStudio: 29,
+    monthsInStudio: 30,
     analytics: [
       {m:'Июн',rev:235507,check:3496,clients:62,ret:66.1,rec:0,shifts:11},
       {m:'Июл',rev:299915,check:3528,clients:72,ret:75,rec:0,shifts:15},
@@ -2136,14 +2211,15 @@ const MASTERS = {
       {m:'Мар',rev:335927,check:4199,clients:72,ret:80.6,rec:1,shifts:15},
       {m:'Апр',rev:384575,check:4135,clients:79,ret:79.7,rec:0,shifts:16},
       {m:'Май',rev:375696,check:4369,clients:76,ret:78.9,rec:0,shifts:15},
-      {m:'Июн',rev:333315,check:4273,clients:67,ret:83.6,rec:0,shifts:14}
+      {m:'Июн',rev:333315,check:4273,clients:67,ret:83.6,rec:0,shifts:14},
+      {m:'Июл',rev:295612,check:4284,clients:58,ret:81.0,rec:0,shifts:12}
     ],
     kpiTarget:{rev:400000,check:6000,ret:80}
   },
   ivanova: {
     name:'Дарья Иванова', initials:'ДИ', category:'expert',
     pin:'1002', startDate:'23 мая 2024',
-    monthsInStudio: 25,
+    monthsInStudio: 26,
     analytics: [
       {m:'Июн',rev:326260,check:3296,clients:88,ret:54.5,rec:1,shifts:18},
       {m:'Июл',rev:332847,check:3328,clients:91,ret:63.7,rec:1,shifts:17},
@@ -2157,14 +2233,15 @@ const MASTERS = {
       {m:'Мар',rev:340320,check:4363,clients:65,ret:78.5,rec:1,shifts:16},
       {m:'Апр',rev:380610,check:4183,clients:78,ret:75.6,rec:0,shifts:16},
       {m:'Май',rev:424938,check:4381,clients:83,ret:73.5,rec:4,shifts:17},
-      {m:'Июн',rev:338949,check:4185,clients:67,ret:77.6,rec:0,shifts:14}
+      {m:'Июн',rev:338949,check:4185,clients:67,ret:77.6,rec:0,shifts:14},
+      {m:'Июл',rev:429247,check:4088,clients:89,ret:69.7,rec:0,shifts:17}
     ],
     kpiTarget:{rev:400000,check:6000,ret:80}
   },
   okolnichnikova: {
     name:'Валерия Окольничникова', initials:'ВО', category:'expert',
     pin:'1003', startDate:'13 ноября 2024',
-    monthsInStudio: 19,
+    monthsInStudio: 20,
     analytics: [
       {m:'Июн',rev:234671,check:3242,clients:63,ret:52.4,rec:1,shifts:13},
       {m:'Июл',rev:250205,check:3363,clients:72,ret:54.2,rec:1,shifts:14},
@@ -2178,14 +2255,15 @@ const MASTERS = {
       {m:'Мар',rev:435676,check:4381,clients:83,ret:78.3,rec:1,shifts:19},
       {m:'Апр',rev:357573,check:4644,clients:67,ret:73.1,rec:0,shifts:15},
       {m:'Май',rev:453491,check:4490,clients:79,ret:72.2,rec:0,shifts:18},
-      {m:'Июн',rev:295369,check:4693,clients:56,ret:85.7,rec:1,shifts:12}
+      {m:'Июн',rev:295369,check:4693,clients:56,ret:85.7,rec:1,shifts:12},
+      {m:'Июл',rev:397983,check:4682,clients:76,ret:69.7,rec:0,shifts:16}
     ],
     kpiTarget:{rev:400000,check:6000,ret:80}
   },
   kuznetsova_e: {
     name:'Евгения Кузнецова', initials:'ЕК', category:'expert',
     pin:'1004', startDate:'4 февраля 2022',
-    monthsInStudio: 53,
+    monthsInStudio: 54,
     analytics: [
       {m:'Июн',rev:326142,check:4077,clients:74,ret:60.8,rec:0,shifts:14},
       {m:'Июл',rev:387614,check:3917,clients:85,ret:70.6,rec:0,shifts:19},
@@ -2199,14 +2277,15 @@ const MASTERS = {
       {m:'Мар',rev:462990,check:4759,clients:82,ret:73.2,rec:1,shifts:17},
       {m:'Апр',rev:370111,check:4633,clients:70,ret:75.7,rec:0,shifts:15},
       {m:'Май',rev:497963,check:5187,clients:79,ret:75.9,rec:0,shifts:18},
-      {m:'Июн',rev:485383,check:4903,clients:82,ret:76.8,rec:0,shifts:17}
+      {m:'Июн',rev:485383,check:4903,clients:82,ret:76.8,rec:0,shifts:17},
+      {m:'Июл',rev:388880,check:4986,clients:71,ret:64.8,rec:0,shifts:14}
     ],
     kpiTarget:{rev:400000,check:6000,ret:80}
   },
   igonina: {
     name:'Александра Игонина', initials:'АИ', category:'expert',
     pin:'1005', startDate:'6 мая 2024',
-    monthsInStudio: 26,
+    monthsInStudio: 27,
     analytics: [
       {m:'Июн',rev:189861,check:3723,clients:48,ret:56.3,rec:0,shifts:9},
       {m:'Июл',rev:272310,check:3536,clients:70,ret:51.4,rec:1,shifts:14},
@@ -2220,7 +2299,8 @@ const MASTERS = {
       {m:'Мар',rev:361537,check:5092,clients:64,ret:67.2,rec:0,shifts:14},
       {m:'Апр',rev:406180,check:5142,clients:71,ret:52.1,rec:0,shifts:15},
       {m:'Май',rev:404738,check:4876,clients:77,ret:66.2,rec:0,shifts:16},
-      {m:'Июн',rev:308607,check:4978,clients:54,ret:87.0,rec:0,shifts:12}
+      {m:'Июн',rev:308607,check:4978,clients:54,ret:87.0,rec:0,shifts:12},
+      {m:'Июл',rev:334582,check:5152,clients:58,ret:62.1,rec:1,shifts:12}
     ],
     kpiTarget:{rev:400000,check:6000,ret:80}
   },
@@ -2229,23 +2309,24 @@ const MASTERS = {
   yurchenko: {
     name:'Ксения Юрченко', initials:'КЮ', category:'highest',
     pin:'3456', startDate:'возврат 1 мая 2026 (ранее работала до декабря 2025)',
-    monthsInStudio: 2,
+    monthsInStudio: 3,
     analytics: [
       {m:'Июл·25',rev:359079,check:3780,clients:92,ret:null,rec:0,shifts:17},
       {m:'Авг',rev:239641,check:3929,clients:57,ret:86,rec:0,shifts:10},
-      {m:'Сен',rev:351631,check:3690,clients:94,ret:26,rec:0,shifts:17},
+      {m:'Сен',rev:351631,check:3690,clients:94,ret:71.3,rec:0,shifts:17},
       {m:'Окт',rev:335473,check:3687,clients:90,ret:67.8,rec:0,shifts:15},
       {m:'Ноя',rev:300637,check:3416,clients:82,ret:73.2,rec:0,shifts:15},
       {m:'Дек·25 (уход)',rev:226628,check:3434,clients:64,ret:76.6,rec:0,shifts:11},
       {m:'Май·26 (возврат)',rev:344453,check:4574,clients:74,ret:59.5,rec:0,shifts:13},
-      {m:'Июн',rev:463872,check:5209,clients:82,ret:70.7,rec:0,shifts:16}
+      {m:'Июн',rev:463872,check:5209,clients:82,ret:70.7,rec:0,shifts:16},
+      {m:'Июл',rev:525698,check:5653,clients:87,ret:69.0,rec:0,shifts:16}
     ],
     kpiTarget:{rev:400000,check:6000,ret:80}
   },
   melnikova: {
     name:'Мария Мельникова', initials:'ММ', category:'highest',
     pin:'2002', startDate:'9 марта 2023',
-    monthsInStudio: 40,
+    monthsInStudio: 41,
     analytics: [
       {m:'Июн',rev:363622,check:3788,clients:75,ret:74.7,rec:0,shifts:16},
       {m:'Июл',rev:335901,check:3651,clients:77,ret:79.2,rec:0,shifts:15},
@@ -2259,14 +2340,15 @@ const MASTERS = {
       {m:'Мар',rev:453274,check:5093,clients:71,ret:78.9,rec:0,shifts:17},
       {m:'Апр',rev:485390,check:4973,clients:76,ret:76.3,rec:0,shifts:17},
       {m:'Май',rev:371770,check:4957,clients:59,ret:83.1,rec:0,shifts:13},
-      {m:'Июн',rev:430046,check:4832,clients:70,ret:81.4,rec:1,shifts:16}
+      {m:'Июн',rev:430046,check:4832,clients:70,ret:81.4,rec:1,shifts:16},
+      {m:'Июл',rev:437816,check:5032,clients:71,ret:78.9,rec:0,shifts:16}
     ],
     kpiTarget:{rev:400000,check:6000,ret:80}
   },
   abdrakhmanova: {
     name:'Алия Абдрахманова', initials:'АА', category:'highest',
     pin:'2003', startDate:'20 мая 2018',
-    monthsInStudio: 97,
+    monthsInStudio: 98,
     analytics: [
       {m:'Июн',rev:426643,check:4284,clients:80,ret:85,rec:0,shifts:17},
       {m:'Июл',rev:324789,check:4162,clients:72,ret:88.9,rec:0,shifts:13},
@@ -2280,14 +2362,15 @@ const MASTERS = {
       {m:'Мар',rev:467296,check:5251,clients:65,ret:89.2,rec:0,shifts:16},
       {m:'Апр',rev:471666,check:5018,clients:74,ret:78.4,rec:0,shifts:16},
       {m:'Май',rev:430411,check:5064,clients:64,ret:85.9,rec:0,shifts:15},
-      {m:'Июн',rev:484386,check:5046,clients:71,ret:87.3,rec:0,shifts:16}
+      {m:'Июн',rev:484386,check:5046,clients:71,ret:87.3,rec:0,shifts:16},
+      {m:'Июл',rev:269479,check:5284,clients:50,ret:92.0,rec:0,shifts:9}
     ],
     kpiTarget:{rev:400000,check:6000,ret:80}
   },
   nesterova: {
     name:'Александра Нестерова', initials:'АН', category:'highest',
     pin:'2004', startDate:'27 сентября 2023',
-    monthsInStudio: 33,
+    monthsInStudio: 34,
     analytics: [
       {m:'Июн',rev:413092,check:4050,clients:89,ret:71.9,rec:0,shifts:17},
       {m:'Июл',rev:394439,check:4109,clients:84,ret:76.2,rec:0,shifts:17},
@@ -2300,7 +2383,8 @@ const MASTERS = {
       {m:'Мар',rev:491273,check:5588,clients:69,ret:84.1,rec:0,shifts:17},
       {m:'Апр',rev:482259,check:5674,clients:68,ret:85.3,rec:0,shifts:17},
       {m:'Май',rev:576719,check:5657,clients:79,ret:74.7,rec:0,shifts:18},
-      {m:'Июн',rev:527559,check:5951,clients:70,ret:78.6,rec:0,shifts:16}
+      {m:'Июн',rev:527559,check:5951,clients:70,ret:78.6,rec:0,shifts:16},
+      {m:'Июл',rev:543063,check:6034,clients:76,ret:77.6,rec:0,shifts:17}
     ],
     kpiTarget:{rev:400000,check:6000,ret:80}
   }
@@ -2308,34 +2392,90 @@ const MASTERS = {
 
 /* Checklist items — shared for all masters */
 const CHECKLIST = [
-  {id:'wb', label:'Welcome-book изучен', cat:'onboard'},
-  // Документы
-  {id:'doc_nda', label:'NDA', cat:'onboard', sub:'docs'},
-  {id:'doc_pd', label:'Обработка персональных данных', cat:'onboard', sub:'docs'},
-  {id:'doc_photo', label:'Согласие на фото- и видеосъёмку', cat:'onboard', sub:'docs'},
-  {id:'doc_medbook', label:'Медкнижка', cat:'onboard', sub:'docs'},
-  {id:'doc_passport', label:'Паспорт', cat:'onboard', sub:'docs'},
-  {id:'doc_inn', label:'ИНН', cat:'onboard', sub:'docs'},
-  {id:'tk_rf', label:'Оформление по ТК РФ', cat:'onboard'},
-  {id:'tk_rf_journals', label:'Подписаны журналы при оформлении по ТК РФ', cat:'onboard'},
-  {id:'regs', label:'Внутренние регламенты подписаны', cat:'onboard'},
-  {id:'demo', label:'Очный разбор — правила уборки и стерилизация', cat:'onboard'},
-  {id:'self', label:'Самостоятельное изучение протоколов', cat:'onboard'},
-  {id:'video_zait', label:'Видеоматериалы В. Зайцевой', cat:'onboard'},
-  {id:'test_zait', label:'Тестирование по материалам В. Зайцевой', cat:'onboard', link:'https://forms.gle/5JPwgoftafMmTF1E8'},
-  {id:'seminar_luxio_straderm', label:'Семинар Luxio и Straderm', cat:'onboard'},
-  {id:'test_luxio_straderm', label:'Тестирование на знание протокола Luxio и Straderm', cat:'onboard'},
-  // Повышение квалификации «Маникюр» — Катя Туркеева
-  {id:'turk_m1', label:'Модуль 1: «Снятие гель-лака»', cat:'onboard', sub:'turkeeva', hasScore:true},
-  {id:'turk_m2', label:'Модуль 2: «Раскрытие кармана. Работа пушером»', cat:'onboard', sub:'turkeeva', hasScore:true},
-  {id:'turk_m3', label:'Модуль 3: «Аппаратная подготовка к срезу»', cat:'onboard', sub:'turkeeva', hasScore:true},
-  {id:'turk_m4', label:'Модуль 4: «Срез ножницами»', cat:'onboard', sub:'turkeeva', hasScore:true},
-  {id:'turk_m5', label:'Модуль 5: «Шлифовка кутикулы»', cat:'onboard', sub:'turkeeva', hasScore:true},
-  {id:'turk_m6', label:'Модуль 6: «Выравнивание базой и опил формы»', cat:'onboard', sub:'turkeeva', hasScore:true},
-  {id:'turk_m7', label:'Модуль 7: «Покрытие»', cat:'onboard', sub:'turkeeva', hasScore:true},
-  {id:'turk_m8', label:'Модуль 8: «Доработка до идеала»', cat:'onboard', sub:'turkeeva', hasScore:true},
-  {id:'sync', label:'Синхронизационная сессия с HRD + брендбук', cat:'onboard'},
-  {id:'ipr', label:'ИПР построен (точка А определена)', cat:'onboard'},
+  // ── Этап 1: Старт работы ──
+  {id:'wb', label:'Welcome-book изучен', cat:'onboard', sub:'stage1_start'},
+  {id:'doc_passport', label:'Скан паспорта передан управляющей (первый разворот + прописка)', cat:'onboard', sub:'stage1_docs'},
+  {id:'doc_inn', label:'Скан ИНН передан управляющей', cat:'onboard', sub:'stage1_docs'},
+  {id:'doc_medbook', label:'Оригинал медицинской книжки передан управляющей', cat:'onboard', sub:'stage1_docs'},
+  {id:'doc_snils', label:'СНИЛС передан управляющей', cat:'onboard', sub:'stage1_docs'},
+  {id:'doc_pd', label:'Согласие на обработку персональных данных подписано', cat:'onboard', sub:'stage1_sign'},
+  {id:'doc_photo', label:'Согласие на фото- и видеосъёмку подписано', cat:'onboard', sub:'stage1_sign'},
+  {id:'doc_nda', label:'Соглашение о неразглашении (NDA) подписано', cat:'onboard', sub:'stage1_sign'},
+  {id:'yclients', label:'Добавлена в YClients (понимаю, где смотреть отзывы, чаевые)', cat:'onboard', sub:'stage1_setup'},
+  {id:'uniform', label:'Форма заказана (мерки сняты, формат оплаты согласован, заказ оформлен)', cat:'onboard', sub:'stage1_setup'},
+  {id:'chats', label:'Присоединиться в чаты', cat:'onboard', sub:'stage1_setup'},
+  {id:'materials', label:'Понимаю, какими материалами работаем и как их получить', cat:'onboard', sub:'stage1_setup'},
+  {id:'responsibility', label:'Понимаю зону ответственности свою и мастеров', cat:'onboard', sub:'stage1_setup'},
+  {id:'payroll_rules', label:'Понимаю зарплатный цикл, как брать отпуск/замену, правила дисциплины (опоздания, переносы, отчётность)', cat:'onboard', sub:'stage1_setup'},
+  // ── Этап 2: Ценности, правила и дисциплина (очно с управляющей) ──
+  {id:'values', label:'Ценности и миссия студии', cat:'onboard', sub:'stage2'},
+  {id:'rules_general', label:'Общие правила студии', cat:'onboard', sub:'stage2'},
+  {id:'rules_discounts', label:'Правила скидок и комплиментов, правила поведения при конфликтах', cat:'onboard', sub:'stage2'},
+  {id:'rules_spaces', label:'Правила пользования общественными пространствами (кухня, коридор, шкаф и пр.)', cat:'onboard', sub:'stage2'},
+  // ── Этап 3: Технологический стандарт ──
+  {id:'reg_master', label:'Регламент мастера ногтевого сервиса', cat:'onboard', sub:'stage3_signoff'},
+  {id:'reg_comm', label:'Регламент коммуникации с гостями', cat:'onboard', sub:'stage3_signoff'},
+  {id:'reg_onycho', label:'Регламент онихолизиса', cat:'onboard', sub:'stage3_signoff'},
+  {id:'reg_repair', label:'Правила реставраций, ответственность мастера', cat:'onboard', sub:'stage3_signoff'},
+  {id:'clean_workspace', label:'Правила уборки рабочих мест (ман+пед)', cat:'onboard', sub:'stage3_demo'},
+  {id:'sterilization', label:'Протокол стерилизации', cat:'onboard', sub:'stage3_demo'},
+  {id:'proto_mani', label:'Протоколы процедур — маникюр', cat:'onboard', sub:'stage3_self', link:'https://docs.google.com/document/d/1Pb1j0eh1TY6zyqmD6MCtW7tzOOIjg53A/edit?usp=sharing&ouid=117024619454996101032&rtpof=true&sd=true', linkLabel:'открыть материал →'},
+  {id:'proto_pedi', label:'Протоколы процедур — педикюр', cat:'onboard', sub:'stage3_self', link:'https://docs.google.com/document/d/1lRWel5PTqMOCaBlBrQGOasvu6O3UmUs8/edit?usp=sharing&ouid=117024619454996101032&rtpof=true&sd=true', linkLabel:'открыть материал →'},
+  {id:'values_charter', label:'Ценности и устав студии', cat:'onboard', sub:'stage3_self', link:'https://drive.google.com/file/d/15CPc5PnbKxE_JrLP6-CR68vc6PdY9dJy/view?usp=sharing', linkLabel:'открыть материал →'},
+  {id:'retail', label:'Ритейл и описание продуктов', cat:'onboard', sub:'stage3_self', link:'https://docs.google.com/spreadsheets/d/1lR6DnrWOc-hwdOMAuu18snZfS89U6377/edit?usp=sharing&ouid=117024619454996101032&rtpof=true&sd=true', linkLabel:'открыть материал →'},
+  // ── Этап 4: Обучение материалам и сложным случаям ──
+  {id:'seminar_luxio_straderm', label:'Семинар Luxio и Straderm', cat:'onboard', sub:'stage4'},
+  {id:'test_luxio_straderm', label:'Аттестация по семинарам Luxio и Straderm', cat:'onboard', sub:'stage4', link:'https://docs.google.com/forms/d/e/1FAIpQLSdqRsLSjvWyULWn74nND2cqd_ElFnLmPuYJkId07KFsSKYs0A/viewform'},
+  {id:'video_zait', label:'Видео В. Зайцевой «Отслойки и сложные случаи» (просмотр, канал SHUGA Academy)', cat:'onboard', sub:'stage4'},
+  {id:'test_zait', label:'Аттестация по материалам В. Зайцевой', cat:'onboard', sub:'stage4', link:'https://forms.gle/VMjFhUvmQwfunUn47'},
+  {id:'masterclass_buddy', label:'Мастер-класс по спец. услугам от бадди: SPA для рук, немецкий маникюр, японский маникюр, бондирование, IBX, ChaCure (если ранее не работала с этими услугами)', cat:'onboard', sub:'stage4_special'},
+  {id:'internal_training', label:'Понимаю условия внутреннего обучения у технологов студии', cat:'onboard', sub:'stage4_training'},
+  {id:'external_training', label:'Понимаю условия внешнего повышения квалификации', cat:'onboard', sub:'stage4_training'},
+  // ── Этап 5: Гости и сервис ──
+  {id:'guest_scripts', label:'Отработаны скрипты коммуникации с гостями: приветствие, выяснение ожиданий/чувствительности, работа с возражениями, предложение доп. услуг', cat:'onboard', sub:'stage5'},
+  {id:'conflict_scenario', label:'Отработан сценарий возникновения конфликта: что говорить и что делать', cat:'onboard', sub:'stage5'},
+  {id:'recovery_rules', label:'Разобраны recovery-процедуры и границы скидок: что решается самостоятельно, что согласуется и с кем', cat:'onboard', sub:'stage5'},
+  {id:'guest_gate', label:'Гейт этапа: 2 ролевых кейса (коммуникация/рекламация) + 4–6 реальных отзывов, зафиксированных в журнале отзывов', cat:'onboard', sub:'stage5'},
+  // ── Этап 6: Рабочее пространство и операционные процессы ──
+  {id:'sterilization_cycle', label:'Знает и соблюдает полный цикл стерилизации, самостоятельно готовит инструменты', cat:'onboard', sub:'stage6_sterile'},
+  {id:'own_shelf', label:'Имеет свою полку/ячейку, понимает порядок размещения', cat:'onboard', sub:'stage6_sterile'},
+  {id:'sterile_storage', label:'Хранит инструменты в стерильном виде: упаковка, индикаторы, сроки', cat:'onboard', sub:'stage6_sterile'},
+  {id:'sterilization_schedule', label:'Включена в общий график подготовки и стерилизации инструментов и соблюдает его', cat:'onboard', sub:'stage6_sterile'},
+  {id:'materials_access', label:'Имеет доступ ко всем необходимым материалам: базы, топы, гели и т. п.', cat:'onboard', sub:'stage6_materials'},
+  {id:'materials_reorder', label:'Знает, как получить новые материалы, сдать пустые флаконы и оформить замену', cat:'onboard', sub:'stage6_materials'},
+  {id:'fully_equipped', label:'Полностью экипирована согласно стандартам студии', cat:'onboard', sub:'stage6_materials'},
+  {id:'rest_kitchen_rules', label:'Знает правила зоны отдыха и кухни, убирает за собой', cat:'onboard', sub:'stage6_space'},
+  {id:'dishwasher_use', label:'Правильно пользуется посудомоечной машиной, поддерживает чистоту', cat:'onboard', sub:'stage6_space'},
+  {id:'smoking_rules', label:'Знает и соблюдает правила курения', cat:'onboard', sub:'stage6_space'},
+  {id:'daily_cleaning', label:'Ежедневно убирает рабочее место по чек-листу', cat:'onboard', sub:'stage6_cleaning'},
+  {id:'general_cleaning', label:'Знает и соблюдает правила генеральной уборки по четвергам', cat:'onboard', sub:'stage6_cleaning'},
+  {id:'equipment_cleaning', label:'Умеет чистить вытяжки и другое оборудование согласно регламенту', cat:'onboard', sub:'stage6_cleaning'},
+  {id:'gel_out_procedure', label:'Знает алгоритм действий, если закончился гель-лак: уведомление в нужный чат / форма заявки', cat:'onboard', sub:'stage6_incidents'},
+  {id:'equipment_fault', label:'Знает порядок действий при неисправности оборудования: остановка, маркировка, сообщение, заявка / эскалация', cat:'onboard', sub:'stage6_incidents'},
+  // ── Этап 7: Корпоративная культура ──
+  {id:'category_requirements', label:'Знает свою текущую категорию и требования для перехода на следующую', cat:'onboard', sub:'stage7_career'},
+  {id:'kpi_understanding', label:'Понимает необходимые показатели, качество и допуски', cat:'onboard', sub:'stage7_career'},
+  {id:'promotion_process', label:'Знает процесс повышения: когда, кому и в каком формате подаются результаты', cat:'onboard', sub:'stage7_career'},
+  {id:'promotion_terms', label:'Понимает, как после повышения меняются ставка, прайс и допуски', cat:'onboard', sub:'stage7_career'},
+  {id:'dev_plan', label:'Фиксирует план развития на 1–2 месяца, понимает критерии перехода', cat:'onboard', sub:'stage7_career'},
+  {id:'tips_rules', label:'Знает правила начисления и получения чаевых', cat:'onboard', sub:'stage7_tips'},
+  {id:'personal_metrics', label:'Знает свои основные показатели: выручка, средний чек, повторные визиты, рекламации, recovery и др.', cat:'onboard', sub:'stage7_tips'},
+  {id:'metrics_access', label:'Знает, где смотреть свои показатели и к кому обращаться по вопросам расчётов', cat:'onboard', sub:'stage7_tips'},
+  {id:'employment_status', label:'Знает свой статус трудоустройства, срок испытательного срока и условия его завершения', cat:'onboard', sub:'stage7_employment'},
+  {id:'pay_structure', label:'Понимает структуру оплаты и график выплат', cat:'onboard', sub:'stage7_employment'},
+  {id:'hr_docs', label:'Знает, какие документы оформлены и к кому обращаться по HR/кадровым вопросам', cat:'onboard', sub:'stage7_employment'},
+  {id:'leave_rules', label:'Знает правила отпусков, замен и дополнительных рабочих дней', cat:'onboard', sub:'stage7_employment'},
+  {id:'corp_rules', label:'Знает корпоративные правила и принципы взаимодействия', cat:'onboard', sub:'stage7_culture'},
+  {id:'events_awareness', label:'В курсе мероприятий, понимает ожидания по участию', cat:'onboard', sub:'stage7_culture'},
+  {id:'chats_channels', label:'Подписана на необходимые чаты и каналы, следит за объявлениями', cat:'onboard', sub:'stage7_culture'},
+  {id:'birthday_format', label:'Знает формат поздравлений сотрудников с днём рождения', cat:'onboard', sub:'stage7_culture'},
+  {id:'liability_rules', label:'Знает основные случаи материальной ответственности и правила штрафов', cat:'onboard', sub:'stage7_liability'},
+  {id:'damage_procedure', label:'Понимает порядок действий при ущербе: фиксация, уведомление, оформление', cat:'onboard', sub:'stage7_liability'},
+  {id:'recovery_limits', label:'Знает границы бесплатных/скидочных реставраций (recovery) и кто принимает решение', cat:'onboard', sub:'stage7_liability'},
+  {id:'nonstandard_situations', label:'Понимает порядок действий в нестандартных ситуациях: повреждение оборудования, порез гостя, реставрация из-за материала', cat:'onboard', sub:'stage7_liability'},
+  // ── Контрольные точки первого месяца ──
+  {id:'sync', label:'Встреча с HRD (через 2–3 недели): синхронизация по адаптации, обратная связь, знакомство с брендбуком', cat:'onboard', sub:'checkpoints'},
+  {id:'ipr', label:'Точка А определена (через 1 месяц): навыки, показатели, сильные стороны и зоны развития → построен ИПР до категории «Мастер-Эксперт»', cat:'onboard', sub:'checkpoints'},
   // Маникюр навыки
   {id:'combo_mani', label:'Комбинированный маникюр', cat:'nail'},
   {id:'app_mani', label:'Аппаратный маникюр', cat:'nail'},
@@ -2346,15 +2486,17 @@ const CHECKLIST = [
   {id:'file_mani', label:'Пилочный маникюр', cat:'nail_exp'},
   {id:'japan', label:'Японский маникюр', cat:'nail_exp'},
   {id:'german_mani', label:'Немецкий маникюр', cat:'nail_exp'},
-  {id:'ibx', label:'IBX (видеоурок от Гульфии)', cat:'nail_exp'},
+  {id:'bonding', label:'Бондирование', cat:'nail_exp'},
+  {id:'male_mani', label:'Мужской маникюр', cat:'nail_exp'},
+  {id:'ibx', label:'IBX', cat:'nail_exp'},
   {id:'spa', label:'SPA Comfort Zone', cat:'nail_exp'},
   {id:'attest_mani', label:'Аттестация по маникюру', cat:'nail_exp'},
   // Педикюр навыки
   {id:'smart', label:'Обучение SMART-педикюр + аттестация', cat:'pedi'},
   {id:'straderm_pedi', label:'Протокол STRADERM', cat:'pedi'},
-  {id:'anna_sem', label:'Семинар Анны Романовой (пинцет)', cat:'pedi_exp'},
+  {id:'male_pedi', label:'Мужской педикюр', cat:'pedi'},
+  {id:'anna_sem', label:'Семинар Анны Романовой (пинцетная техника)', cat:'pedi_exp'},
   {id:'chacure_sem', label:'Практический семинар ChaCure', cat:'pedi_exp'},
-  {id:'pincet', label:'Пинцет освоен', cat:'pedi_exp'},
   {id:'massage', label:'Массаж', cat:'pedi_exp'},
   {id:'chacure', label:'ChaCure', cat:'pedi_exp'},
   // KPI
@@ -2365,8 +2507,29 @@ const CHECKLIST = [
   {id:'kpi_ret', label:'Возвратность клиентов от 70%', cat:'kpi'}
 ];
 const CHECKLIST_SUB_LABELS = {
-  docs: '📄 Документы',
-  turkeeva: '🎓 Повышение квалификации «Маникюр» — Катя Туркеева'
+  stage1_start: '🌱 Этап 1: Старт работы',
+  stage1_docs: '📄 Передать управляющей сканы документов',
+  stage1_sign: '✍️ Подписать документы',
+  stage1_setup: '🗂 Знакомство с процессами',
+  stage2: '🤝 Этап 2: Ценности, правила и дисциплина (очно с управляющей)',
+  stage3_signoff: '📝 Этап 3: Технологический стандарт — очно под подпись',
+  stage3_demo: '🧼 Технологический стандарт — очно с демонстрацией',
+  stage3_self: '📚 Самостоятельное изучение (срок — 2 дня)',
+  stage4: '🎓 Этап 4: Обучение материалам и сложным случаям',
+  stage4_special: '🎓 Этап 4: Спецуслуги',
+  stage4_training: '📈 Возможности дальнейшего обучения',
+  stage5: '💬 Этап 5: Гости и сервис',
+  stage6_sterile: '🧪 Этап 6: Стерилизация, инструменты, хранение',
+  stage6_materials: '🧴 Материалы и снабжение',
+  stage6_space: '☕ Зона отдыха, кухня, курение',
+  stage6_cleaning: '🧹 Рабочее место и уборки',
+  stage6_incidents: '⚠️ Неисправности и инциденты',
+  stage7_career: '📈 Этап 7: Карьерная траектория и категории',
+  stage7_tips: '💵 Чаевые и личные показатели',
+  stage7_employment: '📑 Трудоустройство и условия',
+  stage7_culture: '🎉 Корпоративная культура и активности',
+  stage7_liability: '⚖️ Материальная ответственность и штрафы',
+  checkpoints: '📍 Контрольные точки первого месяца'
 };
 
 const TOTAL_ITEMS = CHECKLIST.length;
@@ -2577,8 +2740,8 @@ function renderDashboard(key) {
       }
       const isDone = !!prog[c.id];
       const label = kpiLabelOverrides[c.id] || c.label;
-      const linkHtml = c.link ? `<a href="${c.link}" target="_blank" rel="noopener" onclick="event.stopPropagation();" style="margin-left:8px;font-size:11px;color:var(--gold-dk);text-decoration:underline;white-space:nowrap;">пройти тест →</a>` : '';
-      clHtml += `<div class="lk-check${isDone?' done':''}" onclick="lkToggle('${key}','${c.id}',this)">
+      const linkHtml = c.link ? `<a href="${c.link}" target="_blank" rel="noopener" onclick="event.stopPropagation();" style="margin-left:8px;padding:2px 4px;font-size:11px;color:var(--gold-dk);text-decoration:underline;white-space:nowrap;pointer-events:auto;position:relative;z-index:2;">${c.linkLabel || 'пройти тест →'}</a>` : '';
+      clHtml += `<div class="lk-check${isDone?' done':''}" onclick="if(event.target.closest('a'))return; lkToggle('${key}','${c.id}',this)">
         <div class="lk-checkbox">${isDone?'✓':''}</div>
         <span>${label}${linkHtml}</span>
       </div>`;
@@ -2840,13 +3003,18 @@ const D = {
   h5:{s:'Найм · Этап 05',t:'Тестовые дни',b:`<strong>Менеджер:</strong> 3 тестовых дня\n<strong>Хранитель:</strong> 2 тестовых дня\n\n<strong>День 1:</strong>\n• Кандидат приходит за 40 минут до первой записи\n• Экскурсия по студии, знакомство с командой, назначение buddy\n• Рабочий день по плану\n• Мини-встреча с управляющей в конце смены\n\n<strong>День 2:</strong>\n• Кандидат работает более самостоятельно\n• Финальная беседа (15–30 мин)\n• Официальное решение по офферу`},
   h6:{s:'Найм · Этап 06',t:'Итоговый сбор обратной связи',b:`<strong>От кандидата:</strong>\n• Как ему/ей в пространстве студии\n• Комфортна ли команда и формат работы\n• Готовность к испытательному сроку\n\n<strong>От руководства:</strong>\n• Сильные стороны кандидата\n• Зоны роста, важные для студии\n• Соответствие культуре и регламентам`},
   h7:{s:'Найм · Этап 07',t:'Оффер',b:`Финальный созвон с HRD, ценностное закрепление и оффер.\n\n<strong>При положительном решении:</strong>\n• Планируемая дата старта испытательного срока\n• График работы\n• Базовые условия по оплате\n• Запрос сканов документов\n• Запрос мерок для формы\n• Назначение встречи для подписания документов`},
-  a1:{s:'Адаптация · Шаг 01',t:'Подписание документов',b:`<strong>Документы:</strong>\n• NDA — соглашение о неразглашении\n• Согласие на обработку персональных данных (ОПД)\n• Согласие на фото- и видеосъёмку в студии\n\nВсе документы подписываются до начала полноценной работы.`},
-  a2:{s:'Адаптация · Шаг 02',t:'Внутренние регламенты',b:`Сотрудник изучает и подписывает все действующие регламенты студии, подтверждая понимание стандартов и правил.`},
-  a3:{s:'Адаптация · Шаг 03',t:'Регламент внешнего вида студии',b:`Только для хранителей.\n\n• Стандарты внешнего вида самой студии\n• Требования к порядку и чистоте в каждой зоне\n• Ежедневный фотоотчёт по состоянию студии`},
-  a4:{s:'Адаптация · Шаг 04',t:'Карта процессов SHUGA',b:`<strong>Хранитель — 9 блоков:</strong>\n1. Подготовка смены\n2. Сервис гостя\n3. Обслуживание мастеров\n4. Поставки и склад\n5. Стерилизация и чистота\n6. Рекламации\n7. Этические нормы\n8. Контроль оборудования\n9. Хозяйственное управление\n\n<strong>Менеджер — 7 блоков:</strong>\n1. Подготовка смены\n2. Запись и загрузка\n3. Перезапись и доп. услуги\n4. Работа с клиентской базой\n5. Финансы смены\n6. Рекламации\n7. Этические нормы`},
-  a5:{s:'Адаптация · Шаг 05',t:'Итог 2 недель работы',b:`<strong>Синхронизационная сессия с HRD:</strong>\n• Обсуждение первых двух недель\n• Сверка ожиданий и реальности\n• Ответы на накопившиеся вопросы\n\n<strong>Презентация брендбука:</strong>\n• Ценности и миссия SHUGA\n• Визуальный и коммуникационный стиль бренда`},
-  a6:{s:'Адаптация · Шаг 06',t:'Знание услуг — тестирование',b:`Сотрудник должен знать:\n• Все услуги студии, их составы и форматы\n• Длительность и стоимость каждой процедуры\n• Особенности и ограничения\n• Как правильно рекомендовать услуги гостям\n\nПо итогу — тестирование / аттестация.`},
-  a7:{s:'Адаптация · Шаг 07',t:'Конфликтология и рекламации',b:`• Типы конфликтных ситуаций в студии\n• Алгоритм работы с рекламациями\n• Как деэскалировать конфликт\n• Что делать, если гость недоволен результатом\n• Как фиксировать и передавать рекламацию\n\nПо итогу — тестирование / аттестация.`},
+  a1:{s:'Адаптация · Шаг 01',t:'Welcome-book',b:`Первый документ, с которым знакомится новый администратор.\n\nСодержит вводную информацию о студии SHUGA: история, ценности, команда, правила взаимодействия и ожидания от каждого сотрудника.\n\n🔗 <a href="https://docs.google.com/presentation/d/1GmzLElnG1tHX-kGOA-QotpsHSNg-BJFqRum8mHDD82g/edit?usp=sharing" target="_blank" rel="noopener" style="color:var(--rose);text-decoration:underline;">Открыть Welcome-book →</a>`},
+  a2:{s:'Адаптация · Шаг 02',t:'Дресс-код, этика и правила посещения',b:`🔗 <a href="https://docs.google.com/presentation/d/18XKMLINKvnRUOErqVNqXfcou1G6QGUEY/edit?usp=sharing&ouid=117024619454996101032&rtpof=true&sd=true" target="_blank" rel="noopener" style="color:var(--rose);text-decoration:underline;">Дресс-код SHUGA →</a>\n🔗 <a href="https://docs.google.com/document/d/1PlUicKwSFAWP8isItIdzks_qXzBZRAVP/edit?usp=sharing&ouid=117024619454996101032&rtpof=true&sd=true" target="_blank" rel="noopener" style="color:var(--rose);text-decoration:underline;">Этика поведения администратора →</a>\n🔗 <a href="https://docs.google.com/document/d/1-HphKf5KJ0_7guONrBoqSU5qx-dxgUJv/edit?usp=sharing&ouid=117024619454996101032&rtpof=true&sd=true" target="_blank" rel="noopener" style="color:var(--rose);text-decoration:underline;">Правила посещения студии →</a>`},
+  a3:{s:'Адаптация · Шаг 03',t:'Подписание документов',b:`<strong>Документы:</strong>\n• NDA — соглашение о неразглашении\n• Согласие на обработку персональных данных (ОПД)\n• Согласие на фото- и видеосъёмку в студии\n\nВсе документы подписываются до начала полноценной работы.`},
+  a4:{s:'Адаптация · Шаг 04',t:'Внутренние регламенты',b:`Сотрудник изучает и подписывает все действующие регламенты студии, подтверждая понимание стандартов и правил.`},
+  a5:{s:'Адаптация · Шаг 05',t:'Понимание своей роли',b:`Разграничение зон ответственности: своя роль, роль напарника, роль управляющей.\n\n🔗 <a href="https://drive.google.com/file/d/1KvnganaKCZTtG2_XaQ8uPE2rxyuXKWiT/view?usp=sharing" target="_blank" rel="noopener" style="color:var(--rose);text-decoration:underline;">Роль менеджера →</a>\n🔗 <a href="https://drive.google.com/file/d/1T2ozb0aWCD-RNPmUMoVTBOMsrp9LyJ0S/view?usp=sharing" target="_blank" rel="noopener" style="color:var(--rose);text-decoration:underline;">Роль хранителя →</a>\n🔗 <a href="https://drive.google.com/file/d/1JfH25RYoodO3BDubm7zb1fUyPPe9XkwX/view?usp=sharing" target="_blank" rel="noopener" style="color:var(--rose);text-decoration:underline;">Карта коммуникаций →</a>`},
+  a6:{s:'Адаптация · Шаг 06',t:'Визуал студии',b:`Зона ответственности хранителя, зона понимания менеджера.\n\n• Стандарты внешнего вида самой студии\n• Требования к порядку и чистоте в каждой зоне\n• Ежедневный фотоотчёт по состоянию студии (хранитель)\n\n🔗 <a href="https://docs.google.com/document/d/1fIES40UxkWTI8Pamdu0kJSy1KJoAjJHzZDM-1y-te88/edit?usp=sharing" target="_blank" rel="noopener" style="color:var(--rose);text-decoration:underline;">Открыть материал →</a>`},
+  a7:{s:'Адаптация · Шаг 07',t:'Карта процессов SHUGA',b:`<strong>Хранитель — 11 блоков:</strong>\n1. Подготовка смены\n2. Сервис гостя\n3. Обслуживание мастеров\n4. Поставки и склад\n5. Стерилизация и чистота\n6. Рекламации\n7. Этические нормы\n8. Контроль оборудования\n9. Хозяйственное управление\n10. Дисциплина мастеров\n11. Синхронная работа салона\n\n<strong>Менеджер — 10 блоков:</strong>\n1. Подготовка смены\n2. Запись и загрузка\n3. Перезапись, доп. услуги и ритейл\n4. Работа с клиентской базой\n5. Финансы смены\n6. Рекламации\n7. Этические нормы\n8. Обратная связь и карточки клиентов\n9. Оборудование\n10. Итог смены`},
+  a8:{s:'Адаптация · Шаг 08',t:'Знание услуг, ритейла и стерилизации',b:`🔗 <a href="https://docs.google.com/spreadsheets/d/1mMtlpYz1NYK2QB3yx9cbpYLTjikMMeHZaC0dF_S0pTU/edit?usp=sharing" target="_blank" rel="noopener" style="color:var(--rose);text-decoration:underline;">Знание услуг по мастерам →</a>\n🔗 <a href="https://docs.google.com/spreadsheets/d/1_l3YfqhsXjHhN_FngzbuwtnaMq8zduc3/edit?usp=sharing&ouid=117024619454996101032&rtpof=true&sd=true" target="_blank" rel="noopener" style="color:var(--rose);text-decoration:underline;">Знание продукции ритейла →</a>\n🔗 <a href="https://docs.google.com/document/d/1NPFt0FOTCMnkw7nS6vKqX3cFu1yWL1rP/edit?usp=sharing&ouid=117024619454996101032&rtpof=true&sd=true" target="_blank" rel="noopener" style="color:var(--rose);text-decoration:underline;">Регламент стерилизации →</a>`},
+  a9:{s:'Адаптация · Шаг 09',t:'Встреча гостей и лояльность',b:`🔗 <a href="https://docs.google.com/document/d/1hw4iSyyXNRko3yT_7ISEg1X6sOfIgEzd/edit?usp=sharing&ouid=117024619454996101032&rtpof=true&sd=true" target="_blank" rel="noopener" style="color:var(--rose);text-decoration:underline;">Технология встречи и рассадки гостей →</a>\n🔗 <a href="https://docs.google.com/document/d/1UPChNOG26MoxRiAOgjShpg9XXxKr8ggf/edit?usp=sharing&ouid=117024619454996101032&rtpof=true&sd=true" target="_blank" rel="noopener" style="color:var(--rose);text-decoration:underline;">Система лояльности SHUGA →</a>`},
+  a10:{s:'Адаптация · Шаг 10',t:'Итог 2 недель работы',b:`<strong>Синхронизационная сессия с HRD:</strong>\n• Обсуждение первых двух недель\n• Сверка ожиданий и реальности\n• Ответы на накопившиеся вопросы\n\n<strong>Презентация брендбука:</strong>\n• Ценности и миссия SHUGA\n• Визуальный и коммуникационный стиль бренда`},
+  a11:{s:'Адаптация · Шаг 11',t:'Знание услуг — тестирование',b:`Сотрудник должен знать:\n• Все услуги студии, их составы и форматы\n• Длительность и стоимость каждой процедуры\n• Особенности и ограничения\n• Как правильно рекомендовать услуги гостям\n\nПо итогу — тестирование / аттестация.`},
+  a12:{s:'Адаптация · Шаг 12',t:'Конфликтология, рекламации и скрипты',b:`• Типы конфликтных ситуаций в студии\n• Алгоритм работы с рекламациями\n• Как деэскалировать конфликт\n• Что делать, если гость недоволен результатом\n• Как фиксировать и передавать рекламацию\n\nПо итогу — тестирование / аттестация.\n\n🔗 <a href="https://docs.google.com/spreadsheets/d/1FLkwcEVHcFAdCXLbVbGt1nr8NjINQ2b4/edit?usp=sharing&ouid=117024619454996101032&rtpof=true&sd=true" target="_blank" rel="noopener" style="color:var(--rose);text-decoration:underline;">Регламент рекламаций →</a>\n\n<strong>Для менеджера — книга скриптов:</strong>\n🔗 <a href="https://drive.google.com/file/d/16CVnSnAP_WjGLrTJXJSGSR-J-DkTTiDK/view?usp=sharing" target="_blank" rel="noopener" style="color:var(--rose);text-decoration:underline;">Книга скриптов →</a>\n🔗 <a href="https://docs.google.com/spreadsheets/d/1hW2zJ6_t_tdWAMU6LCUUwWnh7YHpaCXR/edit?usp=sharing&ouid=117024619454996101032&rtpof=true&sd=true" target="_blank" rel="noopener" style="color:var(--rose);text-decoration:underline;">Таблица скриптов →</a>`},
   t1:{s:'Обучение · Модуль 1',t:'Конфликтология и работа с рекламациями',b:`• Психология конфликта: почему возникают претензии\n• Типы «сложных» гостей и стратегии работы\n• Алгоритм работы с рекламацией step-by-step\n• Речевые модули и скрипты для сложных диалогов\n• Как превращать недовольного клиента в лояльного\n\nОбучение завершается тестированием.`},
   t2:{s:'Обучение · Модуль 2',t:'Услуги Shuga Studio',b:`• Все категории услуг студии\n• Состав и особенности каждой процедуры\n• Противопоказания и ограничения\n• Как рекомендовать услуги, не будучи мастером\n• Сезонность и актуальность услуг\n\nОбучение завершается тестированием.`},
   n1:{s:'Найм · Этап 01 · HRD',t:'Отбор по стоп-факторам + созвон',b:`<strong>Изучить:</strong> резюме / соцсети / примеры работ\n\n<strong>Вопросы на созвоне:</strong>\n• Возраст, опыт работы, обучения и курсы\n• Техники, последнее место работы, желаемый график\n\n<strong>Запрос фото работ</strong>\n\nПосле успешного отбора — приглашение на тестовый маникюр. Согласовать дату, время, формат (на приглашённой модели) и условия оплаты.`},
@@ -2856,22 +3024,31 @@ const D = {
   n5:{s:'Найм · Этап 05 · Управляющая + buddy',t:'Второй тестовый день',b:`Кандидат работает более самостоятельно.\n\n<strong>Финальная беседа (15–30 мин):</strong>\n• Обратная связь студии: сильные стороны, зоны роста\n• Обратная связь кандидата: комфорт в команде, формат работы\n• Официальное решение\n\n<strong>При положительном решении:</strong>\n• Дата старта испытательного срока\n• График и базовые условия оплаты\n• Запрос документов и мерок для формы`},
   n6:{s:'Найм · Этап 06 · HRD',t:'Финальный созвон и оффер',b:`<strong>Цель:</strong> финально сверить ожидания, обсудить риски, закрепить договорённости и ценности студии.\n\n• Ожидания студии и кандидата\n• Возможные риски\n• Ценности и культура SHUGA\n• Финальные условия оффера\n\nПосле созвона — официальный оффер.`},
   n7:{s:'Найм · Этап 07 · HRD + Управляющая',t:'Подготовка к выходу в смены',b:`<strong>HRD:</strong>\n• Передаёт кандидата управляющей\n• Фиксирует договорённости\n\n<strong>Управляющая:</strong>\n• Согласовывает даты выхода\n• Ставит в рабочий график\n• Готовит команду к выходу нового мастера`},
-  o1:{s:'Онбординг · Шаг 01',t:'Welcome-book',b:`Первый документ, с которым знакомится новый мастер.\n\nСодержит вводную информацию о студии SHUGA: история, ценности, команда, правила взаимодействия и ожидания от каждого сотрудника.\n\n🔗 <a href="https://docs.google.com/presentation/d/1Qa07faHE25eRQP_nFIlPEsYPGav_Wbiv/edit?usp=sharing&ouid=117024619454996101032&rtpof=true&sd=true" target="_blank" rel="noopener" style="color:var(--sage);text-decoration:underline;">Открыть Welcome-book →</a>`},
-  o2:{s:'Онбординг · Шаг 02',t:'Подписание документов',b:`• NDA — соглашение о неразглашении\n• Согласие на обработку персональных данных (ОПД)\n• Согласие на фото- и видеосъёмку в студии\n\n<strong>Необходимые документы (скан/оригинал):</strong>\n• Медицинская книжка\n• Скан паспорта\n• ИНН\n\nВсе подписываются и предоставляются до начала полноценной работы.`},
-  o3:{s:'Онбординг · Шаг 03',t:'Внутренние регламенты',b:`Мастер изучает и подписывает:\n\n• Регламент мастера ногтевого сервиса\n• Регламент коммуникации с гостями\n• Регламент онихолизиса\n• Правила реставраций и ответственность мастера`},
-  o4:{s:'Онбординг · Шаг 04',t:'Очный разбор с демонстрацией',b:`Проводится управляющей или старшим мастером.\n\n• Правила уборки рабочих мест — маникюр и педикюр\n• Протокол стерилизации: шаг за шагом\n\nФормат: живая демонстрация с возможностью задать вопросы.`},
-  o5:{s:'Онбординг · Шаг 05',t:'Самостоятельное изучение',b:`• Протоколы процедур — маникюр и педикюр\n• Ценности и устав студии\n• Ритейл и описание продуктов (составы, эффекты, как рекомендовать гостю)`},
-  o6:{s:'Онбординг · Шаг 06',t:'Видеоматериалы В. Зайцевой',b:`Обучающие видео по отслойкам и сложным случаям.\n\n<strong>Дедлайн тестирования:</strong> 2 недели со старта работы.\n\nПосле просмотра мастер проходит тестирование по ссылке:\n🔗 forms.gle/b3Vbu9VWrePmDFY77\n\nРезультаты передаются HRD.`},
-  o6t:{s:'Онбординг · Тест 06',t:'Тестирование по В. Зайцевой',b:`Тест проходится после просмотра видеоматериалов об отслойках и сложных случаях.\n\n🔗 <a href="https://forms.gle/b3Vbu9VWrePmDFY77" target="_blank" rel="noopener" style="color:var(--sage);text-decoration:underline;">Пройти тестирование →</a>\n\n<strong>Дедлайн:</strong> 2 недели со старта работы.\nРезультаты передаются HRD.`},
-  o7:{s:'Онбординг · Шаг 07',t:'Бесплатный семинар Luxio',b:`Посещение бесплатного семинара от бренда Luxio.\n\nДаёт понимание продуктовой линейки, техник работы и особенностей материалов, используемых в студии.\n\nПосле семинара — тестирование на знание протокола Luxio.`},
-  o7t:{s:'Онбординг · Тест 07',t:'Тестирование по протоколу Luxio',b:`Проводится после посещения бесплатного семинара Luxio.\n\nПроверяет знание:\n• Продуктовой линейки Luxio\n• Техник нанесения и снятия\n• Протокола работы с материалами\n\nРезультаты передаются HRD.`},
-  o8:{s:'Онбординг · Шаг 08',t:'Бесплатный семинар Straderm',b:`Посещение бесплатного семинара Straderm в офисе Luxio.\n\nОхватывает протоколы работы со Straderm — уходовыми процедурами для педикюра.\n\nПосле семинара — тестирование на знание протокола Straderm.`},
-  o8t:{s:'Онбординг · Тест 08',t:'Тестирование по протоколу Straderm',b:`Проводится после посещения семинара Straderm.\n\nПроверяет знание:\n• Состава и свойств препаратов Straderm\n• Протокола педикюрной процедуры\n• Показаний и противопоказаний\n\nРезультаты передаются HRD.`},
-  o9:{s:'Онбординг · Шаг 09',t:'Понимание условий обучения',b:`<strong>Внутреннее обучение от технологов студии:</strong>\n• Условия участия, периодичность, темы\n\n<strong>Внешнее повышение квалификации:</strong>\n• Условия поддержки студии\n• Порядок согласования\n• Компенсация или частичная оплата`},
-  o10:{s:'Онбординг · Шаг 10',t:'Синхронизационная сессия + брендбук',b:`<strong>Сессия с HRD:</strong>\n• Обсуждение первых впечатлений\n• Сверка ожиданий\n• Ответы на накопившиеся вопросы\n\n<strong>Презентация брендбука:</strong>\n• Ценности и миссия SHUGA\n• Визуальный и коммуникационный стиль бренда`},
-  o11:{s:'Онбординг · Шаг 11',t:'Определение точки А + ИПР',b:`Совместно с HRD определяется текущий уровень мастера — «точка А».\n\nНа основе точки А строится ИПР:\n• Цели на 3 / 6 / 12 месяцев\n• Ключевые навыки для освоения\n• Необходимые обучения\n• KPI для перехода в следующую категорию`},
-  o12:{s:'Онбординг · Шаг 12',t:'Видеоматериалы: укрепление гелем',b:`Обучающие видео по технике укрепления ногтей гелем.\n\nПротоколы, типичные ошибки и нюансы работы с материалом.`},
-  o13:{s:'Онбординг · Шаг 13',t:'Видеоматериалы: маникюр и покрытие',b:`Общий видеокурс по маникюру и покрытию.\n\nБазовые и продвинутые техники, стандарты выполнения и критерии качества в студии SHUGA.`}
+  o1:{s:'Этап 1 · Старт работы',t:'Welcome-book',b:`Первый документ, с которым знакомится новый мастер.\n\nСодержит вводную информацию о студии SHUGA: история, ценности, команда, правила взаимодействия и ожидания от каждого сотрудника.\n\n🔗 <a href="https://docs.google.com/presentation/d/1Qa07faHE25eRQP_nFIlPEsYPGav_Wbiv/edit?usp=sharing&ouid=117024619454996101032&rtpof=true&sd=true" target="_blank" rel="noopener" style="color:var(--sage);text-decoration:underline;">Открыть Welcome-book →</a>`},
+  o2:{s:'Этап 1 · Старт работы',t:'Передать управляющей сканы документов',b:`Каждый пункт отмечается отдельной галочкой:\n\n• Скан паспорта (первый разворот + прописка)\n• Скан ИНН\n• Оригинал медицинской книжки\n• СНИЛС`},
+  o3:{s:'Этап 1 · Старт работы',t:'Подписать документы',b:`Каждый пункт отмечается отдельной галочкой:\n\n• Согласие на обработку персональных данных\n• Согласие на фото- и видеосъёмку\n• Соглашение о неразглашении (NDA)`},
+  o4:{s:'Этап 1 · Старт работы',t:'Знакомство с процессами',b:`• Добавлена в YClients — понимает, где смотреть отзывы и чаевые\n• Форма заказана: мерки сняты, формат оплаты согласован, заказ оформлен\n• Присоединиться в рабочие чаты\n• Понимает, какими материалами работаем и как их получить\n• Понимает зону ответственности свою и мастеров\n• Понимает зарплатный цикл, как брать отпуск/замену, правила дисциплины (опоздания, переносы, отчётность)`},
+  o5:{s:'Этап 2 · Ценности, правила и дисциплина',t:'Очно с управляющей',b:`Разбирается лично с управляющей:\n\n• Ценности и миссия студии\n• Общие правила студии\n• Правила скидок и комплиментов, правила поведения при конфликтах\n• Правила пользования общественными пространствами (кухня, коридор, шкаф и пр.)`},
+  o6:{s:'Этап 3 · Технологический стандарт',t:'Очный разбор под подпись',b:`• Регламент мастера ногтевого сервиса\n• Регламент коммуникации с гостями\n• Регламент онихолизиса\n• Правила реставраций, ответственность мастера`},
+  o7:{s:'Этап 3 · Технологический стандарт',t:'Очный разбор с демонстрацией',b:`Проводится управляющей или старшим мастером.\n\n• Правила уборки рабочих мест (маникюр + педикюр)\n• Протокол стерилизации: шаг за шагом\n\nФормат: живая демонстрация с возможностью задать вопросы.`},
+  o8:{s:'Этап 3 · Технологический стандарт',t:'Самостоятельное изучение',b:`<strong>Срок — 2 дня.</strong>\n\n🔗 <a href="https://docs.google.com/document/d/1Pb1j0eh1TY6zyqmD6MCtW7tzOOIjg53A/edit?usp=sharing&ouid=117024619454996101032&rtpof=true&sd=true" target="_blank" rel="noopener" style="color:var(--sage);text-decoration:underline;">Протоколы процедур — маникюр →</a>\n🔗 <a href="https://docs.google.com/document/d/1lRWel5PTqMOCaBlBrQGOasvu6O3UmUs8/edit?usp=sharing&ouid=117024619454996101032&rtpof=true&sd=true" target="_blank" rel="noopener" style="color:var(--sage);text-decoration:underline;">Протоколы процедур — педикюр →</a>\n🔗 <a href="https://drive.google.com/file/d/15CPc5PnbKxE_JrLP6-CR68vc6PdY9dJy/view?usp=sharing" target="_blank" rel="noopener" style="color:var(--sage);text-decoration:underline;">Ценности и устав студии →</a>\n🔗 <a href="https://docs.google.com/spreadsheets/d/1lR6DnrWOc-hwdOMAuu18snZfS89U6377/edit?usp=sharing&ouid=117024619454996101032&rtpof=true&sd=true" target="_blank" rel="noopener" style="color:var(--sage);text-decoration:underline;">Ритейл и описание продуктов →</a>`},
+  o9:{s:'Этап 4 · Обучение материалам',t:'Семинар Luxio и Straderm',b:`Посещение семинара по продуктовым линейкам Luxio и Straderm.\n\nПосле семинара — аттестация по обоим протоколам:\n\n🔗 <a href="https://docs.google.com/forms/d/e/1FAIpQLSdqRsLSjvWyULWn74nND2cqd_ElFnLmPuYJkId07KFsSKYs0A/viewform" target="_blank" rel="noopener" style="color:var(--sage);text-decoration:underline;">Пройти аттестацию →</a>\n\nРезультаты передаются HRD.`},
+  o10:{s:'Этап 4 · Обучение материалам',t:'Видео В. Зайцевой «Отслойки и сложные случаи»',b:`Просмотр — в канале SHUGA Academy.\n\nПосле просмотра — аттестация:\n\n🔗 <a href="https://forms.gle/VMjFhUvmQwfunUn47" target="_blank" rel="noopener" style="color:var(--sage);text-decoration:underline;">Пройти аттестацию →</a>\n\nРезультаты передаются HRD.`},
+  o11:{s:'Этап 4 · Спецуслуги',t:'Мастер-класс от бадди',b:`Если ты ранее не работала с отдельными услугами, необходимо пройти мастер-класс у бадди:\n\n• SPA для рук\n• Немецкий маникюр\n• Японский маникюр\n• Бондирование\n• IBX\n• ChaCure`},
+  o12:{s:'Этап 4 · Возможности дальнейшего обучения',t:'Условия обучения',b:`Важно понимать:\n\n• Условия внутреннего обучения у технологов студии\n• Условия внешнего повышения квалификации`},
+  o13:{s:'Этап 5 · Гости и сервис',t:'Стабильный сервис и коммуникация',b:`<strong>Наша цель:</strong> стабильный сервис, корректная речь, умение предотвращать и решать конфликты.\n\n<strong>Что сделать:</strong>\n• Отработать скрипты коммуникации с гостями: приветствие, выяснение ожиданий/чувствительности, работа с возражениями, предложение доп. услуг\n• Отработать сценарий возникновения конфликта: что говорить и что делать\n• Разобрать recovery-процедуры и границы скидок: что можно решить самостоятельно, что согласовывается и с кем\n\n<strong>Доказательства / гейт:</strong> 2 ролевых кейса (коммуникация/рекламация) + минимум 4–6 реальных отзывов, зафиксированных в журнале отзывов.`},
+  o14:{s:'Этап 6 · Рабочее пространство',t:'Стерилизация, инструменты, хранение',b:`• Знать и соблюдать полный цикл стерилизации, самостоятельно готовить инструменты\n• Иметь свою полку/ячейку и понимать порядок размещения\n• Всегда хранить инструменты в стерильном виде: упаковка, индикаторы, сроки\n• Быть включённой в общий график подготовки и стерилизации инструментов и соблюдать его`},
+  o15:{s:'Этап 6 · Рабочее пространство',t:'Материалы и снабжение',b:`• Иметь доступ ко всем необходимым материалам: базы, топы, гели и т. п.\n• Знать, как получить новые материалы, сдать пустые флаконы и оформить замену\n• Быть полностью экипированной согласно стандартам студии`},
+  o16:{s:'Этап 6 · Рабочее пространство',t:'Зона отдыха, кухня, курение',b:`• Знать правила зоны отдыха и кухни, убирать за собой\n• Правильно пользоваться посудомоечной машиной и поддерживать чистоту\n• Знать правила курения: где можно/нельзя, и соблюдать их`},
+  o17:{s:'Этап 6 · Рабочее пространство',t:'Рабочее место и уборки',b:`• Ежедневно аккуратно убирать рабочее место по чек-листу\n• Знать и соблюдать правила генеральной уборки по четвергам\n• Уметь чистить вытяжки и другое оборудование согласно регламенту`},
+  o18:{s:'Этап 6 · Рабочее пространство',t:'Неисправности и инциденты',b:`• Знать алгоритм действий, если закончился гель-лак: уведомление в нужный чат / форма заявки\n• Знать порядок действий при неисправности оборудования: остановка, маркировка, сообщение, заявка / эскалация`},
+  o19:{s:'Этап 7 · Корпоративная культура',t:'Карьерная траектория и категории',b:`• Знать свою текущую категорию и требования для перехода на следующую\n• Понимать необходимые показатели, качество и допуски\n• Знать процесс повышения: когда, кому и в каком формате подаются результаты\n• Понимать, как после повышения меняются ставка, прайс и допуски\n\n<strong>Доказательство:</strong> сотрудник понимает критерии и фиксирует план развития на 1–2 месяца.`},
+  o20:{s:'Этап 7 · Корпоративная культура',t:'Чаевые и личные показатели',b:`• Знать правила начисления и получения чаевых\n• Знать свои основные показатели: выручка, средний чек, повторные визиты, рекламации, recovery и др.\n• Знать, где смотреть свои показатели и к кому обращаться по вопросам расчётов\n• Регулярно сверяться с результатами и понимать цели на месяц`},
+  o21:{s:'Этап 7 · Корпоративная культура',t:'Трудоустройство и условия',b:`• Знать свой статус трудоустройства, срок испытательного срока и условия его завершения\n• Понимать структуру оплаты и график выплат\n• Знать, какие документы оформлены и к кому обращаться по HR/кадровым вопросам\n• Знать правила отпусков, замен и дополнительных рабочих дней`},
+  o22:{s:'Этап 7 · Корпоративная культура',t:'Корпоративная культура и активности',b:`• Знать корпоративные правила и принципы взаимодействия\n• Быть в курсе мероприятий и понимать ожидания по участию\n• Быть подписанной на необходимые чаты и каналы и следить за объявлениями\n• Знать формат поздравлений сотрудников с днём рождения`},
+  o23:{s:'Этап 7 · Корпоративная культура',t:'Материальная ответственность и штрафы',b:`• Знать основные случаи материальной ответственности и правила штрафов\n• Понимать порядок действий при ущербе: фиксация, уведомление и оформление\n• Знать границы бесплатных/скидочных реставраций (recovery) и кто принимает решение\n• Понимать порядок действий в нестандартных ситуациях: повреждение оборудования, порез гостя, реставрация из-за материала`},
+  o24:{s:'Контрольные точки · Через 2–3 недели',t:'Встреча с HRD',b:`<strong>На встрече:</strong>\n• Синхронизируемся по адаптации\n• Обсуждаем первые результаты\n• Планируем следующие шаги\n• Даём и получаем обратную связь\n• Знакомимся с брендбуком`},
+  o25:{s:'Контрольные точки · Через 1 месяц',t:'Точка А + ИПР',b:`<strong>Определяем твою «точку А». Фиксируем:</strong>\n• Текущие профессиональные навыки\n• Текущие показатели\n• Сильные стороны\n• Зоны развития\n\nПосле этого формируем индивидуальный план развития до категории «Мастер-Эксперт».`}
 };
 
 function showDetail(k) {
@@ -2889,7 +3066,7 @@ document.addEventListener('keydown', e => { if (e.key==='Escape') document.getEl
    ADMIN LK
 ═══════════════════════════════ */
 const ADMIN_STAFF = {
-  ilariya:    { name:'Илария',    role:'Менеджер',   initials:'ИЛ', pin:'1111' },
+  anastasiya: { name:'Анастасия Волчик', role:'Менеджер', initials:'АВ', pin:'5555' },
   svetlana:   { name:'Светлана',  role:'Менеджер',   initials:'СВ', pin:'2222' },
   aleksandra: { name:'Александра',role:'Хранитель',  initials:'АЛ', pin:'3333' },
   angelina:   { name:'Ангелина',  role:'Хранитель',  initials:'АН', pin:'4444' }
@@ -2906,23 +3083,38 @@ const ADMIN_CHECKLIST = [
   { id:'medbook',  label:'Медицинская книжка передана управляющей',                   cat:'docs_offline' },
   // Онбординг
   { id:'welcome',  label:'Welcome-book с историей SHUGA STUDIO изучен',              cat:'onboard' },
+  { id:'dresscode',label:'Дресс-код SHUGA изучен',                                   cat:'onboard' },
+  { id:'ethics',   label:'Этика поведения администратора изучена',                   cat:'onboard' },
+  { id:'visit_rules', label:'Правила посещения студии SHUGA изучены',                cat:'onboard' },
   { id:'values',   label:'Кодекс ценностей изучен',                                  cat:'onboard' },
   { id:'roles',    label:'Роли: своя, напарника и управляющей — разграничение зон',  cat:'onboard' },
   { id:'procmap',  label:'Карта процессов хранителя/менеджера изучена',              cat:'onboard' },
   { id:'ckp',      label:'ЦКП своей роли изучен',                                    cat:'onboard' },
   { id:'kpi_exp',  label:'Ожидаемые результаты в показателях изучены',               cat:'onboard' },
-  { id:'look',     label:'Внешний вид студии — стандарты изучены (хранитель)',        cat:'onboard' },
+  { id:'look',     label:'Визуал студии изучен (зона ответственности хранителя, зона понимания менеджера)', cat:'onboard' },
+  { id:'services_masters', label:'Услуги по мастерам изучены',                 cat:'onboard' },
+  { id:'retail_knowledge', label:'Продукция ритейла изучена',                 cat:'onboard' },
+  { id:'sterilization_reg', label:'Регламент стерилизации изучен',                   cat:'onboard' },
+  { id:'guest_seating', label:'Технология встречи и рассадки гостей изучена',        cat:'onboard' },
+  { id:'loyalty_system', label:'Система лояльности студии SHUGA изучена',            cat:'onboard' },
   { id:'sync',     label:'Итог 2 недель: синхронизация с HRD + брендбук',            cat:'onboard' },
   // Обучение — Конфликтология
   { id:'conflict_read',  label:'Презентация «Конфликтология» изучена',               cat:'training' },
   { id:'conflict_test',  label:'Тестирование по конфликтологии пройдено',            cat:'training' },
+  { id:'conflict_reg',  label:'Регламент рекламаций изучен', cat:'training' },
   // Обучение — Услуги
   { id:'services_read',  label:'Материал-шпаргалка по услугам изучен',               cat:'training' },
   { id:'services_pres',  label:'Презентация по услугам изучена',                     cat:'training' },
   { id:'services_test',  label:'Тестирование по услугам пройдено',                   cat:'training' },
+  // Обучение — Скрипты (менеджер)
+  { id:'scripts_book',   label:'Книга скриптов для менеджера изучена',               cat:'training' },
 ];
 
 const ADMIN_TOTAL = ADMIN_CHECKLIST.length;
+function adminTotalFor(key) {
+  const role = ADMIN_STAFF[key] ? ADMIN_STAFF[key].role : null;
+  return ADMIN_CHECKLIST.filter(c => c.id !== 'scripts_book' || role === 'Менеджер').length;
+}
 let alkStorage = JSON.parse(localStorage.getItem('shuga_alk') || '{}');
 function saveALK() { localStorage.setItem('shuga_alk', JSON.stringify(alkStorage)); }
 function getAdminProgress(key) { if (!alkStorage[key]) alkStorage[key] = {}; return alkStorage[key]; }
@@ -2964,14 +3156,15 @@ function alkToggle(key, id, el) {
 
 function alkUpdateProgress(key) {
   const prog = getAdminProgress(key);
-  const done = ADMIN_CHECKLIST.filter(c => prog[c.id]).length;
-  const pct = Math.round((done / ADMIN_TOTAL) * 100);
+  const total = adminTotalFor(key);
+  const done = ADMIN_CHECKLIST.filter(c => prog[c.id] && (c.id !== 'scripts_book' || ADMIN_STAFF[key].role === 'Менеджер')).length;
+  const pct = Math.round((done / total) * 100);
   const fill = document.getElementById('alk-prog-fill');
   const pval = document.getElementById('alk-prog-pct');
   const pdone = document.getElementById('alk-prog-done');
   if (fill) fill.style.width = pct + '%';
   if (pval) pval.textContent = pct;
-  if (pdone) pdone.textContent = done + ' из ' + ADMIN_TOTAL + ' пунктов';
+  if (pdone) pdone.textContent = done + ' из ' + total + ' пунктов';
 }
 
 function alkSaveKPI(key, field, val) {
@@ -2984,8 +3177,9 @@ function renderAdminDash(key) {
   const s = ADMIN_STAFF[key];
   const prog = getAdminProgress(key);
   const kpi = alkStorage[key + '_kpi'] || {};
-  const done = ADMIN_CHECKLIST.filter(c => prog[c.id]).length;
-  const pct = Math.round((done / ADMIN_TOTAL) * 100);
+  const total = adminTotalFor(key);
+  const done = ADMIN_CHECKLIST.filter(c => prog[c.id] && (c.id !== 'scripts_book' || s.role === 'Менеджер')).length;
+  const pct = Math.round((done / total) * 100);
 
   document.getElementById('alk-login').style.display = 'none';
 
@@ -3009,8 +3203,8 @@ function renderAdminDash(key) {
 
   onboardHTML = `
   <div class="alk-section">
-    <div class="alk-section-title">📄 Документы — онлайн-подпись</div>
-    <p style="font-size:12.5px;color:var(--dusk);line-height:1.7;margin-bottom:16px;">Документы подписываются онлайн — через приложение <strong>Заметки</strong> (iOS) или сервис <strong>Диадок</strong>. Отмечай галочкой после подписи.</p>
+    <div class="alk-section-title">📄 Документы — подпись в студии</div>
+    <p style="font-size:12.5px;color:var(--dusk);line-height:1.7;margin-bottom:16px;">Документы подписываются в студии. Отмечай галочкой после подписи.</p>
     <div class="alk-checklist">${mkCheck('docs', docOnlineItems)}</div>
   </div>
 
@@ -3031,6 +3225,27 @@ function renderAdminDash(key) {
         <a class="alk-link" href="https://docs.google.com/presentation/d/1GmzLElnG1tHX-kGOA-QotpsHSNg-BJFqRum8mHDD82g/edit?usp=sharing" target="_blank" style="margin-left:32px;">📖 Открыть Welcome-book →</a>
       </div>`;})()}
 
+      ${(()=>{const d=!!prog['dresscode'];return`
+      <div class="alk-onboard-item">
+        <div class="alk-check${d?' done':''}" style="margin-bottom:10px;" onclick="alkToggle('${key}','dresscode',this)">
+          <div class="alk-checkbox">${d?'✓':''}</div><span>Дресс-код SHUGA изучен</span></div>
+        <a class="alk-link" href="https://docs.google.com/presentation/d/18XKMLINKvnRUOErqVNqXfcou1G6QGUEY/edit?usp=sharing&ouid=117024619454996101032&rtpof=true&sd=true" target="_blank" style="margin-left:32px;">👗 Открыть дресс-код →</a>
+      </div>`;})()}
+
+      ${(()=>{const d=!!prog['ethics'];return`
+      <div class="alk-onboard-item">
+        <div class="alk-check${d?' done':''}" style="margin-bottom:10px;" onclick="alkToggle('${key}','ethics',this)">
+          <div class="alk-checkbox">${d?'✓':''}</div><span>Этика поведения администратора изучена</span></div>
+        <a class="alk-link" href="https://docs.google.com/document/d/1PlUicKwSFAWP8isItIdzks_qXzBZRAVP/edit?usp=sharing&ouid=117024619454996101032&rtpof=true&sd=true" target="_blank" style="margin-left:32px;">📄 Открыть материал →</a>
+      </div>`;})()}
+
+      ${(()=>{const d=!!prog['visit_rules'];return`
+      <div class="alk-onboard-item">
+        <div class="alk-check${d?' done':''}" style="margin-bottom:10px;" onclick="alkToggle('${key}','visit_rules',this)">
+          <div class="alk-checkbox">${d?'✓':''}</div><span>Правила посещения студии SHUGA изучены</span></div>
+        <a class="alk-link" href="https://docs.google.com/document/d/1-HphKf5KJ0_7guONrBoqSU5qx-dxgUJv/edit?usp=sharing&ouid=117024619454996101032&rtpof=true&sd=true" target="_blank" style="margin-left:32px;">📄 Открыть материал →</a>
+      </div>`;})()}
+
       ${(()=>{const d=!!prog['values'];return`
       <div class="alk-onboard-item">
         <div class="alk-check${d?' done':''}" style="margin-bottom:10px;" onclick="alkToggle('${key}','values',this)">
@@ -3042,9 +3257,14 @@ function renderAdminDash(key) {
       <div class="alk-onboard-item">
         <div class="alk-check${d?' done':''}" style="margin-bottom:10px;" onclick="alkToggle('${key}','roles',this)">
           <div class="alk-checkbox">${d?'✓':''}</div><span>Понимание своей роли, роли напарника и управляющей — разграничение зон ответственности</span></div>
+        <div style="margin-left:32px;display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
+          <a class="alk-link" href="https://drive.google.com/file/d/1KvnganaKCZTtG2_XaQ8uPE2rxyuXKWiT/view?usp=sharing" target="_blank">🧑‍💼 Роль менеджера →</a>
+          <a class="alk-link" href="https://drive.google.com/file/d/1T2ozb0aWCD-RNPmUMoVTBOMsrp9LyJ0S/view?usp=sharing" target="_blank">🗝 Роль хранителя →</a>
+          <a class="alk-link" href="https://drive.google.com/file/d/1JfH25RYoodO3BDubm7zb1fUyPPe9XkwX/view?usp=sharing" target="_blank">🗺 Карта коммуникаций →</a>
+        </div>
         <div style="margin-left:32px;font-size:12px;color:var(--stone);margin-bottom:8px;">Карта процессов — нажми на блок чтобы провалиться:</div>
         <div style="margin-left:32px;display:flex;flex-wrap:wrap;gap:8px;">
-          ${['Подготовка смены','Сервис гостя','Обслуживание мастеров','Поставки и склад','Стерилизация и чистота','Рекламации','Этические нормы','Контроль оборудования','Хозяйственное управление'].map((p,i)=>`
+          ${['Подготовка смены','Сервис гостя','Обслуживание мастеров','Поставки и склад','Стерилизация и чистота','Рекламации','Этические нормы','Контроль оборудования','Хозяйственное управление','Дисциплина мастеров','Синхронная работа салона'].map((p,i)=>`
           <div onclick="appNav('admin');setTimeout(()=>switchTab('admin','processes',document.querySelector('.nav-tab:last-child')),150)"
             style="padding:7px 14px;background:#fff;border:1px solid var(--sand);border-radius:var(--radius-pill);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--dusk);cursor:pointer;transition:all .18s;"
             onmouseover="this.style.borderColor='var(--rose)';this.style.color='var(--rose)'"
@@ -3052,6 +3272,54 @@ function renderAdminDash(key) {
             ${String(i+1).padStart(2,'0')} ${p}
           </div>`).join('')}
         </div>
+      </div>`;})()}
+
+      ${(()=>{const d=!!prog['look'];return`
+      <div class="alk-onboard-item">
+        <div class="alk-check${d?' done':''}" style="margin-bottom:10px;" onclick="alkToggle('${key}','look',this)">
+          <div class="alk-checkbox">${d?'✓':''}</div><span>Визуал студии изучен (зона ответственности хранителя, зона понимания менеджера)</span></div>
+        <a class="alk-link" href="https://docs.google.com/document/d/1fIES40UxkWTI8Pamdu0kJSy1KJoAjJHzZDM-1y-te88/edit?usp=sharing" target="_blank" style="margin-left:32px;">🏠 Открыть материал →</a>
+      </div>`;})()}
+
+      ${(()=>{const d=!!prog['services_masters'];return`
+      <div class="alk-onboard-item">
+        <div class="alk-check${d?' done':''}" style="margin-bottom:10px;" onclick="alkToggle('${key}','services_masters',this)">
+          <div class="alk-checkbox">${d?'✓':''}</div><span>Услуги по мастерам изучены</span></div>
+        <a class="alk-link" href="https://docs.google.com/spreadsheets/d/1mMtlpYz1NYK2QB3yx9cbpYLTjikMMeHZaC0dF_S0pTU/edit?usp=sharing" target="_blank" style="margin-left:32px;">📊 Открыть материал →</a>
+      </div>`;})()}
+
+      ${(()=>{const d=!!prog['retail_knowledge'];return`
+      <div class="alk-onboard-item">
+        <div class="alk-check${d?' done':''}" style="margin-bottom:10px;" onclick="alkToggle('${key}','retail_knowledge',this)">
+          <div class="alk-checkbox">${d?'✓':''}</div><span>Продукция ритейла изучена</span></div>
+        <a class="alk-link" href="https://docs.google.com/spreadsheets/d/1_l3YfqhsXjHhN_FngzbuwtnaMq8zduc3/edit?usp=sharing&ouid=117024619454996101032&rtpof=true&sd=true" target="_blank" style="margin-left:32px;">📊 Открыть материал →</a>
+      </div>`;})()}
+
+      ${(()=>{const d=!!prog['sterilization_reg'];return`
+      <div class="alk-onboard-item">
+        <div class="alk-check${d?' done':''}" style="margin-bottom:10px;" onclick="alkToggle('${key}','sterilization_reg',this)">
+          <div class="alk-checkbox">${d?'✓':''}</div><span>Регламент стерилизации изучен</span></div>
+        <a class="alk-link" href="https://docs.google.com/document/d/1NPFt0FOTCMnkw7nS6vKqX3cFu1yWL1rP/edit?usp=sharing&ouid=117024619454996101032&rtpof=true&sd=true" target="_blank" style="margin-left:32px;">📄 Открыть материал →</a>
+      </div>`;})()}
+
+      ${(()=>{const d=!!prog['guest_seating'];return`
+      <div class="alk-onboard-item">
+        <div class="alk-check${d?' done':''}" style="margin-bottom:10px;" onclick="alkToggle('${key}','guest_seating',this)">
+          <div class="alk-checkbox">${d?'✓':''}</div><span>Технология встречи и рассадки гостей изучена</span></div>
+        <a class="alk-link" href="https://docs.google.com/document/d/1hw4iSyyXNRko3yT_7ISEg1X6sOfIgEzd/edit?usp=sharing&ouid=117024619454996101032&rtpof=true&sd=true" target="_blank" style="margin-left:32px;">📄 Открыть материал →</a>
+      </div>`;})()}
+
+      ${(()=>{const d=!!prog['loyalty_system'];return`
+      <div class="alk-onboard-item">
+        <div class="alk-check${d?' done':''}" style="margin-bottom:10px;" onclick="alkToggle('${key}','loyalty_system',this)">
+          <div class="alk-checkbox">${d?'✓':''}</div><span>Система лояльности студии SHUGA изучена</span></div>
+        <a class="alk-link" href="https://docs.google.com/document/d/1UPChNOG26MoxRiAOgjShpg9XXxKr8ggf/edit?usp=sharing&ouid=117024619454996101032&rtpof=true&sd=true" target="_blank" style="margin-left:32px;">📄 Открыть материал →</a>
+      </div>`;})()}
+
+      ${(()=>{const d=!!prog['sync'];return`
+      <div class="alk-onboard-item">
+        <div class="alk-check${d?' done':''}" onclick="alkToggle('${key}','sync',this)">
+          <div class="alk-checkbox">${d?'✓':''}</div><span>Итог 2 недель: синхронизация с HRD + брендбук</span></div>
       </div>`;})()}
 
       ${(()=>{const d=!!prog['ckp'];return`
@@ -3082,19 +3350,6 @@ function renderAdminDash(key) {
             </div>
           </div>
         </div>
-      </div>`;})()}
-
-      ${s.role === 'Хранитель' ? (()=>{const d=!!prog['look'];return`
-      <div class="alk-onboard-item">
-        <div class="alk-check${d?' done':''}" style="margin-bottom:10px;" onclick="alkToggle('${key}','look',this)">
-          <div class="alk-checkbox">${d?'✓':''}</div><span>Внешний вид студии — стандарты изучены</span></div>
-        <a class="alk-link" href="https://docs.google.com/document/d/1fIES40UxkWTI8Pamdu0kJSy1KJoAjJHzZDM-1y-te88/edit?usp=sharing" target="_blank" style="margin-left:32px;">🏠 Открыть регламент внешнего вида →</a>
-      </div>`;})() : ''}
-
-      ${(()=>{const d=!!prog['sync'];return`
-      <div class="alk-onboard-item">
-        <div class="alk-check${d?' done':''}" onclick="alkToggle('${key}','sync',this)">
-          <div class="alk-checkbox">${d?'✓':''}</div><span>Итог 2 недель: синхронизация с HRD + брендбук</span></div>
       </div>`;})()}
 
     </div>
@@ -3132,6 +3387,7 @@ function renderAdminDash(key) {
           <div class="alk-checkbox">${d?'✓':''}</div><span>${c.label}</span></div>`;
       }).join('')}
     </div>
+    <a class="alk-link" href="https://docs.google.com/spreadsheets/d/1FLkwcEVHcFAdCXLbVbGt1nr8NjINQ2b4/edit?usp=sharing&ouid=117024619454996101032&rtpof=true&sd=true" target="_blank" style="margin-top:10px;display:inline-flex;">📊 Регламент рекламаций →</a>
   </div>
 
   <div class="alk-training-card">
@@ -3150,7 +3406,22 @@ function renderAdminDash(key) {
           <div class="alk-checkbox">${d?'✓':''}</div><span>${c.label}</span></div>`;
       }).join('')}
     </div>
-  </div>`;
+  </div>
+
+  ${s.role === 'Менеджер' ? `
+  <div class="alk-training-card">
+    <div class="alk-training-num">3</div>
+    <div class="alk-training-title">Книга скриптов для менеджера</div>
+    <div class="alk-training-desc">Готовые речевые модули для встречи гостей, записи, продажи услуг и ритейла, закрытия смены.</div>
+    <div class="alk-training-links" style="margin-bottom:16px;">
+      <a class="alk-link" href="https://drive.google.com/file/d/16CVnSnAP_WjGLrTJXJSGSR-J-DkTTiDK/view?usp=sharing" target="_blank">📖 Книга скриптов →</a>
+      <a class="alk-link" href="https://docs.google.com/spreadsheets/d/1hW2zJ6_t_tdWAMU6LCUUwWnh7YHpaCXR/edit?usp=sharing&ouid=117024619454996101032&rtpof=true&sd=true" target="_blank">📊 Таблица скриптов →</a>
+    </div>
+    <div class="alk-checklist">
+      ${(()=>{const c=ADMIN_CHECKLIST.find(x=>x.id==='scripts_book'); const d=!!prog[c.id]; return `<div class="alk-check${d?' done':''}" onclick="alkToggle('${key}','${c.id}',this)">
+          <div class="alk-checkbox">${d?'✓':''}</div><span>${c.label}</span></div>`;})()}
+    </div>
+  </div>` : ''}`;
 
   // KPI tab
   const kpiFields = s.role === 'Менеджер' ? [
@@ -3219,7 +3490,7 @@ function renderAdminDash(key) {
               <span class="alk-prog-pct" id="alk-prog-pct">${pct}</span>
               <span style="font-size:13px;color:var(--stone);">%</span>
             </div>
-            <div style="font-size:12px;color:var(--dusk);margin-top:4px;" id="alk-prog-done">${done} из ${ADMIN_TOTAL} пунктов</div>
+            <div style="font-size:12px;color:var(--dusk);margin-top:4px;" id="alk-prog-done">${done} из ${total} пунктов</div>
           </div>
           <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:var(--radius-pill);background:rgba(184,130,110,0.1);border:1px solid rgba(184,130,110,0.3);font-size:11px;color:var(--rose);letter-spacing:1.5px;text-transform:uppercase;">
             ${pct < 50 ? '🌱 Адаптация' : pct < 100 ? '🚀 В процессе' : '✨ Адаптирован'}
@@ -4391,7 +4662,7 @@ const RU_MONTH_NUM = {'Янв':1,'Фев':2,'Мар':3,'Апр':4,'Май':5,'И
 function parseMonthNum(mStr) {
   return RU_MONTH_NUM[String(mStr).substring(0,3)] || null;
 }
-const ANALYTICS_ANCHOR = { year: 2026, month: 6 }; // последний закрытый месяц во всех отчётах — июнь 2026
+const ANALYTICS_ANCHOR = { year: 2026, month: 7 }; // последний закрытый месяц во всех отчётах — июль 2026
 function getMasterEntryDates(key) {
   const analytics = MASTERS[key].analytics;
   const dates = new Array(analytics.length).fill(null);
